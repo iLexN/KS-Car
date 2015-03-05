@@ -95,6 +95,14 @@ class DetailsInfo{
 		$a->save();
 	}
 	
+        /**
+         * newDetails info
+         * @param string $en
+         * @param string $zh
+         * @param string $enDesc
+         * @param string $zhDesc
+         * @param string $sortOrder
+         */
 	public function newDetailsInfo($en,$zh,$enDesc,$zhDesc,$sortOrder){
 		$a = ORM::for_table('details_info')->create();
 		$a->zh = $zh;
