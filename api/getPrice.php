@@ -208,10 +208,16 @@ if ($saveUser) {
 		$result['error'][] = $e->getMessage();
 	}
 	try {
-		checkEmail($allVar['email']) ;
+            checkEmail($allVar['email']) ;
 	} catch (Exception $e) {
 		$result['error'][] = $e->getMessage();
 	}
+        
+        //back up email ?
+        /*
+        $body = 'Post : ' . print_r($_POST,true) .
+                'All : ' . print_r($allVar,true) ;
+        mail();*/
 }
 
 // extra process data , transfer id to text
