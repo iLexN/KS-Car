@@ -64,7 +64,7 @@ function checkLang($lang)
             case 'chi':
             case 'zh':
                 return 'zh';
-                break;
+                //break;
             case 'en':
             case 'eng':
                 return 'en';
