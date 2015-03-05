@@ -217,7 +217,7 @@ if ($saveUser) {
         /*
         $body = 'Post : ' . print_r($_POST,true) .
                 'All : ' . print_r($allVar,true) ;
-        mail();*/
+        mail('email','subjust',$body);*/
 }
 
 // extra process data , transfer id to text
