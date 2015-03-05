@@ -1,4 +1,4 @@
-<?php 
+<?php
                   
 
 include('../db/db_info.php');
@@ -10,7 +10,7 @@ include('../model/sub-plans.php');
 
 $oldRuleID = $_GET['rule'];
 // get old rule data
-$r = new Rule( $oldRuleID );
+$r = new Rule($oldRuleID);
 $r->getOne();
 $oldRuleDateAr = $r->rule->as_array() ;
 $oldRuleDateAr['active'] = 0;
@@ -20,11 +20,11 @@ $oldRuleDateAr['DriveOffencePoint'] = $oldRuleDateAr['drive_offence_point'];
 $oldRuleDateAr['MotorAccidentYrs'] = $oldRuleDateAr['motor_accident_yrs'];
 $oldRuleDateAr['Active'] = $oldRuleDateAr['active'];
 
-unset ($oldRuleDateAr['id']);
-unset ($oldRuleDateAr['rule_name']);
-unset ($oldRuleDateAr['drive_offence_point']);
-unset ($oldRuleDateAr['motor_accident_yrs']);
-unset ($oldRuleDateAr['active']);
+unset($oldRuleDateAr['id']);
+unset($oldRuleDateAr['rule_name']);
+unset($oldRuleDateAr['drive_offence_point']);
+unset($oldRuleDateAr['motor_accident_yrs']);
+unset($oldRuleDateAr['active']);
 
 
 // new rule
@@ -37,28 +37,27 @@ $newRule->editUpdate($oldRuleDateAr);
 
 // add make/model
 $oldMakeModeListAr = $car->getModelByRule($oldRuleID);
-foreach ( $oldMakeModeListAr as $oldMakeModeAr ){
-    
-    $dupCar = new Car( $dupRuleID , $oldMakeModeAr['make'] );
+foreach ($oldMakeModeListAr as $oldMakeModeAr) {
+    $dupCar = new Car($dupRuleID, $oldMakeModeAr['make']);
     $dupCar->addModelRule($oldMakeModeAr['model']);
     unset($dupCar);
 }
 
 
 // add Occ
-$oldOcc = New Occ();
+$oldOcc = new Occ();
 $oldOccListAr = $oldOcc->getByRule($oldRuleID);
 
-foreach ( $oldOccListAr as $oldOccAr ){
-    $dupOcc = new Occ( $dupRuleID );
+foreach ($oldOccListAr as $oldOccAr) {
+    $dupOcc = new Occ($dupRuleID);
     $dupOcc->addOccRule($oldOccAr['occ']);
     unset($dupOcc);
 }
 
 //add Detail
-$df = New DetailsInfo;
+$df = new DetailsInfo;
 $df_ar = $df->getByRule($oldRuleID);
-foreach ( $df_ar as $dfList){
+foreach ($df_ar as $dfList) {
     $dupDF = new DetailsInfo($dupRuleID, $dfList['deatils_id']);
     $dupDF->addDetailsInfoRule($dfList['value']);
     unset($dupDF);
@@ -66,7 +65,7 @@ foreach ( $df_ar as $dfList){
 
 //add sup plan
 $odlSPListAr = SubPlans::findSubPlansByRuleID($oldRuleID);
-foreach ( $odlSPListAr as $oldSPList){
+foreach ($odlSPListAr as $oldSPList) {
     $sp = new SubPlans();
     
     $oldSPList['rule'] = $dupRuleID;
@@ -77,8 +76,3 @@ foreach ( $odlSPListAr as $oldSPList){
 
 
 exit();
-
-
-
-
-

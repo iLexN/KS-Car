@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-if ( !$_SESSION['login'] ){
-        header('Location: login.php');
+if (!$_SESSION['login']) {
+    header('Location: login.php');
 }
 
 include('db/db_info.php');
@@ -24,10 +24,10 @@ $ncd = $car->getNCD();
 $insuranceType = $car->getInsuranceType(1);
 $driveExp = $car->getDriveExp(1);
 
-$occ = New Occ;
+$occ = new Occ;
 $occupation_ar = $occ->getAll();
 
-$detailsInfo = New DetailsInfo;
+$detailsInfo = new DetailsInfo;
 $detailsInfo_ar = $detailsInfo->getAll();
 
 //output

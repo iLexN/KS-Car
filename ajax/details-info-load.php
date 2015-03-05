@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 url: "ajax/make-model.php",
@@ -14,5 +14,4 @@ $df = new DetailsInfo();
 
 $rs = $df->getDetailsInfoByID($_GET['id'], 'all');
 
-echo( json_encode($rs) );
-
+echo(json_encode($rs));

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 {ruleName: $RuleName.val(),
                         price: $Price.val(),
@@ -22,15 +22,13 @@ include('../model/rule.php');
 //print_r($_POST);
 //exit();
 
-if ( empty($_POST['id']) ) {
-	echo('Error');
-	exit();
+if (empty($_POST['id'])) {
+    echo('Error');
+    exit();
 }
 
 $rule = new Rule(intval($_POST['id']));
 $rule->editUpdate($_POST);
 
 
-echo ('updated success');
-
-
+echo('updated success');

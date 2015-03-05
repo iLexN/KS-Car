@@ -22,4 +22,4 @@ foreach ($m as $row) {
 }
 
 
-echo (json_encode($m_ar));
+echo(json_encode($m_ar));

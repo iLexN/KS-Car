@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 {
@@ -8,7 +8,7 @@
                             make: $MakeList.val()
                         }
                     }
-*/  
+*/
                   
 
 include('../db/db_info.php');
@@ -22,7 +22,6 @@ $car = new Car();
     $car->delMakeFromListByID($_POST['make']);
 
     $api = '?t=makeList' ;
-	foreach ( $refresh_chunk as $k=>$v ) {
-		file_get_contents($v . $api);
-	}
-
+    foreach ($refresh_chunk as $k=>$v) {
+        file_get_contents($v . $api);
+    }

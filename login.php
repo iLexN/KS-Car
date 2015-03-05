@@ -1,6 +1,6 @@
 <?php
-    if ( !empty($_POST['username']) && !empty($_POST['password']) ) {
-        if ( $_POST['username'] === 'onlineenquiries' && $_POST['password'] === 'kwik35882914sure'   ){
+    if (!empty($_POST['username']) && !empty($_POST['password'])) {
+        if ($_POST['username'] === 'onlineenquiries' && $_POST['password'] === 'kwik35882914sure') {
             session_start();
             $_SESSION['login'] = true;
             header('Location: rule.php');
@@ -21,8 +21,8 @@
     <div style="width:300px;margin: 30px auto">
         <h1>Rule Setting Panel</h1>
         <?php
-            if ( !empty($msg) ) {
-                echo( '<p style="color:red">' . $msg . '</p>');
+            if (!empty($msg)) {
+                echo('<p style="color:red">' . $msg . '</p>');
             }
         ?>
         

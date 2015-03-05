@@ -23,7 +23,7 @@ if (!empty($result['error'])) {
     exit();
 }
 
-$motor_quote = New MotorQuote;
+$motor_quote = new MotorQuote;
 try {
     $result['result'] = 1;
     $result['motor_details'] = $motor_quote->getByRefNo($refno);

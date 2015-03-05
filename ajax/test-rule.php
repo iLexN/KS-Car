@@ -5,7 +5,6 @@ $_SERVER['PHP_AUTH_PW'] = 'mLaE%E9WGQEJU5Q';
 
 $r = include('../api/getPrice.php');
 
-echo ('<pre>');
+echo('<pre>');
 print_r($r);
-echo ('</pre>');
-
+echo('</pre>');

@@ -104,12 +104,10 @@
                 <button class="jsSubPlansNewBtn">Add New</button> / <button class="jsSubPlansCleanBtn">Clean</button>
                 
                 <p class="jsSubPlansUpdateWapper" style="display:none">
-                    <input type="hidden" value="" class="jsSubPlansID">  
+                    <input type="hidden" value="" class="jsSubPlansID">
                     <button class="jsSubPlansUpdateBtn">Update</button>
                 </p>
                     
                 
             </div>
         </div>
-
-

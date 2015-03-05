@@ -15,9 +15,9 @@ $api['insType'] = 'insurance-type-list.php';//motorInsuranceTypeListData
 $api['planRow'] = 'details-info-list.php';//motorPlanRowListData
 
 
-foreach ( $api as $t=> $url){
+foreach ($api as $t=> $url) {
     $apiUrl = '?t='.$t ;
-    foreach ( $refresh_chunk as $k=>$v ) {
+    foreach ($refresh_chunk as $k=>$v) {
         $c = file_get_contents($v . $apiUrl);
         echo($t . " is Done (". $c .") <br/>\n");
     }
@@ -25,29 +25,29 @@ foreach ( $api as $t=> $url){
 
 /*
 
-	$api = '?t=occ' ;
-	foreach ( $refresh_chunk as $k=>$v ) {
-		file_get_contents($v . $api);
-	}
-	
+    $api = '?t=occ' ;
+    foreach ( $refresh_chunk as $k=>$v ) {
+        file_get_contents($v . $api);
+    }
+    
         $api = '?t=makeList' ;
-	foreach ( $refresh_chunk as $k=>$v ) {
-		file_get_contents($v . $api);
-	}
+    foreach ( $refresh_chunk as $k=>$v ) {
+        file_get_contents($v . $api);
+    }
         
         $api = '?t=modelList' ;
-	foreach ( $refresh_chunk as $k=>$v ) {
-		file_get_contents($v . $api);
-	}
+    foreach ( $refresh_chunk as $k=>$v ) {
+        file_get_contents($v . $api);
+    }
         
         $api = '?t=insType' ;
-	foreach ( $refresh_chunk as $k=>$v ) {
-		file_get_contents($v . $api);
-	}
+    foreach ( $refresh_chunk as $k=>$v ) {
+        file_get_contents($v . $api);
+    }
         
         $api = '?t=planRow' ;
-	foreach ( $refresh_chunk as $k=>$v ) {
-		file_get_contents($v . $api);
-	}
- * 
+    foreach ( $refresh_chunk as $k=>$v ) {
+        file_get_contents($v . $api);
+    }
+ *
  */

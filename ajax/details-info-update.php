@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*
 data: {enText: enText,
@@ -16,10 +16,6 @@ $df = new DetailsInfo();
 $df->updateDetailsInfoByID($_POST);
 
 $api = '?t=planRow' ;
-	foreach ( $refresh_chunk as $k=>$v ) {
-		file_get_contents($v . $api);
-	}
-
-
-
-
+    foreach ($refresh_chunk as $k=>$v) {
+        file_get_contents($v . $api);
+    }
