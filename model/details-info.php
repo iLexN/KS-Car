@@ -37,10 +37,10 @@ class DetailsInfo
         return $this->transform($details_info, $transform);
     }
     
-        /**
-         *
-         * @return boolean
-         */
+    /**
+    *
+    * @return boolean
+    */
     public function checkNotExist()
     {
         $count = ORM::for_table('rule-details-info')
@@ -50,6 +50,14 @@ class DetailsInfo
         return $count > 0 ? false : true;
     }
     
+    /**
+     * Get Details info by id
+     * 
+     * @param int $id
+     * @param string $field
+     * @return array
+     * @throws Exception not match details_info
+     */
     public function getDetailsInfoByID($id, $field = 'en')
     {
         $m = ORM::for_table('details_info') -> find_one($id);
