@@ -1,12 +1,25 @@
 <?php
+/**
+ * subPlans class
+ */
 
+
+/**
+ * subPlans class
+ */
 class SubPlans
 {
-    
+   /**
+    * summary
+    */
     public function __construct()
     {
     }
     
+    /**
+     * add sub plans
+     * @param array $ar
+     */
     public function addSubPlans($ar)
     {
         $a = ORM::for_table('sub-plan')->create();
@@ -22,6 +35,10 @@ class SubPlans
         $a->save();
     }
     
+    /**
+     * update subplans
+     * @param array $ar
+     */
     public function updateSubPlans($ar)
     {
         $a = ORM::for_table('sub-plan')->find_one($ar['id']);
@@ -36,12 +53,21 @@ class SubPlans
         $a->save();
     }
     
+    /**
+     * del subplans
+     * @param id $id
+     */
     public function delSubPlans($id)
     {
         $d = ORM::for_table('sub-plan') -> find_one($id);
         $d -> delete();
     }
     
+    /**
+     * find subplans by rule id
+     * @param int $r
+     * @return array
+     */
     public static function findSubPlansByRuleID($r)
     {
         $r_ar = ORM::for_table('sub-plan')->where('rule_id', $r)
@@ -50,6 +76,12 @@ class SubPlans
         return $r_ar;
     }
     
+    /**
+     * find sub plan by rule with lang
+     * @param int $r
+     * @param string $lang en/zh
+     * @return array
+     */
     public static function findSubPlansByRuleIdWithLang($r, $lang)
     {
         $r_ar = ORM::for_table('sub-plan')

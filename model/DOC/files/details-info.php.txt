@@ -1,14 +1,14 @@
 <?php
 /**
  * Details info class
- * 
+ *
  */
 
 class DetailsInfo
 {
     /**
      * $r = rule id,$o = df id
-     * 
+     *
      * @param int $r
      * @param int $o
      */
@@ -20,7 +20,7 @@ class DetailsInfo
 
     /**
      * get all details info
-     * 
+     *
      * @return array
      */
     public function getAll()
@@ -56,7 +56,7 @@ class DetailsInfo
     
     /**
      *check exist ?
-     * 
+     *
      * @return boolean
     */
     public function checkNotExist()
@@ -70,7 +70,7 @@ class DetailsInfo
     
     /**
      * Get Details info by id
-     * 
+     *
      * @param int $id
      * @param string $field
      * @return array
@@ -91,7 +91,7 @@ class DetailsInfo
     }
         
         /**
-         * update details info 
+         * update details info
          * @param array $input
          */
         public function updateDetailsInfoByID($input)
@@ -164,7 +164,7 @@ class DetailsInfo
     }
     
     /**
-     * transform the array 
+     * transform the array
      * @param array $details_info
      * @param string $field
      * @return array

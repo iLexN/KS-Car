@@ -114,7 +114,7 @@ class occ
         $a->save();
     }*/
     /**
-     * add occ to rule 
+     * add occ to rule
      * @param int $occID occ id
      */
         public function addOccRule($occID)
@@ -126,7 +126,7 @@ class occ
         }
     
     /**
-     * new occ 
+     * new occ
      * @param string $en
      * @param string $zh
      */

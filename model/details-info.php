@@ -4,6 +4,11 @@
  *
  */
 
+
+/**
+ * Details info class
+ *
+ */
 class DetailsInfo
 {
     /**

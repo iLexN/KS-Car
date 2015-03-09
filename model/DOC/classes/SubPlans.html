@@ -106,7 +106,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">20</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
                                 </a>
                             </li>
                             <li>
@@ -136,10 +136,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1812458100"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-910736847"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1812458100" class="accordion-body collapse in">
+            <div id="namespace-910736847" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -168,7 +168,7 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\</small>SubPlans</h1>
-                    <p><em></em></p>
+                    <p><em>subPlans class</em></p>
                     
 
                     <section id="summary">
@@ -264,7 +264,7 @@
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">__construct()</pre>
-                <p><em></em></p>
+                <p><em>summary</em></p>
                 
 
                 
@@ -288,14 +288,14 @@
             <article class="method">
                 <h3 class="public ">addSubPlans()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">addSubPlans( <span class="argument">$ar</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">addSubPlans(array <span class="argument">$ar</span>)</pre>
+                <p><em>add sub plans</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>array</td>
                                 <td>$ar </td>
                                 <td></td>
                             </tr>
@@ -321,14 +321,14 @@
             <article class="method">
                 <h3 class="public ">updateSubPlans()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">updateSubPlans( <span class="argument">$ar</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">updateSubPlans(array <span class="argument">$ar</span>)</pre>
+                <p><em>update subplans</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>array</td>
                                 <td>$ar </td>
                                 <td></td>
                             </tr>
@@ -354,14 +354,14 @@
             <article class="method">
                 <h3 class="public ">delSubPlans()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">delSubPlans( <span class="argument">$id</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">delSubPlans(\id <span class="argument">$id</span>)</pre>
+                <p><em>del subplans</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>\id</td>
                                 <td>$id </td>
                                 <td></td>
                             </tr>
@@ -387,21 +387,23 @@
             <article class="method">
                 <h3 class="public ">findSubPlansByRuleID()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">findSubPlansByRuleID( <span class="argument">$r</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">findSubPlansByRuleID(integer <span class="argument">$r</span>) : array</pre>
+                <p><em>find subplans by rule id</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$r </td>
                                 <td></td>
                             </tr>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -421,26 +423,28 @@
             <article class="method">
                 <h3 class="public ">findSubPlansByRuleIdWithLang()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">findSubPlansByRuleIdWithLang( <span class="argument">$r</span>,  <span class="argument">$lang</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">findSubPlansByRuleIdWithLang(integer <span class="argument">$r</span>, string <span class="argument">$lang</span>) : array</pre>
+                <p><em>find sub plan by rule with lang</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>integer</td>
                                 <td>$r </td>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>string</td>
                                 <td>$lang </td>
-                                <td></td>
+                                <td><p>en/zh</p></td>
                             </tr>
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    array
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -503,7 +507,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on March 9th, 2015 at 11:22.
+                    on March 9th, 2015 at 11:47.
                 </section>
             </section>
         </section>
