@@ -160,3 +160,4 @@ class occ
         return $occupation_ar;
     }
 }
+

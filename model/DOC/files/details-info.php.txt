@@ -183,3 +183,4 @@ class DetailsInfo
         return $details_info_ar;
     }
 }
+
