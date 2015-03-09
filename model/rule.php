@@ -1,7 +1,7 @@
 <?php
 
 /**
- *rule clas 
+ *rule clas
  */
 
 
@@ -13,12 +13,12 @@ class rule
 
     /**
      *seem no use anymore
-     * @var string  
+     * @var string
      */
     public $path = 'rule-details/';
 
     /**
-     * rule id 
+     * rule id
      * @param int $r rule id
      */
     public function __construct($r = null)
@@ -71,7 +71,7 @@ class rule
     /**
      * match rule with id
      * getOne use the $this->r , this pass $r
-     * 
+     *
      * @param int $r
      * @return array
      */
@@ -89,7 +89,7 @@ class rule
     /**
      * macthc rule with var
      * find match rule with given data
-     * 
+     *
      * @param arry $ar
      * @return type
      */

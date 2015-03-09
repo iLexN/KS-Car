@@ -11,13 +11,13 @@ class SubPlans
 {
    /**
     * summary
-    */ 
+    */
     public function __construct()
     {
     }
     
     /**
-     * add sub plans 
+     * add sub plans
      * @param array $ar
      */
     public function addSubPlans($ar)

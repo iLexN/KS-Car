@@ -6,7 +6,7 @@
 
 /**
  * car class
- * 
+ *
  * $r = rule id
  * $m = make id
  */
@@ -15,7 +15,7 @@ class car
     /**
      * r = rlue id
      * m = make id
-     * 
+     *
      * @param int $r
      * @param int $m
      */
@@ -27,7 +27,7 @@ class car
 
     /**
      * get all make
-     * 
+     *
      * @return array
      */
     public function getAllMake()
@@ -45,7 +45,7 @@ class car
 
     /**
      * get all model
-     * 
+     *
      * @return array
      */
     public function getAllModel()
@@ -63,7 +63,7 @@ class car
         
         /**
          * del model by id , also del from ruel-model, model tbl
-         * 
+         *
          * @param int $id   modelID
          * @return array     seem no use
          */
@@ -113,7 +113,7 @@ class car
 
         /**
          *get Model by id
-         * 
+         *
          * @param int $id
          * @param string $otherText
          * @param int $make_id
@@ -140,7 +140,7 @@ class car
 
     /**
      * get model by make id
-     * 
+     *
      * @param int $id
      * @return array
      */
@@ -160,7 +160,7 @@ class car
 
     /**
      * * check model exist
-     * 
+     *
      * @param int $m
      * @return boolean
      */
@@ -176,7 +176,7 @@ class car
 
     /**
      * add new model
-     * 
+     *
      * @param string $displayName
      */
     public function addNewModel($displayName)
@@ -190,7 +190,7 @@ class car
 
     /**
      * add new make
-     * 
+     *
      * @param string $displayName
      */
     public function addNewMake($displayName)
@@ -204,7 +204,7 @@ class car
 
         /**
          * add model rule
-         * 
+         *
          * @param int $m
          */
         public function addModelRule($m)
@@ -217,7 +217,7 @@ class car
 
     /**
      *  get model by rule
-     * 
+     *
      * @param string $id
      * @return array
     */
@@ -246,7 +246,7 @@ class car
 
     /**
      * get ncd
-     * 
+     *
      * @return array
      */
     public function getNCD()
@@ -262,7 +262,7 @@ class car
 
     /**
      * get insurance type
-     * 
+     *
      * @param int $t 1=en,2=en+zh
      * @return array
      */
@@ -289,7 +289,7 @@ class car
 
     /**
      * get insurance type by ID
-     * 
+     *
      * @param int $id
      * @return string
      * @throws Exception
@@ -335,7 +335,7 @@ class car
 
     /**
      * get drive exp by id
-     * 
+     *
      * @param int $id
      * @return string
      * @throws Exception
@@ -366,7 +366,7 @@ class car
     
     /**
      * add new Rule
-     * 
+     *
      * @return int
      */
     public function newRule()
