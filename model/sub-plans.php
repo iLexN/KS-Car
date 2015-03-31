@@ -25,6 +25,8 @@ class SubPlans
         $a = ORM::for_table('sub-plan')->create();
         $a->name = $ar['name'];
         $a->name_zh = $ar['name_zh'];
+        $a->name_sub = $ar['name_sub'];
+        $a->name_sub_zh = $ar['name_sub_zh'];
         $a->add_price = $ar['add_price'];
         $a->zh = $ar['zh'];
         $a->en = $ar['en'];
@@ -32,6 +34,7 @@ class SubPlans
         $a->pdf_url_en = $ar['pdf_url_en'];
         $a->pdf_url_zh = $ar['pdf_url_zh'];
         $a->sortOrder = $ar['sortOrder'];
+        $a->groupID = $ar['groupID'];
         $a->save();
     }
     
@@ -44,12 +47,15 @@ class SubPlans
         $a = ORM::for_table('sub-plan')->find_one($ar['id']);
         $a->name = $ar['name'];
         $a->name_zh = $ar['name_zh'];
+        $a->name_sub = $ar['name_sub'];
+        $a->name_sub_zh = $ar['name_sub_zh'];
         $a->add_price = $ar['add_price'];
         $a->zh = $ar['zh'];
         $a->en = $ar['en'];
         $a->pdf_url_en = $ar['pdf_url_en'];
         $a->pdf_url_zh = $ar['pdf_url_zh'];
         $a->sortOrder = $ar['sortOrder'];
+        $a->groupID = $ar['groupID'];
         $a->save();
     }
     
@@ -84,11 +90,15 @@ class SubPlans
      */
     public static function findSubPlansByRuleIdWithLang($r, $lang)
     {
+        /** @var $r_ar \ORM */
         $r_ar = ORM::for_table('sub-plan')
                     ->select('name')
                     ->select('name_zh')
+                    ->select('name_sub')
+                    ->select('name_sub_zh')
                     ->select('id')
                     ->select('add_price')
+                    ->select('groupID')
                     ->select($lang, 'desc')
                     ->select('pdf_url_'.$lang, 'pdf')
                     ->where('rule_id', $r)
@@ -102,5 +112,19 @@ class SubPlans
         }
         
         return $ar;
+    }
+    
+    /**
+     * seem useless now
+     * @param array $ar
+     * @return array
+     */
+    public static function outputFormat($ar){
+        $outArray = array();
+        //print_r($ar);
+        foreach ( $ar as $eachRow) {
+            $outArray[$eachRow['groupID']][$eachRow['id']] = $eachRow;
+        }
+        return $outArray;
     }
 }

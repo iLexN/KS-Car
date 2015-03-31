@@ -344,7 +344,7 @@ input[type=password]{width:80%;border:1px solid #ccc;}
 
 .rightSlidePanel{background-color:#CCCCCC;position:fixed;height:100%;right:0px;top:0px;padding:15px;display:none;min-width: 220px;}
 .rightSlidePanel legend{font-weight:bold;font-size:16px;}
-.rightSlidePanel textarea{width:100%;height:150px;}
+.rightSlidePanel textarea{width:100%;height:130px;}
 
 .subPlansCol1{width:10%;float:left;padding:5px;}
 .subPlansCol1-2{width:10%;float:left;padding:5px;}

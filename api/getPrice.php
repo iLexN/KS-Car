@@ -230,7 +230,7 @@ if (!empty($result['error'])) {
 
     if (!$isTest) {
         //error_log( print_r($result,true) );
-        echo json_encode($result);
+        //echo json_encode($result);
         file_put_contents('../log/'.date('Ymd').'.log', date('H:i:s') . "\n\t" . json_encode($result) ."\n\t"  . json_encode($allVar) . PHP_EOL, FILE_APPEND);
     } else {
         return $result;
@@ -279,6 +279,8 @@ if ($saveUser) {
 
 //error_log( print_r( $result , true ) );
 //error_log( json_encode($result) );
+
+
 
 //may be for dubug
 unset($result['resultDesc']);

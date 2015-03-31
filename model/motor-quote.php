@@ -89,7 +89,7 @@ class MotorQuote
         }
         if ($ar['subPlanID']) {
             foreach ($ar['subPlanID'] as $subPlanAr) {
-                $planInfoAr['subPlanName'][] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'];
+                $planInfoAr['subPlanName'][] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[0]['subPlans'][$subPlanAr]['name_sub'];
             }
                     //$totalPrice +=  $ruleInfo[0]['subPlans'][$ar['subPlanID']]['add_price'];
         }

@@ -170,17 +170,19 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     <div class="subPlansCol1">SubPlansName</div>
                     <div class="subPlansCol1-2">SubPlansNameZh</div>
                     <div class="subPlansCol2">Additional Price</div>
-                    <div class="subPlansCol3">Total Price</div>
+                    <div class="subPlansCol3">GroupID</div>
+                    <!--<div class="subPlansCol3">Total Price</div>-->
                     <div class="subPlansCol4">EN Free Text</div>
                     <div class="subPlansCol5">ZH Free Text</div>
                 </div>
                 <?php foreach ( $r_ar['subPlans'] as $subPlansAr ) {?>
                 <div style=" overflow: hidden;padding:10px;border-bottom: 1px solid #ccc" class="jsSubPlansWapper">
                     <div class="jsSubPlansSortOrder" style="display:inline;font-weight:bold;float: left;padding:5px"><?php echo($subPlansAr['sortOrder']);?></div>
-                    <div class="subPlansCol1 jsSubPlansNameValue"><?php echo ($subPlansAr['name']);?></div>
-                    <div class="subPlansCol1-2 jsSubPlansNameZhValue"><?php echo ($subPlansAr['name_zh']);?></div>
+                    <div class="subPlansCol1"><span class="jsSubPlansNameValue"><?php echo ($subPlansAr['name']);?></span> - <span class="jsSubPlansNameSubValue"><?php echo ($subPlansAr['name_sub']);?></span></div>
+                    <div class="subPlansCol1-2"><span class="jsSubPlansNameZhValue"><?php echo ($subPlansAr['name_zh']);?></span> - <span class="jsSubPlansNameSubZhValue"><?php echo ($subPlansAr['name_sub_zh']);?></span></div>
                     <div class="subPlansCol2 jsSubPlansAddPriceValue"><?php echo ($subPlansAr['add_price']);?></div>
-                    <div class="subPlansCol3"><?php echo ( ($subPlansAr['add_price']+$r_ar['total'] ));?></div>
+                    <div class="subPlansCol3 jsSubPlansGroupIDValue"><?php echo ($subPlansAr['groupID']);?></div>
+                    <!--<div class="subPlansCol3"><?php echo ( ($subPlansAr['add_price']+$r_ar['total'] ));?></div>-->
                     <div class="subPlansCol4"><pre class="jsSubPlansEnValue"><?php echo ( $subPlansAr['en'] );?></pre></div>
                     <div class="subPlansCol5"><pre class="jsSubPlansZhValue"><?php echo ( $subPlansAr['zh'] );?></pre></div>
                     <div class="subPlansCol6">
@@ -784,12 +786,15 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     type: "POST",
                     data: {name: $(".jsSubPlansName").val(),
                         name_zh: $(".jsSubPlansNameZh").val(),
+                        name_sub: $(".jsSubPlansNameSub").val(),
+                        name_sub_zh: $(".jsSubPlansNameSubZh").val(),
                         add_price: $(".jsSubPlansPrice").val(),
                         zh: $(".jsSubPlansZh").val(),
                         en: $(".jsSubPlansEn").val(),
                         pdf_url_en: $(".jsSubPlansPDFEn").val(),
                         pdf_url_zh: $(".jsSubPlansPDFZh").val(),
                         sortOrder: $(".jsSubPlansSortOrder").val(),
+                        groupID: $(".jsSubPlansNameSubZh").val(),
                         rule: $("input:radio[name=selectRule]:checked").val()
                     }
                 });
@@ -813,12 +818,15 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     type: "POST",
                     data: {name: $(".jsSubPlansName").val(),
                         name_zh: $(".jsSubPlansNameZh").val(),
+                        name_sub: $(".jsSubPlansNameSub").val(),
+                        name_sub_zh: $(".jsSubPlansNameSubZh").val(),
                         add_price: $(".jsSubPlansPrice").val(),
                         zh: $(".jsSubPlansZh").val(),
                         en: $(".jsSubPlansEn").val(),
                         pdf_url_en: $(".jsSubPlansPDFEn").val(),
                         pdf_url_zh: $(".jsSubPlansPDFZh").val(),
                         sortOrder: $(".jsSubPlansSortOrder").val(),
+                        groupID: $(".jsSubPlansGroupID").val(),
                         id: $(".jsSubPlansID").val()
                     }
                 });
@@ -838,12 +846,15 @@ $detailsInfo_ar = $detailsInfo->getAll();
         $(".jsSubPlansCleanBtn").click(function(){
             $(".jsSubPlansName").val('');
             $(".jsSubPlansNameZh").val('');
+            $(".jsSubPlansSubName").val('');
+            $(".jsSubPlansSubNameZh").val('');
             $(".jsSubPlansPrice").val('');
             $(".jsSubPlansZh").val('');
             $(".jsSubPlansEn").val('');
             $(".jsSubPlansPDFEn").val('');
             $(".jsSubPlansPDFZh").val('');
             $(".jsSubPlansID").val('');
+            $(".jsSubPlansGroupID").val('');
         });
         
         $(".jsSubPlansLoadBtn").click(function(){
@@ -853,8 +864,11 @@ $detailsInfo_ar = $detailsInfo->getAll();
             var $p = $(this).parent().parent();
             $(".jsSubPlansID").val($(this).data('spid'));
             $(".jsSubPlansSortOrder").val($p.find('.jsSubPlansSortOrder').text());
+            $(".jsSubPlansGroupID").val($p.find('.jsSubPlansGroupIDValue').text());
             $(".jsSubPlansName").val($p.find('.jsSubPlansNameValue').text());
             $(".jsSubPlansNameZh").val($p.find('.jsSubPlansNameZhValue').text());
+            $(".jsSubPlansNameSub").val($p.find('.jsSubPlansNameSubValue').text());
+            $(".jsSubPlansNameSubZh").val($p.find('.jsSubPlansNameSubZhValue').text());
             $(".jsSubPlansPrice").val($p.find('.jsSubPlansAddPriceValue').text());
             $(".jsSubPlansEn").val($p.find('.jsSubPlansEnValue').text());
             $(".jsSubPlansZh").val($p.find('.jsSubPlansZhValue').text());

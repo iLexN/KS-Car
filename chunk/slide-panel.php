@@ -93,6 +93,10 @@
             <div>
                 <p>Name:<br/><input type="text" value="" class="jsSubPlansName"></p>
                 <p>Name zh:<br/><input type="text" value="" class="jsSubPlansNameZh"></p>
+                
+                <p>NameSub:<br/><input type="text" value="" class="jsSubPlansNameSub"></p>
+                <p>NameSub zh:<br/><input type="text" value="" class="jsSubPlansNameSubZh"></p>
+                
                 <p>Additional Price: <input type="text" value="" class="jsSubPlansPrice"></p>
                 <p>zh: <br/>
                     <textarea class="jsSubPlansZh"></textarea></p>
@@ -101,6 +105,9 @@
                 <p>PDF EN URL : <input type="text" value="" class="jsSubPlansPDFEn" style="width:100%"></p>
                 <p>PDF ZH URL : <input type="text" value="" class="jsSubPlansPDFZh" style="width:100%"></p>
                 <p>order (small number come first) :<br/> <input type="type" class="jsSubPlansSortOrder"></p>
+                
+                <p>GroupID:<br/> <input type="type" class="jsSubPlansGroupID"></p>
+                
                 <button class="jsSubPlansNewBtn">Add New</button> / <button class="jsSubPlansCleanBtn">Clean</button>
                 
                 <p class="jsSubPlansUpdateWapper" style="display:none">
