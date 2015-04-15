@@ -3,7 +3,7 @@
 include '../lib/authentication.php';
 
 
-include '../db/db_info.php';
+require_once '../db/db_info.php';
 
 /***
 flow:
@@ -17,7 +17,7 @@ isTest from tool return array / real api echo json
 //checking function start
 include '../lib/function.inc.php';
 
-//error_log( print_r($_POST,1) );
+error_log( print_r($_POST,1) );
 
 if (empty($_POST)) {
     exit();
@@ -34,6 +34,8 @@ $result = array();
 
 //error_log('Post ar');
 //error_log( print_r($_POST,true) );
+
+$allVar['refID'] = (isset($_POST['refID']) && !empty($_POST['refID']))  ? $_POST['refID'] : false;
 
 // rule data (required)
 $allVar['dob'] = (isset($_POST['dob']) && !empty($_POST['dob']))  ? $_POST['dob'] : '00-00-0000'; // 25-02-2014
@@ -277,14 +279,13 @@ if ($saveUser) {
     return $result;
 }
 
-//error_log( print_r( $result , true ) );
-//error_log( json_encode($result) );
+error_log( print_r( $result , true ) );
+error_log( json_encode($result) );
 
 
 
 //may be for dubug
 unset($result['resultDesc']);
-
 echo json_encode($result);
 
 exit();

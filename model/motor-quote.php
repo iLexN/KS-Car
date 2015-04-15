@@ -10,9 +10,9 @@ class MotorQuote
 {
 
         /**
-         *output array
+         *output array no use
          * @var array   output the field which website need for save action
-         */
+         
     private $default_select_field = array(
             'gender',
             'residential_district',
@@ -60,7 +60,7 @@ class MotorQuote
                         'motor_accident_yrs2',
             'drive_offence_point2'
             
-        );
+        );*/
     
     /**
      * need summary
@@ -89,12 +89,23 @@ class MotorQuote
         }
         if ($ar['subPlanID']) {
             foreach ($ar['subPlanID'] as $subPlanAr) {
-                $planInfoAr['subPlanName'][] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[0]['subPlans'][$subPlanAr]['name_sub'];
+                $planInfoAr['subPlanName'][$subPlanAr] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[0]['subPlans'][$subPlanAr]['name_sub'];
             }
-                    //$totalPrice +=  $ruleInfo[0]['subPlans'][$ar['subPlanID']]['add_price'];
+            //$totalPrice +=  $ruleInfo[0]['subPlans'][$ar['subPlanID']]['add_price'];
         }
-            
-        $rm = ORM::for_table('motor_quote') -> create();
+        
+        $exist = 0;
+        if ( $ar['refID'] ){
+            $rm = ORM::for_table('motor_quote')->select('*')->where('id',$ar['refID'])->where('download',0);
+            $exist = $rm->count();
+        }
+        error_log('here  exist :: ' . $exist);
+        if ( !$exist ){
+            $rm = ORM::for_table('motor_quote') -> create();
+            error_log('create');
+        } else {
+            $rm = $rm->find_one();
+        }
         
         $rm -> name  = $ar['name'];
         $rm -> email  = $ar['email'];
@@ -131,10 +142,8 @@ class MotorQuote
         $rm -> convictions_5_yrs = $ar['convictions_5_yrs'];
         $rm -> sum_insured = $ar['sum_insured'];
                 
-        $rm -> refno  =  $this->genRefno(); //$result['refno'];
-                
         //$rm -> plan_match_json = json_encode($ruleInfo);
-                $rm -> plan_match_json = json_encode($planInfoAr);
+        $rm -> plan_match_json = json_encode($planInfoAr);
                 
                 
         $rm -> create_datetime = date("Y-m-d H:i:s");
@@ -143,7 +152,7 @@ class MotorQuote
         $rm -> payButtonClick = $ar['payButtonClick'];
         
                 //driver 2
-                $rm -> name2  = $ar['name2'];
+        $rm -> name2  = $ar['name2'];
         $rm -> email2  = $ar['email2'];
         $rm -> relationship2  = $ar['relationship2'];
         $rm -> drivingExp2  = $ar['drivingExpText2'];
@@ -155,12 +164,12 @@ class MotorQuote
         $rm -> hkid_2_2  = $ar['hkid_2_2'];
         $rm -> hkid_3_2  = $ar['hkid_3_2'];
         $rm -> marital_status2  = $ar['marital_status2'];
-                //$rm -> residential_district2  = $ar['residential_district2'];
-                $rm -> drive_offence_point2  = $ar['drive_offence_point2'];
+        //$rm -> residential_district2  = $ar['residential_district2'];
+        $rm -> drive_offence_point2  = $ar['drive_offence_point2'];
         $rm -> motor_accident_yrs2  = $ar['motor_accident_yrs2'];
                 
-                //additational car info
-                $rm -> bodyType  = $ar['bodyType'];
+        //additational car info
+        $rm -> bodyType  = $ar['bodyType'];
         $rm -> numberOfDoors  = $ar['numberOfDoors'];
         $rm -> chassisNumber  = $ar['chassisNumber'];
         $rm -> engineNumber  = $ar['engineNumber'];
@@ -174,10 +183,14 @@ class MotorQuote
         $rm -> carModel_key = $ar['carModel'];
         $rm -> occupation_key = $ar['occupation'];
                 
-                //key for driver 2
-                $rm -> occupation_key2 = $ar['occupation2'];
+        //key for driver 2
+        $rm -> occupation_key2 = $ar['occupation2'];
         $rm -> drivingExp_key2 = $ar['drivingExp2'];
         
+        if ( !$exist ){
+            $rm -> refno  =  $this->genRefno(); //$result['refno'];
+            $rm -> oldRefID = $ar['refID'];
+        }
         
         if ($rm -> save()) {
             return array( $rm->id , $rm->refno ) ;
@@ -195,10 +208,10 @@ class MotorQuote
      */
     public function getByRefNo($refno, $select_field=array())
     {
-        $fields = !empty($select_field) ? $select_field :  $this->default_select_field ;
+        //$fields = !empty($select_field) ? $select_field :  $this->default_select_field ;
     
         $quote = ORM::for_table('motor_quote')
-                ->select_many($fields)
+                //->select_many($fields)
                 ->where('refno', $refno)
                 ->find_one();
         if ($quote) {
