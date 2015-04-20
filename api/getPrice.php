@@ -17,7 +17,7 @@ isTest from tool return array / real api echo json
 //checking function start
 include '../lib/function.inc.php';
 
-error_log( print_r($_POST,1) );
+//error_log( print_r($_POST,1) );
 
 if (empty($_POST)) {
     exit();
@@ -279,8 +279,8 @@ if ($saveUser) {
     return $result;
 }
 
-error_log( print_r( $result , true ) );
-error_log( json_encode($result) );
+//error_log( print_r( $result , true ) );
+//error_log( json_encode($result) );
 
 
 

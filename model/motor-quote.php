@@ -79,7 +79,7 @@ class MotorQuote
          */
     public function saveQuote($ar, $ruleInfo)
     {
-        error_log(print_r($ruleInfo, true));
+        //error_log(print_r($ruleInfo, true));
         $planInfoAr = array();
         if ($ar['planID']) {
             $planInfoAr['planName'] = $ruleInfo[0]['rule_name'];
@@ -99,10 +99,10 @@ class MotorQuote
             $rm = ORM::for_table('motor_quote')->select('*')->where('id',$ar['refID'])->where('download',0);
             $exist = $rm->count();
         }
-        error_log('here  exist :: ' . $exist);
+        //error_log('here  exist :: ' . $exist);
         if ( !$exist ){
             $rm = ORM::for_table('motor_quote') -> create();
-            error_log('create');
+            //error_log('create');
         } else {
             $rm = $rm->find_one();
         }

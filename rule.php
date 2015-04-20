@@ -794,7 +794,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                         pdf_url_en: $(".jsSubPlansPDFEn").val(),
                         pdf_url_zh: $(".jsSubPlansPDFZh").val(),
                         sortOrder: $(".jsSubPlansSortOrder").val(),
-                        groupID: $(".jsSubPlansNameSubZh").val(),
+                        groupID: $(".jsSubPlansGroupID").val(),
                         rule: $("input:radio[name=selectRule]:checked").val()
                     }
                 });
