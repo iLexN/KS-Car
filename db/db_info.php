@@ -2,19 +2,19 @@
 //error_reporting(E_ALL);
 date_default_timezone_set('Asia/Hong_Kong');
 
-/*
+
 $host = "localhost";
 $dbname = "ks-car2";
 //$dbname = "ks-car20141022";
 $dbusername = "root";
 $dbpassword = "";
-*/
 
+/*
 $host = "localhost";
 $dbname = "ks-motor";
 $dbusername = "ks-motor";
 $dbpassword = "jyR30m*6";
-
+*/
 
 
 require_once(dirname(__FILE__) . "/../lib/idiorm.php");

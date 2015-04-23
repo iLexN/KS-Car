@@ -74,8 +74,9 @@ function checkLang($lang)
         }
 }
 
-function check_hkid($hkid=0000000, $check_digit=0)
+function check_hkid($chat , $hkid=000000, $check_digit='')
 {
+    
     // hkid = $hkid_1.$hkid_2 ($hkid_3)
     $i = 10;
     $id_check_ar = array();
@@ -83,15 +84,28 @@ function check_hkid($hkid=0000000, $check_digit=0)
         $id_check_ar[$char] = $i;
         $i++;
     }
-    $hkid_sum = 11 - (324 +
-            $id_check_ar[strtoupper($hkid[0])] * 8 +
-            $hkid[1] * 7 +
-            $hkid[2] * 6 +
-            $hkid[3] * 5 +
-            $hkid[4] * 4 +
-            $hkid[5] * 3 +
-            $hkid[6] * 2) %11;
+    
+    $countChat = strlen($chat);
+    if ( $countChat == 1 )  {
+        $chatSum = 324 + $id_check_ar[strtoupper($chat[0])] * 8 ;
+    } else if ( $countChat == 2 ) {
+        $chatSum = $id_check_ar[strtoupper($chat[0])] * 9 ;
+        $chatSum += $id_check_ar[strtoupper($chat[1])] * 8 ;
+    }
+    
+    $hkid_sum = 11 - ( (
+            $chatSum +
+            $hkid[0] * 7 +
+            $hkid[1] * 6 +
+            $hkid[2] * 5 +
+            $hkid[3] * 4 +
+            $hkid[4] * 3 +
+            $hkid[5] * 2) %11 );
 
+    
+    if ( $hkid_sum == 11 ) $hkid_sum = 0 ;
+    if ( $hkid_sum == 10 ) $hkid_sum = 'A' ;
+    
     if ($hkid_sum == $check_digit) {
         return true;
     } else {

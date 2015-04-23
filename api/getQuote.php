@@ -1,5 +1,7 @@
 <?php
 
+include '../lib/authentication.php';
+
 include('../db/db_info.php');
 include('../model/motor-quote.php');
 include('../lib/function.inc.php');

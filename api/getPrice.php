@@ -172,7 +172,7 @@ try {
 if (!empty($allVar['hkid_1']) || !empty($allVar['hkid_2']) || !empty($allVar['hkid_3'])) {
     // not must fill in, but need check format
         try {
-            check_hkid($allVar['hkid_1'] . $allVar['hkid_2'], $allVar['hkid_3']) ;
+            check_hkid($allVar['hkid_1'] , $allVar['hkid_2'], $allVar['hkid_3']) ;
         } catch (Exception $e) {
             $result['error'][] = $e->getMessage();
         }
@@ -185,7 +185,7 @@ if (!empty($allVar['occupation2']) && !empty($allVar['drivingExp2'])) {
     if (!empty($allVar['hkid_1_2']) || !empty($allVar['hkid_2_2']) || !empty($allVar['hkid_3_2'])) {
         // not must fill in, but need check format
             try {
-                check_hkid($allVar['hkid_1_2'] . $allVar['hkid_2_2'], $allVar['hkid_3_2']) ;
+                check_hkid($allVar['hkid_1_2'] , $allVar['hkid_2_2'], $allVar['hkid_3_2']) ;
             } catch (Exception $e) {
                 $result['error'][] = $e->getMessage() . ' (hkid 2) ';
             }
