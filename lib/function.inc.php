@@ -106,7 +106,7 @@ function check_hkid($chat , $hkid=000000, $check_digit='')
     if ( $hkid_sum == 11 ) $hkid_sum = 0 ;
     if ( $hkid_sum == 10 ) $hkid_sum = 'A' ;
     
-    if ($hkid_sum == $check_digit) {
+    if ($hkid_sum == strtoupper($check_digit) ) {
         return true;
     } else {
         throw new Exception('error hkid :: format');
