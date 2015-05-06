@@ -33,6 +33,7 @@ ORM::configure('logger', function ($log_string,$query_time) {
 
 
 $refresh_chunk = array();
-$refresh_chunk['ks.com'] = 'http://kwiksure.localhost/gen-motor-chunk/';
+//$refresh_chunk['ks.com'] = 'http://kwiksure.localhost/gen-motor-chunk/';
+//$refresh_chunk['ks.com'] = 'https://kwiksure.com/gen-motor-chunk/';
 //$refresh_chunk['car.ins'] = 'http://ks-modx.dev/genmotorchunk/';
 //$refresh_chunk['car.zh.hk'] = 'http://ks-modx-zh.dev/genmotorchunk/';
