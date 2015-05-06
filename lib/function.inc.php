@@ -77,6 +77,8 @@ function checkLang($lang)
 function check_hkid($chat , $hkid=000000, $check_digit='')
 {
     
+    $chat = trim($chat);
+    
     // hkid = $hkid_1.$hkid_2 ($hkid_3)
     $i = 10;
     $id_check_ar = array();
