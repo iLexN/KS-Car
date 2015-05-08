@@ -9,7 +9,7 @@
 include('../lib/function.inc.php');
 
 try {
-    check_hkid('z','727588','a') ;
+    check_hkid('q ','126331','1') ;
     echo('1');
 } catch (Exception $e) {
     $result['error'][] = $e->getMessage();
