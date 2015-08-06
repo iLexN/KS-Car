@@ -17,7 +17,7 @@ isTest from tool return array / real api echo json
 //checking function start
 include '../lib/function.inc.php';
 
-//error_log( print_r($_POST,1) );
+error_log( print_r($_POST,1) );
 
 if (empty($_POST)) {
     exit();
@@ -43,9 +43,9 @@ $allVar['age'] = isset($_POST['age']) ? $_POST['age'] : ''; // provide age/dob
 $allVar['ncd'] = isset($_POST['ncd']) ? $_POST['ncd'] : '100';
 $allVar['drivingExp'] = isset($_POST['drivingExp']) ? $_POST['drivingExp'] : '';
 $allVar['drivingExpText'] = isset($_POST['drivingExpText']) ? $_POST['drivingExpText'] : '' ;
-$allVar['insuranceType'] = $_POST['insuranceType'];
-$allVar['yearManufacture'] = $_POST['yearManufacture'];  // 2010
-$allVar['carMake']  = $_POST['carMake'];
+$allVar['insuranceType'] = isset($_POST['insuranceType']) ? $_POST['insuranceType'] : '' ;
+$allVar['yearManufacture'] = isset($_POST['yearManufacture']) ? $_POST['yearManufacture'] : 2000 ;
+$allVar['carMake']  = isset($_POST['carMake']) ? $_POST['carMake'] : '';
 $allVar['carModel']  = isset($_POST['carModel']) ? $_POST['carModel'] : '';
 $allVar['carModelOther'] = isset($_POST['carModelOther']) ? $_POST['carModelOther'] : '';
 $allVar['occupation'] =  isset($_POST['occupation']) ? $_POST['occupation'] : '' ;
@@ -126,47 +126,50 @@ $allVar['subPlanID']  = (isset($_POST['subPlanID']) && !empty($_POST['subPlanID'
 $allVar['payButtonClick'] = (isset($_POST['payButtonClick']) && !empty($_POST['payButtonClick'])) ? 1 : 0;
 
 //checking  for rule data ( must fill in data for rule )
-/*try {
-    checkEmpty('ncd',$ncd) ;
-} catch (Exception $e) {
-    $result['error'][] = $e->getMessage();
-}*/
-try {
-    checkEmpty('drivingExp', $allVar['drivingExp'], $allVar['drivingExpText']) ;
-} catch (Exception $e) {
-    $result['error'][] = $e->getMessage();
+if (!$skipFindRule) {
+    /*try {
+        checkEmpty('ncd',$ncd) ;
+    } catch (Exception $e) {
+        $result['error'][] = $e->getMessage();
+    }*/
+    try {
+        checkEmpty('drivingExp', $allVar['drivingExp'], $allVar['drivingExpText']) ;
+    } catch (Exception $e) {
+        $result['error'][] = $e->getMessage();
+    }
+    try {
+        checkEmpty('insuranceType', $allVar['insuranceType']) ;
+    } catch (Exception $e) {
+        $result['error'][] = $e->getMessage();
+    }
+    try {
+        checkEmpty('yearManufacture', $allVar['yearManufacture']) ;
+    } catch (Exception $e) {
+        $result['error'][] = $e->getMessage();
+    }
+    try {
+        checkEmpty('carMake', $allVar['carMake']) ;
+    } catch (Exception $e) {
+        $result['error'][] = $e->getMessage();
+    }
+    try {
+        if (!empty($allVar['carModelOther'])) {
+            $allVar['carModel'] = $allVar['carModelOther'];
+        }
+        checkEmpty('carModel', $allVar['carModel']) ;
+    } catch (Exception $e) {
+        $result['error'][] = $e->getMessage();
+    }
+    try {
+        checkEmpty('occupation', $allVar['occupation'], $allVar['occupationText']) ;
+    } catch (Exception $e) {
+        $result['error'][] = $e->getMessage();
+    }
 }
-try {
-    checkEmpty('insuranceType', $allVar['insuranceType']) ;
-} catch (Exception $e) {
-    $result['error'][] = $e->getMessage();
-}
-try {
-    checkEmpty('yearManufacture', $allVar['yearManufacture']) ;
-} catch (Exception $e) {
-    $result['error'][] = $e->getMessage();
-}
-try {
-    checkEmpty('carMake', $allVar['carMake']) ;
-} catch (Exception $e) {
-    $result['error'][] = $e->getMessage();
-}
+
 try {
     $allVar['lang'] = checkLang($allVar['lang']);
 } catch (Exception $ex) {
-    $result['error'][] = $e->getMessage();
-}
-try {
-    if (!empty($allVar['carModelOther'])) {
-        $allVar['carModel'] = $allVar['carModelOther'];
-    }
-    checkEmpty('carModel', $allVar['carModel']) ;
-} catch (Exception $e) {
-    $result['error'][] = $e->getMessage();
-}
-try {
-    checkEmpty('occupation', $allVar['occupation'], $allVar['occupationText']) ;
-} catch (Exception $e) {
     $result['error'][] = $e->getMessage();
 }
 if (!empty($allVar['hkid_1']) || !empty($allVar['hkid_2']) || !empty($allVar['hkid_3'])) {
@@ -199,10 +202,12 @@ if ($saveUser) {
     } catch (Exception $e) {
         $result['error'][] = $e->getMessage();
     }
-    try {
-        checkEmpty('contactno', $allVar['contactno']) ;
-    } catch (Exception $e) {
-        $result['error'][] = $e->getMessage();
+    if (!$skipFindRule) {
+        try {
+            checkEmpty('contactno', $allVar['contactno']) ;
+        } catch (Exception $e) {
+            $result['error'][] = $e->getMessage();
+        }
     }
     try {
         checkEmpty('email', $allVar['email']) ;

@@ -83,6 +83,11 @@ class occ
          */
     public function getOccByID($id, $lang='en')
     {
+        if (empty($id)){
+            return '';
+        }
+        
+        
         $m = ORM::for_table('occupation') -> find_one($id);
         if ($m) {
             if ($lang == 'en') {

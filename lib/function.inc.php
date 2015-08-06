@@ -1,6 +1,11 @@
 <?php
 function calAge($dob)
 { // 25-02-2014
+    
+    if ( $dob == '00-00-0000' ) {
+        return 0;
+    }
+    
     $dob_ar = explode('-', $dob);
     if (checkdate($dob_ar[1],  $dob_ar[0],  $dob_ar[2])) {
         $from   = new DateTime(DateTime::createFromFormat('d-m-Y', $dob)->format('Y-m-d'));
@@ -87,7 +92,7 @@ function check_hkid($chat , $hkid=000000, $check_digit='')
         $i++;
     }
     
-    $countChat = strlen($chat);
+    $countChat = strlen(trim($chat));
     if ( $countChat == 1 )  {
         $chatSum = 324 + $id_check_ar[strtoupper($chat[0])] * 8 ;
     } else if ( $countChat == 2 ) {
