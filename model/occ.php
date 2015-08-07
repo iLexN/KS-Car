@@ -87,7 +87,6 @@ class occ
             return '';
         }
         
-        
         $m = ORM::for_table('occupation') -> find_one($id);
         if ($m) {
             if ($lang == 'en') {

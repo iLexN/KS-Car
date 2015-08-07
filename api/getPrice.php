@@ -17,7 +17,7 @@ isTest from tool return array / real api echo json
 //checking function start
 include '../lib/function.inc.php';
 
-error_log( print_r($_POST,1) );
+//error_log( print_r($_POST,1) );
 
 if (empty($_POST)) {
     exit();
@@ -33,7 +33,7 @@ if ($v != $checkCode) { echo ('stop');exit(); };
 $result = array();
 
 //error_log('Post ar');
-//error_log( print_r($_POST,true) );
+error_log( print_r($_POST,true) );
 
 $allVar['refID'] = (isset($_POST['refID']) && !empty($_POST['refID']))  ? $_POST['refID'] : false;
 
@@ -125,8 +125,8 @@ $allVar['subPlanID']  = (isset($_POST['subPlanID']) && !empty($_POST['subPlanID'
 //for checking stat
 $allVar['payButtonClick'] = (isset($_POST['payButtonClick']) && !empty($_POST['payButtonClick'])) ? 1 : 0;
 
-//checking  for rule data ( must fill in data for rule )
 if (!$skipFindRule) {
+    //checking  for rule data ( must fill in data for rule )
     /*try {
         checkEmpty('ncd',$ncd) ;
     } catch (Exception $e) {
@@ -134,11 +134,6 @@ if (!$skipFindRule) {
     }*/
     try {
         checkEmpty('drivingExp', $allVar['drivingExp'], $allVar['drivingExpText']) ;
-    } catch (Exception $e) {
-        $result['error'][] = $e->getMessage();
-    }
-    try {
-        checkEmpty('insuranceType', $allVar['insuranceType']) ;
     } catch (Exception $e) {
         $result['error'][] = $e->getMessage();
     }
@@ -153,20 +148,24 @@ if (!$skipFindRule) {
         $result['error'][] = $e->getMessage();
     }
     try {
-        if (!empty($allVar['carModelOther'])) {
-            $allVar['carModel'] = $allVar['carModelOther'];
-        }
-        checkEmpty('carModel', $allVar['carModel']) ;
-    } catch (Exception $e) {
-        $result['error'][] = $e->getMessage();
-    }
-    try {
         checkEmpty('occupation', $allVar['occupation'], $allVar['occupationText']) ;
     } catch (Exception $e) {
         $result['error'][] = $e->getMessage();
     }
 }
-
+try {
+    checkEmpty('insuranceType', $allVar['insuranceType']) ;
+} catch (Exception $e) {
+    $result['error'][] = $e->getMessage();
+}
+try {
+    if (!empty($allVar['carModelOther'])) {
+        $allVar['carModel'] = $allVar['carModelOther'];
+    }
+    checkEmpty('carModel', $allVar['carModel']) ;
+} catch (Exception $e) {
+    $result['error'][] = $e->getMessage();
+}
 try {
     $allVar['lang'] = checkLang($allVar['lang']);
 } catch (Exception $ex) {

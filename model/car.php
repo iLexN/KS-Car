@@ -99,6 +99,7 @@ class car
          */
     public function getMakeByID($id)
     {
+        
         if (empty($id)){
             return '';
         }
@@ -126,6 +127,9 @@ class car
          */
     public function getModelByID($id, $otherText, $make_id)
     {
+        error_log('id :: ' . $id);
+        error_log('otherText :: ' . $otherText);
+        error_log('make_id :: ' . $make_id);
         
         // id/otherText 'is the free text'
         if ($make_id == '9999') {
@@ -133,9 +137,6 @@ class car
         }
         if (!empty($otherText)) {
             return $otherText;
-        }
-        if (empty($id)){
-            return '';
         }
 
         $m = ORM::for_table('model') -> find_one($id);
@@ -304,9 +305,10 @@ class car
      */
     public function getInsuranceTypeByID($id)
     {
+        /*
         if (empty($id)){
             return '';
-        }
+        }*/
         
         $m = ORM::for_table('insurance-type')
                         -> where('id_value', $id)
@@ -354,6 +356,7 @@ class car
      */
     public function getDriveExpByID($id)
     {
+        
         if (empty($id)){
             return '';
         }

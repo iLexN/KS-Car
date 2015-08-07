@@ -6,6 +6,7 @@ function calAge($dob)
         return 0;
     }
     
+    
     $dob_ar = explode('-', $dob);
     if (checkdate($dob_ar[1],  $dob_ar[0],  $dob_ar[2])) {
         $from   = new DateTime(DateTime::createFromFormat('d-m-Y', $dob)->format('Y-m-d'));
