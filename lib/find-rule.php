@@ -10,7 +10,7 @@ $save_rule = array(); // to db
 if ($planID) {
     $save_rule = $rule->matchRuleWithID($planID);
 } else {
-    $save_rule = $rule->matchRuleWithVar($allVar);
+    $save_rule = $rule->matchRuleWithVar($allVar,$isTest);
         
         //save_rule2 must === to save_rule if driver2 exist
         if ($driver2) {
@@ -24,7 +24,7 @@ if ($planID) {
             $driver2InfoAr['motor_accident_yrs'] = $allVar['motor_accident_yrs2'];
             $driver2InfoAr['drive_offence_point'] = $allVar['drive_offence_point2'];
             $driver2InfoAr['calYrMf'] = $allVar['calYrMf'];
-            $save_rule2 = $rule->matchRuleWithVar($driver2InfoAr);
+            $save_rule2 = $rule->matchRuleWithVar($driver2InfoArm,$isTest);
             
             //error_log('1');
             //error_log( print_r( $save_rule , true ) );

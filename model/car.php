@@ -127,9 +127,9 @@ class car
          */
     public function getModelByID($id, $otherText, $make_id)
     {
-        error_log('id :: ' . $id);
-        error_log('otherText :: ' . $otherText);
-        error_log('make_id :: ' . $make_id);
+        //error_log('id :: ' . $id);
+        //error_log('otherText :: ' . $otherText);
+        //error_log('make_id :: ' . $make_id);
         
         // id/otherText 'is the free text'
         if ($make_id == '9999') {

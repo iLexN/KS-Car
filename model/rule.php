@@ -33,7 +33,10 @@ class rule
     public function getAll()
     {
         //$rule = ORM::for_table('rule') -> where('active', 1) -> order_by_asc('id') -> find_array();
-                $rule = ORM::for_table('rule')  -> order_by_asc('id') -> find_array();
+                $rule = ORM::for_table('rule')  
+                        -> order_by_desc('active')
+                        -> order_by_asc('id') 
+                        -> find_array();
         return $this -> transform($rule);
     }
 
@@ -53,6 +56,7 @@ class rule
         $this -> rule -> DrivingExp = $ar['DrivingExp'];
         $this -> rule -> TypeofInsurance = $ar['TypeofInsurance'];
         $this -> rule -> Yearofmanufacture = $ar['Yearofmanufacture'];
+        $this -> rule -> Yearofmanufacture_from = $ar['Yearofmanufacture_from'];
         $this -> rule -> motor_accident_yrs =  $ar['MotorAccidentYrs'];
         $this -> rule -> drive_offence_point = $ar['DriveOffencePoint'];
         $this -> rule -> active = $ar['Active'];
@@ -93,7 +97,7 @@ class rule
      * @param arry $ar
      * @return type
      */
-    public function matchRuleWithVar($ar)
+    public function matchRuleWithVar($ar,$isTest)
     {
 
             //error_log( 'abc'.print_r($ar,true) );
@@ -116,9 +120,16 @@ class rule
                 -> where('p1.motor_accident_yrs', $ar['motor_accident_yrs'])
                 -> where('p1.drive_offence_point', $ar['drive_offence_point'])
                 -> where_gte('p1.Yearofmanufacture', $ar['calYrMf'])
-                -> where('p1.active', 1)
-                -> find_array();
-        return $match_rule;
+                -> where_lte('p1.Yearofmanufacture_from', $ar['calYrMf'])
+                ;
+                //-> where('p1.active', 1)
+                //-> find_array();
+        
+        if (!$isTest) {
+            $match_rule = $match_rule-> where('p1.active', 1);
+        }
+        
+        return $match_rule->find_array();
     }
     
     /**

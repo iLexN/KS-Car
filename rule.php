@@ -47,6 +47,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
             ---
             <button class="jsNewRuleBtn">Create News Rule</button>
             <button class="jsDupRuleBtn">Duplicate Rule</button>
+            <button class="jsInactiveRuleBtn">Show InActive Rule</button>
             ---
             <button class="jsCarPanelBtn">Car Panel</button>
             <button class="jsOccPanelBtn">Occupation Panel</button>
@@ -104,7 +105,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     <option value="<?php echo $k?>" <?php if ( $r_ar['TypeofInsurance'] == $k ){echo('selected="selected"');}  ?> ><?php echo $v?></option>
                     <?php } ?>
                 </select></div>
-            <div class="c9"><= <input type="text" value="<?php echo ($r_ar['Yearofmanufacture']);?>" class="jsYearofmanufacture" style="width:20px;"> yr</div>
+            <div class="c9"><input type="text" value="<?php echo ($r_ar['Yearofmanufacture_from']);?>" class="jsYearofmanufactureFrom" style="width:20px;">- <input type="text" value="<?php echo ($r_ar['Yearofmanufacture']);?>" class="jsYearofmanufacture" style="width:20px;"> yr</div>
             <!--<div class="c10">
             </div>-->
             <div class="c5"><button class="jsUpdatePrice">Update</button></div>
@@ -232,6 +233,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
             var $DrivingExp = $(this).find('.jsDrivingExp');
             var $Insurance = $(this).find('.jsInsurance');
             var $Yearofmanufacture = $(this).find('.jsYearofmanufacture');
+            var $YearofmanufactureFrom = $(this).find('.jsYearofmanufactureFrom');
             var $Total = $(this).find('.jsTotal');
             var $ShowMM = $(this).find('.jsShowMM');
             var $HideMM = $(this).find('.jsHideMM');
@@ -276,6 +278,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                         DrivingExp: $DrivingExp.val(),
                         TypeofInsurance: $Insurance.val(),
                         Yearofmanufacture: $Yearofmanufacture.val(),
+                        Yearofmanufacture_from: $YearofmanufactureFrom.val(),
                         DriveOffencePoint: $("input:radio[name=drive_offence_point" + id + "]:checked").val(),
                         MotorAccidentYrs: $("input:radio[name=motor_accident_yrs_" + id + "]:checked").val(),
                         Active: $("input:radio[name=active" + id + "]:checked").val(),
@@ -1072,6 +1075,21 @@ $detailsInfo_ar = $detailsInfo->getAll();
         $(".jsLogOutBtn").click(function(){
             location.href = 'logout.php';
         });
+        
+        $(".jsSubPlansPdfValueEn").click(function(e){
+            e.preventDefault();
+            window.open('https://kwiksure.com'+$(this).attr('href')); 
+        });
+        $(".jsSubPlansPdfValueZh").click(function(e){
+            e.preventDefault();
+            window.open('https://kwiksure.com'+$(this).attr('href')); 
+        });
+        
+        $(".jsInactiveRuleBtn").click(function(){
+            $(".jsActive[value=0]:checked").parents('.js-row').toggle();
+        });
+        $(".jsInactiveRuleBtn").click();
+        
     </script>
 
 </body>

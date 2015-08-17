@@ -33,7 +33,7 @@ if ($v != $checkCode) { echo ('stop');exit(); };
 $result = array();
 
 //error_log('Post ar');
-error_log( print_r($_POST,true) );
+//error_log( print_r($_POST,true) );
 
 $allVar['refID'] = (isset($_POST['refID']) && !empty($_POST['refID']))  ? $_POST['refID'] : false;
 
@@ -201,12 +201,10 @@ if ($saveUser) {
     } catch (Exception $e) {
         $result['error'][] = $e->getMessage();
     }
-    if (!$skipFindRule) {
-        try {
-            checkEmpty('contactno', $allVar['contactno']) ;
-        } catch (Exception $e) {
-            $result['error'][] = $e->getMessage();
-        }
+    try {
+        checkEmpty('contactno', $allVar['contactno']) ;
+    } catch (Exception $e) {
+        $result['error'][] = $e->getMessage();
     }
     try {
         checkEmpty('email', $allVar['email']) ;
