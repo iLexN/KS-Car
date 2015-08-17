@@ -9,7 +9,6 @@
             $msg = 'wrong input';
         }
     }
-    $msg = 'Dont Use';
 ?>
 <!DOCTYPE html>
 <html class="no-js">

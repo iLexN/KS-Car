@@ -33,7 +33,7 @@ if ($v != $checkCode) { echo ('stop');exit(); };
 $result = array();
 
 //error_log('Post ar');
-error_log( print_r($_POST,true) );
+//error_log( print_r($_POST,true) );
 
 $allVar['refID'] = (isset($_POST['refID']) && !empty($_POST['refID']))  ? $_POST['refID'] : false;
 
@@ -153,6 +153,7 @@ if (!$skipFindRule) {
         $result['error'][] = $e->getMessage();
     }
 }
+
 try {
     checkEmpty('insuranceType', $allVar['insuranceType']) ;
 } catch (Exception $e) {
