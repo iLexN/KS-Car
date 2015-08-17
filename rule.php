@@ -2,7 +2,7 @@
 
 session_start();
 if (!$_SESSION['login']) {
-    header('Location: login.php');
+    //header('Location: login.php');
 }
 
 include('db/db_info.php');
@@ -47,7 +47,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
             ---
             <button class="jsNewRuleBtn">Create News Rule</button>
             <button class="jsDupRuleBtn">Duplicate Rule</button>
-            <button class="jsInactiveRuleBtn">Show InActive Rule</button>
+            <button class="jsInactiveRuleBtn" data-showhide="show">Show InActive Rule</button>
             ---
             <button class="jsCarPanelBtn">Car Panel</button>
             <button class="jsOccPanelBtn">Occupation Panel</button>
@@ -1086,7 +1086,13 @@ $detailsInfo_ar = $detailsInfo->getAll();
         });
         
         $(".jsInactiveRuleBtn").click(function(){
-            $(".jsActive[value=0]:checked").parents('.js-row').toggle();
+            if ( $(this).data("showhide") == 'show'){
+                $(".jsActive[value=0]:checked").parents('.js-row').hide();
+                $(this).data("showhide",'hide');
+            } else {
+                $(".jsActive[value=0]:checked").parents('.js-row').show();
+                $(this).data("showhide",'show');
+            }
         });
         $(".jsInactiveRuleBtn").click();
         
