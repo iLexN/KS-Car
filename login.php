@@ -2,13 +2,14 @@
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
         if ($_POST['username'] === 'onlineenquiries' && $_POST['password'] === 'kwik35882914sure') {
             session_start();
-            //$_SESSION['login'] = true;
-            //header('Location: rule.php');
-            //exit();
+            $_SESSION['login'] = true;
+            header('Location: rule.php');
+            exit();
         } else {
             $msg = 'wrong input';
         }
     }
+    $msg = 'Testing Only';
 ?>
 <!DOCTYPE html>
 <html class="no-js">
