@@ -99,6 +99,23 @@ class occ
         }
     }
     
+    public function removeOcc($ar)
+    {
+        
+        //$d = ORM::for_table('occupation')->where_in('id',$ar)->find_many();
+        $d = ORM::for_table('occupation')->where_in('id',$ar)->delete_many();
+        //$d->delete();
+        
+    }
+    
+    public function removeOccRuleByOcids($ar)
+    {
+            $d = ORM::for_table('rule-occ')
+                    ->where_in('occ',$ar)
+                    ->delete_many();
+    }
+
+
     /**
      * remove occ from rule
      * @param id $orid
@@ -134,12 +151,24 @@ class occ
      * @param string $en
      * @param string $zh
      */
-    public function newOcc($en, $zh)
+    public function newOcc($en, $zh,$en_order,$zh_order)
     {
         $a = ORM::for_table('occupation')->create();
         $a->zh = $zh;
         $a->en = $en;
         $a->active = 1;
+        $a->en_order = $en_order;
+        $a->zh_order = $zh_order;
+        $a->save();
+    }
+    
+    public function updateOcc($en, $zh,$id,$en_order,$zh_order)
+    {
+        $a = ORM::for_table('occupation')->find_one($id);
+        $a->zh = $zh;
+        $a->en = $en;
+        $a->en_order = $en_order;
+        $a->zh_order = $zh_order;
         $a->save();
     }
     

@@ -4,10 +4,12 @@
 {
     url: "ajax/occ-new.php",
     type: "POST",
-    data: {enText: enText,
+   data: {enText: enText,
                         zhText: zhText,
                         en_order: enOrder,
-                        zh_order: zhOrder,}
+                        zh_order: zhOrder,
+                        id:id
+                    }
 }
 */
 
@@ -18,10 +20,12 @@ $zh = $_POST['zhText'];
 $en = $_POST['enText'];
 $zh_order = $_POST['zh_order'];
 $en_order = $_POST['en_order'];
+$id = $_POST['id'];
 
-if (!empty($zh) && !empty($en)) {
+
+if (!empty($zh) && !empty($en) && !empty($id) ) {
     $occ = new Occ();
-    $occ->newOcc($en, $zh,$en_order,$zh_order);
+    $occ->updateOcc($en, $zh,$id,$en_order,$zh_order);
     
     $api = '?t=occ' ;
     foreach ($refresh_chunk as $k=>$v) {

@@ -2,7 +2,7 @@
 
 session_start();
 if (!$_SESSION['login']) {
-    //header('Location: login.php');
+    header('Location: login.php');
 }
 
 include('db/db_info.php');
@@ -620,12 +620,47 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 });
             }
         });
+        
+        $(".jsdelOcc").click(function() {
+            if ($OccList.val() === '') {
+                alert("select Occupation");
+            } else {
+                var request = $.ajax({
+                    url: "ajax/occ-del.php",
+                    type: "POST",
+                    data: {occ: $OccList.val()}
+                });
+                request.done(function(msg) {
+                    if (msg !== '') {
+                        alert(msg);
+                    }
+                    location.reload();
+                });
+                request.fail(function(jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+            }
+        });
+        $(".jsLoadOcc").click(function() {
+            if ( $OccList.val().length != 1) {
+                alert("select One Occupation");
+            } else {
+                $("#occDisplayNameEn").val($OccList.find(":selected").data('en'));
+                $("#occDisplayNameZh").val($OccList.find(":selected").data('zh'));
+                $("#occDisplayEnOrder").val($OccList.find(":selected").data('enorder'));
+                $("#occDisplayZhOrder").val($OccList.find(":selected").data('zhorder'));
+                $("#occID").val($OccList.find(":selected").val());
+            }
+        });
+        
         $(".jsNewOccBtn").click(function() {
             $(".jsNewOccC").show();
         });
         $(".jsNewOcc").click(function() {
             var enText = $("#occDisplayNameEn").val();
             var zhText = $("#occDisplayNameZh").val();
+            var enOrder = $("#occDisplayEnOrder").val();
+            var zhOrder = $("#occDisplayZhOrder").val();
 
             if (enText === '' || zhText === '') {
                 alert('input en/zh display Text');
@@ -635,7 +670,41 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     url: "ajax/occ-new.php",
                     type: "POST",
                     data: {enText: enText,
-                        zhText: zhText
+                        zhText: zhText,
+                        en_order: enOrder,
+                        zh_order: zhOrder,
+                    }
+                });
+                request.done(function(msg) {
+                    if (msg !== '') {
+                        alert(msg);
+                    }
+                    location.reload();
+                });
+                request.fail(function(jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+            }
+        });
+        
+        $(".jsUpdateOcc").click(function() {
+            var enText = $("#occDisplayNameEn").val();
+            var zhText = $("#occDisplayNameZh").val();
+            var enOrder = $("#occDisplayEnOrder").val();
+            var zhOrder = $("#occDisplayZhOrder").val();
+            var id = $("#occID").val();
+
+            if (enText === '' || zhText === '') {
+                alert('input en/zh display Text');
+            } else {
+                var request = $.ajax({
+                    url: "ajax/occ-update.php",
+                    type: "POST",
+                    data: {enText: enText,
+                        zhText: zhText,
+                        en_order: enOrder,
+                        zh_order: zhOrder,
+                        id:id
                     }
                 });
                 request.done(function(msg) {

@@ -36,17 +36,26 @@
                 <p><select class="jsOccList" multiple="multiple" style="height:350px;" >
                     <option value="">select</option>
                     <?php foreach ( $occupation_ar as $o => $o_ar ) { ?>
-                    <option value="<?php echo($o);?>"><?php echo($o_ar['en']);?> ( <?php echo($o_ar['zh']);?> )</option>
+                    <option value="<?php echo($o);?>" data-en="<?php echo($o_ar['en']);?>" data-zh="<?php echo($o_ar['zh']);?>" data-zhorder="<?php echo($o_ar['zh_order']);?>" data-enorder="<?php echo($o_ar['en_order']);?>"><?php echo($o_ar['en']);?> ( <?php echo($o_ar['zh']);?> )</option>
                     <?php } ?>
                     </select></p>
-                <p>=><button class="jsAddOcc">Add</button></p>
+                <p>=><button class="jsAddOcc">Add</button> / 
+                    <button class="jsdelOcc">Delete</button> /
+                    <button class="jsLoadOcc">Load</button>
+                </p>
             </div>
             <hr />
             <legend class="jsNewOccBtn">New Occupation</legend>
             <div style="margin-top:10px;" class="jsNewOccC">
-                <p>en : <input type="text" id="occDisplayNameEn" style="width:173px;" placeholder="en occupation text"></p>
-                <p>zh : <input type="text" id="occDisplayNameZh" style="width:173px;" placeholder="zh occupation text"></p>
-                <button class="jsNewOcc">Add New</button>
+                <p>en : <input type="text" id="occDisplayNameEn" style="width:250px;" placeholder="en occupation text"> 
+                   order : <input type="text" id="occDisplayEnOrder" style="width:150px;"  placeholder="large number come first">
+                </p>
+                <p>zh : <input type="text" id="occDisplayNameZh" style="width:250px;" placeholder="zh occupation text">
+                order : <input type="text" id="occDisplayZhOrder" style="width:150px;"  placeholder="large number come first">
+                </p>
+                <p><span style="color:red">*** ordre large number come first</span></p>
+                <input type="hidden" id="occID" value="">
+                <button class="jsNewOcc">Add New</button> / <button class="jsUpdateOcc">Update</button>
             </div>
         </div>
     
