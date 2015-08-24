@@ -277,7 +277,7 @@ if ($saveUser) {
         unset($result['plans']['subPlans']);
         unset($result['planRowKey']);
         
-        error_log( print_r( $result , 1 ) );
+        //error_log( print_r( $result , 1 ) );
 } elseif ($isTest) {
     $result['process'] = $process;
     //error_log( json_encode($result) );
