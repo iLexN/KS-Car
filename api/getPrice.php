@@ -265,17 +265,19 @@ if ($match_rule) {
 if ($saveUser) {
     include '../lib/save-data.php';
         
-    $result['pdf']['bodyType'] = $allVar['bodyType'];
-    $result['pdf']['drivingExpText'] = $allVar['drivingExpText'];
-    $result['pdf']['drivingExpText2'] = $allVar['drivingExpText2'];
+    //$result['pdf']['bodyType'] = $allVar['bodyType'];
+    //$result['pdf']['drivingExpText'] = $allVar['drivingExpText'];
+    //$result['pdf']['drivingExpText2'] = $allVar['drivingExpText2'];
     $result['pdf']['carMakeText'] = $allVar['carMakeText'];
     $result['pdf']['carModelText'] = $allVar['carModelText'];
     $result['pdf']['age'] = $allVar['age'];
     $result['pdf']['age2'] = $allVar['age2'];
-    $result['pdf']['occupationText'] = $allVar['occupationText'];
-    $result['pdf']['occupationText2'] = $allVar['occupationText2'];
-        //unset($result['plans']);
+    //$result['pdf']['occupationText'] = $allVar['occupationText'];
+    //$result['pdf']['occupationText2'] = $allVar['occupationText2'];
+        unset($result['plans']['subPlans']);
         unset($result['planRowKey']);
+        
+        error_log( print_r( $result , 1 ) );
 } elseif ($isTest) {
     $result['process'] = $process;
     //error_log( json_encode($result) );

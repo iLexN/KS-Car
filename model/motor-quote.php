@@ -86,6 +86,14 @@ class MotorQuote
             $planInfoAr['totalPrice'] = $ruleInfo[0]['total_price'];
             $planInfoAr['price'] = $ruleInfo[0]['price'];
             $planInfoAr['details'] = $ruleInfo[0]['details'];
+            
+            $planInfoAr['premium'] = $ruleInfo[0]['premium'];
+            $planInfoAr['loading'] = $ruleInfo[0]['loading'];
+            $planInfoAr['otherDiscount'] = $ruleInfo[0]['otherDiscount'];
+            $planInfoAr['clientDiscount'] = $ruleInfo[0]['clientDiscount'];
+            $planInfoAr['commission'] = $ruleInfo[0]['commission'];
+            $planInfoAr['mib'] = $ruleInfo[0]['mibValue'];
+            $planInfoAr['gross'] = $ruleInfo[0]['gross'];
         }
         if ($ar['subPlanID']) {
             foreach ($ar['subPlanID'] as $subPlanAr) {

@@ -268,6 +268,30 @@ class car
         }
         return $r;
     }
+    
+    static public function getRuleNcd($rid) {
+        $m = ORM::for_table('rule-ncd') 
+                ->where('rule_id',$rid)
+                -> order_by_asc('ncd') -> find_array();
+        return $m;
+    }
+    
+    static public function createRuleNcd($rid,$ncd,$price_add){
+        $rm = ORM::for_table('rule-ncd') -> create();
+        $rm -> rule_id = $rid;
+        $rm -> ncd = $ncd;
+        $rm -> active = 0;
+        $rm -> price_add = $price_add;
+        $rm -> save();
+    }
+    
+    static public function updateRuleNcd($id,$ar){
+        $rm = ORM::for_table('rule-ncd') -> find_one($id);
+        $rm->set($ar);
+        $rm->save();
+    }
+
+
 
     /**
      * get insurance type

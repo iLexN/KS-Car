@@ -48,11 +48,11 @@ class rule
     {
         $this -> getOne();
         $this -> rule -> rule_name = $ar['ruleName'];
-        $this -> rule -> price = $ar['price'];
-        $this -> rule -> price_add = $ar['priceAdd'];
+        //$this -> rule -> price = $ar['price'];
+        //$this -> rule -> price_add = $ar['priceAdd'];
         $this -> rule -> age_from = $ar['age_from'];
         $this -> rule -> age_to = $ar['age_to'];
-        $this -> rule -> NCD = $ar['NCD'];
+        //$this -> rule -> NCD = $ar['NCD'];
         $this -> rule -> DrivingExp = $ar['DrivingExp'];
         $this -> rule -> TypeofInsurance = $ar['TypeofInsurance'];
         $this -> rule -> Yearofmanufacture = $ar['Yearofmanufacture'];
@@ -60,6 +60,13 @@ class rule
         $this -> rule -> motor_accident_yrs =  $ar['MotorAccidentYrs'];
         $this -> rule -> drive_offence_point = $ar['DriveOffencePoint'];
         $this -> rule -> active = $ar['Active'];
+        
+        $this -> rule -> premium = $ar['premium'];
+        $this -> rule -> loading = $ar['loading'];
+        $this -> rule -> otherDiscount = $ar['otherDiscount'];
+        $this -> rule -> clientDiscount = $ar['clientDiscount'];
+        $this -> rule -> mib = $ar['mib'];
+        $this -> rule -> commission = $ar['commission'];
 
         $this -> rule -> save();
     }
@@ -79,12 +86,16 @@ class rule
      * @param int $r
      * @return array
      */
-    public function matchRuleWithID($r)
+    public function matchRuleWithID($r,$ncd)
     {
         $match_rule = ORM::for_table('rule')
-                        -> select('*')
-                        -> select_expr('price+price_add', 'total_price')
+                        -> table_alias('p1')
+                        -> select('p1.*')
+                -> select('p4.price_add','price_add')
+                        //-> select_expr('price+price_add', 'total_price')
+                        -> join('rule-ncd', array('p1.id', '=', 'p4.rule_id'), 'p4')
                         -> where('id', $r)
+                        -> where('p4.ncd', $ncd)
                         -> where('active', 1)
                         -> find_array();
         return $match_rule;
@@ -102,19 +113,23 @@ class rule
 
             //error_log( 'abc'.print_r($ar,true) );
             
-        $match_rule = ORM::for_table('rule') -> table_alias('p1')
+        $match_rule = ORM::for_table('rule') 
+                -> table_alias('p1')
         // -> select('p1.price')
         //->select('p1.id')
         //->select('p1.rule_name')
                 -> select('p1.*')
-                -> select_expr('p1.price+p1.price_add', 'total_price')
+                -> select('p4.price_add','price_add')
+        //        -> select_expr('p1.price+p1.price_add', 'total_price')
                 -> join('rule-model', array('p1.id', '=', 'p2.rule'), 'p2')
                 -> join('rule-occ', array('p1.id', '=', 'p3.rule'), 'p3')
+                -> join('rule-ncd', array('p1.id', '=', 'p4.rule_id'), 'p4')
                 -> where('p2.model', $ar['carModel'])
                 -> where('p3.occ', $ar['occupation'])
+                -> where('p4.ncd', $ar['ncd'])
                 -> where_lte('p1.age_from', $ar['age'])
                 -> where_gte('p1.age_to', $ar['age'])
-                -> where('p1.NCD', $ar['ncd'])
+        //        -> where('p1.NCD', $ar['ncd'])
                 -> where('p1.DrivingExp', $ar['drivingExp'])
                 -> where('p1.TypeofInsurance', $ar['insuranceType'])
                 -> where('p1.motor_accident_yrs', $ar['motor_accident_yrs'])
@@ -126,7 +141,9 @@ class rule
                 //-> find_array();
         
         if (!$isTest) {
-            $match_rule = $match_rule-> where('p1.active', 1);
+            $match_rule = $match_rule
+                    -> where('p1.active', 1)
+                    -> where ('p4.active',1);
         }
         
         return $match_rule->find_array();
@@ -158,8 +175,9 @@ class rule
         $rule_ar = array();
         foreach ($r as $row) {
             $rule_ar[$row['id']] = $row;
-            $rule_ar[$row['id']]['total'] = $row['price'] + $row['price_add'];
+            //$rule_ar[$row['id']]['total'] = $row['price'] + $row['price_add'];
             $rule_ar[$row['id']]['subPlans'] = SubPlans::findSubPlansByRuleID($row['id']);
+            $rule_ar[$row['id']]['ncd_rule'] = car::getRuleNcd($row['id']);
         }
         return $rule_ar;
     }

@@ -11,6 +11,7 @@ include('model/car.php');
 include('model/rule.php');
 include('model/details-info.php');
 include('model/sub-plans.php');
+include('model/calTotalPrice.php');
 
 
 //get data
@@ -65,11 +66,11 @@ $detailsInfo_ar = $detailsInfo->getAll();
         <div class="row">
             <div class="c0">&nbsp;</div>
             <div class="c1-1">Rule</div>
-            <div class="c1">Net w Tax</div>
+            <!--<div class="c1">Net w Tax</div>
             <div class="c2">Price Add</div>
-            <div class="c3">Special Offer</div>
+            <div class="c3">Special Offer</div>-->
             <div class="c4">Age</div>
-            <div class="c6">NCD</div>
+            <!--<div class="c6">NCD</div>-->
             <div class="c7">DrivingExp</div>
             <div class="c8">Insurance</div>
             <div class="c9">Year of Mfg.</div>
@@ -82,17 +83,20 @@ $detailsInfo_ar = $detailsInfo->getAll();
             <div class="c1-1">
                 <input type="text" value="<?php echo ($r_ar['rule_name']);?>" class="jsRuleName">
             </div>
-            <div class="c1"><input type="text" value="<?php echo ($r_ar['price']);?>" class="jsPrice"></div>
+            <?php /*
+            <!--<div class="c1"><input type="text" value="<?php echo ($r_ar['price']);?>" class="jsPrice"></div>
             <div class="c2"><input type="text" value="<?php echo ($r_ar['price_add']);?>" class="jsPriceAdd"></div>
-            <div class="c3 jsTotal"><?php echo ($r_ar['total']);?></div>
+            <div class="c3 jsTotal"><?php echo ($r_ar['total']);?></div>-->
+             * 
+             */?>
             <div class="c4"><input type="text" value="<?php echo ($r_ar['age_from']);?>" class="jsAgeFrom" style="width:20px;">-<input type="text" value="<?php echo ($r_ar['age_to']);?>" class="jsAgeTo" style="width:20px;"></div>
-            <div class="c6"><select class="jsNCD">
+            <?php /*<div class="c6"><select class="jsNCD">
 
                     <?php foreach ( $ncd as $v=>$b ) { ?>
                     <option value="<?php echo($v)?>" <?php if ( $r_ar['NCD'] == $v ){echo('selected="selected"');}  ?> ><?php echo($b)?></option>
                     <?php } ?>
 
-                </select></div>
+                </select></div>*/ ?>
             <div class="c7"><select class="jsDrivingExp">
 
                     <?php foreach ( $driveExp as $k=>$v ) {?>
@@ -111,31 +115,65 @@ $detailsInfo_ar = $detailsInfo->getAll();
             <div class="c5"><button class="jsUpdatePrice">Update</button></div>
             <div class="c5"><button class="jsRuleDelete">Delete</button></div>
             <div class="clearfix"></div>
-            <div style="float:left;margin:10px 15px">
+            <div class="jsThird_Party_OnlyDiv">
+                <fieldset style="margin:10px 15px">
+                    <legend>Calculation</legend>
+                    <div style="float:left;margin:10px 15px;">
+                        <b>Premium</b> 
+                        <input type="text" value="<?php echo ($r_ar['premium']);?>" class="jsPremium" style="width:65px;">
+                    </div>
+                    <div style="float:left;margin:10px 15px;">
+                        <b>Loading</b> 
+                        <input type="text" value="<?php echo ($r_ar['loading']);?>" class="jsLoading" style="width:65px;">%
+                    </div>
+                    <div style="float:left;margin:10px 15px;">
+                        <b>Other Discount %</b> 
+                        <input type="text" value="<?php echo ($r_ar['otherDiscount']);?>" class="jsOtherDiscount" style="width:65px;">%
+                    </div>
+                    <div style="float:left;margin:10px 15px;">
+                        <b>Client Discount %</b> 
+                        <input type="text" value="<?php echo ($r_ar['clientDiscount']);?>" class="jsClientDiscount" style="width:65px;">%
+                    </div>
+                    <div style="float:left;margin:10px 15px;">
+                        <b>MIB %</b> 
+                        <input type="text" value="<?php echo ($r_ar['mib']);?>" class="jsMib" style="width:65px;">%
+                    </div>
+                    <div style="float:left;margin:10px 15px;">
+                        <b>commission</b> 
+                        <input type="text" value="<?php echo ($r_ar['commission']);?>" class="jsCommission" style="width:65px;">%
+                    </div>
+                   <?php /*<!-- <div style="float:left;margin:10px 15px;">
+                        <b>Price Add</b> 
+                        <input type="text" value="<?php echo ($r_ar['price_add']);?>" class="jsPriceAdd" style="width:65px;">
+                    </div>-->*/ ?>
+                </fieldset>
+            </div>
+            <div class="clearfix"></div>
+            <div style="float:left;margin:10px 15px; height: 50px">
                 <fieldset>
                     <legend>Make/Model</legend>
                     <button class="jsShowMM">Show</button><button class="jsHideMM">Hide</button>
                 </fieldset>
             </div>
-            <div style="float:left;margin:10px 15px">
+            <div style="float:left;margin:10px 15px; height: 50px">
                 <fieldset>
                     <legend>Occupation</legend>
                     <button class="jsShowOcc">Show</button><button class="jsHideOcc">Hide</button>
                 </fieldset>
             </div>
-            <div style="float:left;margin:10px 15px">
+            <div style="float:left;margin:10px 15px; height: 50px">
                 <fieldset>
                     <legend>Details</legend>
                     <button class="jsShowDetails">Show</button><button class="jsHideDetails">Hide</button>
                 </fieldset>
             </div>
-            <div style="float:left;margin:10px 15px">
+            <div style="float:left;margin:10px 15px; height: 50px">
                 <fieldset>
                     <legend>SubPlans</legend>
                     <button class="jsShowSubPlans">Show</button><button class="jsHideSubPlans">Hide</button>
                 </fieldset>
             </div>
-            <div style="float:left;margin:10px 15px">
+            <div style="float:left;margin:10px 15px; height: 50px">
                 <fieldset>
                     <legend>motor_accident_yrs</legend>
                     <input type="radio" class="jsMotorAccidentYrs" name="motor_accident_yrs_<?php echo($r);?>" value="1" <?php if ( $r_ar['motor_accident_yrs'] == 1 ) echo('checked="checked"'); ?>  > Yes
@@ -143,7 +181,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                            <input type="radio" class="jsMotorAccidentYrs" name="motor_accident_yrs_<?php echo($r);?>" value="0" <?php if ( $r_ar['motor_accident_yrs'] == 0 ) echo('checked="checked"'); ?>> No
                 </fieldset>
             </div>
-            <div style="float:left;margin:10px 15px">
+            <div style="float:left;margin:10px 15px; height: 50px">
                 <fieldset>
                     <legend>drive_offence_point</legend>
                     <input type="radio" class="jsDriveOffencePoint" name="drive_offence_point<?php echo($r);?>" value="1" <?php if ( $r_ar['drive_offence_point'] == 1 ) echo('checked="checked"'); ?>> Yes
@@ -151,7 +189,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                            <input type="radio" class="jsDriveOffencePoint" name="drive_offence_point<?php echo($r);?>" value="0" <?php if ( $r_ar['drive_offence_point'] == 0 ) echo('checked="checked"'); ?>> No
                 </fieldset>
             </div>
-            <div style="float:left;margin:10px 15px">
+            <div style="float:left;margin:10px 15px; height: 50px">
                 <fieldset>
                     <legend>Active</legend>
                     <input type="radio" class="jsActive" name="active<?php echo($r);?>" value="1" <?php if ( $r_ar['active'] == 1 ) echo('checked="checked"'); ?>> Yes
@@ -159,13 +197,61 @@ $detailsInfo_ar = $detailsInfo->getAll();
                            <input type="radio" class="jsActive" name="active<?php echo($r);?>" value="0" <?php if ( $r_ar['active'] == 0 ) echo('checked="checked"'); ?>> No
                 </fieldset>
             </div>
+            <div style="float:left;margin:10px 15px; height: 50px">
+                <fieldset>
+                    <legend>NCD price add</legend>
+                    <button class="jsShowNCD">Show</button><button class="jsHideNCD">Hide</button>
+                </fieldset>
+            </div>
 
             <div class="clearfix"></div>
             <div class="jsListOcc"></div>
-            <div class="clearfix"></div>
+            <!--<div class="clearfix"></div>-->
             <div class="jsListMM"></div>
             <div class="jsListDetails"></div>
-            <div class="clearfix"></div>
+            <div class="jsListNcd" style="display:none">
+                <?php if ( empty($r_ar['ncd_rule'])) { ?>
+                    <button class="jsCreateNCD">Create</button>
+                <?php } else { ?>
+                    <?php if ( $r_ar['premium'] != '' ) { ?>
+                    <form class="jsNcdForm">
+                        <table border="1" cellspacing="5" cellpadding="3">
+                            <tr>
+                                <td>ncd</td>
+                                <td>active</td>
+                                <td>price add</td>
+                                <td>Gross</td>
+                                <td>MIB</td>
+                                <td>Net w Tax</td>
+                                <td>Offer</td>
+                                <td><button class="jsUpadeNCD">Update</button></td>
+                            </tr>
+                            <?php foreach ( $r_ar['ncd_rule'] as $v=>$b ) {
+                                $calTotalPriceObj = new calTotalPrice($r_ar);
+                                $calTotalPriceArray = $calTotalPriceObj->calPrice($b['ncd'],$b['price_add']);
+                                ?>
+                            <tr>
+                                <td><?php echo ($b['ncd']);?></td>
+                                <td>
+                                    <input type="radio" name="ruleNcd[<?php echo($b['id']);?>][active]" value="1" <?php if ( $b['active'] == 1 ) echo('checked="checked"'); ?>> Yes
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" name="ruleNcd[<?php echo($b['id']);?>][active]" value="0" <?php if ( $b['active'] == 0 ) echo('checked="checked"'); ?>> No
+                                </td>
+                                <td><input type="text" name="ruleNcd[<?php echo($b['id']);?>][price_add]" value="<?php echo($b['price_add']);?>"></td>
+                                <td><?php echo ($calTotalPriceArray['gross']);?></td>
+                                <td><?php echo ($calTotalPriceArray['mibValue']);?></td>
+                                <td><?php echo ($calTotalPriceArray['price']);?></td>
+                                <td><?php echo ($calTotalPriceArray['total_price']);?></td>
+                            </tr>
+                            <?php } unset($calTotalPriceObj);?>
+                        </table>
+                    </form>
+                    <?php } else { ?>
+                        Please set the Premium
+                    <?php } ?>
+                <?php } ?>
+            </div>
+            <!--<div class="clearfix"></div>-->
             <div class="jsListSubPlans" style="display:none">
                 <div style=" overflow: hidden;padding:10px;border-bottom:1px solid #ccc">
                     <div class="subPlansCol1">SubPlansName</div>
@@ -183,7 +269,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     <div class="subPlansCol1-2"><span class="jsSubPlansNameZhValue"><?php echo ($subPlansAr['name_zh']);?></span> - <span class="jsSubPlansNameSubZhValue"><?php echo ($subPlansAr['name_sub_zh']);?></span></div>
                     <div class="subPlansCol2 jsSubPlansAddPriceValue"><?php echo ($subPlansAr['add_price']);?></div>
                     <div class="subPlansCol3 jsSubPlansGroupIDValue"><?php echo ($subPlansAr['groupID']);?></div>
-                    <!--<div class="subPlansCol3"><?php echo ( ($subPlansAr['add_price']+$r_ar['total'] ));?></div>-->
+                    <?php /*<!--<div class="subPlansCol3"><?php echo ( ($subPlansAr['add_price']+$r_ar['total'] ));?></div>-->*/?>
                     <div class="subPlansCol4"><pre class="jsSubPlansEnValue"><?php echo ( $subPlansAr['en'] );?></pre></div>
                     <div class="subPlansCol5"><pre class="jsSubPlansZhValue"><?php echo ( $subPlansAr['zh'] );?></pre></div>
                     <div class="subPlansCol6">
@@ -235,15 +321,20 @@ $detailsInfo_ar = $detailsInfo->getAll();
             var $Yearofmanufacture = $(this).find('.jsYearofmanufacture');
             var $YearofmanufactureFrom = $(this).find('.jsYearofmanufactureFrom');
             var $Total = $(this).find('.jsTotal');
+            
             var $ShowMM = $(this).find('.jsShowMM');
             var $HideMM = $(this).find('.jsHideMM');
             var $ShowOcc = $(this).find('.jsShowOcc');
             var $HideOcc = $(this).find('.jsHideOcc');
             var $ShowDetails = $(this).find('.jsShowDetails');
             var $HideDetails = $(this).find('.jsHideDetails');
-            
             var $ShowSubPlans = $(this).find('.jsShowSubPlans');
             var $HideSubPlans = $(this).find('.jsHideSubPlans');
+            
+            var $ShowNCD = $(this).find('.jsShowNCD');
+            var $HideNCD = $(this).find('.jsHideNCD');
+            var $CreateNCD = $(this).find('.jsCreateNCD');
+            var $UpadeNCD = $(this).find('.jsUpadeNCD');
             
             var $UpdatePrice = $(this).find('.jsUpdatePrice');
             var $DeleteRule = $(this).find('.jsRuleDelete');
@@ -251,9 +342,19 @@ $detailsInfo_ar = $detailsInfo->getAll();
             var $ListOcc = $(this).find('.jsListOcc');
             var $ListDetails = $(this).find('.jsListDetails');
             var $ListSubPlans = $(this).find('.jsListSubPlans');
+            var $ListNcd = $(this).find('.jsListNcd');
+            var $NcdForm = $(this).find('.jsNcdForm');
             //var $UpdateDetailsBtn = $(this).find('.jsUpdateDetailsBtn');
             //var $DetialsTextarea = $(this).find('.jsDetialsTextarea');
             
+            var $Premium = $(this).find('.jsPremium');
+            var $Loading = $(this).find('.jsLoading');
+            var $otherDiscount = $(this).find('.jsOtherDiscount');
+            var $clientDiscount = $(this).find('.jsClientDiscount');
+            var $mib = $(this).find('.jsMib');
+            var $commission = $(this).find('.jsCommission');
+            
+            /*
             $Price.keyup(function(){
                 updateTotalPrice();
             });
@@ -262,15 +363,15 @@ $detailsInfo_ar = $detailsInfo->getAll();
             });
             function updateTotalPrice(){
                 $Total.text(parseFloat($Price.val()) + parseFloat($PriceAdd.val()));
-            }
+            }*/
 
             $UpdatePrice.click(function() {
-                updateTotalPrice();
+                //updateTotalPrice();
                 var request = $.ajax({
                     url: "ajax/price-change.php",
                     type: "POST",
                     data: {ruleName: $RuleName.val(),
-                        price: $Price.val(),
+                        //price: $Price.val(),
                         priceAdd: $PriceAdd.val(),
                         age_from: $AgeFrom.val(),
                         age_to: $AgeTo.val(),
@@ -282,11 +383,20 @@ $detailsInfo_ar = $detailsInfo->getAll();
                         DriveOffencePoint: $("input:radio[name=drive_offence_point" + id + "]:checked").val(),
                         MotorAccidentYrs: $("input:radio[name=motor_accident_yrs_" + id + "]:checked").val(),
                         Active: $("input:radio[name=active" + id + "]:checked").val(),
+                        
+                        premium: $Premium.val(),
+                        loading: $Loading.val(),
+                        otherDiscount: $otherDiscount.val(),
+                        clientDiscount: $clientDiscount.val(),
+                        mib: $mib.val(),
+                        commission: $commission.val(),
+                        
                         id: id
                     }
                 });
                 request.done(function(msg) {
                     alert(msg);
+                    location.reload();
                 });
                 request.fail(function(jqXHR, textStatus) {
                     alert("Request failed: " + textStatus);
@@ -308,6 +418,39 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     alert("Request failed: " + textStatus);
                 });
             });
+            
+            $CreateNCD.click(function() {
+                var request = $.ajax({
+                    url: "ajax/rule-ncd-create.php",
+                    type: "POST",
+                    data: {
+                        id: id
+                    }
+                });
+                request.done(function(msg) {
+                    //alert(msg);
+                    location.reload();
+                });
+                request.fail(function(jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+            });
+            $UpadeNCD.click(function(e) {
+                e.preventDefault();
+                //console.log($NcdForm.serialize());
+                var request = $.ajax({
+                    url: "ajax/rule-ncd-update.php",
+                    type: "POST",
+                    data: $NcdForm.serialize()
+                });
+                request.done(function(msg) {
+                    //alert(msg);
+                    location.reload();
+                });
+                request.fail(function(jqXHR, textStatus) {
+                    alert("Request failed: " + textStatus);
+                });
+            });
 
 
             $ShowMM.click(function() {
@@ -315,6 +458,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 $HideDetails.click();
                 showMM(id);
                 $ListSubPlans.hide();
+                $HideNCD.click();
             });
             $HideMM.click(function() {
                 $ListMM.hide();
@@ -325,6 +469,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 $HideDetails.click();
                 showOcc(id);
                 $ListSubPlans.hide();
+                $HideNCD.click();
             });
             $HideOcc.click(function() {
                 $ListOcc.hide();
@@ -334,6 +479,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 $HideOcc.click();
                 showDeIn(id);
                 $ListSubPlans.hide();
+                $HideNCD.click();
             });
             $HideDetails.click(function() {
                 $ListDetails.hide();
@@ -343,9 +489,20 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 $HideOcc.click();
                 $ListSubPlans.show();
                 $HideDetails.click();
+                $HideNCD.click();
             });
             $HideSubPlans.click(function() {
                 $ListSubPlans.hide();
+            });
+            $ShowNCD.click(function() {
+                $HideMM.click();
+                $HideOcc.click();
+                $HideSubPlans.click();
+                $HideDetails.click();
+                $ListNcd.show();
+            });
+            $HideNCD.click(function() {
+                $ListNcd.hide();
             });
 
             $ListMM.on("click", 'span', function() {
@@ -551,7 +708,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                         alert(msg);
                     }
                     showMM($("input:radio[name=selectRule]:checked").val());
-                    $MakeList.change();
+                    //$MakeList.change();
                 });
                 request.fail(function(jqXHR, textStatus) {
                     alert("Request failed: " + textStatus);
@@ -995,7 +1152,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
         });
         //top action btn
         $(".jsShowTestRuleBtn").click(function() {
-            $MakeList.val('');
+            //$MakeList.val('');
             var $onLayer = $(".jsTestRule");
             dimOn($onLayer);
 
