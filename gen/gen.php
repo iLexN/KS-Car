@@ -22,32 +22,3 @@ foreach ($api as $t=> $url) {
         echo($t . " is Done (". $c .") <br/>\n");
     }
 }
-
-/*
-
-    $api = '?t=occ' ;
-    foreach ( $refresh_chunk as $k=>$v ) {
-        file_get_contents($v . $api);
-    }
-    
-        $api = '?t=makeList' ;
-    foreach ( $refresh_chunk as $k=>$v ) {
-        file_get_contents($v . $api);
-    }
-        
-        $api = '?t=modelList' ;
-    foreach ( $refresh_chunk as $k=>$v ) {
-        file_get_contents($v . $api);
-    }
-        
-        $api = '?t=insType' ;
-    foreach ( $refresh_chunk as $k=>$v ) {
-        file_get_contents($v . $api);
-    }
-        
-        $api = '?t=planRow' ;
-    foreach ( $refresh_chunk as $k=>$v ) {
-        file_get_contents($v . $api);
-    }
- *
- */

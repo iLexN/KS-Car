@@ -8,196 +8,223 @@
  */
 class MotorQuote
 {
-
-        /**
-         *output array no use
-         * @var array   output the field which website need for save action
-         
-    private $default_select_field = array(
-            'gender',
-            'residential_district',
-            'marital_status',
-            'ncd',
-            'drivingExp_key',
-            'insuranceType_key',
-            'yearManufacture',
-            'carMake_key',
-            'carModel_key',
-            'occupation_key',
-            
-                        'occupation_key2',
-                        'drivingExp_key2',
-            
-            'vehicle_registration',
-            'yearly_mileage',
-            'motor_accident_yrs',
-            'drive_offence_point',
-                        'drive_to_work',
-                        'course_of_work',
-                        'sum_insured',
-            'policy_start_date',
-            'policy_end_date',
-            
-            'name',
-            'email',
-            'contactno',
-            'hkid_1',
-            'hkid_2',
-            'hkid_3',
-            'dob',
-                        
-                        'occupation_key2',
-                        'drivingExp_key2',
-                        'relationship2',
-                        'dob2',
-                        'hkid_1_2',
-                        'hkid_2_2',
-                        'hkid_3_2',
-                        'name2',
-                        'gender2',
-            //'residential_district2',
-            'marital_status2',
-                        'motor_accident_yrs2',
-            'drive_offence_point2'
-            
-        );*/
-    
+    public $allVar;
+    public $isTest;
+    public $saveUser;
+    public $skipFindRule;
+    //public $er = array(); // error msg
+    public $occ; // occ object
+    public $car; // car object
+    public $hasDriver2 = false;
     /**
      * need summary
      */
-    public function __construct()
+    public function __construct($data = array())
     {
-        //$this->r = $r;
+        $this->allVar['refID'] = (isset($data['refID']) && !empty($data['refID']))  ? $data['refID'] : false;
+
+        // rule data (required)
+        $this->allVar['dob'] = (isset($data['dob']) && !empty($data['dob']))  ? $data['dob'] : '00-00-0000'; // 25-02-2014
+        $this->allVar['age'] = isset($data['age']) ? $data['age'] : ''; // provide age/dob
+        $this->allVar['ncd'] = isset($data['ncd']) ? $data['ncd'] : '100';
+        $this->allVar['drivingExp'] = isset($data['drivingExp']) ? $data['drivingExp'] : '';
+        $this->allVar['drivingExpText'] = isset($data['drivingExpText']) ? $data['drivingExpText'] : '' ;
+        $this->allVar['insuranceType'] = isset($data['insuranceType']) ? $data['insuranceType'] : '' ;
+        $this->allVar['yearManufacture'] = isset($data['yearManufacture']) ? $data['yearManufacture'] : 2000 ;
+        $this->allVar['carMake']  = isset($data['carMake']) ? $data['carMake'] : '';
+        $this->allVar['carModel']  = isset($data['carModel']) ? $data['carModel'] : '';
+        $this->allVar['carModelOther'] = isset($data['carModelOther']) ? $data['carModelOther'] : '';
+        $this->allVar['occupation'] =  isset($data['occupation']) ? $data['occupation'] : '' ;
+        $this->allVar['occupationText'] = isset($data['occupationText']) ? $data['occupationText'] : '' ;
+        $this->allVar['motor_accident_yrs']  = isset($data['motor_accident_yrs']) ? $data['motor_accident_yrs'] : null; //Did the main driver have any accidents or claims in the last 3 years?
+        $this->allVar['drive_offence_point']  = isset($data['drive_offence_point']) ? $data['drive_offence_point'] : null; //Did the main driver have any driving offence points in the last 2 years
+
+        //user data or car data
+        $this->allVar['name'] =  isset($data['name']) ? $data['name'] : '';
+        $this->allVar['email'] =  isset($data['email']) ? $data['email'] : '';
+        $this->allVar['contactno'] = isset($data['contactno']) ? $data['contactno'] : '';
+        $this->allVar['address'] = isset($data['address']) ? $data['address'] : '';
+        $this->allVar['address2'] = isset($data['address2']) ? $data['address2'] : '';
+        $this->allVar['address3'] = isset($data['address3']) ? $data['address3'] : '';
+        $this->allVar['address4'] = isset($data['address4']) ? $data['address4'] : '';
+        $this->allVar['residential_district'] = isset($data['residential_district']) ? $data['residential_district'] : ''; // address line 5
+        $this->allVar['gender'] = isset($data['gender']) ? $data['gender'] : '';
+        $this->allVar['marital_status'] = isset($data['marital_status']) ? $data['marital_status'] : '';
+        $this->allVar['lang'] = isset($data['lang']) ? $data['lang'] : 'en';
+        $this->allVar['hkid_1'] = isset($data['hkid_1']) ? $data['hkid_1'] : '';
+        $this->allVar['hkid_2'] = isset($data['hkid_2']) ? $data['hkid_2'] : '';
+        $this->allVar['hkid_3'] = isset($data['hkid_3']) ? $data['hkid_3'] : '';
+        $this->allVar['vehicle_registration'] = isset($data['vehicle_registration']) ? $data['vehicle_registration'] : '' ;
+        $this->allVar['yearly_mileage'] = isset($data['yearly_mileage']) ? $data['yearly_mileage'] : '';
+        $this->allVar['referer'] = (isset($data['referer']) && !empty($data['referer'])) ? $data['referer'] : 'kwiksure';
+        $this->allVar['policy_start_date'] = (isset($data['policy_start_date']) && !empty($data['policy_start_date']))  ? $data['policy_start_date'] : ''; // 25-02-2014
+        $this->allVar['policy_end_date'] = (isset($data['policy_end_date']) && !empty($data['policy_end_date']))  ? $data['policy_end_date'] : ''; // 25-02-2014
+        $this->allVar['drive_to_work']  = isset($data['drive_to_work']) ? $data['drive_to_work'] : null;
+        $this->allVar['course_of_work']  = isset($data['course_of_work']) ? $data['course_of_work'] : null;
+        $this->allVar['convictions_5_yrs']  = isset($data['convictions_5_yrs']) ? $data['convictions_5_yrs'] : null;
+        $this->allVar['sum_insured']  = isset($data['sum_insured']) ? $data['sum_insured'] : '0.00';
+
+        // additional car data
+        $this->allVar['bodyType']  = isset($data['bodyType']) ? $data['bodyType'] : '';
+        $this->allVar['numberOfDoors']  = isset($data['numberOfDoors']) ? $data['numberOfDoors'] : '';
+        $this->allVar['chassisNumber']  = isset($data['chassisNumber']) ? $data['chassisNumber'] : '';
+        $this->allVar['engineNumber']  = isset($data['engineNumber']) ? $data['engineNumber'] : '';
+        $this->allVar['cylinderCapacity']  = isset($data['cylinderCapacity']) ? $data['cylinderCapacity'] : '';
+        $this->allVar['numberOfSeats']  = isset($data['numberOfSeats']) ? $data['numberOfSeats'] : '';
+
+        //driver2
+        $this->allVar['name2'] =  isset($data['name2']) ? $data['name2'] : '';
+        $this->allVar['email2'] =  isset($data['email2']) ? $data['email2'] : '';
+        $this->allVar['gender2'] = isset($data['gender2']) ? $data['gender2'] : '';
+        $this->allVar['relationship2'] = isset($data['relationship2']) ? $data['relationship2'] : '';
+        $this->allVar['dob2'] = (isset($data['dob2']) && !empty($data['dob2']))  ? $data['dob2'] : '00-00-0000'; // 25-02-2014
+        $this->allVar['marital_status2'] = isset($data['marital_status2']) ? $data['marital_status2'] : '';
+        //$this->allVar['residential_district2'] = isset ( $data['residential_district2'] ) ? $data['residential_district2'] : '';
+        $this->allVar['hkid_1_2'] = isset($data['hkid_1_2']) ? $data['hkid_1_2'] : '';
+        $this->allVar['hkid_2_2'] = isset($data['hkid_2_2']) ? $data['hkid_2_2'] : '';
+        $this->allVar['hkid_3_2'] = isset($data['hkid_3_2']) ? $data['hkid_3_2'] : '';
+        //$this->allVar['motor_accident_yrs2']  = isset($data['motor_accident_yrs2'])    ? $data['motor_accident_yrs2'] : null;
+        $this->allVar['motor_accident_yrs2']  = (isset($data['motor_accident_yrs2']) && $data['motor_accident_yrs2'] != '')    ? $data['motor_accident_yrs2'] : null;
+        //$this->allVar['drive_offence_point2']  = isset($data['drive_offence_point2']) ? $data['drive_offence_point2'] : null;
+        $this->allVar['drive_offence_point2']  = (isset($data['drive_offence_point2']) && $data['drive_offence_point2']!='')    ? $data['motor_accident_yrs2'] : null;
+        $this->allVar['drivingExp2'] = isset($data['drivingExp2']) ? $data['drivingExp2'] : '';
+        $this->allVar['occupation2'] =  isset($data['occupation2']) ? $data['occupation2'] : '' ;
+        $this->allVar['occupationText2'] =  isset($data['occupationText2']) ? $data['occupationText2'] : '' ;
+
+        // no need process if driver2 not exist
+        $this->allVar['drivingExpText2'] = '';
+        $this->allVar['age2'] = '';
+        
+        $this->isTest = isset($data['testRule']) ? true : false;
+        if ($this->isTest) {
+            $this->saveUser = false;
+        }
+        
+        $this->saveUser = (isset($data['isSave']) && $data['isSave']) ? true : false;
+        
+        $this->skipFindRule = (isset($data['skipFindRule']) && $data['skipFindRule']) ? true : false;
+        
+        
+        $this->allVar['planID'] = (isset($data['planID']) && !empty($data['planID'])) ? $data['planID'] : false;
+        $this->allVar['subPlanID']  = (isset($data['subPlanID']) && !empty($data['subPlanID'])) ? $data['subPlanID'] : false;
+        
+        $this->allVar['payButtonClick'] = (isset($data['payButtonClick']) && !empty($data['payButtonClick'])) ? 1 : 0;
     }
     
-        /**
-         *save quote
-         * @param array $ar $_POST
-         * @param arrya $ruleInfo rule array planName,totalPrice,price,details
-         * @return array  id , refno
-         * @throws Exception    error : cannot save
-         */
-    public function saveQuote($ar, $ruleInfo)
+    /**
+    *save quote
+    * @param array $ar $_POST
+    * @param arrya $ruleInfo rule array planName,totalPrice,price,details
+    * @return array  id , refno
+    * @throws Exception    error : cannot save
+    */
+    public function saveQuote($ruleInfo)
     {
         //error_log(print_r($ruleInfo, true));
+        //format json for save 
         $planInfoAr = array();
-        if ($ar['planID']) {
-            $planInfoAr['planName'] = $ruleInfo[0]['rule_name'];
-            $planInfoAr['totalPrice'] = $ruleInfo[0]['total_price'];
-            $planInfoAr['price'] = $ruleInfo[0]['price'];
-            $planInfoAr['details'] = $ruleInfo[0]['details'];
-            
-            $planInfoAr['premium'] = $ruleInfo[0]['premium'];
-            $planInfoAr['loading'] = $ruleInfo[0]['loading'];
-            $planInfoAr['otherDiscount'] = $ruleInfo[0]['otherDiscount'];
-            $planInfoAr['clientDiscount'] = $ruleInfo[0]['clientDiscount'];
-            $planInfoAr['commission'] = $ruleInfo[0]['commission'];
-            $planInfoAr['mib'] = $ruleInfo[0]['mibValue'];
-            $planInfoAr['gross'] = $ruleInfo[0]['gross'];
+        if ($this->allVar['planID']) {
+            $planInfoAr = $this->savePlanFormat($ruleInfo);
         }
-        if ($ar['subPlanID']) {
-            foreach ($ar['subPlanID'] as $subPlanAr) {
-                $planInfoAr['subPlanName'][$subPlanAr] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[0]['subPlans'][$subPlanAr]['name_sub'];
+        if ($this->allVar['subPlanID']) {
+            foreach ($this->allVar['subPlanID'] as $subPlanAr) {
+                $planInfoAr[0]['subPlanName'][$subPlanAr] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[0]['subPlans'][$subPlanAr]['name_sub'];
             }
-            //$totalPrice +=  $ruleInfo[0]['subPlans'][$ar['subPlanID']]['add_price'];
         }
         
         $exist = 0;
-        if ( $ar['refID'] ){
-            $rm = ORM::for_table('motor_quote')->select('*')->where('id',$ar['refID'])->where('download',0);
+        if ($this->allVar['refID']) {
+            $rm = ORM::for_table('motor_quote')->select('*')->where('id', $this->allVar['refID'])->where('download', 0);
             $exist = $rm->count();
         }
-        //error_log('here  exist :: ' . $exist);
-        if ( !$exist ){
+
+        if (!$exist) {
             $rm = ORM::for_table('motor_quote') -> create();
-            //error_log('create');
         } else {
             $rm = $rm->find_one();
         }
         
-        $rm -> name  = $ar['name'];
-        $rm -> email  = $ar['email'];
-        $rm -> contactno = $ar['contactno'];
-        $rm -> address = $ar['address'];
-        $rm -> address2 = $ar['address2'];
-        $rm -> address3 = $ar['address3'];
-        $rm -> address4 = $ar['address4'];
-        $rm -> residential_district  = $ar['residential_district']; //address 5
-        $rm -> lang = $ar['lang'];
-        $rm -> referer = $ar['referer'];
-        $rm -> hkid_1  = $ar['hkid_1'];
-        $rm -> hkid_2  = $ar['hkid_2'];
-        $rm -> hkid_3  = $ar['hkid_3'];
-        $rm -> gender  = $ar['gender'];
+        $rm -> name  = $this->allVar['name'];
+        $rm -> email  = $this->allVar['email'];
+        $rm -> contactno = $this->allVar['contactno'];
+        $rm -> address = $this->allVar['address'];
+        $rm -> address2 = $this->allVar['address2'];
+        $rm -> address3 = $this->allVar['address3'];
+        $rm -> address4 = $this->allVar['address4'];
+        $rm -> residential_district  = $this->allVar['residential_district']; //address 5
+        $rm -> lang = $this->allVar['lang'];
+        $rm -> referer = $this->allVar['referer'];
+        $rm -> hkid_1  = $this->allVar['hkid_1'];
+        $rm -> hkid_2  = $this->allVar['hkid_2'];
+        $rm -> hkid_3  = $this->allVar['hkid_3'];
+        $rm -> gender  = $this->allVar['gender'];
         
-        $rm -> marital_status  = $ar['marital_status'];
-        $rm -> dob  = $ar['dob'];
-        $rm -> age  = $ar['age'];
-        $rm -> ncd  = $ar['ncd'];
-        $rm -> drivingExp  = $ar['drivingExpText'];
-        $rm -> insuranceType  = $ar['insuranceTypeText'];
-        $rm -> yearManufacture  = $ar['yearManufacture'];
-        $rm -> vehicle_registration  = $ar['vehicle_registration'];
-        $rm -> yearly_mileage  = $ar['yearly_mileage'];
-        $rm -> carMake  = $ar['carMakeText'];
-        $rm -> carModel  = $ar['carModelText'];
-        $rm -> occupation  = $ar['occupationText'];
-        $rm -> motor_accident_yrs  = $ar['motor_accident_yrs'];
-        $rm -> drive_offence_point = $ar['drive_offence_point'];
-                
-        $rm -> drive_to_work = $ar['drive_to_work'];
-        $rm -> course_of_work = $ar['course_of_work'];
-        $rm -> convictions_5_yrs = $ar['convictions_5_yrs'];
-        $rm -> sum_insured = $ar['sum_insured'];
-                
-        //$rm -> plan_match_json = json_encode($ruleInfo);
+        $rm -> marital_status  = $this->allVar['marital_status'];
+        $rm -> dob  = $this->allVar['dob'];
+        $rm -> age  = $this->allVar['age'];
+        $rm -> ncd  = $this->allVar['ncd'];
+        $rm -> drivingExp  = $this->allVar['drivingExpText'];
+        $rm -> insuranceType  = $this->allVar['insuranceTypeText'];
+        $rm -> yearManufacture  = $this->allVar['yearManufacture'];
+        $rm -> vehicle_registration  = $this->allVar['vehicle_registration'];
+        $rm -> yearly_mileage  = $this->allVar['yearly_mileage'];
+        $rm -> carMake  = $this->allVar['carMakeText'];
+        $rm -> carModel  = $this->allVar['carModelText'];
+        $rm -> occupation  = $this->allVar['occupationText'];
+        $rm -> motor_accident_yrs  = $this->allVar['motor_accident_yrs'];
+        $rm -> drive_offence_point = $this->allVar['drive_offence_point'];
+
+        $rm -> drive_to_work = $this->allVar['drive_to_work'];
+        $rm -> course_of_work = $this->allVar['course_of_work'];
+        $rm -> convictions_5_yrs = $this->allVar['convictions_5_yrs'];
+        $rm -> sum_insured = $this->allVar['sum_insured'];
+
         $rm -> plan_match_json = json_encode($planInfoAr);
-                
-                
+                        
         $rm -> create_datetime = date("Y-m-d H:i:s");
-        $rm -> policy_start_date  = $ar['policy_start_date'];
-        $rm -> policy_end_date  = $ar['policy_end_date'];
-        $rm -> payButtonClick = $ar['payButtonClick'];
+        $rm -> policy_start_date  = $this->allVar['policy_start_date'];
+        $rm -> policy_end_date  = $this->allVar['policy_end_date'];
+        $rm -> payButtonClick = $this->allVar['payButtonClick'];
         
-                //driver 2
-        $rm -> name2  = $ar['name2'];
-        $rm -> email2  = $ar['email2'];
-        $rm -> relationship2  = $ar['relationship2'];
-        $rm -> drivingExp2  = $ar['drivingExpText2'];
-        $rm -> occupation2  = $ar['occupationText2'];
-        $rm -> dob2  = $ar['dob2'];
-        $rm -> age2  = $ar['age2'];
-        $rm -> gender2  = $ar['gender2'];
-        $rm -> hkid_1_2  = $ar['hkid_1_2'];
-        $rm -> hkid_2_2  = $ar['hkid_2_2'];
-        $rm -> hkid_3_2  = $ar['hkid_3_2'];
-        $rm -> marital_status2  = $ar['marital_status2'];
-        //$rm -> residential_district2  = $ar['residential_district2'];
-        $rm -> drive_offence_point2  = $ar['drive_offence_point2'];
-        $rm -> motor_accident_yrs2  = $ar['motor_accident_yrs2'];
+        //driver 2
+        $rm -> name2  = $this->allVar['name2'];
+        $rm -> email2  = $this->allVar['email2'];
+        $rm -> relationship2  = $this->allVar['relationship2'];
+        $rm -> drivingExp2  = $this->allVar['drivingExpText2'];
+        $rm -> occupation2  = $this->allVar['occupationText2'];
+        $rm -> dob2  = $this->allVar['dob2'];
+        $rm -> age2  = $this->allVar['age2'];
+        $rm -> gender2  = $this->allVar['gender2'];
+        $rm -> hkid_1_2  = $this->allVar['hkid_1_2'];
+        $rm -> hkid_2_2  = $this->allVar['hkid_2_2'];
+        $rm -> hkid_3_2  = $this->allVar['hkid_3_2'];
+        $rm -> marital_status2  = $this->allVar['marital_status2'];
+        //$rm -> residential_district2  = $this->allVar['residential_district2'];
+        $rm -> drive_offence_point2  = $this->allVar['drive_offence_point2'];
+        $rm -> motor_accident_yrs2  = $this->allVar['motor_accident_yrs2'];
                 
         //additational car info
-        $rm -> bodyType  = $ar['bodyType'];
-        $rm -> numberOfDoors  = $ar['numberOfDoors'];
-        $rm -> chassisNumber  = $ar['chassisNumber'];
-        $rm -> engineNumber  = $ar['engineNumber'];
-        $rm -> cylinderCapacity  = $ar['cylinderCapacity'];
-        $rm -> numberOfSeats  = $ar['numberOfSeats'];
+        $rm -> bodyType  = $this->allVar['bodyType'];
+        $rm -> numberOfDoors  = $this->allVar['numberOfDoors'];
+        $rm -> chassisNumber  = $this->allVar['chassisNumber'];
+        $rm -> engineNumber  = $this->allVar['engineNumber'];
+        $rm -> cylinderCapacity  = $this->allVar['cylinderCapacity'];
+        $rm -> numberOfSeats  = $this->allVar['numberOfSeats'];
                 
         //save key for get
-        $rm -> insuranceType_key = $ar['insuranceType'];
-        $rm -> drivingExp_key = $ar['drivingExp'];
-        $rm -> carMake_key = $ar['carMake'];
-        $rm -> carModel_key = $ar['carModel'];
-        $rm -> occupation_key = $ar['occupation'];
+        $rm -> insuranceType_key = $this->allVar['insuranceType'];
+        $rm -> drivingExp_key = $this->allVar['drivingExp'];
+        $rm -> carMake_key = $this->allVar['carMake'];
+        $rm -> carModel_key = $this->allVar['carModel'];
+        $rm -> occupation_key = $this->allVar['occupation'];
                 
         //key for driver 2
-        $rm -> occupation_key2 = $ar['occupation2'];
-        $rm -> drivingExp_key2 = $ar['drivingExp2'];
+        $rm -> occupation_key2 = $this->allVar['occupation2'];
+        $rm -> drivingExp_key2 = $this->allVar['drivingExp2'];
         
-        if ( !$exist ){
+        if (!$exist) {
             $rm -> refno  =  $this->genRefno(); //$result['refno'];
-            $rm -> oldRefID = $ar['refID'];
+            $rm -> oldRefID = $this->allVar['refID'];
         }
         
         if ($rm -> save()) {
@@ -217,7 +244,6 @@ class MotorQuote
     public function getByRefNo($refno, $select_field=array())
     {
         //$fields = !empty($select_field) ? $select_field :  $this->default_select_field ;
-    
         $quote = ORM::for_table('motor_quote')
                 //->select_many($fields)
                 ->where('refno', $refno)
@@ -237,5 +263,261 @@ class MotorQuote
     {
         $code = time() . mt_rand(0, 1000000);
         return sha1($code);
+    }
+    
+    
+    public function validationInput()
+    {
+        $er = array();
+        
+        if (!$this->skipFindRule) {
+            try {
+                checkEmpty('drivingExp', $this->allVar['drivingExp'], $this->allVar['drivingExpText']) ;
+            } catch (Exception $e) {
+                $er[] = $e->getMessage();
+            }
+            try {
+                checkEmpty('yearManufacture', $this->allVar['yearManufacture']) ;
+            } catch (Exception $e) {
+                $er[] = $e->getMessage();
+            }
+            try {
+                checkEmpty('carMake', $this->allVar['carMake']) ;
+            } catch (Exception $e) {
+                $er[] = $e->getMessage();
+            }
+            try {
+                checkEmpty('occupation', $this->allVar['occupation'], $this->allVar['occupationText']) ;
+            } catch (Exception $e) {
+                $er[] = $e->getMessage();
+            }
+        }
+        
+        try {
+            checkEmpty('insuranceType', $this->allVar['insuranceType']) ;
+        } catch (Exception $e) {
+            $er[] = $e->getMessage();
+        }
+        try {
+            if (!empty($this->allVar['carModelOther'])) {
+                $this->allVar['carModel'] = $this->allVar['carModelOther'];
+            }
+            checkEmpty('carModel', $this->allVar['carModel']) ;
+        } catch (Exception $e) {
+            $er[] = $e->getMessage();
+        }
+        try {
+            $this->allVar['lang'] = checkLang($this->allVar['lang']);
+        } catch (Exception $e) {
+            $er[] = $e->getMessage();
+        }
+        if (!empty($this->allVar['hkid_1']) || !empty($this->allVar['hkid_2']) || !empty($this->allVar['hkid_3'])) {
+            // not must fill in, but need check format
+            try {
+                check_hkid($this->allVar['hkid_1'], $this->allVar['hkid_2'], $this->allVar['hkid_3']) ;
+            } catch (Exception $e) {
+                $er[] = $e->getMessage();
+            }
+        }
+        if (!empty($this->allVar['hkid_1_2']) || !empty($this->allVar['hkid_2_2']) || !empty($this->allVar['hkid_3_2'])) {
+            // not must fill in, but need check format
+            try {
+                check_hkid($this->allVar['hkid_1_2'], $this->allVar['hkid_2_2'], $this->allVar['hkid_3_2']) ;
+            } catch (Exception $e) {
+                $er[] = $e->getMessage() . ' (hkid 2) ';
+            }
+        }
+
+        //checking for user data must fill in data for user
+        if ($this->saveUser) {
+            try {
+                checkEmpty('name', $this->allVar['name']) ;
+            } catch (Exception $e) {
+                $er[] = $e->getMessage();
+            }
+            try {
+                checkEmpty('contactno', $this->allVar['contactno']) ;
+            } catch (Exception $e) {
+                $er[] = $e->getMessage();
+            }
+            try {
+                checkEmpty('email', $this->allVar['email']) ;
+            } catch (Exception $e) {
+                $er[] = $e->getMessage();
+            }
+            try {
+                checkEmail($this->allVar['email']) ;
+            } catch (Exception $e) {
+                $er[] = $e->getMessage();
+            }
+        }
+        
+        try {
+            $this->allVar['insuranceTypeText']  = $this->car -> getInsuranceTypeByID($this->allVar['insuranceType']);
+        } catch (Exception $e) {
+            $er[] = $e->getMessage();
+        }
+        try {
+            if (empty($this->allVar['drivingExpText'])) {
+                $this->allVar['drivingExpText'] = $this->car -> getDriveExpByID($this->allVar['drivingExp']);
+            }
+        } catch (Exception $e) {
+            $er[] = $e->getMessage();
+        }
+        try {
+            $this->allVar['carMakeText'] = $this->car -> getMakeByID($this->allVar['carMake']);
+        } catch (Exception $e) {
+            $er[] = $e->getMessage();
+        }
+        try {
+            $this->allVar['carModelText'] = $this->car -> getModelByID($this->allVar['carModel'], $this->allVar['carModelOther'], $this->allVar['carMake']);
+        } catch (Exception $e) {
+            $er[] = $e->getMessage();
+        }
+
+        try {
+            if (empty($this->allVar['occupationText'])) {
+                $this->allVar['occupationText'] = $this->occ -> getOccByID($this->allVar['occupation'], $this->allVar['lang']);
+            }
+        } catch (Exception $e) {
+            $er[] = $e->getMessage();
+        }
+
+        try {
+            $this->allVar['calYrMf'] = $calYrMf = calYrMf($this->allVar['yearManufacture']);
+        } catch (Exception $e) {
+            $er[] = $e->getMessage();
+        }
+
+        if (empty($this->allVar['age'])) {
+            try {
+                $this->allVar['age'] = calAge($this->allVar['dob']);
+            } catch (Exception $e) {
+                $er[] = $e->getMessage();
+            }
+        }
+
+        try {
+            $this->hasDriver2 = $this->hasDriver2();
+        } catch (Exception $e) {
+            $er[] = $e->getMessage();
+        }
+
+        if ($this->hasDriver2) {
+            $eMsg = 'Driver2';
+            try {
+                $this->allVar['drivingExpText2'] = $this->car -> getDriveExpByID($this->allVar['drivingExp2']);
+            } catch (Exception $e) {
+                $er[] = $e->getMessage() . $eMsg;
+            }
+            try {
+                if (empty($this->allVar['occupationText2'])) {
+                    $this->allVar['occupationText2'] = $this->occ -> getOccByID($this->allVar['occupation2'], $this->allVar['lang']);
+                }
+            } catch (Exception $e) {
+                $er[] = $e->getMessage() . $eMsg;
+            }
+            try {
+                $this->allVar['age2'] = calAge($this->allVar['dob2']);
+            } catch (Exception $e) {
+                $er[] = $e->getMessage() . $eMsg;
+            }
+        }
+        
+        //print_r($er);
+        //$this->er = $er;
+        return $er;
+    }
+    
+    public function setOcc($occ)
+    {
+        $this->occ = $occ;
+    }
+    
+    public function setCar($car)
+    {
+        $this->car = $car;
+    }
+    
+    public function hasDriver2()
+    {
+        if (!empty($this->allVar['occupation2']) &&
+                !empty($this->allVar['drivingExp2']) &&
+                !is_null($this->allVar['motor_accident_yrs2']) &&
+                !is_null($this->allVar['drive_offence_point2'])
+            ) {
+            return true;
+        }
+        if (empty($this->allVar['occupation2']) &&
+                empty($this->allVar['drivingExp2']) &&
+                is_null($this->allVar['motor_accident_yrs2']) &&
+                is_null($this->allVar['drive_offence_point2'])
+            ) {
+            return false;
+        }
+        
+        throw new Exception('error driver2 :: missing info');
+        //return FALSE;
+    }
+    
+    public function buildDriver1()
+    {
+        $ar = array();
+        $ar['carModel'] = $this->allVar['carModel'];
+        $ar['occupation'] = $this->allVar['occupation'];
+        $ar['age'] = $this->allVar['age'];
+        $ar['ncd'] = $this->allVar['ncd'];
+        $ar['drivingExp'] = $this->allVar['drivingExp'];
+        $ar['insuranceType'] = $this->allVar['insuranceType'];
+        $ar['motor_accident_yrs'] = $this->allVar['motor_accident_yrs'];
+        $ar['drive_offence_point'] = $this->allVar['drive_offence_point'];
+        $ar['calYrMf'] = $this->allVar['calYrMf'];
+        
+        return new Driver($ar);
+    }
+    
+    public function buildDriver2()
+    {
+        $ar = array();
+        $ar['carModel'] = $this->allVar['carModel'];
+        $ar['occupation'] = $this->allVar['occupation2'];
+        $ar['age'] = $this->allVar['age2'];
+        $ar['ncd'] = $this->allVar['ncd'];
+        $ar['drivingExp'] = $this->allVar['drivingExp2'];
+        $ar['insuranceType'] = $this->allVar['insuranceType'];
+        $ar['motor_accident_yrs'] = $this->allVar['motor_accident_yrs2'];
+        $ar['drive_offence_point'] = $this->allVar['drive_offence_point2'];
+        $ar['calYrMf'] = $this->allVar['calYrMf'];
+        
+        return new Driver($ar);
+    }
+    
+    private function savePlanFormat($ruleInfo)
+    {
+        $planInfoAr = array();
+        foreach ($ruleInfo as $rowKey => $rowArray) {
+            $planInfoAr[$rowKey]['planName'] = $rowArray['rule_name'];
+            $planInfoAr[$rowKey]['totalPrice'] = $rowArray['total_price'];
+            $planInfoAr[$rowKey]['price'] = $rowArray['price'];
+            $planInfoAr[$rowKey]['TypeofInsurance'] = $rowArray['TypeofInsurance'];
+
+            $tmpDetailsArry = array();
+            foreach ($rowArray['details'] as $k => $v) {
+                $tmpDetailsArry[$k]['value'] = $v['value'];
+                $tmpDetailsArry[$k]['deatils_id'] = $v['deatils_id'];
+            }
+
+            //$planInfoAr['details'] = $rowArray['details'];
+            $planInfoAr[$rowKey]['details'] = $tmpDetailsArry;
+
+            $planInfoAr[$rowKey]['premium'] = $rowArray['premium'];
+            $planInfoAr[$rowKey]['loading'] = $rowArray['loading'];
+            $planInfoAr[$rowKey]['otherDiscount'] = $rowArray['otherDiscount'];
+            $planInfoAr[$rowKey]['clientDiscount'] = $rowArray['clientDiscount'];
+            $planInfoAr[$rowKey]['commission'] = $rowArray['commission'];
+            $planInfoAr[$rowKey]['mib'] = $rowArray['mibValue'];
+            $planInfoAr[$rowKey]['gross'] = $rowArray['gross'];
+        }
+        return $planInfoAr;
     }
 }

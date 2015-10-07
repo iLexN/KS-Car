@@ -114,17 +114,4 @@ class SubPlans
         return $ar;
     }
     
-    /**
-     * seem useless now
-     * @param array $ar
-     * @return array
-     */
-    public static function outputFormat($ar){
-        $outArray = array();
-        //print_r($ar);
-        foreach ( $ar as $eachRow) {
-            $outArray[$eachRow['groupID']][$eachRow['id']] = $eachRow;
-        }
-        return $outArray;
-    }
 }

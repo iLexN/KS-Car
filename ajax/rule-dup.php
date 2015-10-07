@@ -15,7 +15,7 @@ $r->getOne();
 $oldRuleDateAr = $r->rule->as_array() ;
 $oldRuleDateAr['active'] = 0;
 $oldRuleDateAr['ruleName'] = 'Dup' . $oldRuleDateAr['rule_name'];
-$oldRuleDateAr['priceAdd'] = $oldRuleDateAr['price_add'];
+//$oldRuleDateAr['priceAdd'] = $oldRuleDateAr['price_add'];
 $oldRuleDateAr['DriveOffencePoint'] = $oldRuleDateAr['drive_offence_point'];
 $oldRuleDateAr['MotorAccidentYrs'] = $oldRuleDateAr['motor_accident_yrs'];
 $oldRuleDateAr['Active'] = $oldRuleDateAr['active'];
@@ -28,14 +28,15 @@ unset($oldRuleDateAr['active']);
 
 
 // new rule
-$car = new Car();
-$dupRuleID = $car->newRule();
+$rule = new Rule();
+$dupRuleID = $rule->newRule();
 
 //update new rule
 $newRule =new Rule($dupRuleID);
 $newRule->editUpdate($oldRuleDateAr);
 
 // add make/model
+$car = new Car();
 $oldMakeModeListAr = $car->getModelByRule($oldRuleID);
 foreach ($oldMakeModeListAr as $oldMakeModeAr) {
     $dupCar = new Car($dupRuleID, $oldMakeModeAr['make']);

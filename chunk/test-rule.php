@@ -43,6 +43,7 @@
                         <?php } ?>
                     </select>
                     <br/><br/>
+                    sum_insured : <input type="text" name="sum_insured" placeholder="For Comprehensive" value="" style="width:60%"><br/><br/>
                     yearManufacture : <input type="text" name="yearManufacture" placeholder="2010" value="2010" style="width:60%"><br/><br/>
                     occupation : <select name="occupation" class="jsOccList" style="width:200px">
                         <option value="">select</option>

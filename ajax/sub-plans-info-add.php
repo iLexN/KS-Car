@@ -16,6 +16,6 @@ include('../model/sub-plans.php');
 
 $s = new SubPlans();
 
-error_log(print_r($_POST,1));
+//error_log(print_r($_POST,1));
 
 $s->addSubPlans($_POST);

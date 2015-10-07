@@ -10,7 +10,7 @@
  * $r = rule id
  * $m = make id
  */
-class car
+class Car
 {
     /**
      * r = rlue id
@@ -35,6 +35,7 @@ class car
         $m = ORM::for_table('make')
                         -> select_many('id', 'make')
                         -> where('active', 1)
+                        -> order_by_asc('make')
                         -> find_array();
         $make_ar = array();
         foreach ($m as $row) {
@@ -61,34 +62,34 @@ class car
         return $m_ar;
     }
         
-        /**
-         * del model by id , also del from ruel-model, model tbl
-         *
-         * @param int $id   modelID
-         * @return array     seem no use
-         */
-        public function delModelFromListByID($id)
-        {
-            $m = ORM::for_table('model')->find_one($id)->delete();
-            $rm = ORM::for_table('rule-model')->where('model', $id)->delete_many();
-            return array($m,$rm);
-        }
+    /**
+     * del model by id , also del from ruel-model, model tbl
+     *
+     * @param int $id   modelID
+     * @return array     seem no use
+     */
+    public function delModelFromListByID($id)
+    {
+        $m = ORM::for_table('model')->find_one($id)->delete();
+        $rm = ORM::for_table('rule-model')->where('model', $id)->delete_many();
+        return array($m,$rm);
+    }
         
-        /**
-         * use delModelFormListByID($id) to del the model under the make
-         * @param int $id   makeID
-         *
-         * @return void
-         */
-        public function delMakeFromListByID($id)
-        {
-            $m = ORM::for_table('make')->find_one($id)->delete();
+    /**
+     * use delModelFormListByID($id) to del the model under the make
+     * @param int $id   makeID
+     *
+    * @return void
+    */
+    public function delMakeFromListByID($id)
+    {
+        $m = ORM::for_table('make')->find_one($id)->delete();
             
-            $ar = $this->getModelByMake($id);
-            foreach ($ar as $model_ar) {
-                $this->delModelFromListByID($model_ar['id']);
-            }
+        $ar = $this->getModelByMake($id);
+        foreach ($ar as $model_ar) {
+            $this->delModelFromListByID($model_ar['id']);
         }
+    }
 
         /**
          * test the id in db or not
@@ -99,8 +100,7 @@ class car
          */
     public function getMakeByID($id)
     {
-        
-        if (empty($id)){
+        if (empty($id)) {
             return '';
         }
         
@@ -116,21 +116,18 @@ class car
         }
     }
 
-        /**
-         *get Model by id
-         *
-         * @param int $id
-         * @param string $otherText
-         * @param int $make_id
-         * @return string model text / $otherText
-         * @throws Exception
-         */
+    /**
+     *get Model by id
+     *
+     * @param int $id
+     * @param string $otherText
+     * @param int $make_id
+     * @return string model text / $otherText
+     * @throws Exception
+     */
     public function getModelByID($id, $otherText, $make_id)
     {
-        //error_log('id :: ' . $id);
-        //error_log('otherText :: ' . $otherText);
-        //error_log('make_id :: ' . $make_id);
-        
+
         // id/otherText 'is the free text'
         if ($make_id == '9999') {
             return $id;
@@ -269,14 +266,16 @@ class car
         return $r;
     }
     
-    static public function getRuleNcd($rid) {
-        $m = ORM::for_table('rule-ncd') 
-                ->where('rule_id',$rid)
+    public static function getRuleNcd($rid)
+    {
+        $m = ORM::for_table('rule-ncd')
+                ->where('rule_id', $rid)
                 -> order_by_asc('ncd') -> find_array();
         return $m;
     }
     
-    static public function createRuleNcd($rid,$ncd,$price_add){
+    public static function createRuleNcd($rid, $ncd, $price_add)
+    {
         $rm = ORM::for_table('rule-ncd') -> create();
         $rm -> rule_id = $rid;
         $rm -> ncd = $ncd;
@@ -285,7 +284,8 @@ class car
         $rm -> save();
     }
     
-    static public function updateRuleNcd($id,$ar){
+    public static function updateRuleNcd($id, $ar)
+    {
         $rm = ORM::for_table('rule-ncd') -> find_one($id);
         $rm->set($ar);
         $rm->save();
@@ -304,18 +304,18 @@ class car
         $m = ORM::for_table('insurance-type') -> find_array();
         $r = array();
         switch ($t) {
-                    case 1 :
-                        // en
-                        foreach ($m as $k => $v) {
-                            $r[$v['id_value']] = $v['name_en'];
-                        }
-                        break;
-                    case 2 :
-                        foreach ($m as $k => $v) {
-                            $r[$v['id_value']]['en'] = $v['name_en'];
-                            $r[$v['id_value']]['zh'] = $v['name_zh'];
-                        }
-                        break;
+            case 1 :
+                // en
+                foreach ($m as $k => $v) {
+                    $r[$v['id_value']] = $v['name_en'];
+                }
+                break;
+            case 2 :
+                foreach ($m as $k => $v) {
+                    $r[$v['id_value']]['en'] = $v['name_en'];
+                    $r[$v['id_value']]['zh'] = $v['name_zh'];
+                }
+                break;
         }
         return $r;
     }
@@ -329,10 +329,6 @@ class car
      */
     public function getInsuranceTypeByID($id)
     {
-        /*
-        if (empty($id)){
-            return '';
-        }*/
         
         $m = ORM::for_table('insurance-type')
                         -> where('id_value', $id)
@@ -380,8 +376,7 @@ class car
      */
     public function getDriveExpByID($id)
     {
-        
-        if (empty($id)){
+        if (empty($id)) {
             return '';
         }
         
@@ -408,7 +403,9 @@ class car
     }
     
     /**
+     * DEPRECATED 
      * add new Rule
+     * not used . moved to Rule class
      *
      * @return int
      */

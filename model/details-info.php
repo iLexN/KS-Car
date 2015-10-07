@@ -55,6 +55,7 @@ class DetailsInfo
                     ->join('details_info', array('p1.details_info', '=', 'p2.id'), 'p2')
                     ->where('p1.rule', $rid)
                     ->order_by_asc('p2.sortOrder')
+                    ->order_by_asc('p2.id')
                     ->find_array();
         return $this->transform($details_info, $transform);
     }
@@ -95,20 +96,20 @@ class DetailsInfo
         }
     }
         
-        /**
-         * update details info
-         * @param array $input
-         */
-        public function updateDetailsInfoByID($input)
-        {
-            $a = ORM::for_table('details_info') -> find_one($input['id']);
-            $a->zh = $input['zhText'];
-            $a->en = $input['enText'];
-            $a->en_desc = $input['enTextDesc'];
-            $a->zh_desc = $input['zhTextDesc'];
-            $a->sortOrder = $input['sortOrder'];
-            $a->save();
-        }
+    /**
+    * update details info
+    * @param array $input
+    */
+    public function updateDetailsInfoByID($input)
+    {
+        $a = ORM::for_table('details_info') -> find_one($input['id']);
+        $a->zh = $input['zhText'];
+        $a->en = $input['enText'];
+        $a->en_desc = $input['enTextDesc'];
+        $a->zh_desc = $input['zhTextDesc'];
+        $a->sortOrder = $input['sortOrder'];
+        $a->save();
+    }
     
     /**
      * remove details info rule
@@ -148,14 +149,14 @@ class DetailsInfo
         $a->save();
     }
     
-        /**
-         * newDetails info
-         * @param string $en
-         * @param string $zh
-         * @param string $enDesc
-         * @param string $zhDesc
-         * @param string $sortOrder
-         */
+    /**
+     * newDetails info
+     * @param string $en
+     * @param string $zh
+     * @param string $enDesc
+     * @param string $zhDesc
+     * @param string $sortOrder
+     */
     public function newDetailsInfo($en, $zh, $enDesc, $zhDesc, $sortOrder)
     {
         $a = ORM::for_table('details_info')->create();
@@ -186,5 +187,17 @@ class DetailsInfo
             }
         }
         return $details_info_ar;
+    }
+    
+    public function getOrderByID($ids)
+    {
+        $orderArray = ORM::for_table('details_info')
+                    ->select('id')
+                    ->where_in('id', $ids)
+                    ->order_by_asc('sortOrder')
+                    ->order_by_asc('id')
+                    ->find_array();
+        
+        return $orderArray;
     }
 }

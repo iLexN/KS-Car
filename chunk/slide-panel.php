@@ -2,7 +2,7 @@
     
         <div class="rightSlidePanel" id="carPanel">
             <a class="jsCloseSlidePanel">Close</a>
-            <legend>Car Make/Model</legend>
+            <legend>Car Make/Model  <u>For Rule</u></legend>
             <div>
                 <p><select class="jsMakeList">
                     <option value="">select</option>
@@ -31,7 +31,7 @@
     
         <div class="rightSlidePanel" id="occPanel">
             <a class="jsCloseSlidePanel">Close</a>
-            <legend>Occupation</legend>
+            <legend>Occupation  <u>For Rule</u></legend>
             <div>
                 <p><select class="jsOccList" multiple="multiple" style="height:350px;" >
                     <option value="">select</option>
@@ -63,7 +63,7 @@
     
         <div class="rightSlidePanel" id="detailsPanel">
             <a class="jsCloseSlidePanel">Close</a>
-            <legend>Details Info</legend>
+            <legend>Details Info <u>For Rule</u></legend>
             <div>
                 <p><select class="jsDeInList" style="width:200px">
                     <option value="">select</option>
@@ -82,14 +82,14 @@
             </div>
             <hr />
             <button class="jsLoadDeIn" style="float:right">Load</button>
-            <legend class="jsNewDeInBtn">New</legend>
+            <legend class="jsNewDeInBtn">New/Edit Info</legend>
             <div style="margin-top:10px;" class="jsNewDeInC">
                 <p>en : <input type="text" id="DeInDisplayNameEn" style="width:173px;" placeholder="en details Info text"></p>
                 <p>zh : <input type="text" id="DeInDisplayNameZh" style="width:173px;" placeholder="zh details Info text"></p>
                 <p>en-desc :<br/><textarea type="text" id="DeInDisplayNameEnDesc" style="width:190px;" placeholder="en details Desc text"></textarea></p>
                 <p>zh-desc :<br/><textarea type="text" id="DeInDisplayNameZhDesc" style="width:190px;" placeholder="zh details Desc text"></textarea></p>
                 <p>order (small number come first) :<br/> <input type="type" id="DeInSortOrder"></p>
-                <button class="jsNewDeIn">Add New</button><button class="jsUpdateDeIn">Update</button>
+                <!--<button class="jsNewDeIn">Add New</button>--><button class="jsUpdateDeIn">Update</button>
                 <input type="hidden" value="" class="jsDeInID">
             </div>
             
@@ -98,7 +98,7 @@
     
         <div class="rightSlidePanel" id="subPlansPanel">
             <a class="jsCloseSlidePanel">Close</a>
-            <legend>Add Sub-Plans Info</legend>
+            <legend>Add Sub-Plans Info  <u>For Rule</u></legend>
             <div>
                 <div class="subplansPanelSubdiv">
                     <p>Name:<br/><input type="text" value="" class="jsSubPlansName"></p>

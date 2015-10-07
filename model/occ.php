@@ -7,7 +7,7 @@
 /**
  * occ class
  */
-class occ
+class Occ
 {
     /**
      * $r = rule id,$o = occ id
@@ -46,41 +46,32 @@ class occ
                     ->where('p1.rule', $rid)
                     ->order_by_asc('p2.en')
                     ->find_array();
-        //return $this->transform($occupation);
-                return $occupation;
+        return $occupation;
     }
     
-    /*cos need multi select
-    public function checkNotExist(){
-        $count = ORM::for_table('rule-occ')
-            ->where('rule',$this->r)
-            ->where('occ',$this->o)
-            ->count();
-        
-        return $count > 0 ? false : true;
-    }*/
+    
     /**
      * check the rule have occ exist
      * @param id $occID
      * @return boolean
      */
-        public function checkNotExist($occID)
-        {
-            $count = ORM::for_table('rule-occ')
+    public function checkNotExist($occID)
+    {
+        $count = ORM::for_table('rule-occ')
             ->where('rule', $this->r)
             ->where('occ', $occID)
             ->count();
         
-            return $count > 0 ? false : true;
-        }
+        return $count > 0 ? false : true;
+    }
     
-        /**
-         * get occ by id
-         * @param id $id
-         * @param string $lang en/zh
-         * @return string
-         * @throws Exception
-         */
+    /**
+     * get occ by id
+     * @param id $id
+     * @param string $lang en/zh
+     * @return string
+     * @throws Exception
+     */
     public function getOccByID($id, $lang='en')
     {
         if (empty($id)){
@@ -101,11 +92,7 @@ class occ
     
     public function removeOcc($ar)
     {
-        
-        //$d = ORM::for_table('occupation')->where_in('id',$ar)->find_many();
-        $d = ORM::for_table('occupation')->where_in('id',$ar)->delete_many();
-        //$d->delete();
-        
+        $d = ORM::for_table('occupation')->where_in('id',$ar)->delete_many();   
     }
     
     public function removeOccRuleByOcids($ar)
@@ -127,24 +114,18 @@ class occ
             $d->delete();
         }
     }
-    /*cos need multi select
-    public function addOccRule(){
-        $a = ORM::for_table('rule-occ')->create();
-        $a->occ = $this->o;
-        $a->rule = $this->r;
-        $a->save();
-    }*/
+    
     /**
      * add occ to rule
      * @param int $occID occ id
      */
-        public function addOccRule($occID)
-        {
-            $a = ORM::for_table('rule-occ')->create();
-            $a->occ = $occID;
-            $a->rule = $this->r;
-            $a->save();
-        }
+    public function addOccRule($occID)
+    {
+        $a = ORM::for_table('rule-occ')->create();
+        $a->occ = $occID;
+        $a->rule = $this->r;
+        $a->save();
+    }
     
     /**
      * new occ

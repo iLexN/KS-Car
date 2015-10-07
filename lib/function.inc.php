@@ -6,7 +6,6 @@ function calAge($dob)
         return 0;
     }
     
-    
     $dob_ar = explode('-', $dob);
     if (checkdate($dob_ar[1],  $dob_ar[0],  $dob_ar[2])) {
         $from   = new DateTime(DateTime::createFromFormat('d-m-Y', $dob)->format('Y-m-d'));
@@ -46,10 +45,7 @@ function checkEmpty($k, $v, $v2='')
         throw new Exception('empty :: ' . $k);
     }
 }
-/**function genRefno() {
-    $code = time() . mt_rand(0, 1000000);
-    return sha1($code);
-}*/
+
 function checkEmail($email)
 {
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {

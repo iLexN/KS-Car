@@ -13,7 +13,6 @@ include('model/details-info.php');
 include('model/sub-plans.php');
 include('model/calTotalPrice.php');
 
-
 //get data
 
 $rule = new Rule;
@@ -66,11 +65,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
         <div class="row">
             <div class="c0">&nbsp;</div>
             <div class="c1-1">Rule</div>
-            <!--<div class="c1">Net w Tax</div>
-            <div class="c2">Price Add</div>
-            <div class="c3">Special Offer</div>-->
             <div class="c4">Age</div>
-            <!--<div class="c6">NCD</div>-->
             <div class="c7">DrivingExp</div>
             <div class="c8">Insurance</div>
             <div class="c9">Year of Mfg.</div>
@@ -83,20 +78,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
             <div class="c1-1">
                 <input type="text" value="<?php echo ($r_ar['rule_name']);?>" class="jsRuleName">
             </div>
-            <?php /*
-            <!--<div class="c1"><input type="text" value="<?php echo ($r_ar['price']);?>" class="jsPrice"></div>
-            <div class="c2"><input type="text" value="<?php echo ($r_ar['price_add']);?>" class="jsPriceAdd"></div>
-            <div class="c3 jsTotal"><?php echo ($r_ar['total']);?></div>-->
-             * 
-             */?>
             <div class="c4"><input type="text" value="<?php echo ($r_ar['age_from']);?>" class="jsAgeFrom" style="width:20px;">-<input type="text" value="<?php echo ($r_ar['age_to']);?>" class="jsAgeTo" style="width:20px;"></div>
-            <?php /*<div class="c6"><select class="jsNCD">
-
-                    <?php foreach ( $ncd as $v=>$b ) { ?>
-                    <option value="<?php echo($v)?>" <?php if ( $r_ar['NCD'] == $v ){echo('selected="selected"');}  ?> ><?php echo($b)?></option>
-                    <?php } ?>
-
-                </select></div>*/ ?>
             <div class="c7"><select class="jsDrivingExp">
 
                     <?php foreach ( $driveExp as $k=>$v ) {?>
@@ -142,10 +124,14 @@ $detailsInfo_ar = $detailsInfo->getAll();
                         <b>commission</b> 
                         <input type="text" value="<?php echo ($r_ar['commission']);?>" class="jsCommission" style="width:65px;">%
                     </div>
-                   <?php /*<!-- <div style="float:left;margin:10px 15px;">
-                        <b>Price Add</b> 
-                        <input type="text" value="<?php echo ($r_ar['price_add']);?>" class="jsPriceAdd" style="width:65px;">
-                    </div>-->*/ ?>
+                    <div style="float:left;margin:10px 15px;">
+                        <b>A2</b> 
+                        <input type="text" value="<?php echo ($r_ar['a2']);?>" class="jsA2" style="width:65px;">%
+                    </div>
+                    <div style="float:left;margin:10px 15px;">
+                        <b>A3</b> 
+                        <input type="text" value="<?php echo ($r_ar['a3']);?>" class="jsA3" style="width:65px;">
+                    </div>
                 </fieldset>
             </div>
             <div class="clearfix"></div>
@@ -213,7 +199,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 <?php if ( empty($r_ar['ncd_rule'])) { ?>
                     <button class="jsCreateNCD">Create</button>
                 <?php } else { ?>
-                    <?php if ( $r_ar['premium'] != '' ) { ?>
+                    
                     <form class="jsNcdForm">
                         <table border="1" cellspacing="5" cellpadding="3">
                             <tr>
@@ -226,9 +212,12 @@ $detailsInfo_ar = $detailsInfo->getAll();
                                 <td>Offer</td>
                                 <td><button class="jsUpadeNCD">Update</button></td>
                             </tr>
-                            <?php foreach ( $r_ar['ncd_rule'] as $v=>$b ) {
-                                $calTotalPriceObj = new calTotalPrice($r_ar);
-                                $calTotalPriceArray = $calTotalPriceObj->calPrice($b['ncd'],$b['price_add']);
+                            <?php $calTotalPriceArray = array('gross'=>'','mibValue'=>'','price'=>'','total_price'=>'');
+                                foreach ( $r_ar['ncd_rule'] as $v=>$b ) {
+                                if ( $r_ar['TypeofInsurance'] == 'Third_Party_Only' ) { 
+                                    $calTotalPriceObj = new calTotalPrice($r_ar);
+                                    $calTotalPriceArray = $calTotalPriceObj->calPrice($b['ncd'],$b['price_add']);
+                                }
                                 ?>
                             <tr>
                                 <td><?php echo ($b['ncd']);?></td>
@@ -246,19 +235,16 @@ $detailsInfo_ar = $detailsInfo->getAll();
                             <?php } unset($calTotalPriceObj);?>
                         </table>
                     </form>
-                    <?php } else { ?>
-                        Please set the Premium
-                    <?php } ?>
+                    
+                    
                 <?php } ?>
             </div>
-            <!--<div class="clearfix"></div>-->
             <div class="jsListSubPlans" style="display:none">
                 <div style=" overflow: hidden;padding:10px;border-bottom:1px solid #ccc">
                     <div class="subPlansCol1">SubPlansName</div>
                     <div class="subPlansCol1-2">SubPlansNameZh</div>
                     <div class="subPlansCol2">Additional Price</div>
                     <div class="subPlansCol3">GroupID</div>
-                    <!--<div class="subPlansCol3">Total Price</div>-->
                     <div class="subPlansCol4">EN Free Text</div>
                     <div class="subPlansCol5">ZH Free Text</div>
                 </div>
@@ -269,7 +255,6 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     <div class="subPlansCol1-2"><span class="jsSubPlansNameZhValue"><?php echo ($subPlansAr['name_zh']);?></span> - <span class="jsSubPlansNameSubZhValue"><?php echo ($subPlansAr['name_sub_zh']);?></span></div>
                     <div class="subPlansCol2 jsSubPlansAddPriceValue"><?php echo ($subPlansAr['add_price']);?></div>
                     <div class="subPlansCol3 jsSubPlansGroupIDValue"><?php echo ($subPlansAr['groupID']);?></div>
-                    <?php /*<!--<div class="subPlansCol3"><?php echo ( ($subPlansAr['add_price']+$r_ar['total'] ));?></div>-->*/?>
                     <div class="subPlansCol4"><pre class="jsSubPlansEnValue"><?php echo ( $subPlansAr['en'] );?></pre></div>
                     <div class="subPlansCol5"><pre class="jsSubPlansZhValue"><?php echo ( $subPlansAr['zh'] );?></pre></div>
                     <div class="subPlansCol6">
@@ -353,17 +338,8 @@ $detailsInfo_ar = $detailsInfo->getAll();
             var $clientDiscount = $(this).find('.jsClientDiscount');
             var $mib = $(this).find('.jsMib');
             var $commission = $(this).find('.jsCommission');
-            
-            /*
-            $Price.keyup(function(){
-                updateTotalPrice();
-            });
-            $PriceAdd.keyup(function(){
-                updateTotalPrice();
-            });
-            function updateTotalPrice(){
-                $Total.text(parseFloat($Price.val()) + parseFloat($PriceAdd.val()));
-            }*/
+            var $a2 = $(this).find('.jsA2');
+            var $a3 = $(this).find('.jsA3');
 
             $UpdatePrice.click(function() {
                 //updateTotalPrice();
@@ -371,8 +347,6 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     url: "ajax/price-change.php",
                     type: "POST",
                     data: {ruleName: $RuleName.val(),
-                        //price: $Price.val(),
-                        priceAdd: $PriceAdd.val(),
                         age_from: $AgeFrom.val(),
                         age_to: $AgeTo.val(),
                         NCD: $NCD.val(),
@@ -390,6 +364,8 @@ $detailsInfo_ar = $detailsInfo->getAll();
                         clientDiscount: $clientDiscount.val(),
                         mib: $mib.val(),
                         commission: $commission.val(),
+                        a2: $a2.val(),
+                        a3: $a3.val(),
                         
                         id: id
                     }
@@ -437,7 +413,6 @@ $detailsInfo_ar = $detailsInfo->getAll();
             });
             $UpadeNCD.click(function(e) {
                 e.preventDefault();
-                //console.log($NcdForm.serialize());
                 var request = $.ajax({
                     url: "ajax/rule-ncd-update.php",
                     type: "POST",
@@ -507,6 +482,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
 
             $ListMM.on("click", 'span', function() {
                 var mID = $(this).data('mid');
+                var $removeMM = $(this).parent();
                 var request = $.ajax({
                     url: "ajax/rule-update.php",
                     type: "POST",
@@ -516,11 +492,17 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     if (msg !== '1') {
                         alert('something wrong, deleted ' + msg);
                     }
-                    showMM(id);
+                    //showMM(id);
+                    $removeMM.remove();
                 });
                 request.fail(function(jqXHR, textStatus) {
                     alert("Request failed: " + textStatus);
                 });
+            });
+            $ListMM.on("click", 'div', function() {
+                var mID = $(this).data('mli');
+                $(this).parent().find('li').hide();
+                $(this).parent().find('.Mli'+mID).show();
             });
             $ListOcc.on("click", 'span', function() {
                 var oID = $(this).data('oid');
@@ -558,17 +540,14 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     alert("Request failed: " + textStatus);
                 });
             });
-            //$ListDetails.on("keyup", '.detailsValueInput', function() {
             $ListDetails.on("input", '.detailsValueInput', function() {
                 var oID = $(this).data('oid');
-
                 var request = $.ajax({
                     url: "ajax/rule-details-info-update.php",
                     type: "POST",
                     data: {oID: oID,
                         type: 'update',
                         value: $(this).val()
-
                     }
                 });
                 request.done(function(msg) {
@@ -581,26 +560,22 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     alert("Request failed: " + textStatus);
                 });
             });
-/*
-            $UpdateDetailsBtn.click(function() {
-                var request = $.ajax({
-                    url: "ajax/rule-details-update.php",
-                    type: "POST",
-                    data: {id: id,
-                        file_content: $DetialsTextarea.val()
-                    }
-                });
-                request.done(function(msg) {
-                    alert('Success and reload now');
-                    location.reload();
-                });
-                request.fail(function(jqXHR, textStatus) {
-                    alert("Request failed: " + textStatus);
-                });
+            
+            $Insurance.change(function(){
+                var instype = $(this).val();
+                if ( instype == 'Third_Party_Only') {
+                    $a2.val('').prop( 'disabled' , true );
+                    $a3.val('').prop( 'disabled' , true );
+                    $Premium.prop( 'disabled' , false );
+                } else { 
+                    $a2.prop( 'disabled' , false );
+                    $a3.prop( 'disabled' , false );
+                    $Premium.val('').prop( 'disabled' , true );
+                }
             });
-*/
+            $Insurance.change();
+            
         }); // end .js-row loop
-
 
         /// add make/model
         var $MakeList = $(".jsMakeList");
@@ -656,8 +631,6 @@ $detailsInfo_ar = $detailsInfo->getAll();
             }
         });
         
-        
-        
         $(".jsDelModel").click(function(){
             var r = confirm("Are you sure to Del ? It will also clear the selected rule model data");
             if (r == true) {
@@ -675,7 +648,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                         if (msg !== '') {
                             alert(msg);
                         }
-                        location.reload();
+                        $MakeList.eq(0).change();
                     });
                     request.fail(function(jqXHR, textStatus) {
                         alert("Request failed: " + textStatus);
@@ -742,7 +715,11 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     if (msg !== '') {
                         alert(msg);
                     }
-                    location.reload();
+                    if ( mmNewType === 'model' ) {
+                        $MakeList.eq(0).change();
+                    }else{
+                        location.reload();
+                    }
                 });
                 request.fail(function(jqXHR, textStatus) {
                     alert("Request failed: " + textStatus);
@@ -878,7 +855,6 @@ $detailsInfo_ar = $detailsInfo->getAll();
 
         //end Occupation
 
-
         //details info
         $DeInList = $(".jsDeInList");
         $DeInValue = $(".jsDeInValue");
@@ -953,7 +929,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
             
             var id = $(".jsDeInID").val();
             if (enText === '' || zhText === '' || enTextDesc === '' || zhTextDesc === '' || id === '' ) {
-                alert('error..');
+                alert('something missing eg, have u click load ?');
             } else {
                 var request = $.ajax({
                     url: "ajax/details-info-update.php",
@@ -1002,7 +978,6 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 
            }
         });
-
         //end details info
         
         // start sub plan
@@ -1152,7 +1127,6 @@ $detailsInfo_ar = $detailsInfo->getAll();
         });
         //top action btn
         $(".jsShowTestRuleBtn").click(function() {
-            //$MakeList.val('');
             var $onLayer = $(".jsTestRule");
             dimOn($onLayer);
 
@@ -1191,7 +1165,6 @@ $detailsInfo_ar = $detailsInfo->getAll();
             }
         });
         
-        
         $(".jsCarPanelBtn").click(function(){
             $("#carPanel").slideToggle();
             $("#occPanel").hide();
@@ -1215,8 +1188,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
             $("#occPanel").hide();
             $("#carPanel").hide();
             $("#detailsPanel").hide();
-        });
-        
+        });        
         // top action btn end
 
 
@@ -1239,12 +1211,22 @@ $detailsInfo_ar = $detailsInfo->getAll();
             });
             request.done(function(msg) {
                 var items = [];
-                items.push("<ol>");
+                var items2 = [];
+                var tmpMake = '';
+                items2.push("<div style='clear:both'></div>");
+                items2.push("<ul>");
                 $.each(msg, function(key, val) {
-                    items.push("<li >" + val.makeText + " - " + val.modelText + "<span data-mid='" + val.id + "'>X</span></li>");
+                    
+                    if ( tmpMake != val.makeText  ){
+                        items.push( '<div style="float:left;margin:10px;cursor:pointer" data-mli="'+val.make+'">' + val.makeText + '</div>');
+                        tmpMake = val.makeText;
+                    }
+                    
+                    items2.push("<li class='Mli"+val.make+"' style='display:none'>" + val.makeText + " - " + val.modelText + "<span data-mid='" + val.id + "'>X</span></li>");
+                    
                 });
-                items.push("</ol>");
-                $("#r_" + id).find(".jsListMM").html(items.join("")).show();
+                items2.push("</ul>");
+                $("#r_" + id).find(".jsListMM").html(items.join("") + items2.join("")).show();
 
             });
             request.fail(function(jqXHR, textStatus) {

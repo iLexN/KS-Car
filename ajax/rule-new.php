@@ -2,10 +2,10 @@
                   
 
 include('../db/db_info.php');
-include('../model/car.php');
+include('../model/rule.php');
 
 
 
-$car = new Car();
+$rule = new Rule();
 
-$car->newRule();
+$rule->newRule();

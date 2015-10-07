@@ -29,6 +29,10 @@ $motor_quote = new MotorQuote;
 try {
     $result['result'] = 1;
     $result['motor_details'] = $motor_quote->getByRefNo($refno);
+    
+    unset($result['motor_details']['plan_match_json']);
+    unset($result['motor_details']['refno']);
+    unset($result['motor_details']['create_datetime']);
 } catch (Exception $e) {
     $result['result'] = -1;
     $result['error'][] = $e->getMessage();
