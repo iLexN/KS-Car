@@ -109,6 +109,17 @@ class MotorQuote
         $this->allVar['subPlanID']  = (isset($data['subPlanID']) && !empty($data['subPlanID'])) ? $data['subPlanID'] : false;
         
         $this->allVar['payButtonClick'] = (isset($data['payButtonClick']) && !empty($data['payButtonClick'])) ? 1 : 0;
+        
+        
+        //google ad
+        $this->allVar['keywords'] =  isset($data['keywords']) ? $data['keywords'] : '' ;
+        $this->allVar['cmid'] =  isset($data['cmid']) ? $data['cmid'] : '' ;
+        $this->allVar['dgid'] =  isset($data['dgid']) ? $data['dgid'] : '' ;
+        $this->allVar['kwid'] =  isset($data['kwid']) ? $data['kwid'] : '' ;
+        $this->allVar['netw'] =  isset($data['netw']) ? $data['netw'] : '' ;
+        $this->allVar['dvce'] =  isset($data['dvce']) ? $data['dvce'] : '' ;
+        $this->allVar['crtv'] =  isset($data['crtv']) ? $data['crtv'] : '' ;
+        $this->allVar['adps'] =  isset($data['adps']) ? $data['adps'] : '' ;
     }
     
     /**
@@ -221,6 +232,16 @@ class MotorQuote
         //key for driver 2
         $rm -> occupation_key2 = $this->allVar['occupation2'];
         $rm -> drivingExp_key2 = $this->allVar['drivingExp2'];
+        
+        //google ad
+        $rm -> keywords = $this->allVar['keywords'];
+        $rm -> cmid = $this->allVar['cmid'];
+        $rm -> dgid = $this->allVar['dgid'];
+        $rm -> kwid = $this->allVar['kwid'];
+        $rm -> netw = $this->allVar['netw'];
+        $rm -> dvce = $this->allVar['dvce'];
+        $rm -> crtv = $this->allVar['crtv'];
+        $rm -> adps = $this->allVar['adps'];
         
         if (!$exist) {
             $rm -> refno  =  $this->genRefno(); //$result['refno'];
