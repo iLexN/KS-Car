@@ -41,11 +41,9 @@ if ( $quote->saveUser ){
     $mail = new \PHPMailer();
     $mail->setFrom($quote->allVar['email'], $quote->allVar['name']);
     $mail->addAddress('webenquiries@kwiksure.com', 'KS Motor Quote');
-    //$mail->addAddress('leads@pacificprime.com', 'Alex');
     $mail->Subject = $quote->allVar['name'] . "-" . $quote->allVar['email'] . "-" . $quote->allVar['contactno'];
     $mail->Body = print_r($quote->allVar,TRUE);
     $mail->send();
-    //error_log('here mail sent');
 }
 //error_log('Post ar');
 //error_log( print_r($_POST,true) );
