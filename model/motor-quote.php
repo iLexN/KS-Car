@@ -39,7 +39,7 @@ class MotorQuote
         $this->allVar['motor_accident_yrs']  = isset($data['motor_accident_yrs']) ? $data['motor_accident_yrs'] : null; //Did the main driver have any accidents or claims in the last 3 years?
         $this->allVar['drive_offence_point']  = isset($data['drive_offence_point']) ? $data['drive_offence_point'] : null; //Did the main driver have any driving offence points in the last 2 years
 
-        //user data or car data
+        //user data or car data 
         $this->allVar['name'] =  isset($data['name']) ? $data['name'] : '';
         $this->allVar['email'] =  isset($data['email']) ? $data['email'] : '';
         $this->allVar['contactno'] = isset($data['contactno']) ? $data['contactno'] : '';
