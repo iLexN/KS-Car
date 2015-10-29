@@ -38,6 +38,67 @@ $detailsInfo_ar = $detailsInfo->getAll();
     <title></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+
+body{
+    background-color: #E0ECF1;
+    font-size:12px;
+}
+fieldset{border:1px solid #999;padding:5px}
+
+.row{margin:20px 10px;border-bottom:1px solid #ccc;padding-bottom:20px;}
+
+.c0{float:left;width:3%}
+.c1-1{float:left;width:16%}
+.c1{float:left;width:8%}
+.c2{float:left;width:7%}
+.c3{float:left;width:8%}
+.c4{float:left;width:8%}
+.c5{float:left;width:7%}
+.c6{float:left;width:7%}
+.c7{float:left;width:11%}
+.c8{float:left;width:9%}
+.c9{float:left;width:9%}
+.c10{float:left;width:8%}
+
+.jsListMM li {float:left;width:25%;margin:0px 0 20px 0;}
+.jsListMM li span{color:red;cursor:pointer;padding:0 15px;font-size:14px;}
+
+.jsListOcc li {float:left;width:33%;margin:0px 0 20px 0;}
+.jsListOcc li span{color:red;cursor:pointer;padding:0 15px;font-size:14px;}
+
+.jsListDetails li {float:left;width:48%;margin:0px 0 20px 0;}
+.jsListDetails li span{color:red;cursor:pointer;padding:0 15px;font-size:14px;}
+
+input[type=text]{width:80%;border:1px solid #ccc;}
+input[type=password]{width:80%;border:1px solid #ccc;}
+
+.js-row:last-child{border:none;}
+
+.dim-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:200;background-color:#000;opacity:0.7; filter: alpha(opacity=70);display:none}
+/*fieldset{min-width:980px;}*/
+
+.detailsValueInput{width:100px !important;}
+
+.rightSlidePanel{background-color:#CCCCCC;position:fixed;height:100%;right:0px;top:0px;padding:15px;display:none;min-width: 220px; }
+.rightSlidePanel legend{font-weight:bold;font-size:16px;}
+.rightSlidePanel textarea{width:90%;height:130px;}
+
+.subPlansCol1{width:10%;float:left;padding:5px;}
+.subPlansCol1-2{width:10%;float:left;padding:5px;}
+.subPlansCol2{width:10%;float:left;padding:5px;}
+.subPlansCol3{width:9%;float:left;padding:5px;}
+.subPlansCol4{width:15%;float:left;padding:5px;}
+.subPlansCol5{width:15%;float:left;padding:5px;}
+.subPlansCol6{width:9%;float:left;padding:5px;}
+.subPlansCol7{width:4%;float:left;padding:5px;}
+
+.subplansPanelSubdiv{width:300px;float:left;}
+
+pre{
+    margin:0;
+    font-family: arial
+}</style>
 </head>
 <body style="margin-top:10px;position:relative">
     <div style="min-width:980px;">
