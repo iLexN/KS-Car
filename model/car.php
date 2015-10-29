@@ -45,7 +45,7 @@ class Car
     }
 
     /**
-     * get all model
+     * get all model , for modx
      *
      * @return array
      */
