@@ -26,17 +26,33 @@ class Rule
     }
 
     /**
-     * get all rule
+     * get all rule () for old rule.php
      * @return array
      */
     public function getAll()
+    {
+        $rule = $this->getAlls(TRUE);
+        return $this -> transform($rule);
+    }
+    
+    /**
+     * get all rule for new ajax
+     * @param type $a
+     * @return type
+     */
+    public function getAlls($a = TRUE)
     {
         $rule = ORM::for_table('rule')
                     -> order_by_desc('active')
                     -> order_by_asc('id')
                     -> find_array();
-        return $this -> transform($rule);
+        if ( $a ){
+            return $this -> transform($rule);
+        }else{
+            return $rule;
+        }
     }
+    
 
    /**
     * edit update
