@@ -134,7 +134,10 @@ class MotorQuote
         //error_log(print_r($ruleInfo, true));
         //format json for save 
         $planInfoAr = array();
-        if ($this->allVar['planID']) {
+        /*if ($this->allVar['planID']) {
+            $planInfoAr = $this->savePlanFormat($ruleInfo);
+        }*/
+        if ( !empty($ruleInfo)  ){
             $planInfoAr = $this->savePlanFormat($ruleInfo);
         }
         if ($this->allVar['subPlanID']) {
