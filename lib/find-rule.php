@@ -69,5 +69,13 @@ if (!empty($save_rule)) {
 }
 
 if ( $count_Third_Party_Only >= 2 ){
-    error_log('count third party only');
+    //error_log('count third party only');
+    require '../lib/PHPMailer/PHPMailerAutoload.php';
+    $mail = new \PHPMailer();
+    $mail->setFrom('info@kwiksure.com', 'Kwiksure');
+    $mail->addAddress('ken@kwiksure.com', 'Ken');
+    $mail->addAddress('alex@kwiksure.com', 'Alex');
+    $mail->Subject = 'Motor Online Quote Rule hit more than 1 Rule';
+    $mail->Body = print_r($quote->allVar,TRUE) . print_r($save_rule,TRUE);
+    $mail->send();
 }
