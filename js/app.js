@@ -7,11 +7,16 @@ var ruleList = new Vue({
         drivingExp: null,
         typeofInsurance: null,
         ruleNCD: null,
+        ruleCarModel: null,
+        ruleCarMake: null,
+        ruleOcc: null,
         disabled: {
             "p": true,
             "a2": true,
             "a3": false
-        }
+        },
+        filterModel: null,
+        filterOcc: null,
     },
     created: function () {
         this.fetchRuleListData();
@@ -45,6 +50,8 @@ var ruleList = new Vue({
         },
         'rule.id': function () {
             this.getRuleNCD();
+            this.getRuleCarModel();
+            this.getRuleOcc();
         }
     },
     methods: {
@@ -85,13 +92,54 @@ var ruleList = new Vue({
         getRuleNCD: function () {
             var self = this;
             axios.get('ajax/rule-ncd-get.php', {
-                params: {
-                    id: this.rule.id
-                }
-            })
+                        params: {
+                            id: this.rule.id
+                        }
+                    })
                     .then(function (response) {
                         self.ruleNCD = response.data;
                         console.log(response);
+                    })
+                    .catch(function (response) {
+                        //console.log(response);
+                    });
+        },
+        getRuleOcc: function () {
+            var self = this;
+            axios.get('ajax/rule-occ-get.php', {
+                        params: {
+                            id: this.rule.id
+                        }
+                    })
+                    .then(function (response) {
+                        self.ruleOcc = response.data;
+                        console.log(response);
+                    })
+                    .catch(function (response) {
+                        //console.log(response);
+                    });
+        },
+        getRuleCarModel: function () {
+            var self = this;
+            axios.get('ajax/make-model.php', {
+                        params: {
+                            id: this.rule.id
+                        }
+                    })
+                    .then(function (response) {
+                        self.ruleCarModel = response.data;
+                        var makeObj = {};
+                        var tmp = null;
+                        self.filterModel = response.data[0].makeText;
+                        for (var i = 0; i < response.data.length; i++) {
+                            if (tmp != response.data[i].make) {
+                                makeObj[i] = {makeID: response.data[i].make,
+                                    makeText: response.data[i].makeText
+                                }
+                                tmp = response.data[i].make;
+                            }
+                        }
+                        self.ruleCarMake = makeObj;
                     })
                     .catch(function (response) {
                         //console.log(response);

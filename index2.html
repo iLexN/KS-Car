@@ -135,9 +135,9 @@
                         <tr v-for="n in ruleNCD">
                             <td>{{n.ncd}}</td>    
                             <td><input id="rule-n-ncd-y" type="radio" value="1" v-model="n.active">
-                        <label for="rule-n-ncd-y">Yes</label>
-                        <input id="rule-n-ncd-n" type="radio" value="0" v-model="n.active">
-                        <label for="rule-n-ncd-n">No</label>
+                                <label for="rule-n-ncd-y">Yes</label>
+                                <input id="rule-n-ncd-n" type="radio" value="0" v-model="n.active">
+                                <label for="rule-n-ncd-n">No</label>
                             </td>
                             <td><input type="text" v-model="n.price_add" style="width:100px"></td>
                             <td>{{n.gross}}</td>
@@ -147,14 +147,53 @@
                         </tr>
                     </table>
                 </fieldset>
+
+                <fieldset>
+                    <legend>Make/Model</legend>
+                    
+                    <div class="left-side">
+                    <select multiple="multiple" v-model="filterModel" style="height:350px;width:90%">
+                        <option v-for="rcMake in ruleCarMake | orderBy 'makeText'" 
+                                value="{{rcMake.makeText}}" >{{rcMake.makeText}}</option>
+                    </select>
+                    </div>
+                    <div class="right-side">
+                        <ul class='list-style'>
+                            <li v-for="rcModel in ruleCarModel | filterBy filterModel in 'makeText'" >
+                                {{rcModel.makeText}} - {{rcModel.modelText}}
+                                <span style='color:red'>X</span>
+                            </li>
+                        </ul>
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Occupation</legend>
+                    
+                    <b>Search :</b><input type="text"v-model="filterOcc">
+                    
+                    
+                        <ul class='list-style'>
+                            <li v-for="ro in ruleOcc | filterBy filterOcc in 'occupation'" 
+                                style="width:320px">
+                                <span style='color:red;float:right;margin-right:20px;height:40px;'>X</span>
+                                <div style="width:300px">{{ro.occupation}}</div>
+                                
+                            </li>
+                        </ul>
+                    
+                </fieldset>
+
             </div>
+
+
 
             <!-- right-side end -->
 
         </div>
-        
+
         <div style="height:50px;"></div>
-        
+
         <script src="js/vue.min.js" type="text/javascript"></script>
         <script src="js/axios.min.js" type="text/javascript"></script>
         <script src="js/app.js" type="text/javascript"></script>

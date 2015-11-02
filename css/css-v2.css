@@ -83,3 +83,7 @@ fieldset{border:1px solid #ccc;
 h3{margin:0 0 10px; color:#c82a2f;font-size:16px;}
 
 td{padding:5px}
+
+.list-style{margin:0;padding:0;}
+.list-style li{font-size:14px;padding:10px;float:left;width:250px;}
+.list-style span{color:red;cursor: pointer;display: inline-box;margin-left:15px;}
