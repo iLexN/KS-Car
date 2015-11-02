@@ -10,8 +10,8 @@ var ruleList = new Vue({
         ruleCarModel: null,
         ruleCarMake: null,
         ruleOcc: null,
-        ruleDetails:null,
-        ruleSubPlans:null,
+        ruleDetails: null,
+        ruleSubPlans: null,
         disabled: {
             "p": true,
             "a2": true,
@@ -48,7 +48,7 @@ var ruleList = new Vue({
                 this.disabled.a2 = false;
                 this.disabled.a3 = false;
                 this.disabled.p = true;
-                this.rule.premium = '';
+                //this.rule.premium = '';
             }
         },
         'rule.id': function () {
@@ -62,11 +62,11 @@ var ruleList = new Vue({
     methods: {
         fetchRuleListData: function () {
             var self = this;
-            axios.get('ajax/rule-get-all.php')
+            axios.get('ajax2/rule-get-all.php')
                     .then(function (response) {
                         self.rules = response.data;
                         self.rule = response.data[0];
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(function (response) {
                         //console.log(response);
@@ -74,10 +74,10 @@ var ruleList = new Vue({
         },
         getDriverExp: function () {
             var self = this;
-            axios.get('ajax/driver-exp-get.php')
+            axios.get('ajax2/driver-exp-get.php')
                     .then(function (response) {
                         self.drivingExp = response.data;
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(function (response) {
                         //console.log(response);
@@ -85,10 +85,10 @@ var ruleList = new Vue({
         },
         getTypeofInsurance: function () {
             var self = this;
-            axios.get('ajax/insurance-type-get.php')
+            axios.get('ajax2/insurance-type-get.php')
                     .then(function (response) {
                         self.typeofInsurance = response.data;
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(function (response) {
                         //console.log(response);
@@ -96,14 +96,14 @@ var ruleList = new Vue({
         },
         getRuleNCD: function () {
             var self = this;
-            axios.get('ajax/rule-ncd-get.php', {
-                        params: {
-                            id: this.rule.id
-                        }
-                    })
+            axios.get('ajax2/rule-ncd-get.php', {
+                params: {
+                    id: this.rule.id
+                }
+            })
                     .then(function (response) {
                         self.ruleNCD = response.data;
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(function (response) {
                         //console.log(response);
@@ -111,14 +111,14 @@ var ruleList = new Vue({
         },
         getRuleOcc: function () {
             var self = this;
-            axios.get('ajax/rule-occ-get.php', {
-                        params: {
-                            id: this.rule.id
-                        }
-                    })
+            axios.get('ajax2/rule-occ-get.php', {
+                params: {
+                    id: this.rule.id
+                }
+            })
                     .then(function (response) {
                         self.ruleOcc = response.data;
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(function (response) {
                         //console.log(response);
@@ -126,29 +126,29 @@ var ruleList = new Vue({
         },
         getRuleDetails: function () {
             var self = this;
-            axios.get('ajax/rule-details-info-get.php', {
-                        params: {
-                            id: this.rule.id
-                        }
-                    })
+            axios.get('ajax2/rule-details-info-get.php', {
+                params: {
+                    id: this.rule.id
+                }
+            })
                     .then(function (response) {
                         self.ruleDetails = response.data;
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(function (response) {
                         //console.log(response);
                     });
         },
-        getRuleSubPlans : function () {
+        getRuleSubPlans: function () {
             var self = this;
-            axios.get('ajax/sub-plans-info-get.php', {
-                        params: {
-                            id: this.rule.id
-                        }
-                    })
+            axios.get('ajax2/rule-subplans-get.php', {
+                params: {
+                    id: this.rule.id
+                }
+            })
                     .then(function (response) {
                         self.ruleSubPlans = response.data;
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(function (response) {
                         //console.log(response);
@@ -156,16 +156,16 @@ var ruleList = new Vue({
         },
         getRuleCarModel: function () {
             var self = this;
-            axios.get('ajax/make-model.php', {
-                        params: {
-                            id: this.rule.id
-                        }
-                    })
+            axios.get('ajax2/rule-makemodel-get.php', {
+                params: {
+                    id: this.rule.id
+                }
+            })
                     .then(function (response) {
                         self.ruleCarModel = response.data;
                         var makeObj = {};
                         var tmp = null;
-                        self.filterModel = response.data[0].makeText;
+                        
                         for (var i = 0; i < response.data.length; i++) {
                             if (tmp != response.data[i].make) {
                                 makeObj[i] = {makeID: response.data[i].make,
@@ -175,6 +175,7 @@ var ruleList = new Vue({
                             }
                         }
                         self.ruleCarMake = makeObj;
+                        self.filterModel = 'zzzzzzzzzz'//response.data[0].makeText;
                     })
                     .catch(function (response) {
                         //console.log(response);
@@ -182,24 +183,38 @@ var ruleList = new Vue({
         },
         showRule: function (rule, $event) {
             this.rule = rule;
-            console.log($event);
+            //console.log($event);
         },
         changeTab: function (tab) {
             this.currentTab = tab;
         },
-        updateSubPlan : function (index){
-            var newObj = this.ruleSubPlans[index]
-            console.log(newObj.sortOrder);
-            console.log(newObj.name);
-            console.log(newObj.name_sub);
-            console.log(newObj.add_price);
-            console.log(newObj.groupID);
-            console.log(newObj.en);
-            console.log(newObj.pdf_url_en);
-            console.log(newObj.name_zh);
-            console.log(newObj.name_sub_zh);
-            console.log(newObj.zh);
-            console.log(newObj.pdf_url_zh);
-        }
+        updateRule: function () {
+            var rule = this.rule;
+            axios.post('ajax2/rule-update.php', {
+                data: rule})
+                    .then(function (response) {
+                        console.log(response);
+                    })
+                    .catch(function (response) {
+                        console.log(response);
+                    });
+
+        },
+                updateSubPlan: function (index) {
+                    var newObj = this.ruleSubPlans[index]
+                    /*
+                    console.log(newObj.sortOrder);
+                    console.log(newObj.name);
+                    console.log(newObj.name_sub);
+                    console.log(newObj.add_price);
+                    console.log(newObj.groupID);
+                    console.log(newObj.en);
+                    console.log(newObj.pdf_url_en);
+                    console.log(newObj.name_zh);
+                    console.log(newObj.name_sub_zh);
+                    console.log(newObj.zh);
+                    console.log(newObj.pdf_url_zh);
+                    */
+                }
     }
 });

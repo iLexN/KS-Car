@@ -55,7 +55,7 @@ class Rule
     
 
    /**
-    * edit update
+    * edit update(old)
     * @param array $ar
     */
     public function editUpdate($ar)
@@ -83,6 +83,16 @@ class Rule
         $this -> rule -> a3 = $ar['a3'];
 
         $this -> rule -> save();
+    }
+    
+    /**
+    * edit update (new)
+    * @param array $ar
+    */
+    public function update($ar){
+        $this->getOne();
+        $this->rule->set($ar);
+        $this->save();
     }
 
     /**

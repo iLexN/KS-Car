@@ -59,7 +59,7 @@
                 </div>
                 
                 <fieldset v-show="currentTab=='setting'">
-                    <legend><button>Update</button></legend>
+                    <legend><button v-on:click="updateRule">Update</button></legend>
                     <h3>General Setting</h3>
                     <div class="editDiv">
                         <b>Rule Name</b> : <input type="text" v-model="rule.rule_name" value="{{rule.rule_name}}">
@@ -166,7 +166,7 @@
                     <legend>Make/Model</legend>
 
                     <div class="left-side">
-                        <select multiple="multiple" v-model="filterModel" style="height:350px;width:90%">
+                        <select multiple="multiple" v-model="filterModel" style="height:450px;width:90%">
                             <option v-for="rcMake in ruleCarMake | orderBy 'makeText'" 
                                     value="{{rcMake.makeText}}" >{{rcMake.makeText}}</option>
                         </select>
@@ -216,6 +216,7 @@
 
                 <fieldset v-show="currentTab=='subPlan'">
                     <legend>Sub-Plans</legend>
+                    <p>Order : small number come first</p>
 
                     <table border="1" cellspacing="5" cellpadding="3" width="100%">
                         <tr>

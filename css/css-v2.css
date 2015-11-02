@@ -96,5 +96,6 @@ td{padding:5px}
     padding: 6px 20px;
 }
 .underline{
-    text-decoration: underline;
+    background-color: #c82a2f;
+    color:#fff
 }
