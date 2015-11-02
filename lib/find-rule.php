@@ -24,7 +24,7 @@ if ($quote->allVar['planID']) {
     } // end driver2
 }
 
-
+$count_Third_Party_Only = 0;
 if (!empty($save_rule)) {
     $DetailsInfo = new DetailsInfo;
     $details_ukey = array();
@@ -37,6 +37,7 @@ if (!empty($save_rule)) {
             $save_rule[$k]['premium'] = $match_rule[$k]['premium'] = number_format($calTotalPriceObj->calPremium($quote->allVar['sum_insured']), 2,'.','');
         } else {
             $save_rule[$k]['premium'] = $match_rule[$k]['premium'] = number_format($v_ar['premium'],2,'.','');
+            $count_Third_Party_Only++;
         }
         $calTotalPriceArray = $calTotalPriceObj->calPrice($quote->allVar['ncd'], $v_ar['price_add']);
 
@@ -63,4 +64,16 @@ if (!empty($save_rule)) {
     }
     
     $details_ukey = array_column($DetailsInfo->getOrderByID(array_unique($details_ukey)), 'id');
+}
+
+if ( $count_Third_Party_Only >= 2 ){
+    //error_log('count third party only');
+    require '../lib/PHPMailer/PHPMailerAutoload.php';
+    $mail = new \PHPMailer();
+    $mail->setFrom('info@kwiksure.com', 'Kwiksure');
+    $mail->addAddress('ken@kwiksure.com', 'Ken');
+    $mail->addAddress('alex@kwiksure.com', 'Alex');
+    $mail->Subject = 'Motor Online Quote Rule hit more than 1 Rule';
+    $mail->Body = print_r($quote->allVar,TRUE) . print_r($save_rule,TRUE);
+    $mail->send();
 }
