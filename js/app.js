@@ -10,6 +10,8 @@ var ruleList = new Vue({
         ruleCarModel: null,
         ruleCarMake: null,
         ruleOcc: null,
+        ruleDetails:null,
+        ruleSubPlans:null,
         disabled: {
             "p": true,
             "a2": true,
@@ -17,6 +19,7 @@ var ruleList = new Vue({
         },
         filterModel: null,
         filterOcc: null,
+        currentTab: 'setting',
     },
     created: function () {
         this.fetchRuleListData();
@@ -52,6 +55,8 @@ var ruleList = new Vue({
             this.getRuleNCD();
             this.getRuleCarModel();
             this.getRuleOcc();
+            this.getRuleDetails();
+            this.getRuleSubPlans();
         }
     },
     methods: {
@@ -119,6 +124,36 @@ var ruleList = new Vue({
                         //console.log(response);
                     });
         },
+        getRuleDetails: function () {
+            var self = this;
+            axios.get('ajax/rule-details-info-get.php', {
+                        params: {
+                            id: this.rule.id
+                        }
+                    })
+                    .then(function (response) {
+                        self.ruleDetails = response.data;
+                        console.log(response);
+                    })
+                    .catch(function (response) {
+                        //console.log(response);
+                    });
+        },
+        getRuleSubPlans : function () {
+            var self = this;
+            axios.get('ajax/sub-plans-info-get.php', {
+                        params: {
+                            id: this.rule.id
+                        }
+                    })
+                    .then(function (response) {
+                        self.ruleSubPlans = response.data;
+                        console.log(response);
+                    })
+                    .catch(function (response) {
+                        //console.log(response);
+                    });
+        },
         getRuleCarModel: function () {
             var self = this;
             axios.get('ajax/make-model.php', {
@@ -148,6 +183,23 @@ var ruleList = new Vue({
         showRule: function (rule, $event) {
             this.rule = rule;
             console.log($event);
+        },
+        changeTab: function (tab) {
+            this.currentTab = tab;
+        },
+        updateSubPlan : function (index){
+            var newObj = this.ruleSubPlans[index]
+            console.log(newObj.sortOrder);
+            console.log(newObj.name);
+            console.log(newObj.name_sub);
+            console.log(newObj.add_price);
+            console.log(newObj.groupID);
+            console.log(newObj.en);
+            console.log(newObj.pdf_url_en);
+            console.log(newObj.name_zh);
+            console.log(newObj.name_sub_zh);
+            console.log(newObj.zh);
+            console.log(newObj.pdf_url_zh);
         }
     }
 });

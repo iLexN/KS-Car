@@ -78,7 +78,7 @@ legend button{
          margin-bottom:15px;}
 
 fieldset{border:1px solid #ccc;
-         padding:0 20px;}
+         padding:0 20px 20px;}
 
 h3{margin:0 0 10px; color:#c82a2f;font-size:16px;}
 
@@ -87,3 +87,14 @@ td{padding:5px}
 .list-style{margin:0;padding:0;}
 .list-style li{font-size:14px;padding:10px;float:left;width:250px;}
 .list-style span{color:red;cursor: pointer;display: inline-box;margin-left:15px;}
+
+.button{
+    background-color: #fff;
+    border: 1px solid #c82a2f;
+    color: #c82a2f;
+    font-size: 20px;
+    padding: 6px 20px;
+}
+.underline{
+    text-decoration: underline;
+}
