@@ -24,7 +24,7 @@ class DetailsInfo
     }
 
     /**
-     * get all details info
+     * get all details info (old)
      *
      * @return array
      */
@@ -37,6 +37,22 @@ class DetailsInfo
                         ->find_array();
         return $this->transform($details_info);
     }
+    
+    /**
+     * get all details info (new)
+     *
+     * @return array
+     */
+    public function getAlls()
+    {
+        $details_info = ORM::for_table('details_info')
+                        ->where('active', 1)
+                        ->order_by_asc('sortOrder')
+                        ->order_by_asc('id')
+                        ->find_array();
+        return $details_info;
+    }
+    
     
     /**
      * get by rule id

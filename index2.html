@@ -10,9 +10,33 @@
     <link href="css/css-v2.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body>
+<body id="ruleList">
 
     <div class="alertNote"></div>
+    
+    <div class="panel" v-show="currentTab2=='DetailsInfoPanel'" style="display:none">
+        <h2>Details Info</h2>
+        <div class="clearfix">
+        <div style="float:left;width:40%;">
+            <h3>Add To Rule</h3>
+            <p><select style="width:100%" v-model="editDetailsInfo.id">
+                <option v-for="v in detailsInfo" value="{{v.id}}">{{v.en}} ({{v.zh}})</option>
+            </select>
+            </p>
+            
+            <p>value : <br/>
+            <input type="text" v-model="editDetailsInfo.value"></p>
+            
+            <button v-on:click="addRuleDetailInfo">Add</button>
+            
+            <p>Remark : empty = empty / no = cross / yes = tick </p>
+            
+            
+        </div>
+            </div>
+        <div style="text-align: center"><button class='button' v-on:click="changeTab2('')">Close</button></div>
+        
+    </div>
 
     <nav class="clearfix">
         <ul>
@@ -20,12 +44,12 @@
             <li><a href="">Test Rule</a></li>
             <li><a href="">Make/Model</a></li>
             <li><a href="">Occupation</a></li>
-            <li><a href="">Details Info</a></li>
+            <li><a v-on:click="changeTab2('DetailsInfoPanel')">Details Info</a></li>
         </ul>
 
     </nav>
 
-    <div class="clearfix" id="ruleList">
+    <div class="clearfix" >
 
         <!-- left-side start -->
         <div class="left-side">

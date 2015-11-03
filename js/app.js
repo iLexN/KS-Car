@@ -6,6 +6,8 @@ var ruleList = new Vue({
         rule: null,
         drivingExp: null,
         typeofInsurance: null,
+        detailsInfo:null,
+        editDetailsInfo:null,
         ruleNCD: null,
         ruleCarModel: null,
         ruleCarMake: null,
@@ -20,13 +22,15 @@ var ruleList = new Vue({
         filterModel: null,
         filterOcc: null,
         filterSupPlanGroup: null,
-        currentTab: 'subPlan', // setting , detailsInfo
+        currentTab: 'setting', // setting , detailsInfo ,subPlan
+        currentTab2: null, // DetailsInfoPanel
         copiedSubPlan: null
     },
     created: function() {
         this.fetchRuleListData();
         this.getDriverExp();
         this.getTypeofInsurance();
+        this.getDetailsInfoList();
     },
     computed: {
         yfgFrom: function() {
@@ -96,6 +100,17 @@ var ruleList = new Vue({
                     //console.log(response);
                 });
         },
+        getDetailsInfoList: function() {
+            var self = this;
+            axios.get('ajax2/details-info-get.php')
+                .then(function(response) {
+                    self.detailsInfo = response.data;
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
         getRuleNCD: function() {
             var self = this;
             axios.get('ajax2/rule-ncd-get.php', {
@@ -135,7 +150,7 @@ var ruleList = new Vue({
                 })
                 .then(function(response) {
                     self.ruleDetails = response.data;
-                    console.log(response);
+                    //console.log(response);
                 })
                 .catch(function(response) {
                     //console.log(response);
@@ -190,6 +205,9 @@ var ruleList = new Vue({
         },
         changeTab: function(tab) {
             this.currentTab = tab;
+        },
+        changeTab2: function(tab) {
+            this.currentTab2 = tab;
         },
         updateRule: function() {
             var rule = this.rule;
@@ -281,7 +299,6 @@ var ruleList = new Vue({
         },
         removeRuleDetail: function(Obj) {
             var self = this;
-            console.log(Obj);
             axios.post('ajax2/rule-details-info-remove.php', {
                     data: Obj
                 })
@@ -329,6 +346,33 @@ var ruleList = new Vue({
                     self.showAlertNote(self.copiedSubPlan.name + ' - ' + self.copiedSubPlan.name_sub + ' Copied To ' + self.rule.rule_name);
                     self.getRuleSubPlans();
                     //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        addRuleDetailInfo:function(){
+            if ( this.editDetailsInfo === null || this.editDetailsInfo.id === undefined ) {
+                this.showAlertNote('Please select ...');
+                return;
+            }
+            self = this;
+            axios.post('ajax2/rule-details-info-create.php', {
+                    data: {
+                        detailInfo: self.editDetailsInfo,
+                        rule_id: self.rule.id
+                    }
+                })
+                .then(function(response) {
+                    //self.showAlertNote(self.copiedSubPlan.name + ' - ' + self.copiedSubPlan.name_sub + ' Copied To ' + self.rule.rule_name);
+                    //self.getRuleSubPlans();
+                    console.log(response.data);
+                    if (response.data.e == '1'  ) {
+                        self.showAlertNote('Error: Already exist');
+                    } else {
+                        self.showAlertNote('Added to ' + self.rule.rule_name);
+                        self.getRuleDetails();
+                    }
                 })
                 .catch(function(response) {
                     //console.log(response);
