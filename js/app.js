@@ -19,6 +19,7 @@ var ruleList = new Vue({
         },
         filterModel: null,
         filterOcc: null,
+        filterSupPlanGroup: null,
         currentTab: 'setting',
     },
     created: function () {
@@ -118,7 +119,7 @@ var ruleList = new Vue({
             })
                     .then(function (response) {
                         self.ruleOcc = response.data;
-                        //console.log(response);
+                        console.log(response);
                     })
                     .catch(function (response) {
                         //console.log(response);
@@ -165,7 +166,7 @@ var ruleList = new Vue({
                         self.ruleCarModel = response.data;
                         var makeObj = {};
                         var tmp = null;
-                        
+
                         for (var i = 0; i < response.data.length; i++) {
                             if (tmp != response.data[i].make) {
                                 makeObj[i] = {makeID: response.data[i].make,
@@ -190,9 +191,12 @@ var ruleList = new Vue({
         },
         updateRule: function () {
             var rule = this.rule;
+            var self = this;
             axios.post('ajax2/rule-update.php', {
                 data: rule})
                     .then(function (response) {
+                        self.getRuleNCD();
+                        self.showAlertNote('Saved');
                         console.log(response);
                     })
                     .catch(function (response) {
@@ -200,21 +204,57 @@ var ruleList = new Vue({
                     });
 
         },
-                updateSubPlan: function (index) {
-                    var newObj = this.ruleSubPlans[index]
-                    /*
-                    console.log(newObj.sortOrder);
-                    console.log(newObj.name);
-                    console.log(newObj.name_sub);
-                    console.log(newObj.add_price);
-                    console.log(newObj.groupID);
-                    console.log(newObj.en);
-                    console.log(newObj.pdf_url_en);
-                    console.log(newObj.name_zh);
-                    console.log(newObj.name_sub_zh);
-                    console.log(newObj.zh);
-                    console.log(newObj.pdf_url_zh);
-                    */
-                }
+        updateRuleNcd: function () {
+            var ncds = this.ruleNCD;
+            var self = this;
+            axios.post('ajax2/rule-ncd-update.php', {
+                data: ncds})
+                    .then(function (response) {
+                        self.getRuleNCD();
+                        self.showAlertNote('Saved');
+                        console.log(response);
+                    })
+                    .catch(function (response) {
+                        console.log(response);
+                    });
+
+        },
+        updateSubPlan: function (index) {
+            var newObj = this.ruleSubPlans[index]
+            /*
+             console.log(newObj.sortOrder);
+             console.log(newObj.name);
+             console.log(newObj.name_sub);
+             console.log(newObj.add_price);
+             console.log(newObj.groupID);
+             console.log(newObj.en);
+             console.log(newObj.pdf_url_en);
+             console.log(newObj.name_zh);
+             console.log(newObj.name_sub_zh);
+             console.log(newObj.zh);
+             console.log(newObj.pdf_url_zh);
+             */
+        },
+        removeRuleOcc: function (occObj) {
+            var self = this;
+            axios.post('ajax2/rule-occ-remove.php', {
+                data: occObj})
+                    .then(function (response) {
+                        self.ruleOcc.$remove(occObj);
+                        self.showAlertNote( occObj.occupation + ' Delete From ' + self.rule.rule_name);
+                        console.log(response);
+                    })
+                    .catch(function (response) {
+                        console.log(response);
+                    });
+        },
+        showAlertNote : function (text) {
+            $(".alertNote").html(text).slideDown(function(){
+                var note = $(this);
+                setTimeout(function(){
+                    note.fadeOut();
+                }, 3000);
+            })
+        }
     }
 });

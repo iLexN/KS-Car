@@ -92,7 +92,7 @@ class Rule
     public function update($ar){
         $this->getOne();
         $this->rule->set($ar);
-        $this->save();
+        $this->rule->save();
     }
 
     /**

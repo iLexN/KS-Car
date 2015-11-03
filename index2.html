@@ -10,6 +10,8 @@
     </head>
     <body>
 
+        <div class="alertNote"></div>
+        
         <nav class="clearfix">
             <ul>
                 <li><a href="">Logout</a></li>
@@ -135,7 +137,7 @@
                 </fieldset>
 
                 <fieldset v-show="currentTab=='ncd'">
-                    <legend><button>Update</button></legend>
+                    <legend><button v-on:click="updateRuleNcd">Update</button></legend>
                     <table border="1" cellspacing="5" cellpadding="3">
                         <tr>
                             <td>NCD</td>    
@@ -146,7 +148,7 @@
                             <td>Net w Tax</td>
                             <td>Offer</td>
                         </tr>
-                        <tr v-for="n in ruleNCD">
+                        <tr v-for="n in ruleNCD" v-bind:class="[n.active == 1 ? 'activeBg' : '']">
                             <td>{{n.ncd}}</td>    
                             <td><input id="rule-n-ncd-y" type="radio" value="1" v-model="n.active">
                                 <label for="rule-n-ncd-y">Yes</label>
@@ -190,7 +192,9 @@
                     <ul class='list-style'>
                         <li v-for="ro in ruleOcc | filterBy filterOcc in 'occupation'" 
                             style="width:320px">
-                            <span style='color:red;float:right;margin-right:20px;height:40px;'>X</span>
+                            <span style='color:red;float:right;margin-right:20px;height:40px;'
+                                  v-on:click="removeRuleOcc(ro)"
+                                  >X</span>
                             <div style="width:300px">{{ro.occupation}}</div>
 
                         </li>
@@ -217,6 +221,7 @@
                 <fieldset v-show="currentTab=='subPlan'">
                     <legend>Sub-Plans</legend>
                     <p>Order : small number come first</p>
+                    <p>Filter Group : <input type="text" v-model="filterSupPlanGroup"></p>
 
                     <table border="1" cellspacing="5" cellpadding="3" width="100%">
                         <tr>
@@ -228,7 +233,7 @@
                             <td width="150">PDF</td>
                             <td width="75"><button>Paste</button></td>
                         </tr>
-                        <template v-for="(index,rsp) in ruleSubPlans">
+                        <template v-for="(index,rsp) in ruleSubPlans | filterBy filterSupPlanGroup in 'groupID'">
                             <tr>
                                 <td rowspan="2"><input style="width:30px" type="text" value="{{rsp.sortOrder}}" v-model="rsp.sortOrder"></td>
                                 <td><input type="text" value="{{rsp.name}}" v-model="rsp.name"> - 
@@ -271,6 +276,7 @@
 
         <script src="js/vue.min.js" type="text/javascript"></script>
         <script src="js/axios.min.js" type="text/javascript"></script>
+        <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
         <script src="js/app.js" type="text/javascript"></script>
     </body>
 </html>

@@ -9,9 +9,10 @@ $obj = json_decode($json, true);
 
 $data = $obj['data'];
 
-
 $rule = new Rule(intval($data['id']));
 $rule->update($data);
 
 
 $ar['done'] = 1;
+
+echo( json_encode($ar) );
