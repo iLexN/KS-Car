@@ -20,27 +20,28 @@ var ruleList = new Vue({
         filterModel: null,
         filterOcc: null,
         filterSupPlanGroup: null,
-        currentTab: 'setting',
+        currentTab: 'subPlan', // setting , detailsInfo
+        copiedSubPlan: null
     },
-    created: function () {
+    created: function() {
         this.fetchRuleListData();
         this.getDriverExp();
         this.getTypeofInsurance();
     },
     computed: {
-        yfgFrom: function () {
+        yfgFrom: function() {
             var d = new Date();
             var n = d.getFullYear();
             return n - this.rule.Yearofmanufacture_from;
         },
-        yfgTo: function () {
+        yfgTo: function() {
             var d = new Date();
             var n = d.getFullYear();
             return n - this.rule.Yearofmanufacture;
         }
     },
     watch: {
-        'rule.TypeofInsurance': function (val, oldVal) {
+        'rule.TypeofInsurance': function(val, oldVal) {
             if (val === 'Third_Party_Only') {
                 this.disabled.a2 = true;
                 this.disabled.a3 = true;
@@ -52,7 +53,7 @@ var ruleList = new Vue({
                 //this.rule.premium = '';
             }
         },
-        'rule.id': function () {
+        'rule.id': function() {
             this.getRuleNCD();
             this.getRuleCarModel();
             this.getRuleOcc();
@@ -61,214 +62,288 @@ var ruleList = new Vue({
         }
     },
     methods: {
-        fetchRuleListData: function () {
+        fetchRuleListData: function() {
             var self = this;
             axios.get('ajax2/rule-get-all.php')
-                    .then(function (response) {
-                        self.rules = response.data;
-                        self.rule = response.data[0];
-                        //console.log(response);
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                .then(function(response) {
+                    self.rules = response.data;
+                    self.rule = response.data[0];
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         },
-        getDriverExp: function () {
+        getDriverExp: function() {
             var self = this;
             axios.get('ajax2/driver-exp-get.php')
-                    .then(function (response) {
-                        self.drivingExp = response.data;
-                        //console.log(response);
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                .then(function(response) {
+                    self.drivingExp = response.data;
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         },
-        getTypeofInsurance: function () {
+        getTypeofInsurance: function() {
             var self = this;
             axios.get('ajax2/insurance-type-get.php')
-                    .then(function (response) {
-                        self.typeofInsurance = response.data;
-                        //console.log(response);
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                .then(function(response) {
+                    self.typeofInsurance = response.data;
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         },
-        getRuleNCD: function () {
+        getRuleNCD: function() {
             var self = this;
             axios.get('ajax2/rule-ncd-get.php', {
-                params: {
-                    id: this.rule.id
-                }
-            })
-                    .then(function (response) {
-                        self.ruleNCD = response.data;
-                        //console.log(response);
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                    params: {
+                        id: this.rule.id
+                    }
+                })
+                .then(function(response) {
+                    self.ruleNCD = response.data;
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         },
-        getRuleOcc: function () {
+        getRuleOcc: function() {
             var self = this;
             axios.get('ajax2/rule-occ-get.php', {
-                params: {
-                    id: this.rule.id
-                }
-            })
-                    .then(function (response) {
-                        self.ruleOcc = response.data;
-                        //console.log(response);
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                    params: {
+                        id: this.rule.id
+                    }
+                })
+                .then(function(response) {
+                    self.ruleOcc = response.data;
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         },
-        getRuleDetails: function () {
+        getRuleDetails: function() {
             var self = this;
             axios.get('ajax2/rule-details-info-get.php', {
-                params: {
-                    id: this.rule.id
-                }
-            })
-                    .then(function (response) {
-                        self.ruleDetails = response.data;
-                        //console.log(response);
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                    params: {
+                        id: this.rule.id
+                    }
+                })
+                .then(function(response) {
+                    self.ruleDetails = response.data;
+                    console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         },
-        getRuleSubPlans: function () {
+        getRuleSubPlans: function() {
             var self = this;
             axios.get('ajax2/rule-subplans-get.php', {
-                params: {
-                    id: this.rule.id
-                }
-            })
-                    .then(function (response) {
-                        self.ruleSubPlans = response.data;
-                        //console.log(response);
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                    params: {
+                        id: this.rule.id
+                    }
+                })
+                .then(function(response) {
+                    self.ruleSubPlans = response.data;
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         },
-        getRuleCarModel: function () {
+        getRuleCarModel: function() {
             var self = this;
             axios.get('ajax2/rule-makemodel-get.php', {
-                params: {
-                    id: this.rule.id
-                }
-            })
-                    .then(function (response) {
-                        self.ruleCarModel = response.data;
-                        var makeObj = {};
-                        var tmp = null;
+                    params: {
+                        id: this.rule.id
+                    }
+                })
+                .then(function(response) {
+                    self.ruleCarModel = response.data;
+                    var makeObj = {};
+                    var tmp = null;
 
-                        for (var i = 0; i < response.data.length; i++) {
-                            if (tmp != response.data[i].make) {
-                                makeObj[i] = {makeID: response.data[i].make,
-                                    makeText: response.data[i].makeText
-                                }
-                                tmp = response.data[i].make;
+                    for (var i = 0; i < response.data.length; i++) {
+                        if (tmp != response.data[i].make) {
+                            makeObj[i] = {
+                                makeID: response.data[i].make,
+                                makeText: response.data[i].makeText
                             }
+                            tmp = response.data[i].make;
                         }
-                        self.ruleCarMake = makeObj;
-                        self.filterModel = 'zzzzzzzzzz'//response.data[0].makeText;
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                    }
+                    self.ruleCarMake = makeObj;
+                    self.filterModel = 'zzzzzzzzzz' //response.data[0].makeText;
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         },
-        showRule: function (rule, $event) {
+        showRule: function(rule, $event) {
             this.rule = rule;
             //console.log($event);
         },
-        changeTab: function (tab) {
+        changeTab: function(tab) {
             this.currentTab = tab;
         },
-        updateRule: function () {
+        updateRule: function() {
             var rule = this.rule;
             var self = this;
             axios.post('ajax2/rule-update.php', {
-                data: rule})
-                    .then(function (response) {
-                        self.getRuleNCD();
-                        self.showAlertNote('Saved');
-                        //console.log(response);
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                    data: rule
+                })
+                .then(function(response) {
+                    self.getRuleNCD();
+                    self.showAlertNote('Saved');
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
 
         },
-        updateRuleNcd: function () {
+        updateRuleNcd: function() {
             var ncds = this.ruleNCD;
             var self = this;
             axios.post('ajax2/rule-ncd-update.php', {
-                data: ncds})
-                    .then(function (response) {
-                        self.getRuleNCD();
-                        self.showAlertNote('Saved');
-                        //console.log(response);
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                    data: ncds
+                })
+                .then(function(response) {
+                    self.getRuleNCD();
+                    self.showAlertNote('Saved');
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
 
         },
-        updateSubPlan: function (index) {
-            var newObj = this.ruleSubPlans[index]
-            /*
-             console.log(newObj.sortOrder);
-             console.log(newObj.name);
-             console.log(newObj.name_sub);
-             console.log(newObj.add_price);
-             console.log(newObj.groupID);
-             console.log(newObj.en);
-             console.log(newObj.pdf_url_en);
-             console.log(newObj.name_zh);
-             console.log(newObj.name_sub_zh);
-             console.log(newObj.zh);
-             console.log(newObj.pdf_url_zh);
-             */
+        updateRuleDetials: function() {
+            var ruleDetails = this.ruleDetails;
+            var self = this;
+            axios.post('ajax2/rule-details-info-update.php', {
+                    data: ruleDetails
+                })
+                .then(function(response) {
+                    self.showAlertNote('Saved');
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         },
-        removeRuleOcc: function (occObj) {
+        updateRuleSubPlan: function(Obj) {
+            var self = this;
+            axios.post('ajax2/rule-subplans-update.php', {
+                    data: Obj
+                })
+                .then(function(response) {
+                    self.showAlertNote('Saved');
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        removeRuleOcc: function(Obj) {
             var self = this;
             axios.post('ajax2/rule-occ-remove.php', {
-                data: occObj})
-                    .then(function (response) {
-                        self.ruleOcc.$remove(occObj);
-                        self.showAlertNote( occObj.occupation + ' Delete From ' + self.rule.rule_name);
-                        //console.log(response);
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                    data: Obj
+                })
+                .then(function(response) {
+                    self.ruleOcc.$remove(Obj);
+                    self.showAlertNote(Obj.occupation + ' Delete From ' + self.rule.rule_name);
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         },
-        removeRuleModel: function (modelObj) {
+        removeRuleModel: function(Obj) {
             var self = this;
             //console.log(modelObj);
             axios.post('ajax2/rule-model-remove.php', {
-                data: modelObj})
-                    .then(function (response) {
-                        self.ruleCarModel.$remove(modelObj);
-                        self.showAlertNote( modelObj.makeText + ' - ' + modelObj.modelText +' Delete From ' + self.rule.rule_name);
-                        //console.log(response);
-                    })
-                    .catch(function (response) {
-                        //console.log(response);
-                    });
+                    data: Obj
+                })
+                .then(function(response) {
+                    self.ruleCarModel.$remove(Obj);
+                    self.showAlertNote(Obj.makeText + ' - ' + Obj.modelText + ' Delete From ' + self.rule.rule_name);
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         },
-        showAlertNote : function (text) {
-            $(".alertNote").html(text).slideDown(function(){
+        removeRuleDetail: function(Obj) {
+            var self = this;
+            console.log(Obj);
+            axios.post('ajax2/rule-details-info-remove.php', {
+                    data: Obj
+                })
+                .then(function(response) {
+                    self.ruleDetails.$remove(Obj);
+                    self.showAlertNote(Obj.details_info + ' Delete From ' + self.rule.rule_name);
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        removeRuleSubPlan: function(Obj) {
+            var self = this;
+            axios.post('ajax2/rule-subplans-remove.php', {
+                    data: Obj
+                })
+                .then(function(response) {
+                    self.ruleSubPlans.$remove(Obj);
+                    self.showAlertNote(Obj.name + ' - ' + Obj.name_sub + ' Delete From ' + self.rule.rule_name);
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        copyRuleSubPlan: function(Obj) {
+            this.copiedSubPlan = Obj;
+            this.showAlertNote(Obj.name + ' - ' + Obj.name_sub + ' Copied From ' + this.rule.rule_name);
+        },
+        addRuleSubPlan: function() {
+            self = this;
+            //console.log(self.copiedSubPlan);
+            if ( self.copiedSubPlan === null ){
+                self.showAlertNote('Please Copy First');
+                return;
+            }
+            axios.post('ajax2/rule-subplans-create.php', {
+                    data: {
+                        subplanInfo: self.copiedSubPlan,
+                        rule_id: self.rule.id
+                    }
+                })
+                .then(function(response) {
+                    self.showAlertNote(self.copiedSubPlan.name + ' - ' + self.copiedSubPlan.name_sub + ' Copied To ' + self.rule.rule_name);
+                    self.getRuleSubPlans();
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        showAlertNote: function(text) {
+            $(".alertNote").html(text).slideDown(function() {
                 var note = $(this);
-                setTimeout(function(){
+                setTimeout(function() {
                     note.fadeOut();
-                }, 3000);
-            })
+                }, 3500);
+            });
+        },
+        viewPlansFileUrl: function(url) {
+            window.open('https://kwiksure.com' + url);
         }
     }
 });

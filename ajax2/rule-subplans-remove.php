@@ -1,0 +1,25 @@
+<?php
+
+/*
+{
+    url: "occ-add.php",
+    type: "POST",
+    data: { deIn : $DeInList.val(),
+        deInValue : $DeInValue.val(),
+        rule : $( "input:radio[name=selectRule]:checked" ).val()
+    }
+}
+*/
+
+include('../db/db_info.php');
+include('../model/sub-plans.php');
+
+$json = file_get_contents('php://input');
+$obj = json_decode($json, true);
+
+$data = $obj['data'];
+
+
+$s = new SubPlans();
+
+$s->delSubPlans($data['id']);

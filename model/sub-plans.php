@@ -17,7 +17,7 @@ class SubPlans
     }
     
     /**
-     * add sub plans
+     * add sub plans (old)
      * @param array $ar
      */
     public function addSubPlans($ar)
@@ -35,6 +35,16 @@ class SubPlans
         $a->pdf_url_zh = $ar['pdf_url_zh'];
         $a->sortOrder = $ar['sortOrder'];
         $a->groupID = $ar['groupID'];
+        $a->save();
+    }
+    
+    /**
+     * add sub plans (new )
+     * @param array $ar
+     */
+    public function addSubPlan($ar){
+        $a = ORM::for_table('sub-plan')->create();
+        $a->set($ar);
         $a->save();
     }
     

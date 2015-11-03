@@ -1,282 +1,319 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Kwiksure - Rule Setting Panel</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/normalize.css" rel="stylesheet" type="text/css"/>
-        <link href="css/main.css" rel="stylesheet" type="text/css"/>
-        <link href="css/css-v2.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
 
-        <div class="alertNote"></div>
+<head>
+    <title>Kwiksure - Rule Setting Panel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <link href="css/css-v2.css" rel="stylesheet" type="text/css" />
+</head>
 
-        <nav class="clearfix">
-            <ul>
-                <li><a href="">Logout</a></li>
-                <li><a href="">Test Rule</a></li>
-                <li><a href="">Make/Model</a></li>
-                <li><a href="">Occupation</a></li>
-                <li><a href="">Details Info</a></li>
-                <li><a href="">SubPlans</a></li>
-            </ul>
+<body>
 
-        </nav>
+    <div class="alertNote"></div>
 
-        <div class="clearfix" id="ruleList">
+    <nav class="clearfix">
+        <ul>
+            <li><a href="">Logout</a></li>
+            <li><a href="">Test Rule</a></li>
+            <li><a href="">Make/Model</a></li>
+            <li><a href="">Occupation</a></li>
+            <li><a href="">Details Info</a></li>
+        </ul>
 
-            <!-- left-side start -->
-            <div class="left-side" >
-                <div style="margin-bottom: 10px">
-                    <button>Delete</button>
-                    <button>Duplicate</button>
+    </nav>
+
+    <div class="clearfix" id="ruleList">
+
+        <!-- left-side start -->
+        <div class="left-side">
+            <div style="margin-bottom: 10px">
+                <button>Delete</button>
+                <button>Duplicate</button>
+            </div>
+            <input type="radio" value="1" id="radioActive" v-model="filterRuleByActive">
+            <label for="radioActive">Active</label>
+            <input type="radio" value="0" id="radioInActive" v-model="filterRuleByActive">
+            <label for="radioInActive">InActive</label>
+            <div class="rule-name-list">
+                <ul>
+                    <li v-for="r in rules | filterBy filterRuleByActive in 'active' " v-on:click="showRule(r , $event)" v-bind:class="[rule.id == r.id ? 'active' : '']">{{r.rule_name}}</li>
+                </ul>
+            </div>
+        </div>
+        <!-- left-side end -->
+
+
+        <!-- right-side start -->
+        <div class='right-side'>
+            <div style="margin-bottom:10px;">
+                <button class='button' v-on:click="changeTab('setting')" v-bind:class="[currentTab == 'setting' ? 'underline' : '']">Setting</button>
+                <button class='button' v-on:click="changeTab('ncd')" v-bind:class="[currentTab == 'ncd' ? 'underline' : '']">NCD</button>
+                <button class='button' v-on:click="changeTab('makeModel')" v-bind:class="[currentTab == 'makeModel' ? 'underline' : '']">Make / Model</button>
+                <button class='button' v-on:click="changeTab('occupation')" v-bind:class="[currentTab == 'occupation' ? 'underline' : '']">Occupation</button>
+                <button class='button' v-on:click="changeTab('detailsInfo')" v-bind:class="[currentTab == 'detailsInfo' ? 'underline' : '']">Details Info</button>
+                <button class='button' v-on:click="changeTab('subPlan')" v-bind:class="[currentTab == 'subPlan' ? 'underline' : '']">Sub Plan</button>
+
+            </div>
+
+            <fieldset v-show="currentTab=='setting'" style="display:none">
+                <legend>
+                    <button v-on:click="updateRule">Update</button>
+                </legend>
+                <h3>General Setting</h3>
+                <div class="editDiv">
+                    <b>Rule Name</b> :
+                    <input type="text" v-model="rule.rule_name" value="{{rule.rule_name}}">
                 </div>
-                <input type="radio" value="1" id="radioActive" v-model="filterRuleByActive">
-                <label for="radioActive">Active</label>
-                <input type="radio" value="0" id="radioInActive" v-model="filterRuleByActive">
-                <label for="radioInActive">InActive</label>
-                <div class="rule-name-list">
-                    <ul>
-                        <li v-for="r in rules | filterBy filterRuleByActive in 'active' "
-                            v-on:click="showRule(r , $event)"
-                            v-bind:class="[rule.id == r.id ? 'active' : '']"
-                            >{{r.rule_name}}</li>
+                <div class="editDiv">
+                    <b>Age</b> :
+                    <input type="text" v-model="rule.age_from" value="{{rule.age_from}}" style="width:30px"> -
+                    <input type="text" v-model="rule.age_to" value="{{rule.age_to}}" style="width:30px">
+                </div>
+                <div class="editDiv">
+                    <b>DrivingExp</b> :
+                    <select v-model="rule.DrivingExp">
+                        <option v-for="(key, val) in drivingExp" value="{{key}}">{{val}}</option>
+                    </select>
+                </div>
+                <div class="editDiv">
+                    <b>Insurance</b> :
+                    <select v-model="rule.TypeofInsurance">
+                        <option v-for="(key, val) in typeofInsurance" value="{{key}}">{{val}}</option>
+                    </select>
+                </div>
+                <div class="editDiv">
+                    <b>Year of Mfg.</b> :
+                    <input type="text" v-model="rule.Yearofmanufacture_from" value="{{rule.Yearofmanufacture_from}}" style="width:30px"> -
+                    <input type="text" v-mode="rule.Yearofmanufacture" value="{{rule.Yearofmanufacture}}" style="width:30px">
+                    <span style="font-size: 12px">{{yfgFrom}}-{{yfgTo}}</span>
+                </div>
+                <div class="editDiv">
+                    <b>Motor Accident Years</b>:
+                    <input id="rule-acy-rs-y" type="radio" value="1" v-model="rule.motor_accident_yrs">
+                    <label for="rule-acy-rs-y">Yes</label>
+                    <input id="rule-acy-rs-n" type="radio" value="0" v-model="rule.motor_accident_yrs">
+                    <label for="rule-acy-rs-n">No</label>
+                </div>
+                <div class="editDiv">
+                    <b>drive_offence_point</b>:
+                    <input id="rule-drive-off-pt-y" type="radio" value="1" v-model="rule.drive_offence_point">
+                    <label for="rule-drive-off-pt-y">Yes</label>
+                    <input id="rule-drive-off-pt-n" type="radio" value="0" v-model="rule.drive_offence_point">
+                    <label for="rule-drive-off-pt-n">No</label>
+                </div>
+                <div class="editDiv">
+                    <b>Active</b>:
+                    <input id="rule-active-y" type="radio" value="1" v-model="rule.active">
+                    <label for="rule-active-y">Yes</label>
+                    <input id="rule-active-n" type="radio" value="0" v-model="rule.active">
+                    <label for="rule-active-n">No</label>
+                </div>
+                <div class="clearfix"></div>
+                <h3>Calculation</h3>
+                <div class="editDiv">
+                    <b>Premium</b> :
+                    <input type="text" v-model="rule.premium" value="{{rule.premium}}" style="width:80px" :disabled="disabled.p">
+                </div>
+                <div class="editDiv">
+                    <b>Loading</b> :
+                    <input type="text" v-model="rule.loading" value="{{rule.loading}}" style="width:30px">
+                </div>
+                <div class="editDiv">
+                    <b>Other Discount</b> :
+                    <input type="text" v-model="rule.otherDiscount" value="{{rule.otherDiscount}}" style="width:30px">
+                </div>
+                <div class="editDiv">
+                    <b>Client Discount</b> :
+                    <input type="text" v-model="rule.clientDiscount" value="{{rule.clientDiscount}}" style="width:30px">
+                </div>
+
+                <div class="editDiv">
+                    <b>MIB</b> :
+                    <input type="text" v-model="rule.mib" value="{{rule.mib}}" style="width:30px">
+                </div>
+                <div class="editDiv">
+                    <b>Commission</b> :
+                    <input type="text" v-model="rule.commission" value="{{rule.commission}}" style="width:30px">
+                </div>
+                <div class="editDiv">
+                    <b>A2</b> :
+                    <input type="text" v-model="rule.a2" value="{{rule.a2}}" style="width:30px" :disabled="disabled.a2">
+                </div>
+                <div class="editDiv">
+                    <b>A3</b> :
+                    <input type="text" v-model="rule.a3" value="{{rule.a3}}" style="width:30px" :disabled="disabled.a3">
+                </div>
+            </fieldset>
+
+            <fieldset v-show="currentTab=='ncd'"  style="display:none">
+                <legend>
+                    <button v-on:click="updateRuleNcd">Update</button>
+                </legend>
+                <table border="1" cellspacing="5" cellpadding="3">
+                    <tr>
+                        <td>NCD</td>
+                        <td>Active</td>
+                        <td>Price Add</td>
+                        <td>Gross</td>
+                        <td>MIB</td>
+                        <td>Net w Tax</td>
+                        <td>Offer</td>
+                    </tr>
+                    <tr v-for="n in ruleNCD" v-bind:class="[n.active == 1 ? 'activeBg' : '']">
+                        <td>{{n.ncd}}</td>
+                        <td>
+                            <input id="rule-n-ncd-y" type="radio" value="1" v-model="n.active">
+                            <label for="rule-n-ncd-y">Yes</label>
+                            <input id="rule-n-ncd-n" type="radio" value="0" v-model="n.active">
+                            <label for="rule-n-ncd-n">No</label>
+                        </td>
+                        <td>
+                            <input type="text" v-model="n.price_add" style="width:100px">
+                        </td>
+                        <td>{{n.gross}}</td>
+                        <td>{{n.mibValue}}</td>
+                        <td>{{n.price}}</td>
+                        <td style="font-size:16px;color:red;font-weight: bold">{{n.total_price}}</td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <fieldset v-show="currentTab=='makeModel'"  style="display:none">
+                <legend>Make/Model</legend>
+
+                <div class="left-side">
+                    <select multiple="multiple" v-model="filterModel" style="height:450px;width:90%">
+                        <option v-for="rcMake in ruleCarMake | orderBy 'makeText'" value="{{rcMake.makeText}}">{{rcMake.makeText}}</option>
+                    </select>
+                </div>
+                <div class="right-side">
+                    <ul class='list-style'>
+                        <li v-for="rcModel in ruleCarModel | filterBy filterModel in 'makeText'">
+                            {{rcModel.makeText}} - {{rcModel.modelText}}
+                            <span style='color:red' v-on:click="removeRuleModel(rcModel)">X</span>
+                        </li>
                     </ul>
                 </div>
-            </div>
-            <!-- left-side end -->
+            </fieldset>
+
+            <fieldset v-show="currentTab=='occupation'"  style="display:none">
+                <legend>Occupation</legend>
+
+                <b>Search :</b>
+                <input type="text" v-model="filterOcc">
 
 
-            <!-- right-side start -->
-            <div class='right-side'>
-                <div style="margin-bottom:10px;">
-                    <button class='button' v-on:click="changeTab('setting')" v-bind:class="[currentTab == 'setting' ? 'underline' : '']">Setting</button>
-                    <button class='button' v-on:click="changeTab('ncd')" v-bind:class="[currentTab == 'ncd' ? 'underline' : '']">NCD</button>
-                    <button class='button' v-on:click="changeTab('makeModel')" v-bind:class="[currentTab == 'makeModel' ? 'underline' : '']">Make / Model</button>
-                    <button class='button' v-on:click="changeTab('occupation')" v-bind:class="[currentTab == 'occupation' ? 'underline' : '']">Occupation</button>
-                    <button class='button' v-on:click="changeTab('detailsInfo')" v-bind:class="[currentTab == 'detailsInfo' ? 'underline' : '']">Details Info</button>
-                    <button class='button' v-on:click="changeTab('subPlan')" v-bind:class="[currentTab == 'subPlan' ? 'underline' : '']">Sub Plan</button>
+                <ul class='list-style'>
+                    <li v-for="ro in ruleOcc | filterBy filterOcc in 'occupation'" style="width:320px">
+                        <span style='color:red;float:right;margin-right:20px;height:40px;' v-on:click="removeRuleOcc(ro)">X</span>
+                        <div style="width:300px">{{ro.occupation}}</div>
 
-                </div>
+                    </li>
+                </ul>
 
-                <fieldset v-show="currentTab=='setting'">
-                    <legend><button v-on:click="updateRule">Update</button></legend>
-                    <h3>General Setting</h3>
-                    <div class="editDiv">
-                        <b>Rule Name</b> : <input type="text" v-model="rule.rule_name" value="{{rule.rule_name}}">
-                    </div>
-                    <div class="editDiv">
-                        <b>Age</b> : <input type="text" v-model="rule.age_from" value="{{rule.age_from}}" style="width:30px">
-                        - 
-                        <input type="text" v-model="rule.age_to" value="{{rule.age_to}}" style="width:30px">
-                    </div>
-                    <div class="editDiv">
-                        <b>DrivingExp</b> : <select v-model="rule.DrivingExp">
-                            <option v-for="(key, val) in drivingExp"  value="{{key}}">{{val}}</option>
-                        </select>
-                    </div>
-                    <div class="editDiv">
-                        <b>Insurance</b> : <select v-model="rule.TypeofInsurance">
-                            <option v-for="(key, val) in typeofInsurance"  value="{{key}}">{{val}}</option>
-                        </select>
-                    </div>
-                    <div class="editDiv">
-                        <b>Year of Mfg.</b> : <input type="text" v-model="rule.Yearofmanufacture_from" value="{{rule.Yearofmanufacture_from}}" style="width:30px"> - 
-                        <input type="text" v-mode="rule.Yearofmanufacture" value="{{rule.Yearofmanufacture}}" style="width:30px">
-                        <span style="font-size: 12px">{{yfgFrom}}-{{yfgTo}}</span>
-                    </div>
-                    <div class="editDiv">
-                        <b>Motor Accident Years</b>:
-                        <input id="rule-acy-rs-y" type="radio" value="1" v-model="rule.motor_accident_yrs">
-                        <label for="rule-acy-rs-y">Yes</label>
-                        <input id="rule-acy-rs-n" type="radio" value="0" v-model="rule.motor_accident_yrs">
-                        <label for="rule-acy-rs-n">No</label>
-                    </div>
-                    <div class="editDiv">
-                        <b>drive_offence_point</b>: 
-                        <input id="rule-drive-off-pt-y" type="radio" value="1" v-model="rule.drive_offence_point">
-                        <label for="rule-drive-off-pt-y">Yes</label>
-                        <input id="rule-drive-off-pt-n" type="radio" value="0" v-model="rule.drive_offence_point">
-                        <label for="rule-drive-off-pt-n">No</label>
-                    </div>
-                    <div class="editDiv">
-                        <b>Active</b>: 
-                        <input id="rule-active-y" type="radio" value="1" v-model="rule.active">
-                        <label for="rule-active-y">Yes</label>
-                        <input id="rule-active-n" type="radio" value="0" v-model="rule.active">
-                        <label for="rule-active-n">No</label>
-                    </div>
-                    <div class="clearfix"></div>
-                    <h3>Calculation</h3>
-                    <div class="editDiv">
-                        <b>Premium</b>  : <input type="text" v-model="rule.premium" value="{{rule.premium}}" style="width:80px" :disabled="disabled.p">
-                    </div>
-                    <div class="editDiv">
-                        <b>Loading</b>  : <input type="text" v-model="rule.loading" value="{{rule.loading}}" style="width:30px">
-                    </div>
-                    <div class="editDiv">
-                        <b>Other Discount</b>  : <input type="text" v-model="rule.otherDiscount" value="{{rule.otherDiscount}}" style="width:30px">
-                    </div>
-                    <div class="editDiv">
-                        <b>Client Discount</b>  : <input type="text" v-model="rule.clientDiscount" value="{{rule.clientDiscount}}" style="width:30px">
-                    </div>
+            </fieldset>
 
-                    <div class="editDiv">
-                        <b>MIB</b>  : <input type="text" v-model="rule.mib" value="{{rule.mib}}" style="width:30px">
-                    </div>
-                    <div class="editDiv">
-                        <b>Commission</b>  : <input type="text" v-model="rule.commission" value="{{rule.commission}}" style="width:30px">
-                    </div>
-                    <div class="editDiv">
-                        <b>A2</b>  : <input type="text" v-model="rule.a2" value="{{rule.a2}}" style="width:30px" :disabled="disabled.a2">
-                    </div>
-                    <div class="editDiv">
-                        <b>A3</b>  : <input type="text" v-model="rule.a3" value="{{rule.a3}}" style="width:30px" :disabled="disabled.a3">
-                    </div>
-                </fieldset>
+            <fieldset v-show="currentTab=='detailsInfo'"  style="display:none">
+                <legend>
+                    <button v-on:click="updateRuleDetials">Update</button>
+                </legend>
 
-                <fieldset v-show="currentTab=='ncd'">
-                    <legend><button v-on:click="updateRuleNcd">Update</button></legend>
-                    <table border="1" cellspacing="5" cellpadding="3">
+                <ul class='list-style'>
+                    <li v-for="rdi in ruleDetails" style="width:50%;height:45px">
+                        <span style='color:red;float:right;margin-right:20px;height:40px;' v-on:click="removeRuleDetail(rdi)">X</span>
+                        <div>{{rdi.details_info}} :
+                            <input type="text" v-model="rdi.value" value="{{rdi.value}}">
+                        </div>
+
+                    </li>
+                </ul>
+
+            </fieldset>
+
+            <fieldset v-show="currentTab=='subPlan'"  style="display:none">
+                <legend>Sub-Plans</legend>
+                <p>Order : small number come first</p>
+                <p>Filter Group :
+                    <input type="text" v-model="filterSupPlanGroup">
+                </p>
+
+                <table border="1" cellspacing="5" cellpadding="3" width="100%">
+                    <tr>
+                        <td width="45">Order</td>
+                        <td width="150">Name - Sub Name</td>
+                        <td width="68">Additional Price</td>
+                        <td width="68">GroupID</td>
+                        <td width="*">Free Text</td>
+                        <td width="150">PDF</td>
+                        <td width="75">
+                            <button v-on:click="addRuleSubPlan()">Paste</button>
+                        </td>
+                    </tr>
+                    <template v-for="(index,rsp) in ruleSubPlans | filterBy filterSupPlanGroup in 'groupID'">
                         <tr>
-                            <td>NCD</td>    
-                            <td>Active</td>
-                            <td>Price Add</td>
-                            <td>Gross</td>
-                            <td>MIB</td>
-                            <td>Net w Tax</td>
-                            <td>Offer</td>
-                        </tr>
-                        <tr v-for="n in ruleNCD" v-bind:class="[n.active == 1 ? 'activeBg' : '']">
-                            <td>{{n.ncd}}</td>    
-                            <td><input id="rule-n-ncd-y" type="radio" value="1" v-model="n.active">
-                                <label for="rule-n-ncd-y">Yes</label>
-                                <input id="rule-n-ncd-n" type="radio" value="0" v-model="n.active">
-                                <label for="rule-n-ncd-n">No</label>
+                            <td rowspan="2">
+                                <input style="width:30px" type="text" value="{{rsp.sortOrder}}" v-model="rsp.sortOrder">
                             </td>
-                            <td><input type="text" v-model="n.price_add" style="width:100px"></td>
-                            <td>{{n.gross}}</td>
-                            <td>{{n.mibValue}}</td>
-                            <td>{{n.price}}</td>
-                            <td>{{n.total_price}}</td>
+                            <td>
+                                <input type="text" value="{{rsp.name}}" v-model="rsp.name"> -
+                                <br>
+                                <input type="text" value="{{rsp.name_sub}}" v-model="rsp.name_sub">
+                            </td>
+                            <td rowspan="2">
+                                <input style="width:50px" type="text" value="{{rsp.add_price}}" v-model="rsp.add_price">
+                            </td>
+                            <td rowspan="2">
+                                <input style="width:50px" type="text" value="{{rsp.groupID}}" v-model="rsp.groupID">
+                            </td>
+                            <td>
+                                <textarea v-model="rsp.en" style="width:100%;height:100px">{{rsp.en}}</textarea>
+                            </td>
+                            <td>
+                                <span style="text-decoration: underline;cursor: pointer;color:blue" v-on:click="viewPlansFileUrl(rsp.pdf_url_en)">View</span>
+                                <input typ="text" v-model="rsp.pdf_url_en" value="{{rsp.pdf_url_en}}">
+                            </td>
+                            <td rowspan="2">
+                                <button v-on:click="updateRuleSubPlan(rsp)" style="width:100%">Update</button>
+                                <br/>
+                                <button v-on:click="removeRuleSubPlan(rsp)" style="width:100%">Delete</button>
+                                <br/>
+                                <button v-on:click="copyRuleSubPlan(rsp)" style="width:100%">Copy</button>
+                            </td>
                         </tr>
-                    </table>
-                </fieldset>
-
-                <fieldset v-show="currentTab=='makeModel'">
-                    <legend>Make/Model</legend>
-
-                    <div class="left-side">
-                        <select multiple="multiple" v-model="filterModel" style="height:450px;width:90%">
-                            <option v-for="rcMake in ruleCarMake | orderBy 'makeText'" 
-                                    value="{{rcMake.makeText}}" >{{rcMake.makeText}}</option>
-                        </select>
-                    </div>
-                    <div class="right-side">
-                        <ul class='list-style'>
-                            <li v-for="rcModel in ruleCarModel | filterBy filterModel in 'makeText'" >
-                                {{rcModel.makeText}} - {{rcModel.modelText}}
-                                <span style='color:red' v-on:click="removeRuleModel(rcModel)">X</span>
-                            </li>
-                        </ul>
-                    </div>
-                </fieldset>
-
-                <fieldset v-show="currentTab=='occupation'">
-                    <legend>Occupation</legend>
-
-                    <b>Search :</b><input type="text"v-model="filterOcc">
-
-
-                    <ul class='list-style'>
-                        <li v-for="ro in ruleOcc | filterBy filterOcc in 'occupation'" 
-                            style="width:320px">
-                            <span style='color:red;float:right;margin-right:20px;height:40px;'
-                                  v-on:click="removeRuleOcc(ro)"
-                                  >X</span>
-                            <div style="width:300px">{{ro.occupation}}</div>
-
-                        </li>
-                    </ul>
-
-                </fieldset>
-
-                <fieldset v-show="currentTab=='detailsInfo'">
-                    <legend>Details Info</legend>
-
-                    <ul class='list-style'>
-                        <li v-for="rdi in ruleDetails" 
-                            style="width:50%;height:45px">
-                            <span style='color:red;float:right;margin-right:20px;height:40px;'>X</span>
-                            <div >{{rdi.details_info}} : 
-                                <input type="text" v-model="rdi.value" value="{{rdi.value}}">
-                            </div>
-
-                        </li>
-                    </ul>
-
-                </fieldset>
-
-                <fieldset v-show="currentTab=='subPlan'">
-                    <legend>Sub-Plans</legend>
-                    <p>Order : small number come first</p>
-                    <p>Filter Group : <input type="text" v-model="filterSupPlanGroup"></p>
-
-                    <table border="1" cellspacing="5" cellpadding="3" width="100%">
                         <tr>
-                            <td width="45">Order</td>
-                            <td width="150">Name - Sub Name</td>
-                            <td width="68">Additional Price</td>
-                            <td width="68">GroupID</td>
-                            <td width="*">Free Text</td>
-                            <td width="150">PDF</td>
-                            <td width="75"><button>Paste</button></td>
+                            <td>
+                                <input type="text" v-model="rsp.name_zh" value="{{rsp.name_zh}}"> -
+                                <br/>
+                                <input type="text" v-model="rsp.name_sub_zh" value="{{rsp.name_sub_zh}}">
+                            </td>
+                            <td>
+                                <textarea v-model="rsp.zh" style="width:100%;height:50px">{{rsp.zh}}</textarea>
+                            </td>
+                            <td>
+                                <span style="text-decoration: underline;cursor: pointer;color:blue" v-on:click="viewPlansFileUrl(rsp.pdf_url_zh)">View</span>
+                                <input typ="text" v-model="rsp.pdf_url_zh" value="{{rsp.pdf_url_zh}}">
+                            </td>
                         </tr>
-                        <template v-for="(index,rsp) in ruleSubPlans | filterBy filterSupPlanGroup in 'groupID'">
-                            <tr>
-                                <td rowspan="2"><input style="width:30px" type="text" value="{{rsp.sortOrder}}" v-model="rsp.sortOrder"></td>
-                                <td><input type="text" value="{{rsp.name}}" v-model="rsp.name"> - 
-                                    <br>
-                                    <input type="text" value="{{rsp.name_sub}}" v-model="rsp.name_sub">
-                                </td>
-                                <td rowspan="2"><input style="width:50px" type="text" value="{{rsp.add_price}}" v-model="rsp.add_price"></td>
-                                <td rowspan="2"><input style="width:50px" type="text" value="{{rsp.groupID}}" v-model="rsp.groupID"></td>
-                                <td><textarea v-model="rsp.en" style="width:100%;height:100px">{{rsp.en}}</textarea></td>
-                                <td><input typ="text" v-model="rsp.pdf_url_en" value="{{rsp.pdf_url_en}}"></td>
-                                <td rowspan="2">
-                                    <button v-on:click="updateSubPlan(index)">Update</button><br/>
-                                    <button>Delete</button><br/>
-                                    <button>Copy</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><input type="text" v-model="rsp.name_zh" value="{{rsp.name_zh}}"> - <br/>
-                                    <input type="text" v-model="rsp.name_sub_zh" value="{{rsp.name_sub_zh}}">
-                                </td>
-                                <td><textarea v-model="rsp.zh" style="width:100%;height:50px">{{rsp.zh}}</textarea></td>
-                                <td><input typ="text" v-model="rsp.pdf_url_zh" value="{{rsp.pdf_url_zh}}"></td>
-                            </tr>
-                        </template>
-                    </table>
+                    </template>
+                </table>
 
-
-
-                </fieldset>
-
-            </div>
-
-
-
-            <!-- right-side end -->
+            </fieldset>
 
         </div>
 
-        <div style="height:50px;"></div>
+        <!-- right-side end -->
 
-        <script src="js/vue.min.js" type="text/javascript"></script>
-        <script src="js/axios.min.js" type="text/javascript"></script>
-        <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
-        <script src="js/app.js" type="text/javascript"></script>
-    </body>
+    </div>
+
+    <div style="height:50px;"></div>
+
+    <script src="js/vue.min.js" type="text/javascript"></script>
+    <script src="js/axios.min.js" type="text/javascript"></script>
+    <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="js/app.js" type="text/javascript"></script>
+</body>
+
 </html>
