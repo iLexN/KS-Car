@@ -119,7 +119,7 @@ var ruleList = new Vue({
             })
                     .then(function (response) {
                         self.ruleOcc = response.data;
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(function (response) {
                         //console.log(response);
@@ -197,10 +197,10 @@ var ruleList = new Vue({
                     .then(function (response) {
                         self.getRuleNCD();
                         self.showAlertNote('Saved');
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(function (response) {
-                        console.log(response);
+                        //console.log(response);
                     });
 
         },
@@ -212,10 +212,10 @@ var ruleList = new Vue({
                     .then(function (response) {
                         self.getRuleNCD();
                         self.showAlertNote('Saved');
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(function (response) {
-                        console.log(response);
+                        //console.log(response);
                     });
 
         },
@@ -242,10 +242,24 @@ var ruleList = new Vue({
                     .then(function (response) {
                         self.ruleOcc.$remove(occObj);
                         self.showAlertNote( occObj.occupation + ' Delete From ' + self.rule.rule_name);
-                        console.log(response);
+                        //console.log(response);
                     })
                     .catch(function (response) {
-                        console.log(response);
+                        //console.log(response);
+                    });
+        },
+        removeRuleModel: function (modelObj) {
+            var self = this;
+            //console.log(modelObj);
+            axios.post('ajax2/rule-model-remove.php', {
+                data: modelObj})
+                    .then(function (response) {
+                        self.ruleCarModel.$remove(modelObj);
+                        self.showAlertNote( modelObj.makeText + ' - ' + modelObj.modelText +' Delete From ' + self.rule.rule_name);
+                        //console.log(response);
+                    })
+                    .catch(function (response) {
+                        //console.log(response);
                     });
         },
         showAlertNote : function (text) {

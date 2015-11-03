@@ -11,7 +11,7 @@
     <body>
 
         <div class="alertNote"></div>
-        
+
         <nav class="clearfix">
             <ul>
                 <li><a href="">Logout</a></li>
@@ -51,15 +51,15 @@
             <!-- right-side start -->
             <div class='right-side'>
                 <div style="margin-bottom:10px;">
-                <button class='button' v-on:click="changeTab('setting')" v-bind:class="[currentTab == 'setting' ? 'underline' : '']">Setting</button>
-                <button class='button' v-on:click="changeTab('ncd')" v-bind:class="[currentTab == 'ncd' ? 'underline' : '']">NCD</button>
-                <button class='button' v-on:click="changeTab('makeModel')" v-bind:class="[currentTab == 'makeModel' ? 'underline' : '']">Make / Model</button>
-                <button class='button' v-on:click="changeTab('occupation')" v-bind:class="[currentTab == 'occupation' ? 'underline' : '']">Occupation</button>
-                <button class='button' v-on:click="changeTab('detailsInfo')" v-bind:class="[currentTab == 'detailsInfo' ? 'underline' : '']">Details Info</button>
-                <button class='button' v-on:click="changeTab('subPlan')" v-bind:class="[currentTab == 'subPlan' ? 'underline' : '']">Sub Plan</button>
-                
+                    <button class='button' v-on:click="changeTab('setting')" v-bind:class="[currentTab == 'setting' ? 'underline' : '']">Setting</button>
+                    <button class='button' v-on:click="changeTab('ncd')" v-bind:class="[currentTab == 'ncd' ? 'underline' : '']">NCD</button>
+                    <button class='button' v-on:click="changeTab('makeModel')" v-bind:class="[currentTab == 'makeModel' ? 'underline' : '']">Make / Model</button>
+                    <button class='button' v-on:click="changeTab('occupation')" v-bind:class="[currentTab == 'occupation' ? 'underline' : '']">Occupation</button>
+                    <button class='button' v-on:click="changeTab('detailsInfo')" v-bind:class="[currentTab == 'detailsInfo' ? 'underline' : '']">Details Info</button>
+                    <button class='button' v-on:click="changeTab('subPlan')" v-bind:class="[currentTab == 'subPlan' ? 'underline' : '']">Sub Plan</button>
+
                 </div>
-                
+
                 <fieldset v-show="currentTab=='setting'">
                     <legend><button v-on:click="updateRule">Update</button></legend>
                     <h3>General Setting</h3>
@@ -177,7 +177,7 @@
                         <ul class='list-style'>
                             <li v-for="rcModel in ruleCarModel | filterBy filterModel in 'makeText'" >
                                 {{rcModel.makeText}} - {{rcModel.modelText}}
-                                <span style='color:red'>X</span>
+                                <span style='color:red' v-on:click="removeRuleModel(rcModel)">X</span>
                             </li>
                         </ul>
                     </div>
@@ -259,11 +259,11 @@
                             </tr>
                         </template>
                     </table>
-                    
-                    
+
+
 
                 </fieldset>
-                
+
             </div>
 
 
