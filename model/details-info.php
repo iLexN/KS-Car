@@ -113,7 +113,7 @@ class DetailsInfo
     }
         
     /**
-    * update details info
+    * update details info (old )
     * @param array $input
     */
     public function updateDetailsInfoByID($input)
@@ -124,6 +124,17 @@ class DetailsInfo
         $a->en_desc = $input['enTextDesc'];
         $a->zh_desc = $input['zhTextDesc'];
         $a->sortOrder = $input['sortOrder'];
+        $a->save();
+    }
+    
+    /**
+    * update details info (new )
+    * @param array $input
+    */
+    public function updateDetailInfoByID($input)
+    {
+        $a = ORM::for_table('details_info') -> find_one($input['id']);
+        $a->set($input);
         $a->save();
     }
     

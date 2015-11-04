@@ -199,16 +199,6 @@ var ruleList = new Vue({
                     //console.log(response);
                 });
         },
-        showRule: function(rule, $event) {
-            this.rule = rule;
-            //console.log($event);
-        },
-        changeTab: function(tab) {
-            this.currentTab = tab;
-        },
-        changeTab2: function(tab) {
-            this.currentTab2 = tab;
-        },
         updateRule: function() {
             var rule = this.rule;
             var self = this;
@@ -263,6 +253,21 @@ var ruleList = new Vue({
                 .then(function(response) {
                     self.showAlertNote('Saved');
                     //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        updateDetailInfo: function() {
+            var self = this;
+            axios.post('ajax2/details-info-update.php', {
+                    data: self.editDetailsInfo
+                })
+                .then(function(response) {
+                    self.showAlertNote('Saved');
+                    self.getDetailsInfoList();
+                    self.getRuleDetails();
+                    self.changeTab('detailsInfo');
                 })
                 .catch(function(response) {
                     //console.log(response);
@@ -366,12 +371,13 @@ var ruleList = new Vue({
                 .then(function(response) {
                     //self.showAlertNote(self.copiedSubPlan.name + ' - ' + self.copiedSubPlan.name_sub + ' Copied To ' + self.rule.rule_name);
                     //self.getRuleSubPlans();
-                    console.log(response.data);
+                    //console.log(response.data);
                     if (response.data.e == '1'  ) {
                         self.showAlertNote('Error: Already exist');
                     } else {
                         self.showAlertNote('Added to ' + self.rule.rule_name);
                         self.getRuleDetails();
+                        self.changeTab('detailsInfo');
                     }
                 })
                 .catch(function(response) {
@@ -386,8 +392,31 @@ var ruleList = new Vue({
                 }, 3500);
             });
         },
+        loadDetailInfo:function(){
+            if ( this.editDetailsInfo === null || this.editDetailsInfo.id === undefined ) {
+                this.showAlertNote('Please select ...');
+                return;
+            }
+            for (var i = 0; i < this.detailsInfo.length; i++) {
+                if ( this.detailsInfo[i].id == this.editDetailsInfo.id ) {
+                    this.editDetailsInfo = this.detailsInfo[i];
+                    break;
+                }
+            }
+            //console.log(this.editDetailsInfo);
+        },
         viewPlansFileUrl: function(url) {
             window.open('https://kwiksure.com' + url);
+        },
+        showRule: function(rule, $event) {
+            this.rule = rule;
+            //console.log($event);
+        },
+        changeTab: function(tab) {
+            this.currentTab = tab;
+        },
+        changeTab2: function(tab) {
+            this.currentTab2 = tab;
         }
     }
 });

@@ -123,8 +123,8 @@ td{padding:5px}
 .panel{
     position: fixed;
     top:0;
-    left:10%;
-    width:80%;
+    left:15%;
+    width:70%;
     height: 75%;
     background-color:#CA9698;
     opacity: 0.95;
@@ -135,5 +135,9 @@ td{padding:5px}
     text-align: center;
     font-size:20px;
     text-decoration: underline;
+    font-weight: bold;
+}
+.panel h3{
+    color:#414141;
     font-weight: bold;
 }

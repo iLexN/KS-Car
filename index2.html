@@ -17,7 +17,7 @@
     <div class="panel" v-show="currentTab2=='DetailsInfoPanel'" style="display:none">
         <h2>Details Info</h2>
         <div class="clearfix">
-        <div style="float:left;width:40%;">
+            <div style="float:left;width:50%;padding:20px">
             <h3>Add To Rule</h3>
             <p><select style="width:100%" v-model="editDetailsInfo.id">
                 <option v-for="v in detailsInfo" value="{{v.id}}">{{v.en}} ({{v.zh}})</option>
@@ -30,10 +30,16 @@
             <button v-on:click="addRuleDetailInfo">Add</button>
             
             <p>Remark : empty = empty / no = cross / yes = tick </p>
-            
-            
-        </div>
             </div>
+            <div style="float:left;width:50%;padding:20px">
+                <h3>Select and <button v-on:click="loadDetailInfo" style="color:#000;font-weight: normal;font-size:14px">Load</button> to Edit</h3>
+                <p>en : <input type="text" v-model="editDetailsInfo.en"></p>
+                <p>zh : <input type="text" v-model="editDetailsInfo.zh"></p>
+                <p>order : <input type="text" v-model="editDetailsInfo.sortOrder"><br/>
+                small number come first</p>
+                <p><button v-on:click="updateDetailInfo">Update</button></p>
+            </div>
+        </div>
         <div style="text-align: center"><button class='button' v-on:click="changeTab2('')">Close</button></div>
         
     </div>
@@ -72,6 +78,7 @@
 
         <!-- right-side start -->
         <div class='right-side'>
+            <h1 style="padding: 0;margin:0;color:#C82A2F">{{rule.rule_name}}</h1>
             <div style="margin-bottom:10px;">
                 <button class='button' v-on:click="changeTab('setting')" v-bind:class="[currentTab == 'setting' ? 'underline' : '']">Setting</button>
                 <button class='button' v-on:click="changeTab('ncd')" v-bind:class="[currentTab == 'ncd' ? 'underline' : '']">NCD</button>
