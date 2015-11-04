@@ -17,6 +17,11 @@
     <title></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        body{
+    background-color: #E0ECF1;
+}
+    </style>
 </head>
 <body style="margin-top:10px;position:relative">
     <div style="width:300px;margin: 30px auto">
