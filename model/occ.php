@@ -21,13 +21,24 @@ class Occ
     }
 
     /**
-     * get all occ
+     * get all occ (old)
      * @return array
      */
     public function getAll()
     {
         $occupation = ORM::for_table('occupation')->where('active', 1)->order_by_asc('en')->find_array();
         return $this->transform($occupation);
+    }
+    
+    /**
+     * get all occ (new)
+     * @return array
+     */
+    public function getAlls()
+    {
+        $occupation = ORM::for_table('occupation')->where('active', 1)->order_by_asc('en')->find_array();
+        //return $this->transform($occupation);
+        return $occupation;
     }
     
     /**
@@ -143,6 +154,14 @@ class Occ
         $a->save();
     }
     
+    /**
+     * Old update for occ
+     * @param type $en
+     * @param type $zh
+     * @param type $id
+     * @param type $en_order
+     * @param type $zh_order
+     */
     public function updateOcc($en, $zh,$id,$en_order,$zh_order)
     {
         $a = ORM::for_table('occupation')->find_one($id);
@@ -151,6 +170,17 @@ class Occ
         $a->en_order = $en_order;
         $a->zh_order = $zh_order;
         $a->save();
+    }
+    
+    /**
+     * New update for Occupation
+     * @param array $ar data array
+     */
+    public function updateOccupation($ar) {
+        
+         $a = ORM::for_table('occupation')->find_one($ar['id']);
+         $a->set($ar);
+         $a->save();
     }
     
     
