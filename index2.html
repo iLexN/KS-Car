@@ -14,6 +14,7 @@
 
     <div class="alertNote"></div>
     
+    <!-- DetailsInfoPanel Start-->
     <div class="panel" v-show="currentTab2=='DetailsInfoPanel'" style="display:none">
         <h2>Details Info Panel</h2>
         <div class="clearfix">
@@ -41,19 +42,22 @@
             </div>
         </div>
         <div style="text-align: center"><button class='button' v-on:click="changeTab2('')">Close</button></div>
-        
     </div>
+    <!-- DetailsInfoPanel End-->
+    
+    <!-- OccupationPanel Start-->
     <div class="panel" v-show="currentTab2=='OccupationPanel'" style="display:none">
         <h2>Occupation Panel</h2>
         <div class="clearfix">
             <div style="float:left;width:50%;padding:20px">
                 <h3>Occupation List</h3>
+                <p><button v-on:click="addRuleOcc">Add Selected Occupation To Rule</button></p>
                 <select multiple="multiple" style="width:100%;height:350px;" v-model="editOcc.id">
                     <option v-for="v in occupationList" value="{{v.id}}">{{v.en}}({{v.zh}})</option>
                 </select>
             </div>
             <div style="float:left;width:50%;padding:20px">
-                <p><button v-on:click="addRuleOcc">Add Selected Occupation To Rule</button></p>
+
                 <p><button v-on:click="removeOccs">Delete Selected Occupation From List/Rules</button></p>
                 <p><button v-on:click="loadOccupation">Load Occupation To Edit</button></p>
                 <table width="90%">
@@ -79,15 +83,37 @@
                 
             </div>
         </div>
-        <div style="text-align: center"><button class='button' v-on:click="changeTab2('')">Close</button></div>
-        
+        <div style="text-align: center"><button class='button' v-on:click="changeTab2('')">Close</button></div>    
     </div>
-
+    <!-- OccupationPanel End-->
+    
+    <!-- CarPanel Start-->
+    <div class="panel" v-show="currentTab2=='CarPanel'" style="display:none">
+        <h2>Car Make/Model Panel</h2>
+        <div class="clearfix">
+            <div style="float:left;width:50%;padding:20px">
+                <h3>Make List</h3>
+                <p><select v-model="carMake" style="width:70%">
+                    <option v-for="v in makeList" value="{{v.id}}">{{v.make}}</option>
+                </select></p>
+                <select multiple="multiple" style="width:70%;height:350px;" v-model="carModel">
+                    <option v-for="v in modelList" value="{{v.id}}">{{v.model}}</option>
+                </select>
+            </div>
+            <div style="float:left;width:50%;padding:20px">
+                <p><button v-on:click="removeCarMake">Delete Car Make</button></p>
+                <p><button v-on:click="removeCarModel">Delete Car Model</button></p>
+            </div>
+        </div>
+        <div style="text-align: center"><button class='button' v-on:click="changeTab2('')">Close</button></div>    
+    </div>
+    <!-- CarPanel End-->
+    
     <nav class="clearfix">
         <ul>
             <li><a href="">Logout</a></li>
             <li><a href="">Test Rule</a></li>
-            <li><a href="">Make/Model</a></li>
+            <li><a v-on:click="changeTab2('CarPanel')">Make/Model</a></li>
             <li><a v-on:click="changeTab2('OccupationPanel')">Occupation</a></li>
             <li><a v-on:click="changeTab2('DetailsInfoPanel')">Details Info</a></li>
         </ul>

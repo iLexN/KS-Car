@@ -6,6 +6,10 @@ var ruleList = new Vue({
         rule: null,
         drivingExp: null,
         typeofInsurance: null,
+        makeList:null,
+        carMake:null,
+        modelList:null,
+        carModel:null,
         detailsInfo:null,
         editDetailsInfo:{
             id:null,
@@ -36,7 +40,7 @@ var ruleList = new Vue({
         filterOcc: null,
         filterSupPlanGroup: null,
         currentTab: 'setting', // setting , detailsInfo ,subPlan
-        currentTab2: null, // DetailsInfoPanel
+        currentTab2: null, // DetailsInfoPanel , CarPanel
         copiedSubPlan: null
     },
     created: function() {
@@ -68,7 +72,6 @@ var ruleList = new Vue({
                 this.disabled.a2 = false;
                 this.disabled.a3 = false;
                 this.disabled.p = true;
-                //this.rule.premium = '';
             }
         },
         'rule.id': function() {
@@ -77,6 +80,9 @@ var ruleList = new Vue({
             this.getRuleOcc();
             this.getRuleDetails();
             this.getRuleSubPlans();
+        },
+        'carMake':function(){
+            this.getModelList();
         }
     },
     methods: {
@@ -119,7 +125,7 @@ var ruleList = new Vue({
             axios.get('ajax2/details-info-get.php')
                 .then(function(response) {
                     self.detailsInfo = response.data;
-                    console.log(response);
+                    //console.log(response);
                 })
                 .catch(function(response) {
                     //console.log(response);
@@ -130,6 +136,32 @@ var ruleList = new Vue({
             axios.get('ajax2/occ-get.php')
                 .then(function(response) {
                     self.occupationList = response.data;
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        getMakeList:function(){
+            var self = this;
+            axios.get('ajax2/make-get.php')
+                .then(function(response) {
+                    self.makeList = response.data;
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        getModelList:function(){
+            var self = this;
+            axios.get('ajax2/make-mode-get.php', {
+                    params: {
+                        id: self.carMake
+                    }
+                })
+                .then(function(response) {
+                    self.modelList = response.data;
                     //console.log(response);
                 })
                 .catch(function(response) {
@@ -170,7 +202,7 @@ var ruleList = new Vue({
             var self = this;
             axios.get('ajax2/rule-details-info-get.php', {
                     params: {
-                        id: this.rule.id
+                        id: self.rule.id
                     }
                 })
                 .then(function(response) {
@@ -185,7 +217,7 @@ var ruleList = new Vue({
             var self = this;
             axios.get('ajax2/rule-subplans-get.php', {
                     params: {
-                        id: this.rule.id
+                        id: self.rule.id
                     }
                 })
                 .then(function(response) {
@@ -200,7 +232,7 @@ var ruleList = new Vue({
             var self = this;
             axios.get('ajax2/rule-makemodel-get.php', {
                     params: {
-                        id: this.rule.id
+                        id: self.rule.id
                     }
                 })
                 .then(function(response) {
@@ -419,6 +451,42 @@ var ruleList = new Vue({
                     //console.log(response);
                 });
         },
+        removeCarMake:function(){
+            if ( this.carMake === null ) {
+                this.showAlertNote('Please select Make...');
+                return;
+            }
+            self = this;
+            axios.post('ajax2/make-remove.php', {
+                    data: self.carMake
+                })
+                .then(function(response) {
+                        self.showAlertNote('Make deleted');
+                        self.getRuleCarModel();
+                        self.getMakeList();   
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        removeCarModel:function(){
+            if ( this.carModel === null ) {
+                this.showAlertNote('Please select Model...');
+                return;
+            }
+            self = this;
+            axios.post('ajax2/model-remove.php', {
+                    data: self.carModel
+                })
+                .then(function(response) {
+                        self.showAlertNote('Model deleted');
+                        self.getRuleCarModel();
+                        self.getModelList();   
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
         copyRuleSubPlan: function(Obj) {
             this.copiedSubPlan = Obj;
             this.showAlertNote(Obj.name + ' - ' + Obj.name_sub + ' Copied From ' + this.rule.rule_name);
@@ -446,7 +514,7 @@ var ruleList = new Vue({
                 });
         },
         addRuleDetailInfo:function(){
-            if ( this.editDetailsInfo === null || this.editDetailsInfo.id === undefined ) {
+            if ( this.editDetailsInfo === null || this.editDetailsInfo.id === null ) {
                 this.showAlertNote('Please select ...');
                 return;
             }
@@ -474,7 +542,7 @@ var ruleList = new Vue({
                 });
         },
         addRuleOcc:function(){
-            if ( this.editOcc === null || this.editOcc.id === undefined ) {
+            if ( this.editOcc === null || this.editOcc.id === null ) {
                 this.showAlertNote('Please select ...');
                 return;
             }
@@ -563,7 +631,14 @@ var ruleList = new Vue({
                     }
                     break;
                 case 'OccupationPanel':
-                    this.getOccupationList();
+                    if( this.occupationList === null ){
+                        this.getOccupationList();
+                    }
+                    break;
+                case 'CarPanel':
+                    if( this.makeList === null ){
+                        this.getMakeList();
+                    }
                     break;
             };
             this.currentTab2 = tab;

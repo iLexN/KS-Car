@@ -26,7 +26,7 @@ class Car
     }
 
     /**
-     * get all make
+     * get all make (old)
      *
      * @return array
      */
@@ -42,6 +42,19 @@ class Car
             $make_ar[$row['id']] = $row;
         }
         return $make_ar;
+    }
+    
+    /**
+     * get all makes (new)
+     * @return type
+     */
+    public function getAllsMake(){
+        $m = ORM::for_table('make')
+                        -> select_many('id', 'make')
+                        -> where('active', 1)
+                        -> order_by_asc('make')
+                        -> find_array();
+        return $m;
     }
 
     /**
