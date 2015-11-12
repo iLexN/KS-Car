@@ -569,6 +569,27 @@ var ruleList = new Vue({
                     //console.log(response);
                 });
         },
+        addRuleModel:function(){
+            if ( this.carModel === null ) {
+                this.showAlertNote('Please select Model...');
+                return;
+            }
+            self = this;
+            axios.post('ajax2/rule-model-add.php', {
+                    data: {
+                        model : self.carModel,
+                        rule_id: self.rule.id
+                    }
+                })
+                .then(function(response) {
+                        self.showAlertNote('Model Added');
+                        self.getRuleCarModel();
+                        self.changeTab('makeModel')
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
         showAlertNote: function(text) {
             $(".alertNote").html(text).slideDown(function() {
                 var note = $(this);

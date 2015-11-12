@@ -91,13 +91,14 @@
         <h2>Car Make/Model Panel</h2>
         <div class="clearfix">
             <div style="float:left;width:50%;padding:20px">
-                <h3>Make List</h3>
+                <h3>Make List <button v-on:click="addRuleModel">Add to Rule</button></h3>
                 <p><select v-model="carMake" style="width:70%">
                     <option v-for="v in makeList" value="{{v.id}}">{{v.make}}</option>
                 </select></p>
-                <select multiple="multiple" style="width:70%;height:350px;" v-model="carModel">
+                <p><select multiple="multiple" style="width:70%;height:350px;" v-model="carModel">
                     <option v-for="v in modelList" value="{{v.id}}">{{v.model}}</option>
                 </select>
+                </p>
             </div>
             <div style="float:left;width:50%;padding:20px">
                 <p><button v-on:click="removeCarMake">Delete Car Make</button></p>
