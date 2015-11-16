@@ -9,7 +9,7 @@
     <link href="css/css-v2.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body id="ruleList">
+<body id="app">
 
     <div class="alertNote"></div>
     
@@ -19,9 +19,10 @@
         <div class="clearfix">
             <div style="float:left;width:50%;padding:20px">
             <h3>Add To Rule</h3>
-            <p><select style="width:100%" v-model="editDetailsInfo.id">
-                <option v-for="v in detailsInfo" value="{{v.id}}">{{v.en}} ({{v.zh}})</option>
-            </select>
+            <p>
+                <select style="width:100%" v-model="editDetailsInfo.id">
+                    <option v-for="v in detailsInfo" value="{{v.id}}">{{v.en}} ({{v.zh}})</option>
+                </select>
             </p>
             
             <p>value : <br/>
@@ -91,7 +92,7 @@
         <h2>Car Make/Model Panel</h2>
         <div class="clearfix">
             <div style="float:left;width:50%;padding:20px">
-                <h3>Make List <button v-on:click="addRuleModel">Add to Rule</button></h3>
+                <h3>Make List - <button v-on:click="addRuleModel" style="color:#000;font-weight: normal;font-size:14px">Add to Rule</button></h3>
                 <p><select v-model="carMake" style="width:70%">
                     <option v-for="v in makeList" value="{{v.id}}">{{v.make}}</option>
                 </select></p>
@@ -103,6 +104,21 @@
             <div style="float:left;width:50%;padding:20px">
                 <p><button v-on:click="removeCarMake">Delete Car Make</button></p>
                 <p><button v-on:click="removeCarModel">Delete Car Model</button></p>
+                <p>&nbsp;</p>
+                <h3>New Make/Model</h3>
+                <p>
+                    <input type="radio" value="addMake" id="addMake" v-model="creatMakeModel.type"> 
+                    <label for="addMake">Make</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" value="addModel" id="addModel" v-model="creatMakeModel.type"> 
+                    <label for="addModel">Model</label>
+                </p>
+                <p>
+                    <input type="text" placeholder="make/model Name" style="width:70%" v-model="creatMakeModel.text">
+                </p>
+                <p>
+                    <button v-on:click="addMakeModel">Add Make/Model</button>
+                </p>
             </div>
         </div>
         <div style="text-align: center"><button class='button' v-on:click="changeTab2('')">Close</button></div>    
@@ -151,7 +167,6 @@
                 <button class='button' v-on:click="changeTab('occupation')" v-bind:class="[currentTab == 'occupation' ? 'underline' : '']">Occupation</button>
                 <button class='button' v-on:click="changeTab('detailsInfo')" v-bind:class="[currentTab == 'detailsInfo' ? 'underline' : '']">Details Info</button>
                 <button class='button' v-on:click="changeTab('subPlan')" v-bind:class="[currentTab == 'subPlan' ? 'underline' : '']">Sub Plan</button>
-
             </div>
 
             <fieldset v-show="currentTab=='setting'" style="display:none">

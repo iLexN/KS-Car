@@ -1,5 +1,5 @@
-var ruleList = new Vue({
-    el: '#ruleList',
+var app = new Vue({
+    el: '#app',
     data: {
         filterRuleByActive: '1',
         rules: null,
@@ -11,6 +11,7 @@ var ruleList = new Vue({
         modelList:null,
         carModel:null,
         detailsInfo:null,
+        creatMakeModel:null,
         editDetailsInfo:{
             id:null,
             en:null,
@@ -464,6 +465,7 @@ var ruleList = new Vue({
                         self.showAlertNote('Make deleted');
                         self.getRuleCarModel();
                         self.getMakeList();   
+                        self.getModelList();
                 })
                 .catch(function(response) {
                     //console.log(response);
@@ -585,6 +587,56 @@ var ruleList = new Vue({
                         self.showAlertNote('Model Added');
                         self.getRuleCarModel();
                         self.changeTab('makeModel')
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        addMakeModel:function(){
+            if ( this.creatMakeModel === null ||  this.creatMakeModel.text === '' ) {
+                this.showAlertNote('Please input text...');
+                return;
+            }
+            if ( this.creatMakeModel.type === undefined  ){
+                this.showAlertNote('Please Select Make/Model...');
+                return;
+            }
+            if ( this.carMake === null && this.creatMakeModel.type === 'addModel') {
+                this.showAlertNote('Please select Make...');
+                return;
+            }
+            if ( this.creatMakeModel.type === 'addMake' ) {
+                this.addMake();
+            } else {
+                this.addModel();
+            }
+        },
+        addMake:function(){
+            self = this;
+            axios.post('ajax2/make-add.php', {
+                    data: {
+                        edit: self.creatMakeModel
+                    }
+                })
+                .then(function(response) {
+                        self.showAlertNote('New Make Added');
+                        self.getMakeList();
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        addModel:function(){
+            self = this;
+            axios.post('ajax2/model-add.php', {
+                    data: {
+                        edit: self.creatMakeModel,
+                        make_id : self.carMake
+                    }
+                })
+                .then(function(response) {
+                        self.showAlertNote('New Make Added');
+                        self.getModelList();
                 })
                 .catch(function(response) {
                     //console.log(response);
