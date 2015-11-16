@@ -44,7 +44,7 @@ var app = new Vue({
         currentTab2: null, // DetailsInfoPanel , CarPanel
         copiedSubPlan: null
     },
-    created: function() {
+    ready: function() {//or created?
         this.fetchRuleListData();
         this.getDriverExp();
         this.getTypeofInsurance();
