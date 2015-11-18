@@ -369,6 +369,32 @@ var app = new Vue({
                     //console.log(response);
                 });
         },
+        duplicateRule : function(){
+            var self = this;
+            axios.post('ajax2/rule-dup.php', {
+                    data: self.rule.id
+                })
+                .then(function(response) {
+                    self.showAlertNote(self.rule.rule_name + ' Duplicated');
+                    self.fetchRuleListData();
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        removeRule:function(){
+            var self = this;
+            axios.post('ajax2/rule-remove.php', {
+                    data: self.rule.id
+                })
+                .then(function(response) {
+                    self.showAlertNote(self.rule.rule_name + ' Deleted');
+                    self.fetchRuleListData();
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
         removeRuleOcc: function(Obj) {
             var self = this;
             axios.post('ajax2/rule-occ-remove.php', {
