@@ -1,5 +1,6 @@
 var app = new Vue({
     el: '#app',
+    //props: ['rules', 'rule'],
     data: {
         filterRuleByActive: '1',
         rules: null,
@@ -81,6 +82,9 @@ var app = new Vue({
             this.getRuleOcc();
             this.getRuleDetails();
             this.getRuleSubPlans();
+        },
+        'rule.active' : function(){
+            this.filterRuleByActive = this.rule.active;
         },
         'carMake':function(){
             this.getModelList();
