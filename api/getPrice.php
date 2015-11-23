@@ -59,7 +59,10 @@ if (!empty($result['error'])) {
     if (!$quote->isTest) {
         echo(json_encode($result));
         //Log
-        file_put_contents('../log/'.date('Ymd').'.log', date('H:i:s') . "\n\t" . json_encode($result) ."\n\t"  . json_encode($quote->allVar) ."\n\t"  . json_encode($_POST) . PHP_EOL, FILE_APPEND);
+        file_put_contents('../log/'.date('Ymd').'.log', date('H:i:s') . "\n\t" .
+                json_encode($result) ."\n\t"  .
+                json_encode($quote->allVar) ."\n\t"  .
+                json_encode($_POST) . PHP_EOL, FILE_APPEND);
     } else {
         return $result;
     }
