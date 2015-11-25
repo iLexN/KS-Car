@@ -22,6 +22,7 @@ class Rule
      */
     public function __construct($r = null)
     {
+        //todo test todo
         $this -> r = $r;
     }
 
