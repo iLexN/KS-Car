@@ -4,7 +4,7 @@ var app = new Vue({
     data: {
         filterRuleByActive: '1',
         rules: null,
-        rule: null,
+        rule: {},
         drivingExp: null,
         typeofInsurance: null,
         makeList:null,
@@ -12,7 +12,7 @@ var app = new Vue({
         modelList:null,
         carModel:null,
         detailsInfo:null,
-        creatMakeModel:null,
+        creatMakeModel:{},
         editDetailsInfo:{
             id:null,
             en:null,
@@ -46,7 +46,7 @@ var app = new Vue({
         copiedSubPlan: null
     },
     ready: function() {//or created?
-        this.fetchRuleListData();
+        this.getRuleList();
         this.getDriverExp();
         this.getTypeofInsurance();
         //this.getDetailsInfoList();
@@ -91,7 +91,7 @@ var app = new Vue({
         }
     },
     methods: {
-        fetchRuleListData: function() {
+        getRuleList: function() {
             var self = this;
             axios.get('ajax2/rule-get-all.php')
                 .then(function(response) {
@@ -380,7 +380,7 @@ var app = new Vue({
                 })
                 .then(function(response) {
                     self.showAlertNote(self.rule.rule_name + ' Duplicated');
-                    self.fetchRuleListData();
+                    self.getRuleList();
                 })
                 .catch(function(response) {
                     //console.log(response);
@@ -393,7 +393,7 @@ var app = new Vue({
                 })
                 .then(function(response) {
                     self.showAlertNote(self.rule.rule_name + ' Deleted');
-                    self.fetchRuleListData();
+                    self.getRuleList();
                 })
                 .catch(function(response) {
                     //console.log(response);
