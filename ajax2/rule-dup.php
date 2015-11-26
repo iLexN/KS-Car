@@ -24,26 +24,18 @@ $r = new Rule($oldRuleID);
 $r->getOne();
 $oldRuleDateAr = $r->rule->as_array() ;
 $oldRuleDateAr['active'] = 0;
-$oldRuleDateAr['ruleName'] = 'Dup' . $oldRuleDateAr['rule_name'];
-//$oldRuleDateAr['priceAdd'] = $oldRuleDateAr['price_add'];
-$oldRuleDateAr['DriveOffencePoint'] = $oldRuleDateAr['drive_offence_point'];
-$oldRuleDateAr['MotorAccidentYrs'] = $oldRuleDateAr['motor_accident_yrs'];
-$oldRuleDateAr['Active'] = $oldRuleDateAr['active'];
-
+$oldRuleDateAr['rule_name'] = 'Dup' . $oldRuleDateAr['rule_name'];
 unset($oldRuleDateAr['id']);
-unset($oldRuleDateAr['rule_name']);
-unset($oldRuleDateAr['drive_offence_point']);
-unset($oldRuleDateAr['motor_accident_yrs']);
-unset($oldRuleDateAr['active']);
-
 
 // new rule
 $rule = new Rule();
 $dupRuleID = $rule->newRule();
 
+error_log('new id::' . $dupRuleID);
+
 //update new rule
 $newRule =new Rule($dupRuleID);
-$newRule->editUpdate($oldRuleDateAr); // DEPRECATED
+$newRule->update($oldRuleDateAr);
 
 // add make/model
 $car = new Car();
@@ -80,8 +72,8 @@ foreach ($odlSPListAr as $oldSPList) {
     $sp = new SubPlans();
     
     $oldSPList['rule'] = $dupRuleID;
-    
-    $sp->addSubPlans($oldSPList);//DEPRECATED
+    unset($oldSPList['id']);
+    $sp->addSubPlans($oldSPList);
     unset($sp);
 }
 
