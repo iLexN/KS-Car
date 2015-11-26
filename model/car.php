@@ -26,17 +26,14 @@ class Car
     }
 
     /**
+     * DEPRECATED, use getAllsMake
      * get all make (old)
      *
      * @return array
      */
     public function getAllMake()
     {
-        $m = ORM::for_table('make')
-                        -> select_many('id', 'make')
-                        -> where('active', 1)
-                        -> order_by_asc('make')
-                        -> find_array();
+        $m = $this->getAllsMake();
         $make_ar = array();
         foreach ($m as $row) {
             $make_ar[$row['id']] = $row;

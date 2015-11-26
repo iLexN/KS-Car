@@ -24,17 +24,14 @@ class DetailsInfo
     }
 
     /**
+     * DEPRECATED , use getAlls
      * get all details info (old)
      *
      * @return array
      */
     public function getAll()
     {
-        $details_info = ORM::for_table('details_info')
-                        ->where('active', 1)
-                        ->order_by_asc('sortOrder')
-                        ->order_by_asc('id')
-                        ->find_array();
+        $details_info = $this->getAlls();
         return $this->transform($details_info);
     }
     
@@ -113,6 +110,7 @@ class DetailsInfo
     }
         
     /**
+    * DEPRECATED, use updateDetailInfoByID
     * update details info (old )
     * @param array $input
     */

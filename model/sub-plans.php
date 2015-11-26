@@ -17,6 +17,7 @@ class SubPlans
     }
     
     /**
+     * DEPRECATED , use addSubPlan
      * add sub plans (old)
      * @param array $ar
      */

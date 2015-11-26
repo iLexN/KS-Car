@@ -21,12 +21,14 @@ class Occ
     }
 
     /**
+     * DEPRECATED , use getAlls
      * get all occ (old)
      * @return array
      */
     public function getAll()
     {
-        $occupation = ORM::for_table('occupation')->where('active', 1)->order_by_asc('en')->find_array();
+        $occupation = $this->getAlls();
+        //return $occupation;
         return $this->transform($occupation);
     }
     
@@ -37,7 +39,6 @@ class Occ
     public function getAlls()
     {
         $occupation = ORM::for_table('occupation')->where('active', 1)->order_by_asc('en')->find_array();
-        //return $this->transform($occupation);
         return $occupation;
     }
     

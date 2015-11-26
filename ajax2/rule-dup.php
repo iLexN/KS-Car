@@ -43,7 +43,7 @@ $dupRuleID = $rule->newRule();
 
 //update new rule
 $newRule =new Rule($dupRuleID);
-$newRule->editUpdate($oldRuleDateAr);
+$newRule->editUpdate($oldRuleDateAr); // DEPRECATED
 
 // add make/model
 $car = new Car();
@@ -81,7 +81,7 @@ foreach ($odlSPListAr as $oldSPList) {
     
     $oldSPList['rule'] = $dupRuleID;
     
-    $sp->addSubPlans($oldSPList);
+    $sp->addSubPlans($oldSPList);//DEPRECATED
     unset($sp);
 }
 

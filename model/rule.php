@@ -22,17 +22,19 @@ class Rule
      */
     public function __construct($r = null)
     {
-        //todo test todo
         $this -> r = $r;
     }
 
     /**
+     * DEPRECATED 
      * get all rule () for old rule.php
+     * use getAlls
      * @return array
      */
     public function getAll()
     {
-        $rule = $this->getAlls(TRUE);
+        //todo may remove cos DEPRECATED
+        $rule = $this->getAlls();
         return $this -> transform($rule);
     }
     
@@ -41,21 +43,19 @@ class Rule
      * @param type $a
      * @return type
      */
-    public function getAlls($a = TRUE)
+    public function getAlls()
     {
         $rule = ORM::for_table('rule')
                     -> order_by_desc('active')
                     -> order_by_asc('id')
                     -> find_array();
-        if ( $a ){
-            return $this -> transform($rule);
-        }else{
-            return $rule;
-        }
+        
+        return $rule;
     }
     
 
    /**
+    * DEPRECATED , use update
     * edit update(old)
     * @param array $ar
     */
