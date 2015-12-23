@@ -21,7 +21,7 @@
             <h3>Add To Rule</h3>
             <p>
                 <select style="width:100%" v-model="editDetailsInfo.id">
-                    <option v-for="v in detailsInfo" value="{{v.id}}">{{v.en}} ({{v.zh}})</option>
+                    <option v-for="v in detailsInfo" :value="v.id">{{v.en}} ({{v.zh}})</option>
                 </select>
             </p>
             
@@ -53,7 +53,7 @@
                 <h3>Occupation List</h3>
                 <p><button v-on:click="addRuleOcc">Add Selected Occupation To Rule</button></p>
                 <select multiple="multiple" style="width:100%;height:350px;" v-model="editOcc.id">
-                    <option v-for="v in occupationList" value="{{v.id}}">{{v.en}}({{v.zh}})</option>
+                    <option v-for="v in occupationList" :value="v.id">{{v.en}}({{v.zh}})</option>
                 </select>
             </div>
             <div style="float:left;width:50%;padding:20px">
@@ -94,10 +94,10 @@
             <div style="float:left;width:50%;padding:20px">
                 <h3>Make List - <button v-on:click="addRuleModel" style="color:#000;font-weight: normal;font-size:14px">Add to Rule</button></h3>
                 <p><select v-model="carMake" style="width:70%">
-                    <option v-for="v in makeList" value="{{v.id}}">{{v.make}}</option>
+                    <option v-for="v in makeList" :value="v.id">{{v.make}}</option>
                 </select></p>
                 <p><select multiple="multiple" style="width:70%;height:350px;" v-model="carModel">
-                    <option v-for="v in modelList" value="{{v.id}}">{{v.model}}</option>
+                    <option v-for="v in modelList" :value="v.id">{{v.model}}</option>
                 </select>
                 </p>
             </div>
@@ -176,29 +176,29 @@
                 <h3>General Setting</h3>
                 <div class="editDiv">
                     <b>Rule Name</b> :
-                    <input type="text" v-model="rule.rule_name" value="{{rule.rule_name}}">
+                    <input type="text" v-model="rule.rule_name">
                 </div>
                 <div class="editDiv">
                     <b>Age</b> :
-                    <input type="text" v-model="rule.age_from" value="{{rule.age_from}}" style="width:30px"> -
-                    <input type="text" v-model="rule.age_to" value="{{rule.age_to}}" style="width:30px">
+                    <input type="text" v-model="rule.age_from"  style="width:30px"> -
+                    <input type="text" v-model="rule.age_to"  style="width:30px">
                 </div>
                 <div class="editDiv">
                     <b>DrivingExp</b> :
                     <select v-model="rule.DrivingExp">
-                        <option v-for="(key, val) in drivingExp" value="{{key}}">{{val}}</option>
+                        <option v-for="(key, val) in drivingExp" :value="key">{{val}}</option>
                     </select>
                 </div>
                 <div class="editDiv">
                     <b>Insurance</b> :
                     <select v-model="rule.TypeofInsurance">
-                        <option v-for="(key, val) in typeofInsurance" value="{{key}}">{{val}}</option>
+                        <option v-for="(key, val) in typeofInsurance" :value="key">{{val}}</option>
                     </select>
                 </div>
                 <div class="editDiv">
                     <b>Year of Mfg.</b> :
-                    <input type="text" v-model="rule.Yearofmanufacture_from" value="{{rule.Yearofmanufacture_from}}" style="width:30px"> -
-                    <input type="text" v-model="rule.Yearofmanufacture" value="{{rule.Yearofmanufacture}}" style="width:30px">
+                    <input type="text" v-model="rule.Yearofmanufacture_from"  style="width:30px"> -
+                    <input type="text" v-model="rule.Yearofmanufacture"  style="width:30px">
                     <span style="font-size: 12px">{{yfgFrom}}-{{yfgTo}}</span>
                 </div>
                 <div class="editDiv">
@@ -226,36 +226,36 @@
                 <h3>Calculation</h3>
                 <div class="editDiv">
                     <b>Premium</b> :
-                    <input type="text" v-model="rule.premium" value="{{rule.premium}}" style="width:80px" :disabled="disabled.p">
+                    <input type="text" v-model="rule.premium" style="width:80px" :disabled="disabled.p">
                 </div>
                 <div class="editDiv">
                     <b>Loading</b> :
-                    <input type="text" v-model="rule.loading" value="{{rule.loading}}" style="width:30px">
+                    <input type="text" v-model="rule.loading" style="width:30px">
                 </div>
                 <div class="editDiv">
                     <b>Other Discount</b> :
-                    <input type="text" v-model="rule.otherDiscount" value="{{rule.otherDiscount}}" style="width:30px">
+                    <input type="text" v-model="rule.otherDiscount" style="width:30px">
                 </div>
                 <div class="editDiv">
                     <b>Client Discount</b> :
-                    <input type="text" v-model="rule.clientDiscount" value="{{rule.clientDiscount}}" style="width:30px">
+                    <input type="text" v-model="rule.clientDiscount"  style="width:30px">
                 </div>
 
                 <div class="editDiv">
                     <b>MIB</b> :
-                    <input type="text" v-model="rule.mib" value="{{rule.mib}}" style="width:30px">
+                    <input type="text" v-model="rule.mib"  style="width:30px">
                 </div>
                 <div class="editDiv">
                     <b>Commission</b> :
-                    <input type="text" v-model="rule.commission" value="{{rule.commission}}" style="width:30px">
+                    <input type="text" v-model="rule.commission" style="width:30px">
                 </div>
                 <div class="editDiv">
                     <b>A2</b> :
-                    <input type="text" v-model="rule.a2" value="{{rule.a2}}" style="width:30px" :disabled="disabled.a2">
+                    <input type="text" v-model="rule.a2" style="width:30px" :disabled="disabled.a2">
                 </div>
                 <div class="editDiv">
                     <b>A3</b> :
-                    <input type="text" v-model="rule.a3" value="{{rule.a3}}" style="width:30px" :disabled="disabled.a3">
+                    <input type="text" v-model="rule.a3" style="width:30px" :disabled="disabled.a3">
                 </div>
             </fieldset>
 
@@ -297,7 +297,7 @@
 
                 <div class="left-side">
                     <select multiple="multiple" v-model="filterModel" style="height:450px;width:90%">
-                        <option v-for="rcMake in ruleCarMake | orderBy 'makeText'" value="{{rcMake.makeText}}">{{rcMake.makeText}}</option>
+                        <option v-for="rcMake in ruleCarMake | orderBy 'makeText'" :value="rcMake.makeText">{{rcMake.makeText}}</option>
                     </select>
                 </div>
                 <div class="right-side">
@@ -336,7 +336,7 @@
                     <li v-for="rdi in ruleDetails" style="width:50%;height:45px">
                         <span style='color:red;float:right;margin-right:20px;height:40px;' v-on:click="removeRuleDetail(rdi)">X</span>
                         <div>{{rdi.details_info}} :
-                            <input type="text" v-model="rdi.value" value="{{rdi.value}}">
+                            <input type="text" v-model="rdi.value" >
                         </div>
 
                     </li>
@@ -366,25 +366,25 @@
                     <template v-for="(index,rsp) in ruleSubPlans | filterBy filterSupPlanGroup in 'groupID'">
                         <tr>
                             <td rowspan="2">
-                                <input style="width:30px" type="text" value="{{rsp.sortOrder}}" v-model="rsp.sortOrder">
+                                <input style="width:30px" type="text" v-model="rsp.sortOrder">
                             </td>
                             <td>
-                                <input type="text" value="{{rsp.name}}" v-model="rsp.name"> -
+                                <input type="text" v-model="rsp.name"> -
                                 <br>
-                                <input type="text" value="{{rsp.name_sub}}" v-model="rsp.name_sub">
+                                <input type="text" v-model="rsp.name_sub">
                             </td>
                             <td rowspan="2">
-                                <input style="width:50px" type="text" value="{{rsp.add_price}}" v-model="rsp.add_price">
+                                <input style="width:50px" type="text" v-model="rsp.add_price">
                             </td>
                             <td rowspan="2">
-                                <input style="width:50px" type="text" value="{{rsp.groupID}}" v-model="rsp.groupID">
+                                <input style="width:50px" type="text" v-model="rsp.groupID">
                             </td>
                             <td>
                                 <textarea v-model="rsp.en" style="width:100%;height:100px">{{rsp.en}}</textarea>
                             </td>
                             <td>
                                 <span style="text-decoration: underline;cursor: pointer;color:blue" v-on:click="viewPlansFileUrl(rsp.pdf_url_en)">View</span>
-                                <input typ="text" v-model="rsp.pdf_url_en" value="{{rsp.pdf_url_en}}">
+                                <input typ="text" v-model="rsp.pdf_url_en">
                             </td>
                             <td rowspan="2">
                                 <button v-on:click="updateRuleSubPlan(rsp)" style="width:100%">Update</button>
@@ -396,16 +396,16 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" v-model="rsp.name_zh" value="{{rsp.name_zh}}"> -
+                                <input type="text" v-model="rsp.name_zh" > -
                                 <br/>
-                                <input type="text" v-model="rsp.name_sub_zh" value="{{rsp.name_sub_zh}}">
+                                <input type="text" v-model="rsp.name_sub_zh" >
                             </td>
                             <td>
                                 <textarea v-model="rsp.zh" style="width:100%;height:50px">{{rsp.zh}}</textarea>
                             </td>
                             <td>
                                 <span style="text-decoration: underline;cursor: pointer;color:blue" v-on:click="viewPlansFileUrl(rsp.pdf_url_zh)">View</span>
-                                <input typ="text" v-model="rsp.pdf_url_zh" value="{{rsp.pdf_url_zh}}">
+                                <input typ="text" v-model="rsp.pdf_url_zh" >
                             </td>
                         </tr>
                     </template>
@@ -424,7 +424,7 @@
     <!--<script src="js/vue.min.js" type="text/javascript"></script>-->
     <script src="js/axios.min.js" type="text/javascript"></script>
     <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
-   <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.10/vue.js"></script>
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.12/vue.js"></script>
    <!--  <script src="http://cdnjs.cloudflare.com/ajax/libs/axios/0.7.0/axios.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
     <script src="js/app.js" type="text/javascript"></script>
