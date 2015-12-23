@@ -15,6 +15,8 @@ class Rule
      * @var string
      */
     public $path = 'rule-details/';
+    
+    public $rule;
 
     /**
      * rule id
