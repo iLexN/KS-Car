@@ -9,6 +9,10 @@
  */
 class Occ
 {
+    
+    public $r;
+    public $o;
+    
     /**
      * $r = rule id,$o = occ id
      * @param int $r rule id
@@ -28,7 +32,6 @@ class Occ
     public function getAll()
     {
         $occupation = $this->getAlls();
-        //return $occupation;
         return $this->transform($occupation);
     }
     

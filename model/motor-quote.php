@@ -85,7 +85,6 @@ class MotorQuote
         $this->allVar['hkid_3_2'] = isset($data['hkid_3_2']) ? $data['hkid_3_2'] : '';
         
         $this->allVar['motor_accident_yrs2']  = (isset($data['motor_accident_yrs2']) && $data['motor_accident_yrs2'] != '')    ? $data['motor_accident_yrs2'] : null;
-        //$this->allVar['drive_offence_point2']  = isset($data['drive_offence_point2']) ? $data['drive_offence_point2'] : null;
         $this->allVar['drive_offence_point2']  = (isset($data['drive_offence_point2']) && $data['drive_offence_point2']!='')    ? $data['motor_accident_yrs2'] : null;
         $this->allVar['drivingExp2'] = isset($data['drivingExp2']) ? $data['drivingExp2'] : '';
         $this->allVar['occupation2'] =  isset($data['occupation2']) ? $data['occupation2'] : '' ;
@@ -124,7 +123,6 @@ class MotorQuote
     
     /**
     *save quote
-    * @param array $ar $_POST
     * @param arrya $ruleInfo rule array planName,totalPrice,price,details
     * @return array  id , refno
     * @throws Exception    error : cannot save

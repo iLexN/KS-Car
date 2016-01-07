@@ -18,7 +18,7 @@ $ar = car::getRuleNcd($_GET['id']);
 
 if ( $r->rule->TypeofInsurance != 'Third_Party_Only' ) {
     echo(json_encode($ar));
-    exit();
+    
 } else {
     $out = array();
 foreach ( $ar as $k => $v ){

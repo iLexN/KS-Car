@@ -17,6 +17,8 @@ class Rule
     public $path = 'rule-details/';
     
     public $rule;
+    
+    public $r;
 
     /**
      * rule id
@@ -41,7 +43,6 @@ class Rule
     
     /**
      * get all rule for new ajax
-     * @param type $a
      * @return type
      */
     public function getAlls()

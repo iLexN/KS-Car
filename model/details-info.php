@@ -11,6 +11,11 @@
  */
 class DetailsInfo
 {
+    
+    public $r;
+    public $o;
+
+
     /**
      * $r = rule id,$o = df id
      *

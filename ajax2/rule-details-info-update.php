@@ -1,16 +1,5 @@
 <?php
 
-/*{
-                      url: "ajax/rule-details-info-update.php",
-                      type: "POST",
-                      data: { oID : oID,
-                             type : 'update',  // update // remove
-                             value : $(this).val()
-                             
-                      }
-                    }
-*/
-
 include('../db/db_info.php');
 include('../model/details-info.php');
 

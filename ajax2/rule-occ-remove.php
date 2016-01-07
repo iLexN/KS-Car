@@ -1,12 +1,5 @@
 <?php
 
-/*{
-    url: "rule-occ-update.php",
-    type: "POST",
-    data: { oID : oID}
-}
-*/
-
 include('../db/db_info.php');
 include('../model/occ.php');
 
