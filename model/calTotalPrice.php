@@ -39,6 +39,12 @@ class CalTotalPrice
         return $this->data['premium'];
     }
     
+    /**
+     * 
+     * @param int $ncd
+     * @param float $price_add
+     * @return float
+     */
     public function calPrice($ncd, $price_add)
     {
         $i = $this->calI($ncd);
@@ -58,17 +64,34 @@ class CalTotalPrice
         );
     }
     
+    /**
+     * 
+     * @param float $i
+     * @return float
+     */
     private function calGross($i)
     {
         return $i *
                 (1 + ($this->data['mib'] / 100));
     }
     
+    /**
+     * 
+     * @param float $k
+     * @param float $i
+     * @return float
+     */
     private function calMibValue($k, $i)
     {
         return $k-$i;
     }
     
+    /**
+     * 
+     * @param float $i
+     * @param float $mibValue
+     * @return float
+     */
     private function calNetPrice($i, $mibValue)
     {
         return $mibValue +
@@ -77,11 +100,22 @@ class CalTotalPrice
                 );
     }
     
+    /**
+     * 
+     * @param float $net
+     * @param float $price_add
+     * @return float
+     */
     private function calOffer($net, $price_add)
     {
         return $net + $price_add;
     }
     
+    /**
+     * 
+     * @param int $ncd
+     * @return float
+     */
     private function calI($ncd)
     {
         $premium = $this->data['premium'];
