@@ -12,7 +12,6 @@ class MotorQuote
     public $isTest;
     public $saveUser;
     public $skipFindRule;
-    //public $er = array(); // error msg
     public $occ; // occ object
     public $car; // car object
     public $hasDriver2 = false;
@@ -123,7 +122,7 @@ class MotorQuote
     
     /**
     *save quote
-    * @param arrya $ruleInfo rule array planName,totalPrice,price,details
+    * @param array $ruleInfo rule array planName,totalPrice,price,details
     * @return array  id , refno
     * @throws Exception    error : cannot save
     */

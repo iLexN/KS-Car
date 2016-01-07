@@ -120,7 +120,7 @@ class Occ
 
     /**
      * remove occ from rule
-     * @param id $orid
+     * @param int $orid
      */
     public function removeOccRule($orid)
     {

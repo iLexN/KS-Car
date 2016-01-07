@@ -15,10 +15,7 @@ $e = false;
 foreach ($data['occ']['id'] as $occID) {
     if ($occ->checkNotExist($occID)) {
         // insert
-        $occ->addOccRule($occID);
-         
-    } else {
-        
+        $occ->addOccRule($occID);    
     }
 }
 

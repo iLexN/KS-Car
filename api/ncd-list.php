@@ -4,6 +4,6 @@ include('../db/db_info.php');
 include('../model/car.php');
 
 $c = new Car;
-$r = $c->getNCD(2);
+$r = $c->getNCD();
 
 echo(json_encode($r));

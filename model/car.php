@@ -422,7 +422,7 @@ class Car
      * not used . moved to Rule class
      *
      * @return int
-     */
+     
     public function newRule()
     {
         $rm = ORM::for_table('rule') -> create();
@@ -431,4 +431,6 @@ class Car
         $rm -> save();
         return $rm->id;
     }
+     */
+     
 }
