@@ -49,7 +49,8 @@ class Car
      * get all makes (new)
      * @return type
      */
-    public function getAllsMake(){
+    public function getAllsMake()
+    {
         $m = ORM::for_table('make')
                         -> select_many('id', 'make')
                         -> where('active', 1)
@@ -343,7 +344,6 @@ class Car
      */
     public function getInsuranceTypeByID($id)
     {
-        
         $m = ORM::for_table('insurance-type')
                         -> where('id_value', $id)
                         -> find_one();
@@ -432,5 +432,4 @@ class Car
         return $rm->id;
     }
      */
-     
 }
