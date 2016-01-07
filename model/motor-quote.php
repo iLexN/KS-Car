@@ -150,6 +150,8 @@ class MotorQuote
 
         if (!$exist) {
             $rm = ORM::for_table('motor_quote') -> create();
+            $rm -> refno  =  $this->genRefno(); 
+            $rm -> oldRefID = $this->allVar['refID'];
         } else {
             $rm = $rm->find_one();
         }
@@ -242,10 +244,6 @@ class MotorQuote
         $rm -> crtv = $this->allVar['crtv'];
         $rm -> adps = $this->allVar['adps'];
         
-        if (!$exist) {
-            $rm -> refno  =  $this->genRefno(); 
-            $rm -> oldRefID = $this->allVar['refID'];
-        }
         
         if ($rm -> save()) {
             return array( $rm->id , $rm->refno ) ;
