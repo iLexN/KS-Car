@@ -21,7 +21,5 @@ foreach ($df_ar as $ar) {
     $out[] = $ar;
 }
 
-//print_r($df_ar);
-//exit();
-//echo (json_encode($df_ar));
+
 echo(json_encode($out));

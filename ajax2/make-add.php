@@ -15,8 +15,6 @@ $obj = json_decode($json, true);
 
 $data = $obj['data'];
 
-//error_log( print_r($data,true) );
-//exit();
 
 
 $displayName = $data['edit']['text'];

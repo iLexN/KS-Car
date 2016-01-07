@@ -12,7 +12,7 @@ $c = new car();
 $r = new Rule($_GET['id']);
 $r->getOne();
 
-$cal = new calTotalPrice($r->rule->as_array());
+$cal = new CalTotalPrice($r->rule->as_array());
 
 $ar = car::getRuleNcd($_GET['id']);
 

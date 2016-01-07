@@ -276,7 +276,7 @@ pre{
                             <?php $calTotalPriceArray = array('gross'=>'','mibValue'=>'','price'=>'','total_price'=>'');
                                 foreach ( $r_ar['ncd_rule'] as $v=>$b ) {
                                 if ( $r_ar['TypeofInsurance'] == 'Third_Party_Only' ) { 
-                                    $calTotalPriceObj = new calTotalPrice($r_ar);
+                                    $calTotalPriceObj = new CalTotalPrice($r_ar);
                                     $calTotalPriceArray = $calTotalPriceObj->calPrice($b['ncd'],$b['price_add']);
                                 }
                                 ?>

@@ -11,7 +11,7 @@
  *
  * @author user
  */
-class calTotalPrice
+class CalTotalPrice
 {
     //put your code here
 

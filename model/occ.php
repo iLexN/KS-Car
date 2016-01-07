@@ -104,12 +104,12 @@ class Occ
     
     public function removeOcc($ar)
     {
-        $d = ORM::for_table('occupation')->where_in('id',$ar)->delete_many();   
+        ORM::for_table('occupation')->where_in('id',$ar)->delete_many();   
     }
     
     public function removeOccRuleByOcids($ar)
     {
-            $d = ORM::for_table('rule-occ')
+            ORM::for_table('rule-occ')
                     ->where_in('occ',$ar)
                     ->delete_many();
     }

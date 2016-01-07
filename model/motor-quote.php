@@ -79,11 +79,11 @@ class MotorQuote
         $this->allVar['relationship2'] = isset($data['relationship2']) ? $data['relationship2'] : '';
         $this->allVar['dob2'] = (isset($data['dob2']) && !empty($data['dob2']))  ? $data['dob2'] : '00-00-0000'; // 25-02-2014
         $this->allVar['marital_status2'] = isset($data['marital_status2']) ? $data['marital_status2'] : '';
-        //$this->allVar['residential_district2'] = isset ( $data['residential_district2'] ) ? $data['residential_district2'] : '';
+        
         $this->allVar['hkid_1_2'] = isset($data['hkid_1_2']) ? $data['hkid_1_2'] : '';
         $this->allVar['hkid_2_2'] = isset($data['hkid_2_2']) ? $data['hkid_2_2'] : '';
         $this->allVar['hkid_3_2'] = isset($data['hkid_3_2']) ? $data['hkid_3_2'] : '';
-        //$this->allVar['motor_accident_yrs2']  = isset($data['motor_accident_yrs2'])    ? $data['motor_accident_yrs2'] : null;
+        
         $this->allVar['motor_accident_yrs2']  = (isset($data['motor_accident_yrs2']) && $data['motor_accident_yrs2'] != '')    ? $data['motor_accident_yrs2'] : null;
         //$this->allVar['drive_offence_point2']  = isset($data['drive_offence_point2']) ? $data['drive_offence_point2'] : null;
         $this->allVar['drive_offence_point2']  = (isset($data['drive_offence_point2']) && $data['drive_offence_point2']!='')    ? $data['motor_accident_yrs2'] : null;
@@ -131,16 +131,14 @@ class MotorQuote
     */
     public function saveQuote($ruleInfo)
     {
-        //error_log(print_r($ruleInfo, true));
         //format json for save 
         $planInfoAr = array();
+        
+        //should pass planID for save plan details.
         if ($this->allVar['planID']) {
             $planInfoAr = $this->savePlanFormat($ruleInfo);
         }
-        /* should pass planID for save plan details.
-        if ( !empty($ruleInfo)  ){
-            $planInfoAr = $this->savePlanFormat($ruleInfo);
-        }*/
+        
         if ($this->allVar['subPlanID']) {
             foreach ($this->allVar['subPlanID'] as $subPlanAr) {
                 $planInfoAr[0]['subPlanName'][$subPlanAr] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[0]['subPlans'][$subPlanAr]['name_sub'];
@@ -214,7 +212,7 @@ class MotorQuote
         $rm -> hkid_2_2  = $this->allVar['hkid_2_2'];
         $rm -> hkid_3_2  = $this->allVar['hkid_3_2'];
         $rm -> marital_status2  = $this->allVar['marital_status2'];
-        //$rm -> residential_district2  = $this->allVar['residential_district2'];
+        
         $rm -> drive_offence_point2  = $this->allVar['drive_offence_point2'];
         $rm -> motor_accident_yrs2  = $this->allVar['motor_accident_yrs2'];
                 
@@ -248,7 +246,7 @@ class MotorQuote
         $rm -> adps = $this->allVar['adps'];
         
         if (!$exist) {
-            $rm -> refno  =  $this->genRefno(); //$result['refno'];
+            $rm -> refno  =  $this->genRefno(); 
             $rm -> oldRefID = $this->allVar['refID'];
         }
         
@@ -262,13 +260,12 @@ class MotorQuote
     /**
      * get by refno
      * @param string $refno
-     * @param array $select_field
      * @return array
      * @throws Exception
      */
-    public function getByRefNo($refno, $select_field=array())
+    public function getByRefNo($refno)
     {
-        //$fields = !empty($select_field) ? $select_field :  $this->default_select_field ;
+        
         $quote = ORM::for_table('motor_quote')
                 //->select_many($fields)
                 ->where('refno', $refno)
@@ -409,7 +406,7 @@ class MotorQuote
         }
 
         try {
-            $this->allVar['calYrMf'] = $calYrMf = calYrMf($this->allVar['yearManufacture']);
+            $this->allVar['calYrMf'] = calYrMf($this->allVar['yearManufacture']);
         } catch (Exception $e) {
             $er[] = $e->getMessage();
         }
@@ -449,8 +446,6 @@ class MotorQuote
             }
         }
         
-        //print_r($er);
-        //$this->er = $er;
         return $er;
     }
     
@@ -482,7 +477,7 @@ class MotorQuote
         }
         
         throw new Exception('error driver2 :: missing info');
-        //return FALSE;
+        
     }
     
     public function buildDriver1()
@@ -532,7 +527,7 @@ class MotorQuote
                 $tmpDetailsArry[$k]['deatils_id'] = $v['deatils_id'];
             }
 
-            //$planInfoAr['details'] = $rowArray['details'];
+            
             $planInfoAr[$rowKey]['details'] = $tmpDetailsArry;
 
             $planInfoAr[$rowKey]['premium'] = $rowArray['premium'];

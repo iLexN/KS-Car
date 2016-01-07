@@ -14,9 +14,6 @@ $obj = json_decode($json, true);
 
 $data = $obj['data'];
 
-//error_log( print_r($data,true) );
-//exit();
-
 
 $oldRuleID = $data;
 // get old rule data
@@ -84,5 +81,3 @@ $ncd_ar = $c->getNCD();
 foreach ( $ncd_ar as $k=>$v){
     car::createRuleNcd($dupRuleID, $k, 0);
 }
-
-exit();

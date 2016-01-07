@@ -22,7 +22,7 @@ try {
 if (!empty($result['error'])) {
     $result['result'] = -1;
     echo json_encode($result);
-    exit();
+    return ;
 }
 
 $motor_quote = new MotorQuote;
@@ -40,4 +40,3 @@ try {
 
 echo json_encode($result);
 
-exit();

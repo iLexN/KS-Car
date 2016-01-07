@@ -49,8 +49,6 @@ var app = new Vue({
         this.getRuleList();
         this.getDriverExp();
         this.getTypeofInsurance();
-        //this.getDetailsInfoList();
-        //this.getOccupationList();
     },
     computed: {
         yfgFrom: function() {

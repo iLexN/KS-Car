@@ -12,22 +12,21 @@ $c = new car();
 $r = new Rule($_GET['id']);
 $r->getOne();
 
-$cal = new calTotalPrice($r->rule->as_array());
+$cal = new CalTotalPrice($r->rule->as_array());
 
 $ar = car::getRuleNcd($_GET['id']);
 
 if ( $r->rule->TypeofInsurance != 'Third_Party_Only' ) {
     echo(json_encode($ar));
     exit();
-}
-
-$out = array();
+} else {
+    $out = array();
 foreach ( $ar as $k => $v ){
     $calpriceAR =  $cal->calPrice($v['ncd'], $v['price_add']);
     $out[$k] = array_merge($calpriceAR, $v);
 }
-
-//print_r($out);
-
 echo(json_encode($out));
+}
+
+
 

@@ -7,7 +7,7 @@ $mode = (isset($_POST['mode']) && in_array($_POST['mode'], array('write','remove
 
 $result = array();
 
-//var_dump($mqid,$mode);
+
 
 if ( !$mqid ) {
     $result['result'] = -1 ;

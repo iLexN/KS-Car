@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-//error_log(print_r($_POST,TRUE) );
+
 
 include('../db/db_info.php');
 include('../model/car.php');

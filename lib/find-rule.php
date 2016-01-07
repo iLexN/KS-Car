@@ -33,7 +33,7 @@ if (!empty($save_rule)) {
         
         $dfInfo_ar = $DetailsInfo->getByRule($v_ar['id']);
 
-        $calTotalPriceObj = new calTotalPrice($v_ar);
+        $calTotalPriceObj = new CalTotalPrice($v_ar);
         
         if ($v_ar['TypeofInsurance'] == 'Comprehensive') {
             $save_rule[$k]['premium'] = $match_rule[$k]['premium'] = number_format($calTotalPriceObj->calPremium($quote->allVar['sum_insured']), 2,'.','');

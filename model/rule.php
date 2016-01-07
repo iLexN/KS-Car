@@ -28,14 +28,13 @@ class Rule
     }
 
     /**
-     * DEPRECATED 
+     * DEPRECATED , may remove cos DEPRECATED
      * get all rule () for old rule.php
      * use getAlls
      * @return array
      */
     public function getAll()
     {
-        //todo may remove cos DEPRECATED
         $rule = $this->getAlls();
         return $this -> transform($rule);
     }
@@ -182,11 +181,11 @@ class Rule
             $d = ORM::for_table('rule') -> find_one($this->r);
             $d -> delete();
                 
-            $d2 = ORM::for_table('rule-model')->where('rule', $this->r)->delete_many();
-            $d2 = ORM::for_table('rule-ncd')->where('rule_id', $this->r)->delete_many();
-            $d2 = ORM::for_table('rule-details-info')->where('rule_id', $this->r)->delete_many();
-            $d2 = ORM::for_table('rule-occ')->where('rule', $this->r)->delete_many();
-            $d2 = ORM::for_table('sub-plan')->where('rule_id', $this->r)->delete_many();   
+            ORM::for_table('rule-model')->where('rule', $this->r)->delete_many();
+            ORM::for_table('rule-ncd')->where('rule_id', $this->r)->delete_many();
+            ORM::for_table('rule-details-info')->where('rule_id', $this->r)->delete_many();
+            ORM::for_table('rule-occ')->where('rule', $this->r)->delete_many();
+            ORM::for_table('sub-plan')->where('rule_id', $this->r)->delete_many();   
         }
     }
     

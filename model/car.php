@@ -12,6 +12,10 @@
  */
 class Car
 {
+    
+    public $r;
+    public $m;
+    
     /**
      * r = rlue id
      * m = make id
@@ -93,7 +97,7 @@ class Car
     */
     public function delMakeFromListByID($id)
     {
-        $m = ORM::for_table('make')->find_one($id)->delete();
+        ORM::for_table('make')->find_one($id)->delete();
             
         $ar = $this->getModelByMake($id);
         foreach ($ar as $model_ar) {
