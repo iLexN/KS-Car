@@ -1,16 +1,5 @@
 <?php
 
-/*
-{
-                        url: "ajax/model-del.php",
-                        type: "POST",
-                        data: {
-                            model: $ModelList.val()
-                        }
-                    }
-*/
-                  
-
 include('../db/db_info.php');
 include('../model/car.php');
 
