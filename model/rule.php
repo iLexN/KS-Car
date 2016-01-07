@@ -22,7 +22,7 @@ class Rule
 
     /**
      * rule id
-     * @param int $r rule id
+     * @param int|null $r rule id
      */
     public function __construct($r = null)
     {

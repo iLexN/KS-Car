@@ -15,8 +15,8 @@ class Occ
     
     /**
      * $r = rule id,$o = occ id
-     * @param int $r rule id
-     * @param int $o occ id
+     * @param int|null $r rule id
+     * @param int|null $o occ id
      */
     public function __construct($r=null, $o=null)
     {

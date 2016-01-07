@@ -20,8 +20,8 @@ class Car
      * r = rlue id
      * m = make id
      *
-     * @param int $r
-     * @param int $m
+     * @param int|null $r
+     * @param int|null $m
      */
     public function __construct($r = null, $m = null)
     {
@@ -281,6 +281,11 @@ class Car
         return $r;
     }
     
+    /**
+     * 
+     * @param int $rid
+     * @return array
+     */
     public static function getRuleNcd($rid)
     {
         $m = ORM::for_table('rule-ncd')
@@ -319,13 +324,13 @@ class Car
         $m = ORM::for_table('insurance-type') -> find_array();
         $r = array();
         switch ($t) {
-            case 1 :
+            case 1:
                 // en
                 foreach ($m as $k => $v) {
                     $r[$v['id_value']] = $v['name_en'];
                 }
                 break;
-            case 2 :
+            case 2:
                 foreach ($m as $k => $v) {
                     $r[$v['id_value']]['en'] = $v['name_en'];
                     $r[$v['id_value']]['zh'] = $v['name_zh'];
@@ -365,13 +370,13 @@ class Car
 
         $r = array();
         switch ($t) {
-            case 1 :
+            case 1:
                 // en
                 foreach ($m as $k => $v) {
                     $r[$v['id_value']] = $v['name_en'];
                 }
                 break;
-            case 2 :
+            case 2:
                 foreach ($m as $k => $v) {
                     $r[$v['id_value']]['en'] = $v['name_en'];
                     $r[$v['id_value']]['zh'] = $v['name_zh'];

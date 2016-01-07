@@ -19,8 +19,8 @@ class DetailsInfo
     /**
      * $r = rule id,$o = df id
      *
-     * @param int $r
-     * @param int $o
+     * @param int|null $r
+     * @param int|null $o
      */
     public function __construct($r=null, $o=null)
     {
@@ -219,6 +219,11 @@ class DetailsInfo
         return $details_info_ar;
     }
     
+    /**
+     * 
+     * @param array $ids
+     * @return array
+     */
     public function getOrderByID($ids)
     {
         $orderArray = ORM::for_table('details_info')
