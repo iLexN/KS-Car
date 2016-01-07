@@ -4,7 +4,7 @@
             session_start();
             $_SESSION['login'] = true;
             header('Location: rule.php');
-            exit();
+            return;
         } else {
             $msg = 'wrong input';
         }
