@@ -146,12 +146,13 @@ class MotorQuote
         if ($this->allVar['refID']) {
             $rm = ORM::for_table('motor_quote')->select('*')->where('id', $this->allVar['refID'])->where('download', 0);
             $exist = $rm->count();
+            if ( $exist ) {
+                $rm = $rm->find_one();
+            }
         }
 
         if (!$exist) {
             $rm = ORM::for_table('motor_quote') -> create();
-        } else {
-            $rm = $rm->find_one();
         }
         
         $rm -> name  = $this->allVar['name'];
