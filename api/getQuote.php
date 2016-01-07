@@ -21,6 +21,7 @@ try {
 
 if (!empty($result['error'])) {
     $result['result'] = -1;
+    header('Content-Type: application/json');
     echo json_encode($result);
     return ;
 }
@@ -37,6 +38,6 @@ try {
     $result['result'] = -1;
     $result['error'][] = $e->getMessage();
 }
-
+header('Content-Type: application/json');
 echo json_encode($result);
 

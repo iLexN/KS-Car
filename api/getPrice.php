@@ -54,6 +54,7 @@ if (!empty($result['error'])) {
     $result['result'] = -1;
     $result['resultDesc'][] = '300 checking have error';
     if (!$quote->isTest) {
+        header('Content-Type: application/json');
         echo(json_encode($result));
         //Log
         file_put_contents('../log/'.date('Ymd').'.log', date('H:i:s') . "\n\t" .
@@ -110,7 +111,7 @@ if ($quote->saveUser) {
     return $result;
 }
 
-
+header('Content-Type: application/json');
 //may be for dubug
 unset($result['resultDesc']);
 echo json_encode($result);

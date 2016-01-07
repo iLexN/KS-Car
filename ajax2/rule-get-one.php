@@ -9,5 +9,5 @@ include('../model/car.php');
 $rule = new Rule($_GET['id']);
 $rule->getOne();
 $rule_ar = $rule->rule->as_array();
-
+header('Content-Type: application/json');
 echo(json_encode($rule_ar));
