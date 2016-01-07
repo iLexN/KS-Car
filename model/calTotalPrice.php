@@ -43,7 +43,7 @@ class CalTotalPrice
      * 
      * @param int $ncd
      * @param float $price_add
-     * @return float
+     * @return array
      */
     public function calPrice($ncd, $price_add)
     {
