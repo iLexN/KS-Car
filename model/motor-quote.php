@@ -12,7 +12,11 @@ class MotorQuote
     public $isTest;
     public $saveUser;
     public $skipFindRule;
+
+    /* @var $occ Occ */
     public $occ; // occ object
+
+    /* @var $car Car */
     public $car; // car object
     public $hasDriver2 = false;
     /**
