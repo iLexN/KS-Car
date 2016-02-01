@@ -104,6 +104,7 @@ pre{
     <div style="min-width:980px;">
         <div class="clearfix" style="margin-bottom:10px;">
             <button class="jsLogOutBtn">Logout</button>
+            <button class="jsNewVersion">New Version</button>
             <button class="jsShowTestRuleBtn">Test Rule</button>
             ---
             <button class="jsNewRuleBtn">Create News Rule</button>
@@ -1343,6 +1344,9 @@ pre{
         
         $(".jsLogOutBtn").click(function(){
             location.href = 'logout.php';
+        });
+        $(".jsNewVersion").click(function(){
+            location.href = 'rule2.php';
         });
         
         $(".jsSubPlansPdfValueEn").click(function(e){

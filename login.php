@@ -3,7 +3,7 @@
         if ($_POST['username'] === 'onlineenquiries' && $_POST['password'] === 'kwik35882914sure') {
             session_start();
             $_SESSION['login'] = true;
-            header('Location: rule.php');
+            header('Location: rule2.php');
             return;
         } else {
             $msg = 'wrong input';

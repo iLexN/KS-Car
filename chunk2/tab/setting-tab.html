@@ -1,0 +1,89 @@
+<fieldset v-show="currentTab=='setting'" style="display:none">
+                <legend>
+                    <button v-on:click="updateRule">Update</button>
+                </legend>
+                <h3>General Setting</h3>
+                <div class="editDiv">
+                    <b>Rule Name</b> :
+                    <input type="text" v-model="rule.rule_name">
+                </div>
+                <div class="editDiv">
+                    <b>Age</b> :
+                    <input type="text" v-model="rule.age_from"  style="width:30px"> -
+                    <input type="text" v-model="rule.age_to"  style="width:30px">
+                </div>
+                <div class="editDiv">
+                    <b>DrivingExp</b> :
+                    <select v-model="rule.DrivingExp">
+                        <option v-for="(key, val) in drivingExp" :value="key">{{val}}</option>
+                    </select>
+                </div>
+                <div class="editDiv">
+                    <b>Insurance</b> :
+                    <select v-model="rule.TypeofInsurance">
+                        <option v-for="(key, val) in typeofInsurance" :value="key">{{val}}</option>
+                    </select>
+                </div>
+                <div class="editDiv">
+                    <b>Year of Mfg.</b> :
+                    <input type="text" v-model="rule.Yearofmanufacture_from"  style="width:30px"> -
+                    <input type="text" v-model="rule.Yearofmanufacture"  style="width:30px">
+                    <span style="font-size: 12px">{{yfgFrom}}-{{yfgTo}}</span>
+                </div>
+                <div class="editDiv">
+                    <b>Motor Accident Years</b>:
+                    <input id="rule-acy-rs-y" type="radio" value="1" v-model="rule.motor_accident_yrs">
+                    <label for="rule-acy-rs-y">Yes</label>
+                    <input id="rule-acy-rs-n" type="radio" value="0" v-model="rule.motor_accident_yrs">
+                    <label for="rule-acy-rs-n">No</label>
+                </div>
+                <div class="editDiv">
+                    <b>drive_offence_point</b>:
+                    <input id="rule-drive-off-pt-y" type="radio" value="1" v-model="rule.drive_offence_point">
+                    <label for="rule-drive-off-pt-y">Yes</label>
+                    <input id="rule-drive-off-pt-n" type="radio" value="0" v-model="rule.drive_offence_point">
+                    <label for="rule-drive-off-pt-n">No</label>
+                </div>
+                <div class="editDiv">
+                    <b>Active</b>:
+                    <input id="rule-active-y" type="radio" value="1" v-model="rule.active">
+                    <label for="rule-active-y">Yes</label>
+                    <input id="rule-active-n" type="radio" value="0" v-model="rule.active">
+                    <label for="rule-active-n">No</label>
+                </div>
+                <div class="clearfix"></div>
+                <h3>Calculation</h3>
+                <div class="editDiv">
+                    <b>Premium</b> :
+                    <input type="text" v-model="rule.premium" style="width:80px" :disabled="disabled.p">
+                </div>
+                <div class="editDiv">
+                    <b>Loading</b> :
+                    <input type="text" v-model="rule.loading" style="width:30px">
+                </div>
+                <div class="editDiv">
+                    <b>Other Discount</b> :
+                    <input type="text" v-model="rule.otherDiscount" style="width:30px">
+                </div>
+                <div class="editDiv">
+                    <b>Client Discount</b> :
+                    <input type="text" v-model="rule.clientDiscount"  style="width:30px">
+                </div>
+
+                <div class="editDiv">
+                    <b>MIB</b> :
+                    <input type="text" v-model="rule.mib"  style="width:30px">
+                </div>
+                <div class="editDiv">
+                    <b>Commission</b> :
+                    <input type="text" v-model="rule.commission" style="width:30px">
+                </div>
+                <div class="editDiv">
+                    <b>A2</b> :
+                    <input type="text" v-model="rule.a2" style="width:30px" :disabled="disabled.a2">
+                </div>
+                <div class="editDiv">
+                    <b>A3</b> :
+                    <input type="text" v-model="rule.a3" style="width:30px" :disabled="disabled.a3">
+                </div>
+            </fieldset>

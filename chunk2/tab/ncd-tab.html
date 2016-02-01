@@ -1,0 +1,32 @@
+<fieldset v-show="currentTab=='ncd'"  style="display:none">
+                <legend>
+                    <button v-on:click="updateRuleNcd">Update</button>
+                </legend>
+                <table border="1" cellspacing="5" cellpadding="3">
+                    <tr>
+                        <td>NCD</td>
+                        <td>Active</td>
+                        <td>Price Add</td>
+                        <td>Gross</td>
+                        <td>MIB</td>
+                        <td>Net w Tax</td>
+                        <td>Offer</td>
+                    </tr>
+                    <tr v-for="n in ruleNCD" v-bind:class="[n.active == 1 ? 'activeBg' : '']">
+                        <td>{{n.ncd}}</td>
+                        <td>
+                            <input id="rule-n-ncd-y" type="radio" value="1" v-model="n.active">
+                            <label for="rule-n-ncd-y">Yes</label>
+                            <input id="rule-n-ncd-n" type="radio" value="0" v-model="n.active">
+                            <label for="rule-n-ncd-n">No</label>
+                        </td>
+                        <td>
+                            <input type="text" v-model="n.price_add" style="width:100px">
+                        </td>
+                        <td>{{n.gross}}</td>
+                        <td>{{n.mibValue}}</td>
+                        <td>{{n.price}}</td>
+                        <td style="font-size:16px;color:red;font-weight: bold">{{n.total_price}}</td>
+                    </tr>
+                </table>
+            </fieldset>
