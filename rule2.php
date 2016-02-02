@@ -61,10 +61,10 @@
 
     <div style="height:50px;"></div>
 
-    <script src="js/axios.min.js" type="text/javascript"></script>
-    <script src="js/jquery-2.1.4.min.js" type="text/javascript"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.16/vue.js"></script>
-    <!--  <script src="http://cdnjs.cloudflare.com/ajax/libs/axios/0.7.0/axios.min.js"></script>-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/axios/0.7.0/axios.min.js"></script>
     <script src="js/app.js" type="text/javascript"></script>
 </body>
 
