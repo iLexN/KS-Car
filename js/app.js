@@ -1,6 +1,5 @@
 var app = new Vue({
     el: '#app',
-    //props: ['rules', 'rule'],
     data: {
         filterRuleByActive: '1',
         rules: null,
@@ -253,7 +252,7 @@ var app = new Vue({
                         }
                     }
                     self.ruleCarMake = makeObj;
-                    self.filterModel = 'zzzzzzzzzz' //response.data[0].makeText;
+                    self.filterModel = '';//response.data[0].makeText;
                 })
                 .catch(function(response) {
                     //console.log(response);

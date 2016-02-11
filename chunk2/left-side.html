@@ -1,13 +1,13 @@
 <div style="margin-bottom: 10px">
-                <button v-on:click="removeRule">Delete</button>
-                <button v-on:click="duplicateRule">Duplicate</button>
-            </div>
-            <input type="radio" value="1" id="radioActive" v-model="filterRuleByActive">
-            <label for="radioActive">Active</label>
-            <input type="radio" value="0" id="radioInActive" v-model="filterRuleByActive">
-            <label for="radioInActive">InActive</label>
-            <div class="rule-name-list">
-                <ul>
-                    <li v-for="r in rules | filterBy filterRuleByActive in 'active' | orderBy 'rule_name' " v-on:click="showRule(r , $event)" v-bind:class="[rule.id == r.id ? 'active' : '']">{{r.rule_name}}</li>
-                </ul>
-            </div>
+    <button v-on:click="removeRule">Delete</button>
+    <button v-on:click="duplicateRule">Duplicate</button>
+</div>
+<input type="radio" value="1" id="radioActive" v-model="filterRuleByActive">
+<label for="radioActive">Active</label>
+<input type="radio" value="0" id="radioInActive" v-model="filterRuleByActive">
+<label for="radioInActive">InActive</label>
+<div class="rule-name-list">
+    <ul>
+        <li v-for="r in rules | filterBy filterRuleByActive in 'active' | orderBy 'rule_name' " v-on:click="showRule(r , $event)" v-bind:class="[rule.id == r.id ? 'active' : '']">{{r.rule_name}}</li>
+    </ul>
+</div>

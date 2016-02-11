@@ -8,7 +8,6 @@
     <link href="css/main.css" rel="stylesheet" type="text/css" />
     <link href="css/css-v2.css" rel="stylesheet" type="text/css" />
 </head>
-
 <body id="app">
 
     <div class="alertNote"></div>
@@ -40,23 +39,14 @@
         <div class='right-side'>
             <h1 style="padding: 0;margin:0;color:#C82A2F">{{rule.rule_name}}</h1>
             <?php include('chunk2/tab-nav.html');?>
-
             <?php include('chunk2/tab/setting-tab.html');?>
-
             <?php include('chunk2/tab/ncd-tab.html');?>
-
             <?php include('chunk2/tab/make-model-tab.html');?>
-
             <?php include('chunk2/tab/occupation-tab.html');?>
-
             <?php include('chunk2/tab/details-info-tab.html');?>
-
             <?php include('chunk2/tab/sub-plan-tab.html');?>
-
         </div>
-
         <!-- right-side end -->
-
     </div>
 
     <div style="height:50px;"></div>
@@ -67,5 +57,4 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/axios/0.7.0/axios.min.js"></script>
     <script src="js/app.js" type="text/javascript"></script>
 </body>
-
 </html>

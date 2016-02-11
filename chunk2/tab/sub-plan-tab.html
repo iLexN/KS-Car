@@ -1,68 +1,68 @@
 <fieldset v-show="currentTab=='subPlan'"  style="display:none">
-                <legend>Sub-Plans</legend>
-                <p>Order : small number come first</p>
-                <p>Filter Group :
-                    <input type="text" v-model="filterSupPlanGroup">
-                </p>
+    <legend>Sub-Plans</legend>
+    <p>Order : small number come first</p>
+    <p>Filter Group :
+        <input type="text" v-model="filterSupPlanGroup">
+    </p>
 
-                <table border="1" cellspacing="5" cellpadding="3" width="100%">
-                    <tr>
-                        <td width="45">Order</td>
-                        <td width="150">Name - Sub Name</td>
-                        <td width="68">Additional Price</td>
-                        <td width="68">GroupID</td>
-                        <td width="*">Free Text</td>
-                        <td width="150">PDF</td>
-                        <td width="75">
-                            <button v-on:click="addRuleSubPlan()">Paste</button>
-                        </td>
-                    </tr>
-                    <template v-for="(index,rsp) in ruleSubPlans | filterBy filterSupPlanGroup in 'groupID' | orderBy 'sortOrder'">
-                        <tr>
-                            <td rowspan="2">
-                                <input style="width:30px" type="text" v-model="rsp.sortOrder">
-                            </td>
-                            <td>
-                                <input type="text" v-model="rsp.name"> -
-                                <br>
-                                <input type="text" v-model="rsp.name_sub">
-                            </td>
-                            <td rowspan="2">
-                                <input style="width:50px" type="text" v-model="rsp.add_price">
-                            </td>
-                            <td rowspan="2">
-                                <input style="width:50px" type="text" v-model="rsp.groupID">
-                            </td>
-                            <td>
-                                <textarea v-model="rsp.en" style="width:100%;height:100px">{{rsp.en}}</textarea>
-                            </td>
-                            <td>
-                                <span style="text-decoration: underline;cursor: pointer;color:blue" v-on:click="viewPlansFileUrl(rsp.pdf_url_en)">View</span>
-                                <input typ="text" v-model="rsp.pdf_url_en">
-                            </td>
-                            <td rowspan="2">
-                                <button v-on:click="updateRuleSubPlan(rsp)" style="width:100%">Update</button>
-                                <br/>
-                                <button v-on:click="removeRuleSubPlan(rsp)" style="width:100%">Delete</button>
-                                <br/>
-                                <button v-on:click="copyRuleSubPlan(rsp)" style="width:100%">Copy</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="text" v-model="rsp.name_zh" > -
-                                <br/>
-                                <input type="text" v-model="rsp.name_sub_zh" >
-                            </td>
-                            <td>
-                                <textarea v-model="rsp.zh" style="width:100%;height:50px">{{rsp.zh}}</textarea>
-                            </td>
-                            <td>
-                                <span style="text-decoration: underline;cursor: pointer;color:blue" v-on:click="viewPlansFileUrl(rsp.pdf_url_zh)">View</span>
-                                <input typ="text" v-model="rsp.pdf_url_zh" >
-                            </td>
-                        </tr>
-                    </template>
-                </table>
+    <table border="1" cellspacing="5" cellpadding="3" width="100%">
+        <tr>
+            <td width="45">Order</td>
+            <td width="150">Name - Sub Name</td>
+            <td width="68">Additional Price</td>
+            <td width="68">GroupID</td>
+            <td width="*">Free Text</td>
+            <td width="150">PDF</td>
+            <td width="75">
+                <button v-on:click="addRuleSubPlan()">Paste</button>
+            </td>
+        </tr>
+        <template v-for="(index,rsp) in ruleSubPlans | filterBy filterSupPlanGroup in 'groupID' | orderBy 'sortOrder'">
+            <tr>
+                <td rowspan="2">
+                    <input style="width:30px" type="text" v-model="rsp.sortOrder">
+                </td>
+                <td>
+                    <input type="text" v-model="rsp.name"> -
+                    <br>
+                    <input type="text" v-model="rsp.name_sub">
+                </td>
+                <td rowspan="2">
+                    <input style="width:50px" type="text" v-model="rsp.add_price">
+                </td>
+                <td rowspan="2">
+                    <input style="width:50px" type="text" v-model="rsp.groupID">
+                </td>
+                <td>
+                    <textarea v-model="rsp.en" style="width:100%;height:100px">{{rsp.en}}</textarea>
+                </td>
+                <td>
+                    <span style="text-decoration: underline;cursor: pointer;color:blue" v-on:click="viewPlansFileUrl(rsp.pdf_url_en)">View</span>
+                    <input typ="text" v-model="rsp.pdf_url_en">
+                </td>
+                <td rowspan="2">
+                    <button v-on:click="updateRuleSubPlan(rsp)" style="width:100%">Update</button>
+                    <br/>
+                    <button v-on:click="removeRuleSubPlan(rsp)" style="width:100%">Delete</button>
+                    <br/>
+                    <button v-on:click="copyRuleSubPlan(rsp)" style="width:100%">Copy</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" v-model="rsp.name_zh" > -
+                    <br/>
+                    <input type="text" v-model="rsp.name_sub_zh" >
+                </td>
+                <td>
+                    <textarea v-model="rsp.zh" style="width:100%;height:50px">{{rsp.zh}}</textarea>
+                </td>
+                <td>
+                    <span style="text-decoration: underline;cursor: pointer;color:blue" v-on:click="viewPlansFileUrl(rsp.pdf_url_zh)">View</span>
+                    <input typ="text" v-model="rsp.pdf_url_zh" >
+                </td>
+            </tr>
+        </template>
+    </table>
 
-            </fieldset>
+</fieldset>

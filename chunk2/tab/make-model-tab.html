@@ -1,17 +1,18 @@
 <fieldset v-show="currentTab=='makeModel'"  style="display:none">
-                <legend>Make/Model</legend>
+    <legend>Make/Model</legend>
 
-                <div class="left-side">
-                    <select multiple="multiple" v-model="filterModel" style="height:450px;width:90%">
-                        <option v-for="rcMake in ruleCarMake | orderBy 'makeText'" :value="rcMake.makeText">{{rcMake.makeText}}</option>
-                    </select>
-                </div>
-                <div class="right-side">
-                    <ul class='list-style'>
-                        <li v-for="rcModel in ruleCarModel | filterBy filterModel in 'makeText'">
-                            {{rcModel.makeText}} - {{rcModel.modelText}}
-                            <span style='color:red' v-on:click="removeRuleModel(rcModel)">X</span>
-                        </li>
-                    </ul>
-                </div>
-            </fieldset>
+    <div class="left-side">
+        <select multiple="multiple" v-model="filterModel" style="height:450px;width:90%">
+            <option value="">All</option>
+            <option v-for="rcMake in ruleCarMake | orderBy 'makeText'" :value="rcMake.makeText">{{rcMake.makeText}}</option>
+        </select>
+    </div>
+    <div class="right-side">
+        <ul class='list-style'>
+            <li v-for="rcModel in ruleCarModel | filterBy filterModel in 'makeText'">
+                {{rcModel.makeText}} - {{rcModel.modelText}}
+                <span style='color:red' v-on:click="removeRuleModel(rcModel)">X</span>
+            </li>
+        </ul>
+    </div>
+</fieldset>
