@@ -122,6 +122,8 @@ class MotorQuote
         $this->allVar['dvce'] =  isset($data['dvce']) ? $data['dvce'] : '' ;
         $this->allVar['crtv'] =  isset($data['crtv']) ? $data['crtv'] : '' ;
         $this->allVar['adps'] =  isset($data['adps']) ? $data['adps'] : '' ;
+
+        $this->allVar['save_reason'] = isset($data['save_reason']) ? $data['save_reason'] : '';
     }
     
     /**
@@ -247,7 +249,8 @@ class MotorQuote
         $rm -> dvce = $this->allVar['dvce'];
         $rm -> crtv = $this->allVar['crtv'];
         $rm -> adps = $this->allVar['adps'];
-        
+
+        $rm -> save_reason = $this->allVar['save_reason'];
         
         if ($rm -> save()) {
             return array( $rm->id , $rm->refno ) ;
@@ -439,8 +442,8 @@ class MotorQuote
                 $er[] = $e->getMessage() . $eMsg;
             }
             if (empty($this->allVar['age2'])) {
-                 try {
-                $this->allVar['age2'] = calAge($this->allVar['dob2']);
+                try {
+                    $this->allVar['age2'] = calAge($this->allVar['dob2']);
                 } catch (Exception $e) {
                     $er[] = $e->getMessage() . $eMsg;
                 }
