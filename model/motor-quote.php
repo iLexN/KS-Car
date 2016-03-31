@@ -93,7 +93,7 @@ class MotorQuote
 
         // no need process if driver2 not exist
         $this->allVar['drivingExpText2'] = '';
-        $this->allVar['age2'] = '';
+        $this->allVar['age2'] = isset($data['age2']) ? $data['age2'] : ''; // provide age/dob
         
         $this->isTest = isset($data['testRule']) ? true : false;
         if ($this->isTest) {
@@ -120,6 +120,8 @@ class MotorQuote
         $this->allVar['dvce'] =  isset($data['dvce']) ? $data['dvce'] : '' ;
         $this->allVar['crtv'] =  isset($data['crtv']) ? $data['crtv'] : '' ;
         $this->allVar['adps'] =  isset($data['adps']) ? $data['adps'] : '' ;
+
+        $this->allVar['save_reason'] = isset($data['save_reason']) ? $data['save_reason'] : '';
     }
     
     /**
@@ -248,6 +250,8 @@ class MotorQuote
         $rm -> dvce = $this->allVar['dvce'];
         $rm -> crtv = $this->allVar['crtv'];
         $rm -> adps = $this->allVar['adps'];
+
+        $rm -> save_reason = $this->allVar['save_reason'];
         
         if (!$exist) {
             $rm -> refno  =  $this->genRefno(); //$result['refno'];
@@ -444,10 +448,12 @@ class MotorQuote
             } catch (Exception $e) {
                 $er[] = $e->getMessage() . $eMsg;
             }
-            try {
+            if (empty($this->allVar['age2'])) {
+                 try {
                 $this->allVar['age2'] = calAge($this->allVar['dob2']);
-            } catch (Exception $e) {
-                $er[] = $e->getMessage() . $eMsg;
+                } catch (Exception $e) {
+                    $er[] = $e->getMessage() . $eMsg;
+                }
             }
         }
         

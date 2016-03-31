@@ -109,6 +109,11 @@ class Rule
      */
     public function matchRuleWithVar($ar, $isTest)
     {
+        $age = $ar['age'];
+        if ( $age  == 1 ){
+            $age = 30;
+        }
+
         $match_rule = ORM::for_table('rule')
                 -> table_alias('p1')
                 -> select('p1.*')
@@ -119,8 +124,8 @@ class Rule
                 -> where('p2.model', $ar['carModel'])
                 -> where('p3.occ', $ar['occupation'])
                 -> where('p4.ncd', $ar['ncd'])
-                -> where_lte('p1.age_from', $ar['age'])
-                -> where_gte('p1.age_to', $ar['age'])
+                -> where_lte('p1.age_from', $age)
+                -> where_gte('p1.age_to', $age)
                 -> where('p1.DrivingExp', $ar['drivingExp'])
                 -> where('p1.motor_accident_yrs', $ar['motor_accident_yrs'])
                 -> where('p1.drive_offence_point', $ar['drive_offence_point'])
