@@ -1,9 +1,9 @@
 <?php
 
 session_start();
-if (!$_SESSION['login']) {
-    header('Location: login.php');
-}
+if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
+      header('Location: login.php');
+  }
 
 include('db/db_info.php');
 include('model/occ.php');
