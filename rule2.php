@@ -58,9 +58,9 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
     <div style="height:50px;"></div>
 
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.17/vue.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/axios/0.7.0/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.20/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"></script>
     <script src="js/app.js" type="text/javascript"></script>
 </body>
 </html>
