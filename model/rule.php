@@ -110,6 +110,13 @@ class Rule
     public function matchRuleWithVar($ar, $isTest)
     {
         $age = $ar['age'];
+
+        // age : 99 = age > 60
+        // age : 88 = age < 21
+        if ( $age == 99 || $age == 88 ){
+            return array();
+        }
+
         if ( $age  == 1 ){
             $age = 30;
         }
