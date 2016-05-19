@@ -2,7 +2,7 @@
 /**
  * HTTP Basic Authentication
  */
-
+/*
 $user = 'ksApi';
 $pass = 'mLaE%E9WGQEJU5Q';
 
@@ -25,3 +25,4 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_USER'])) {
     echo json_encode($result);
     exit;
 }
+*/
