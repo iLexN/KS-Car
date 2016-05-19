@@ -44,7 +44,7 @@ class MotorQuote
 
         //user data or car data 
         $this->allVar['name'] =  isset($data['name']) ? $data['name'] : '';
-        $this->allVar['email'] =  isset($data['email']) ? $data['email'] : '';
+        $this->allVar['email'] =  isset($data['email']) ? trim($data['email']) : '';
         $this->allVar['contactno'] = isset($data['contactno']) ? $data['contactno'] : '';
         $this->allVar['address'] = isset($data['address']) ? $data['address'] : '';
         $this->allVar['address2'] = isset($data['address2']) ? $data['address2'] : '';
