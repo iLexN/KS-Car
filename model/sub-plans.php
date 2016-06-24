@@ -116,7 +116,6 @@ class SubPlans
                     ->order_by_asc('sortOrder')
                     ->order_by_asc('id')
                     ->find_array();
-        
         $ar = array();
         foreach ($r_ar as $row) {
             $ar[$row['id']] = $row;

@@ -122,18 +122,7 @@ class MotorQuote
     public function saveQuote($ruleInfo)
     {
         //format json for save 
-        $planInfoAr = array();
-        
-        //should pass planID for save plan details.
-        if ($this->allVar['planID']) {
-            $planInfoAr = $this->savePlanFormat($ruleInfo);
-        }
-        
-        if ($this->allVar['subPlanID']) {
-            foreach ($this->allVar['subPlanID'] as $subPlanAr) {
-                $planInfoAr[0]['subPlanName'][$subPlanAr] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[0]['subPlans'][$subPlanAr]['name_sub'];
-            }
-        }
+        $planInfoAr = $this->proccessPlans($ruleInfo);
         
         $exist = 0;
         if ($this->allVar['refID']) {
@@ -393,7 +382,7 @@ class MotorQuote
      * @param array $data
      * @param string $k
      * @param string $d
-     * @return mixed
+     * @return mixed|false
      */
     private function isSetNotEmpty($data, $k, $d)
     {
@@ -487,5 +476,20 @@ class MotorQuote
             $this->allVar['carModel'] = $this->allVar['carModelOther'];
         }
         checkEmpty('carModel', $this->allVar['carModel']) ;
+    }
+
+    private function proccessPlans($ruleInfo){
+        $planInfoAr = array();
+         //should pass planID for save plan details.
+        if ($this->allVar['planID']) {
+            $planInfoAr = $this->savePlanFormat($ruleInfo);
+        }
+
+        if ($this->allVar['subPlanID']) {
+            foreach ($this->allVar['subPlanID'] as $subPlanAr) {
+                $planInfoAr[0]['subPlanName'][$subPlanAr] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[0]['subPlans'][$subPlanAr]['name_sub'];
+            }
+        }
+        return $planInfoAr;
     }
 }

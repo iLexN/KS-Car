@@ -322,22 +322,7 @@ class Car
     public function getInsuranceType($t = 1)
     {
         $m = ORM::for_table('insurance-type') -> find_array();
-        $r = array();
-        switch ($t) {
-            case 1:
-                // en
-                foreach ($m as $k => $v) {
-                    $r[$v['id_value']] = $v['name_en'];
-                }
-                break;
-            case 2:
-                foreach ($m as $k => $v) {
-                    $r[$v['id_value']]['en'] = $v['name_en'];
-                    $r[$v['id_value']]['zh'] = $v['name_zh'];
-                }
-                break;
-        }
-        return $r;
+        return $this->proccessOutputArray($t, $m);
     }
 
     /**
@@ -368,6 +353,10 @@ class Car
     {
         $m = ORM::for_table('driving-exp') -> find_array();
 
+        return $this->proccessOutputArray($t, $m);
+    }
+
+    private function proccessOutputArray($t,$m){
         $r = array();
         switch ($t) {
             case 1:

@@ -74,17 +74,14 @@ class Rule
         $this -> rule -> motor_accident_yrs =  $ar['MotorAccidentYrs'];
         $this -> rule -> drive_offence_point = $ar['DriveOffencePoint'];
         $this -> rule -> active = $ar['Active'];
-        
         $this -> rule -> premium = $ar['premium'];
         $this -> rule -> loading = $ar['loading'];
         $this -> rule -> otherDiscount = $ar['otherDiscount'];
         $this -> rule -> clientDiscount = $ar['clientDiscount'];
         $this -> rule -> mib = $ar['mib'];
         $this -> rule -> commission = $ar['commission'];
-        
         $this -> rule -> a2 = $ar['a2'];
         $this -> rule -> a3 = $ar['a3'];
-
         $this -> rule -> save();
     }
     
