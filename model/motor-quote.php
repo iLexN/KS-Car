@@ -9,7 +9,6 @@
 class MotorQuote
 {
     public $allVar;
-    public $isTest;
     public $saveUser;
     public $skipFindRule;
 
@@ -94,23 +93,22 @@ class MotorQuote
     {
         $this->allVar = array_replace($this->defaultData, $data);
 
-        $this->allVar['refID'] = $this->isSetNotEmpty($data, 'refID', false);//(isset($data['refID']) && !empty($data['refID']))  ? $data['refID'] : false;
-        $this->allVar['dob'] = $this->isSetNotEmpty($data, 'dob', '00-00-0000');//(isset($data['dob']) && !empty($data['dob']))  ? $data['dob'] : '00-00-0000'; // 25-02-2014
-        $this->allVar['referer'] = $this->isSetNotEmpty($data, 'referer', 'kwiksure');//(isset($data['referer']) && !empty($data['referer'])) ? $data['referer'] : 'kwiksure';
-        $this->allVar['motor_accident_yrs2']  = $this->isSetNotEmpty($data, 'motor_accident_yrs2', null);//(isset($data['motor_accident_yrs2']) && $data['motor_accident_yrs2'] != '')    ? $data['motor_accident_yrs2'] : null;
-        $this->allVar['drive_offence_point2']  = $this->isSetNotEmpty($data, 'drive_offence_point2', null);//(isset($data['drive_offence_point2']) && $data['drive_offence_point2']!='')    ? $data['motor_accident_yrs2'] : null;
-        $this->allVar['dob2'] = $this->isSetNotEmpty($data, 'dob2', '00-00-0000');//(isset($data['dob2']) && !empty($data['dob2']))  ? $data['dob2'] : '00-00-0000'; // 25-02-2014
-        $this->allVar['planID'] = $this->isSetNotEmpty($data, 'planID', false);//(isset($data['planID']) && !empty($data['planID'])) ? $data['planID'] : false;
-        $this->allVar['subPlanID']  = $this->isSetNotEmpty($data, 'subPlanID', false);//(isset($data['subPlanID']) && !empty($data['subPlanID'])) ? $data['subPlanID'] : false;
-        $this->allVar['payButtonClick'] =  $this->isSetNotEmpty($data, 'payButtonClick', 0);//(isset($data['payButtonClick']) && !empty($data['payButtonClick'])) ? 1 : 0;
+        $this->allVar['refID'] = $this->isSetNotEmpty($data, 'refID', false);
+        $this->allVar['dob'] = $this->isSetNotEmpty($data, 'dob', '00-00-0000');
+        $this->allVar['referer'] = $this->isSetNotEmpty($data, 'referer', 'kwiksure');
+        $this->allVar['motor_accident_yrs2']  = $this->isSetNotEmpty($data, 'motor_accident_yrs2', null);
+        $this->allVar['drive_offence_point2']  = $this->isSetNotEmpty($data, 'drive_offence_point2', null);
+        $this->allVar['dob2'] = $this->isSetNotEmpty($data, 'dob2', '00-00-0000');
+        $this->allVar['planID'] = $this->isSetNotEmpty($data, 'planID', false);
+        $this->allVar['subPlanID']  = $this->isSetNotEmpty($data, 'subPlanID', false);
+        $this->allVar['payButtonClick'] =  $this->isSetNotEmpty($data, 'payButtonClick', 0);
 
-        $this->isTest = isset($data['testRule']);
-        if ($this->isTest) {
+        if (isset($data['testRule'])) {
             $this->saveUser = false;
         }
-
-        $this->saveUser = (isset($data['isSave']) && $data['isSave']) ? true : false;
-        $this->skipFindRule = (isset($data['skipFindRule']) && $data['skipFindRule']) ? true : false;
+        
+        $this->saveUser = $this->isSetWithTrue($data, 'isSave');
+        $this->skipFindRule = $this->isSetWithTrue($data, 'skipFindRule');
     }
     
     /**
@@ -534,5 +532,9 @@ error_log($this->saveUser);
 
     private function isSetNotEmpty($data , $k , $d){
         return (isset($data[$k]) && !empty($data[$k]))  ? $data[$k] : $d;
+    }
+
+    private function isSetWithTrue($data , $k ){
+        return (isset($data[$k]) && $data[$k]) ? true : false;
     }
 }
