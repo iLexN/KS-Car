@@ -19,111 +19,98 @@ class MotorQuote
     /* @var $car Car */
     public $car; // car object
     public $hasDriver2 = false;
+
+    private $defaultData = array(
+    'age'=>'',
+    'ncd'=>'100',
+    'drivingExp'=>'',
+    'drivingExpText'=>'',
+    'insuranceType'=>'',
+    'yearManufacture'=>'2000',
+    'carMake'=>'',
+    'carModel'=>'',
+    'carModelOther'=>'',
+    'occupation'=>'',
+    'occupationText'=>'',
+    'motor_accident_yrs'=>null,
+    'drive_offence_point'=>null,
+    'name'=>'',
+    'email'=>'',
+    'contactno'=>'',
+    'address'=>'',
+    'address2'=>'',
+    'address3'=>'',
+    'address4'=>'',
+    'residential_district'=>'',
+    'gender'=>'',
+    'marital_status'=>'',
+    'lang'=>'en',
+    'hkid_1'=>'',
+    'hkid_2'=>'',
+    'hkid_3'=>'',
+    'vehicle_registration'=>'',
+    'yearly_mileage'=>'',
+    'drive_to_work'=>null,
+    'course_of_work'=>null,
+    'convictions_5_yrs'=>null,
+    'sum_insured'=>'0.00',
+    'bodyType'=>'',
+    'numberOfDoors'=>'',
+    'chassisNumber'=>'',
+    'engineNumber'=>'',
+    'cylinderCapacity'=>'',
+    'numberOfSeats'=>'',
+    'name2'=>'',
+    'email2'=>'',
+    'gender2'=>'',
+    'relationship2'=>'',
+    'marital_status2'=>'',
+    'hkid_1_2'=>'',
+    'hkid_2_2'=>'',
+    'hkid_3_2'=>'',
+    'motor_accident_yrs2'=>null,
+    'drive_offence_point2'=>null,
+    'drivingExp2'=>'',
+    'occupation2'=>'',
+    'occupationText2'=>'',
+    'drivingExpText2'=>'',
+    'age2'=>'',
+    'keywords'=>'',
+    'cmid'=>'',
+    'dgid'=>'',
+    'kwid'=>'',
+    'netw'=>'',
+    'dvce'=>'',
+    'crtv'=>'',
+    'adps'=>'',
+    'save_reason'=>'',
+);
     /**
      * need summary
      */
     public function __construct($data = array())
     {
+        $this->allVar = array_replace($this->defaultData, $data);
+
         $this->allVar['refID'] = (isset($data['refID']) && !empty($data['refID']))  ? $data['refID'] : false;
-
-        // rule data (required)
         $this->allVar['dob'] = (isset($data['dob']) && !empty($data['dob']))  ? $data['dob'] : '00-00-0000'; // 25-02-2014
-        $this->allVar['age'] = isset($data['age']) ? $data['age'] : ''; // provide age/dob
-        $this->allVar['ncd'] = isset($data['ncd']) ? $data['ncd'] : '100';
-        $this->allVar['drivingExp'] = isset($data['drivingExp']) ? $data['drivingExp'] : '';
-        $this->allVar['drivingExpText'] = isset($data['drivingExpText']) ? $data['drivingExpText'] : '' ;
-        $this->allVar['insuranceType'] = isset($data['insuranceType']) ? $data['insuranceType'] : '' ;
-        $this->allVar['yearManufacture'] = isset($data['yearManufacture']) ? $data['yearManufacture'] : 2000 ;
-        $this->allVar['carMake']  = isset($data['carMake']) ? $data['carMake'] : '';
-        $this->allVar['carModel']  = isset($data['carModel']) ? $data['carModel'] : '';
-        $this->allVar['carModelOther'] = isset($data['carModelOther']) ? $data['carModelOther'] : '';
-        $this->allVar['occupation'] =  isset($data['occupation']) ? $data['occupation'] : '' ;
-        $this->allVar['occupationText'] = isset($data['occupationText']) ? $data['occupationText'] : '' ;
-        $this->allVar['motor_accident_yrs']  = isset($data['motor_accident_yrs']) ? $data['motor_accident_yrs'] : null; //Did the main driver have any accidents or claims in the last 3 years?
-        $this->allVar['drive_offence_point']  = isset($data['drive_offence_point']) ? $data['drive_offence_point'] : null; //Did the main driver have any driving offence points in the last 2 years
-
-        //user data or car data 
-        $this->allVar['name'] =  isset($data['name']) ? $data['name'] : '';
-        $this->allVar['email'] =  isset($data['email']) ? trim($data['email']) : '';
-        $this->allVar['contactno'] = isset($data['contactno']) ? $data['contactno'] : '';
-        $this->allVar['address'] = isset($data['address']) ? $data['address'] : '';
-        $this->allVar['address2'] = isset($data['address2']) ? $data['address2'] : '';
-        $this->allVar['address3'] = isset($data['address3']) ? $data['address3'] : '';
-        $this->allVar['address4'] = isset($data['address4']) ? $data['address4'] : '';
-        $this->allVar['residential_district'] = isset($data['residential_district']) ? $data['residential_district'] : ''; // address line 5
-        $this->allVar['gender'] = isset($data['gender']) ? $data['gender'] : '';
-        $this->allVar['marital_status'] = isset($data['marital_status']) ? $data['marital_status'] : '';
-        $this->allVar['lang'] = isset($data['lang']) ? $data['lang'] : 'en';
-        $this->allVar['hkid_1'] = isset($data['hkid_1']) ? $data['hkid_1'] : '';
-        $this->allVar['hkid_2'] = isset($data['hkid_2']) ? $data['hkid_2'] : '';
-        $this->allVar['hkid_3'] = isset($data['hkid_3']) ? $data['hkid_3'] : '';
-        $this->allVar['vehicle_registration'] = isset($data['vehicle_registration']) ? $data['vehicle_registration'] : '' ;
-        $this->allVar['yearly_mileage'] = isset($data['yearly_mileage']) ? $data['yearly_mileage'] : '';
         $this->allVar['referer'] = (isset($data['referer']) && !empty($data['referer'])) ? $data['referer'] : 'kwiksure';
         $this->allVar['policy_start_date'] = (isset($data['policy_start_date']) && !empty($data['policy_start_date']))  ? $data['policy_start_date'] : ''; // 25-02-2014
         $this->allVar['policy_end_date'] = (isset($data['policy_end_date']) && !empty($data['policy_end_date']))  ? $data['policy_end_date'] : ''; // 25-02-2014
-        $this->allVar['drive_to_work']  = isset($data['drive_to_work']) ? $data['drive_to_work'] : null;
-        $this->allVar['course_of_work']  = isset($data['course_of_work']) ? $data['course_of_work'] : null;
-        $this->allVar['convictions_5_yrs']  = isset($data['convictions_5_yrs']) ? $data['convictions_5_yrs'] : null;
-        $this->allVar['sum_insured']  = isset($data['sum_insured']) ? $data['sum_insured'] : '0.00';
-
-        // additional car data
-        $this->allVar['bodyType']  = isset($data['bodyType']) ? $data['bodyType'] : '';
-        $this->allVar['numberOfDoors']  = isset($data['numberOfDoors']) ? $data['numberOfDoors'] : '';
-        $this->allVar['chassisNumber']  = isset($data['chassisNumber']) ? $data['chassisNumber'] : '';
-        $this->allVar['engineNumber']  = isset($data['engineNumber']) ? $data['engineNumber'] : '';
-        $this->allVar['cylinderCapacity']  = isset($data['cylinderCapacity']) ? $data['cylinderCapacity'] : '';
-        $this->allVar['numberOfSeats']  = isset($data['numberOfSeats']) ? $data['numberOfSeats'] : '';
-
-        //driver2
-        $this->allVar['name2'] =  isset($data['name2']) ? $data['name2'] : '';
-        $this->allVar['email2'] =  isset($data['email2']) ? $data['email2'] : '';
-        $this->allVar['gender2'] = isset($data['gender2']) ? $data['gender2'] : '';
-        $this->allVar['relationship2'] = isset($data['relationship2']) ? $data['relationship2'] : '';
-        $this->allVar['dob2'] = (isset($data['dob2']) && !empty($data['dob2']))  ? $data['dob2'] : '00-00-0000'; // 25-02-2014
-        $this->allVar['marital_status2'] = isset($data['marital_status2']) ? $data['marital_status2'] : '';
-        
-        $this->allVar['hkid_1_2'] = isset($data['hkid_1_2']) ? $data['hkid_1_2'] : '';
-        $this->allVar['hkid_2_2'] = isset($data['hkid_2_2']) ? $data['hkid_2_2'] : '';
-        $this->allVar['hkid_3_2'] = isset($data['hkid_3_2']) ? $data['hkid_3_2'] : '';
-        
         $this->allVar['motor_accident_yrs2']  = (isset($data['motor_accident_yrs2']) && $data['motor_accident_yrs2'] != '')    ? $data['motor_accident_yrs2'] : null;
         $this->allVar['drive_offence_point2']  = (isset($data['drive_offence_point2']) && $data['drive_offence_point2']!='')    ? $data['motor_accident_yrs2'] : null;
-        $this->allVar['drivingExp2'] = isset($data['drivingExp2']) ? $data['drivingExp2'] : '';
-        $this->allVar['occupation2'] =  isset($data['occupation2']) ? $data['occupation2'] : '' ;
-        $this->allVar['occupationText2'] =  isset($data['occupationText2']) ? $data['occupationText2'] : '' ;
+        $this->allVar['dob2'] = (isset($data['dob2']) && !empty($data['dob2']))  ? $data['dob2'] : '00-00-0000'; // 25-02-2014
+        $this->allVar['planID'] = (isset($data['planID']) && !empty($data['planID'])) ? $data['planID'] : false;
+        $this->allVar['subPlanID']  = (isset($data['subPlanID']) && !empty($data['subPlanID'])) ? $data['subPlanID'] : false;
+        $this->allVar['payButtonClick'] = (isset($data['payButtonClick']) && !empty($data['payButtonClick'])) ? 1 : 0;
 
-        // no need process if driver2 not exist
-        $this->allVar['drivingExpText2'] = '';
-        $this->allVar['age2'] = isset($data['age2']) ? $data['age2'] : ''; // provide age/dob
-        
-        $this->isTest = isset($data['testRule']) ? true : false;
+        $this->isTest = isset($data['testRule']);
         if ($this->isTest) {
             $this->saveUser = false;
         }
-        
-        $this->saveUser = (isset($data['isSave']) && $data['isSave']) ? true : false;
-        
-        $this->skipFindRule = (isset($data['skipFindRule']) && $data['skipFindRule']) ? true : false;
-        
-        
-        $this->allVar['planID'] = (isset($data['planID']) && !empty($data['planID'])) ? $data['planID'] : false;
-        $this->allVar['subPlanID']  = (isset($data['subPlanID']) && !empty($data['subPlanID'])) ? $data['subPlanID'] : false;
-        
-        $this->allVar['payButtonClick'] = (isset($data['payButtonClick']) && !empty($data['payButtonClick'])) ? 1 : 0;
-        
-        
-        //google ad
-        $this->allVar['keywords'] =  isset($data['keywords']) ? $data['keywords'] : '' ;
-        $this->allVar['cmid'] =  isset($data['cmid']) ? $data['cmid'] : '' ;
-        $this->allVar['dgid'] =  isset($data['dgid']) ? $data['dgid'] : '' ;
-        $this->allVar['kwid'] =  isset($data['kwid']) ? $data['kwid'] : '' ;
-        $this->allVar['netw'] =  isset($data['netw']) ? $data['netw'] : '' ;
-        $this->allVar['dvce'] =  isset($data['dvce']) ? $data['dvce'] : '' ;
-        $this->allVar['crtv'] =  isset($data['crtv']) ? $data['crtv'] : '' ;
-        $this->allVar['adps'] =  isset($data['adps']) ? $data['adps'] : '' ;
 
-        $this->allVar['save_reason'] = isset($data['save_reason']) ? $data['save_reason'] : '';
+        $this->saveUser = (isset($data['isSave']) && $data['isSave']) ? true : false;
+        $this->skipFindRule = (isset($data['skipFindRule']) && $data['skipFindRule']) ? true : false;
     }
     
     /**
@@ -351,7 +338,7 @@ class MotorQuote
                 $er[] = $e->getMessage() . ' (hkid 2) ';
             }
         }
-
+error_log($this->saveUser);
         //checking for user data must fill in data for user
         if ($this->saveUser) {
             try {
