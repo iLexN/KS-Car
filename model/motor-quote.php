@@ -9,6 +9,7 @@
 class MotorQuote
 {
     public $allVar;
+    public $isTest = false;
     public $saveUser;
     public $skipFindRule;
 
@@ -104,6 +105,7 @@ class MotorQuote
         $this->allVar['payButtonClick'] =  $this->isSetNotEmpty($data, 'payButtonClick', 0);
 
         if (isset($data['testRule'])) {
+            $this->isTest = true;
             $this->saveUser = false;
         }
         
@@ -280,158 +282,113 @@ class MotorQuote
         $er = array();
         
         if (!$this->skipFindRule) {
-            try {
+            
                 checkEmpty('drivingExp', $this->allVar['drivingExp'], $this->allVar['drivingExpText']) ;
-            } catch (Exception $e) {
-                $er[] = $e->getMessage();
-            }
-            try {
+            
+            
                 checkEmpty('yearManufacture', $this->allVar['yearManufacture']) ;
-            } catch (Exception $e) {
-                $er[] = $e->getMessage();
-            }
-            try {
+            
+            
+            
+            
                 checkEmpty('carMake', $this->allVar['carMake']) ;
-            } catch (Exception $e) {
-                $er[] = $e->getMessage();
-            }
-            try {
+            
+            
+            
+            
                 checkEmpty('occupation', $this->allVar['occupation'], $this->allVar['occupationText']) ;
-            } catch (Exception $e) {
-                $er[] = $e->getMessage();
-            }
+            
         }
         
-        try {
+        
             checkEmpty('insuranceType', $this->allVar['insuranceType']) ;
-        } catch (Exception $e) {
-            $er[] = $e->getMessage();
-        }
-        try {
+        
+        
             if (!empty($this->allVar['carModelOther'])) {
                 $this->allVar['carModel'] = $this->allVar['carModelOther'];
             }
             checkEmpty('carModel', $this->allVar['carModel']) ;
-        } catch (Exception $e) {
-            $er[] = $e->getMessage();
-        }
-        try {
+        
+        
             $this->allVar['lang'] = checkLang($this->allVar['lang']);
-        } catch (Exception $e) {
-            $er[] = $e->getMessage();
-        }
+        
         if (!empty($this->allVar['hkid_1']) || !empty($this->allVar['hkid_2']) || !empty($this->allVar['hkid_3'])) {
             // not must fill in, but need check format
-            try {
+        
                 check_hkid($this->allVar['hkid_1'], $this->allVar['hkid_2'], $this->allVar['hkid_3']) ;
-            } catch (Exception $e) {
-                $er[] = $e->getMessage();
-            }
+        
         }
         if (!empty($this->allVar['hkid_1_2']) || !empty($this->allVar['hkid_2_2']) || !empty($this->allVar['hkid_3_2'])) {
             // not must fill in, but need check format
-            try {
+        
                 check_hkid($this->allVar['hkid_1_2'], $this->allVar['hkid_2_2'], $this->allVar['hkid_3_2']) ;
-            } catch (Exception $e) {
-                $er[] = $e->getMessage() . ' (hkid 2) ';
-            }
+        
         }
-error_log($this->saveUser);
+
         //checking for user data must fill in data for user
         if ($this->saveUser) {
-            try {
+            
                 checkEmpty('name', $this->allVar['name']) ;
-            } catch (Exception $e) {
-                $er[] = $e->getMessage();
-            }
-            try {
+            
+            
                 checkEmpty('contactno', $this->allVar['contactno']) ;
-            } catch (Exception $e) {
-                $er[] = $e->getMessage();
-            }
-            try {
+            
+            
                 checkEmpty('email', $this->allVar['email']) ;
-            } catch (Exception $e) {
-                $er[] = $e->getMessage();
-            }
-            try {
+            
+            
                 checkEmail($this->allVar['email']) ;
-            } catch (Exception $e) {
-                $er[] = $e->getMessage();
-            }
+            
         }
         
-        try {
+        
             $this->allVar['insuranceTypeText']  = $this->car -> getInsuranceTypeByID($this->allVar['insuranceType']);
-        } catch (Exception $e) {
-            $er[] = $e->getMessage();
-        }
-        try {
+        
+        
             if (empty($this->allVar['drivingExpText'])) {
                 $this->allVar['drivingExpText'] = $this->car -> getDriveExpByID($this->allVar['drivingExp']);
             }
-        } catch (Exception $e) {
-            $er[] = $e->getMessage();
-        }
-        try {
+        
+        
             $this->allVar['carMakeText'] = $this->car -> getMakeByID($this->allVar['carMake']);
-        } catch (Exception $e) {
-            $er[] = $e->getMessage();
-        }
-        try {
+        
+        
             $this->allVar['carModelText'] = $this->car -> getModelByID($this->allVar['carModel'], $this->allVar['carModelOther'], $this->allVar['carMake']);
-        } catch (Exception $e) {
-            $er[] = $e->getMessage();
-        }
+        
 
-        try {
+        
             if (empty($this->allVar['occupationText'])) {
                 $this->allVar['occupationText'] = $this->occ -> getOccByID($this->allVar['occupation'], $this->allVar['lang']);
             }
-        } catch (Exception $e) {
-            $er[] = $e->getMessage();
-        }
+        
 
-        try {
+        
             $this->allVar['calYrMf'] = calYrMf($this->allVar['yearManufacture']);
-        } catch (Exception $e) {
-            $er[] = $e->getMessage();
-        }
+        
 
         if (empty($this->allVar['age'])) {
-            try {
+            
                 $this->allVar['age'] = calAge($this->allVar['dob']);
-            } catch (Exception $e) {
-                $er[] = $e->getMessage();
-            }
+            
         }
 
-        try {
+        
             $this->hasDriver2 = $this->hasDriver2();
-        } catch (Exception $e) {
-            $er[] = $e->getMessage();
-        }
+        
 
         if ($this->hasDriver2) {
-            $eMsg = 'Driver2';
-            try {
+            
                 $this->allVar['drivingExpText2'] = $this->car -> getDriveExpByID($this->allVar['drivingExp2']);
-            } catch (Exception $e) {
-                $er[] = $e->getMessage() . $eMsg;
-            }
-            try {
+            
+            
                 if (empty($this->allVar['occupationText2'])) {
                     $this->allVar['occupationText2'] = $this->occ -> getOccByID($this->allVar['occupation2'], $this->allVar['lang']);
                 }
-            } catch (Exception $e) {
-                $er[] = $e->getMessage() . $eMsg;
-            }
+            
             if (empty($this->allVar['age2'])) {
-                try {
+            
                     $this->allVar['age2'] = calAge($this->allVar['dob2']);
-                } catch (Exception $e) {
-                    $er[] = $e->getMessage() . $eMsg;
-                }
+            
             }
         }
         
@@ -450,6 +407,11 @@ error_log($this->saveUser);
     
     public function hasDriver2()
     {
+        error_log($this->allVar['occupation2']);
+        error_log($this->allVar['drivingExp2']);
+        error_log($this->allVar['motor_accident_yrs2']);
+        error_log($this->allVar['drive_offence_point2']);
+
         if (!empty($this->allVar['occupation2']) &&
                 !empty($this->allVar['drivingExp2']) &&
                 !is_null($this->allVar['motor_accident_yrs2']) &&
@@ -530,10 +492,24 @@ error_log($this->saveUser);
         return $planInfoAr;
     }
 
+    /**
+     *
+     * @param array $data
+     * @param string $k
+     * @param mix $d
+     * @return mix
+     */
     private function isSetNotEmpty($data , $k , $d){
-        return (isset($data[$k]) && !empty($data[$k]))  ? $data[$k] : $d;
+        return (isset($data[$k]) && $data[$k]!='')  ? $data[$k] : $d;
     }
 
+    /**
+     *
+     * @param array $data
+     * @param string $k
+     * @param mix $d
+     * @return mix
+     */
     private function isSetWithTrue($data , $k ){
         return (isset($data[$k]) && $data[$k]) ? true : false;
     }

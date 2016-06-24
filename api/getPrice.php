@@ -47,7 +47,11 @@ if ( $quote->saveUser ){
 
 $quote->setCar($car);
 $quote->setOcc($occ);
-$result['error'] = $quote->validationInput();
+try {
+    $result['error'] = $quote->validationInput();
+} catch (Exception $e) {
+     $result['error'] = $e->getMessage();
+}
 
 // stop and return with error
 if (!empty($result['error'])) {
