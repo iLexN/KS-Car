@@ -84,6 +84,8 @@ class MotorQuote
     'crtv'=>'',
     'adps'=>'',
     'save_reason'=>'',
+        'policy_start_date'=>'',
+        'policy_end_date'=>'',
 );
     /**
      * need summary
@@ -92,17 +94,15 @@ class MotorQuote
     {
         $this->allVar = array_replace($this->defaultData, $data);
 
-        $this->allVar['refID'] = (isset($data['refID']) && !empty($data['refID']))  ? $data['refID'] : false;
-        $this->allVar['dob'] = (isset($data['dob']) && !empty($data['dob']))  ? $data['dob'] : '00-00-0000'; // 25-02-2014
-        $this->allVar['referer'] = (isset($data['referer']) && !empty($data['referer'])) ? $data['referer'] : 'kwiksure';
-        $this->allVar['policy_start_date'] = (isset($data['policy_start_date']) && !empty($data['policy_start_date']))  ? $data['policy_start_date'] : ''; // 25-02-2014
-        $this->allVar['policy_end_date'] = (isset($data['policy_end_date']) && !empty($data['policy_end_date']))  ? $data['policy_end_date'] : ''; // 25-02-2014
-        $this->allVar['motor_accident_yrs2']  = (isset($data['motor_accident_yrs2']) && $data['motor_accident_yrs2'] != '')    ? $data['motor_accident_yrs2'] : null;
-        $this->allVar['drive_offence_point2']  = (isset($data['drive_offence_point2']) && $data['drive_offence_point2']!='')    ? $data['motor_accident_yrs2'] : null;
-        $this->allVar['dob2'] = (isset($data['dob2']) && !empty($data['dob2']))  ? $data['dob2'] : '00-00-0000'; // 25-02-2014
-        $this->allVar['planID'] = (isset($data['planID']) && !empty($data['planID'])) ? $data['planID'] : false;
-        $this->allVar['subPlanID']  = (isset($data['subPlanID']) && !empty($data['subPlanID'])) ? $data['subPlanID'] : false;
-        $this->allVar['payButtonClick'] = (isset($data['payButtonClick']) && !empty($data['payButtonClick'])) ? 1 : 0;
+        $this->allVar['refID'] = $this->isSetNotEmpty($data, 'refID', false);//(isset($data['refID']) && !empty($data['refID']))  ? $data['refID'] : false;
+        $this->allVar['dob'] = $this->isSetNotEmpty($data, 'dob', '00-00-0000');//(isset($data['dob']) && !empty($data['dob']))  ? $data['dob'] : '00-00-0000'; // 25-02-2014
+        $this->allVar['referer'] = $this->isSetNotEmpty($data, 'referer', 'kwiksure');//(isset($data['referer']) && !empty($data['referer'])) ? $data['referer'] : 'kwiksure';
+        $this->allVar['motor_accident_yrs2']  = $this->isSetNotEmpty($data, 'motor_accident_yrs2', null);//(isset($data['motor_accident_yrs2']) && $data['motor_accident_yrs2'] != '')    ? $data['motor_accident_yrs2'] : null;
+        $this->allVar['drive_offence_point2']  = $this->isSetNotEmpty($data, 'drive_offence_point2', null);//(isset($data['drive_offence_point2']) && $data['drive_offence_point2']!='')    ? $data['motor_accident_yrs2'] : null;
+        $this->allVar['dob2'] = $this->isSetNotEmpty($data, 'dob2', '00-00-0000');//(isset($data['dob2']) && !empty($data['dob2']))  ? $data['dob2'] : '00-00-0000'; // 25-02-2014
+        $this->allVar['planID'] = $this->isSetNotEmpty($data, 'planID', false);//(isset($data['planID']) && !empty($data['planID'])) ? $data['planID'] : false;
+        $this->allVar['subPlanID']  = $this->isSetNotEmpty($data, 'subPlanID', false);//(isset($data['subPlanID']) && !empty($data['subPlanID'])) ? $data['subPlanID'] : false;
+        $this->allVar['payButtonClick'] =  $this->isSetNotEmpty($data, 'payButtonClick', 0);//(isset($data['payButtonClick']) && !empty($data['payButtonClick'])) ? 1 : 0;
 
         $this->isTest = isset($data['testRule']);
         if ($this->isTest) {
@@ -530,5 +530,9 @@ error_log($this->saveUser);
             $planInfoAr[$rowKey]['gross'] = $rowArray['gross'];
         }
         return $planInfoAr;
+    }
+
+    private function isSetNotEmpty($data , $k , $d){
+        return (isset($data[$k]) && !empty($data[$k]))  ? $data[$k] : $d;
     }
 }
