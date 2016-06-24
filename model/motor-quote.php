@@ -143,7 +143,7 @@ class MotorQuote
 
         if (!$exist) {
             $rm = ORM::for_table('motor_quote') -> create();
-            $rm -> refno  =  $this->genRefno(); 
+            $rm -> refno  =  $this->genRefno();
             $rm -> oldRefID = $this->allVar['refID'];
         } else {
             $rm = $rm->find_one();
@@ -254,7 +254,6 @@ class MotorQuote
      */
     public function getByRefNo($refno)
     {
-        
         $quote = ORM::for_table('motor_quote')
                 //->select_many($fields)
                 ->where('refno', $refno)
@@ -281,116 +280,19 @@ class MotorQuote
     {
         $er = array();
         
-        if (!$this->skipFindRule) {
-            
-                checkEmpty('drivingExp', $this->allVar['drivingExp'], $this->allVar['drivingExpText']) ;
-            
-            
-                checkEmpty('yearManufacture', $this->allVar['yearManufacture']) ;
-            
-            
-            
-            
-                checkEmpty('carMake', $this->allVar['carMake']) ;
-            
-            
-            
-            
-                checkEmpty('occupation', $this->allVar['occupation'], $this->allVar['occupationText']) ;
-            
-        }
+        $this->validationSkipFindRule();
         
+        $this->validationGerenal();
         
-            checkEmpty('insuranceType', $this->allVar['insuranceType']) ;
-        
-        
-            if (!empty($this->allVar['carModelOther'])) {
-                $this->allVar['carModel'] = $this->allVar['carModelOther'];
-            }
-            checkEmpty('carModel', $this->allVar['carModel']) ;
-        
-        
-            $this->allVar['lang'] = checkLang($this->allVar['lang']);
-        
-        if (!empty($this->allVar['hkid_1']) || !empty($this->allVar['hkid_2']) || !empty($this->allVar['hkid_3'])) {
-            // not must fill in, but need check format
-        
-                check_hkid($this->allVar['hkid_1'], $this->allVar['hkid_2'], $this->allVar['hkid_3']) ;
-        
-        }
-        if (!empty($this->allVar['hkid_1_2']) || !empty($this->allVar['hkid_2_2']) || !empty($this->allVar['hkid_3_2'])) {
-            // not must fill in, but need check format
-        
-                check_hkid($this->allVar['hkid_1_2'], $this->allVar['hkid_2_2'], $this->allVar['hkid_3_2']) ;
-        
-        }
+        $this->validationHKID($this->allVar['hkid_1'], $this->allVar['hkid_2'], $this->allVar['hkid_3']);
+        $this->validationHKID($this->allVar['hkid_1_2'], $this->allVar['hkid_2_2'], $this->allVar['hkid_3_2']);
 
         //checking for user data must fill in data for user
-        if ($this->saveUser) {
-            
-                checkEmpty('name', $this->allVar['name']) ;
-            
-            
-                checkEmpty('contactno', $this->allVar['contactno']) ;
-            
-            
-                checkEmpty('email', $this->allVar['email']) ;
-            
-            
-                checkEmail($this->allVar['email']) ;
-            
-        }
+        $this->validationSaveUser();
+        $this->validationRuleData();
         
-        
-            $this->allVar['insuranceTypeText']  = $this->car -> getInsuranceTypeByID($this->allVar['insuranceType']);
-        
-        
-            if (empty($this->allVar['drivingExpText'])) {
-                $this->allVar['drivingExpText'] = $this->car -> getDriveExpByID($this->allVar['drivingExp']);
-            }
-        
-        
-            $this->allVar['carMakeText'] = $this->car -> getMakeByID($this->allVar['carMake']);
-        
-        
-            $this->allVar['carModelText'] = $this->car -> getModelByID($this->allVar['carModel'], $this->allVar['carModelOther'], $this->allVar['carMake']);
-        
-
-        
-            if (empty($this->allVar['occupationText'])) {
-                $this->allVar['occupationText'] = $this->occ -> getOccByID($this->allVar['occupation'], $this->allVar['lang']);
-            }
-        
-
-        
-            $this->allVar['calYrMf'] = calYrMf($this->allVar['yearManufacture']);
-        
-
-        if (empty($this->allVar['age'])) {
-            
-                $this->allVar['age'] = calAge($this->allVar['dob']);
-            
-        }
-
-        
-            $this->hasDriver2 = $this->hasDriver2();
-        
-
-        if ($this->hasDriver2) {
-            
-                $this->allVar['drivingExpText2'] = $this->car -> getDriveExpByID($this->allVar['drivingExp2']);
-            
-            
-                if (empty($this->allVar['occupationText2'])) {
-                    $this->allVar['occupationText2'] = $this->occ -> getOccByID($this->allVar['occupation2'], $this->allVar['lang']);
-                }
-            
-            if (empty($this->allVar['age2'])) {
-            
-                    $this->allVar['age2'] = calAge($this->allVar['dob2']);
-            
-            }
-        }
+        $this->hasDriver2 = $this->hasDriver2();
+        $this->validationDriver2();
         
         return $er;
     }
@@ -407,11 +309,6 @@ class MotorQuote
     
     public function hasDriver2()
     {
-        error_log($this->allVar['occupation2']);
-        error_log($this->allVar['drivingExp2']);
-        error_log($this->allVar['motor_accident_yrs2']);
-        error_log($this->allVar['drive_offence_point2']);
-
         if (!empty($this->allVar['occupation2']) &&
                 !empty($this->allVar['drivingExp2']) &&
                 !is_null($this->allVar['motor_accident_yrs2']) &&
@@ -428,7 +325,6 @@ class MotorQuote
         }
         
         throw new Exception('error driver2 :: missing info');
-        
     }
     
     public function buildDriver1()
@@ -496,10 +392,11 @@ class MotorQuote
      *
      * @param array $data
      * @param string $k
-     * @param mix $d
-     * @return mix
+     * @param string $d
+     * @return mixed
      */
-    private function isSetNotEmpty($data , $k , $d){
+    private function isSetNotEmpty($data, $k, $d)
+    {
         return (isset($data[$k]) && $data[$k]!='')  ? $data[$k] : $d;
     }
 
@@ -507,10 +404,88 @@ class MotorQuote
      *
      * @param array $data
      * @param string $k
-     * @param mix $d
-     * @return mix
+     * @return bool
      */
-    private function isSetWithTrue($data , $k ){
+    private function isSetWithTrue($data, $k)
+    {
         return (isset($data[$k]) && $data[$k]) ? true : false;
+    }
+
+    private function validationSaveUser()
+    {
+        if ($this->saveUser) {
+            checkEmpty('name', $this->allVar['name']) ;
+            checkEmpty('contactno', $this->allVar['contactno']) ;
+            checkEmpty('email', $this->allVar['email']) ;
+            checkEmail($this->allVar['email']) ;
+        }
+    }
+
+    private function validationSkipFindRule()
+    {
+        if (!$this->skipFindRule) {
+            checkEmpty('drivingExp', $this->allVar['drivingExp'], $this->allVar['drivingExpText']) ;
+            checkEmpty('yearManufacture', $this->allVar['yearManufacture']) ;
+            checkEmpty('carMake', $this->allVar['carMake']) ;
+            checkEmpty('occupation', $this->allVar['occupation'], $this->allVar['occupationText']) ;
+        }
+    }
+
+    private function validationRuleData()
+    {
+        $this->allVar['insuranceTypeText']  = $this->car -> getInsuranceTypeByID($this->allVar['insuranceType']);
+
+        if (empty($this->allVar['drivingExpText'])) {
+            $this->allVar['drivingExpText'] = $this->car -> getDriveExpByID($this->allVar['drivingExp']);
+        }
+
+        $this->allVar['carMakeText'] = $this->car -> getMakeByID($this->allVar['carMake']);
+        $this->allVar['carModelText'] = $this->car -> getModelByID($this->allVar['carModel'], $this->allVar['carModelOther'], $this->allVar['carMake']);
+
+        if (empty($this->allVar['occupationText'])) {
+            $this->allVar['occupationText'] = $this->occ -> getOccByID($this->allVar['occupation'], $this->allVar['lang']);
+        }
+
+        $this->allVar['calYrMf'] = calYrMf($this->allVar['yearManufacture']);
+
+
+        if (empty($this->allVar['age'])) {
+            $this->allVar['age'] = calAge($this->allVar['dob']);
+        }
+    }
+
+    private function validationHKID($v1, $v2, $v3)
+    {
+        if (!empty($v1) || !empty($v2) || !empty($v3)) {
+            // not must fill in, but need check format
+                check_hkid($v1, $v2, $v3) ;
+        }
+    }
+
+    private function validationDriver2()
+    {
+        if (!$this->hasDriver2) {
+            return;
+        }
+
+        $this->allVar['drivingExpText2'] = $this->car -> getDriveExpByID($this->allVar['drivingExp2']);
+
+        if (empty($this->allVar['occupationText2'])) {
+            $this->allVar['occupationText2'] = $this->occ -> getOccByID($this->allVar['occupation2'], $this->allVar['lang']);
+        }
+
+        if (empty($this->allVar['age2'])) {
+            $this->allVar['age2'] = calAge($this->allVar['dob2']);
+        }
+    }
+
+    private function validationGerenal(){
+        checkEmpty('insuranceType', $this->allVar['insuranceType']) ;
+        $this->allVar['lang'] = checkLang($this->allVar['lang']);
+
+        if (!empty($this->allVar['carModelOther'])) {
+            $this->allVar['carModel'] = $this->allVar['carModelOther'];
+        }
+        checkEmpty('carModel', $this->allVar['carModel']) ;
     }
 }
