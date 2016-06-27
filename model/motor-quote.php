@@ -382,7 +382,7 @@ class MotorQuote
      * @param array $data
      * @param string $k
      * @param string $d
-     * @return mixed|false
+     * @return mixed|boolean
      */
     private function isSetNotEmpty($data, $k, $d)
     {
