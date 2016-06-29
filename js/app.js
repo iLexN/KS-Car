@@ -28,8 +28,9 @@ var app = new Vue({
             zh_order:null
         },
         ruleNCD: null,
-        ruleCarModel: '',
-        ruleCarMake: null,
+        ruleCarModel: null,
+        ruleCarModelFilterList:null,
+        ruleCarMake: [{"id":"1","model":"1","modelText":"2.5TL","make":"1","makeText":"Acura"}],
         ruleOcc: null,
         ruleDetails: null,
         ruleSubPlans: null,
@@ -38,7 +39,7 @@ var app = new Vue({
             "a2": true,
             "a3": false
         },
-        filterModel: null,
+        filterModel: 'all',
         filterOcc: null,
         filterSupPlanGroup: null,
         currentTab: 'setting', // setting , detailsInfo ,subPlan
@@ -69,6 +70,21 @@ var app = new Vue({
             var filterValue = this.filterRuleByActive;
             newList = newList.filter(function(row){
               if ( row.active === filterValue ){
+                    return row;
+                } 
+                return false;  
+            });
+            return newList;
+        },
+        ruleCarModelFilterList : function(){
+            var newList = this.ruleCarModel;
+            var filterValue = this.filterModel;
+            if ( filterValue == 'all' ) {
+                return newList;
+            }
+            
+            newList = newList.filter(function(row){
+              if ( row.makeText === filterValue ){
                     return row;
                 } 
                 return false;  
@@ -267,7 +283,7 @@ var app = new Vue({
                         }
                     }
                     self.ruleCarMake = makeObj;
-                    self.filterModel = '';//response.data[0].makeText;
+                    self.filterModel = 'all';//response.data[0].makeText;
                 })
                 .catch(function(response) {
                     //console.log(response);

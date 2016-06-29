@@ -2,16 +2,17 @@
     <legend>Make/Model</legend>
 
     <div class="left-side">
-        <select multiple="multiple" v-model="filterModel" style="height:450px;width:90%">
-            <option value="">All</option>
+        <select  v-model="filterModel" style="">
+            <option value="all">All</option>
             <!--<option v-for="rcMake in ruleCarMake | orderBy 'makeText'" :value="rcMake.makeText">{{rcMake.makeText}}</option>-->
             <option v-for="rcMake in ruleCarMake" :value="rcMake.makeText">{{rcMake.makeText}}</option>
         </select>
     </div>
+    
     <div class="right-side">
         <ul class='list-style'>
             <!--<li v-for="rcModel in ruleCarModel | filterBy filterModel in 'makeText'">-->
-            <li v-for="rcModel in ruleCarModel">
+            <li v-for="rcModel in ruleCarModelFilterList">
                 {{rcModel.makeText}} - {{rcModel.modelText}}
                 <span style='color:red' v-on:click="removeRuleModel(rcModel)">X</span>
             </li>
