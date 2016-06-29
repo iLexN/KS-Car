@@ -30,7 +30,7 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
     <?php //include('chunk2/panel/car-panel.html'); ?>
     <!-- CarPanel End-->
 
-    <?php //include('chunk2/top-nav.html'); ?>
+    <?php include('chunk2/top-nav.html'); ?>
 
     <div class="clearfix" >
 
@@ -48,9 +48,9 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
             <?php include('chunk2/tab/setting-tab.html');?>
             <?php include('chunk2/tab/ncd-tab.html');?>
             <?php include('chunk2/tab/make-model-tab.html');?>
-            <?php //include('chunk2/tab/occupation-tab.html');?>
-            <?php //include('chunk2/tab/details-info-tab.html');?>
-            <?php //include('chunk2/tab/sub-plan-tab.html');?>
+            <?php //include('chunk2/tab/occupation-tab.html'); //this need to update search ?>
+            <?php include('chunk2/tab/details-info-tab.html');?>
+            <?php //include('chunk2/tab/sub-plan-tab.html'); // big problem with template?>
         </div>
         <!-- right-side end -->
     </div>
