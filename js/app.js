@@ -2,6 +2,7 @@ var app = new Vue({
     el: '#app',
     data: {
         filterRuleByActive: '1',
+        rulesFilterList:null,
         rules: null,
         rule: {},
         drivingExp: null,
@@ -27,7 +28,7 @@ var app = new Vue({
             zh_order:null
         },
         ruleNCD: null,
-        ruleCarModel: null,
+        ruleCarModel: '',
         ruleCarMake: null,
         ruleOcc: null,
         ruleDetails: null,
@@ -59,6 +60,20 @@ var app = new Vue({
             var d = new Date();
             var n = d.getFullYear();
             return n - this.rule.Yearofmanufacture;
+        },
+        rulesFilterList : function (){
+            var newList = this.rules;
+            if ( this.rules === null ) {
+                return null;
+            }
+            var filterValue = this.filterRuleByActive;
+            newList = newList.filter(function(row){
+              if ( row.active === filterValue ){
+                    return row;
+                } 
+                return false;  
+            });
+            return newList;
         }
     },
     watch: {

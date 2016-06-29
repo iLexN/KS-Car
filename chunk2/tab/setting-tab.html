@@ -15,13 +15,13 @@
     <div class="editDiv">
         <b>DrivingExp</b> :
         <select v-model="rule.DrivingExp">
-            <option v-for="(key, val) in drivingExp" :value="key">{{val}}</option>
+            <option v-for="(val ,key ) in drivingExp" :value="key">{{val}}</option>
         </select>
     </div>
     <div class="editDiv">
         <b>Insurance</b> :
         <select v-model="rule.TypeofInsurance">
-            <option v-for="(key, val) in typeofInsurance" :value="key">{{val}}</option>
+            <option v-for="( val, key) in typeofInsurance" :value="key">{{val}}</option>
         </select>
     </div>
     <div class="editDiv">
