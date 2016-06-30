@@ -2,7 +2,7 @@
     <legend>Make/Model</legend>
 
     <div class="left-side">
-        <select  v-model="filterModel" style="">
+        <select v-model="filterModel" style="">
             <option value="all">All</option>
             <!--<option v-for="rcMake in ruleCarMake | orderBy 'makeText'" :value="rcMake.makeText">{{rcMake.makeText}}</option>-->
             <option v-for="rcMake in ruleCarMake" :value="rcMake.makeText">{{rcMake.makeText}}</option>

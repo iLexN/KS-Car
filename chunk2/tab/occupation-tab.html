@@ -7,7 +7,7 @@
 
     <ul class='list-style'>
         <!--<li v-for="ro in ruleOcc | filterBy filterOcc in 'occupation'" style="width:320px">-->
-        <li v-for="ro in ruleOcc" style="width:320px">
+        <li v-for="ro in ruleOccFilterList" style="width:320px">
             <span style='color:red;float:right;margin-right:20px;height:40px;' v-on:click="removeRuleOcc(ro)">X</span>
             <div style="width:300px">{{ro.occupation}}</div>
 

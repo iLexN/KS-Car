@@ -9,7 +9,7 @@ var app = new Vue({
         typeofInsurance: null,
         makeList:null,
         carMake:null,
-        modelList:null,
+        modelList:new Object,
         carModel:null,
         detailsInfo:null,
         creatMakeModel:{},
@@ -32,6 +32,7 @@ var app = new Vue({
         ruleCarModelFilterList:null,
         ruleCarMake: [{"id":"1","model":"1","modelText":"2.5TL","make":"1","makeText":"Acura"}],
         ruleOcc: null,
+        ruleOccFilterList: null,
         ruleDetails: null,
         ruleSubPlans: null,
         disabled: {
@@ -40,7 +41,7 @@ var app = new Vue({
             "a3": false
         },
         filterModel: 'all',
-        filterOcc: null,
+        filterOcc: '',
         filterSupPlanGroup: null,
         currentTab: 'setting', // setting , detailsInfo ,subPlan
         currentTab2: null, // DetailsInfoPanel , CarPanel
@@ -69,10 +70,7 @@ var app = new Vue({
             }
             var filterValue = this.filterRuleByActive;
             newList = newList.filter(function(row){
-              if ( row.active === filterValue ){
-                    return row;
-                } 
-                return false;  
+              return row.active === filterValue;
             });
             return newList;
         },
@@ -84,10 +82,18 @@ var app = new Vue({
             }
             
             newList = newList.filter(function(row){
-              if ( row.makeText === filterValue ){
-                    return row;
-                } 
-                return false;  
+              return row.makeText === filterValue
+            });
+            return newList;
+        },
+        ruleOccFilterList : function(){
+            var newList = this.ruleOcc;
+            var filterValue = this.filterOcc;
+            if (filterValue == '' ) {
+                return newList;
+            }
+            newList = newList.filter(function(row){
+              return row.occupation.toLowerCase().search(filterValue.toLowerCase()) > -1;
             });
             return newList;
         }

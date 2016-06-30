@@ -6,11 +6,14 @@
             <p><select v-model="carMake" style="width:70%">
                 <option v-for="v in makeList" :value="v.id">{{v.make}}</option>
             </select></p>
-            <p><select multiple="multiple" style="width:70%;height:350px;" v-model="carModel">
+            
+            <p><select style="width:70%;" v-model="carModel">
                 <option v-for="v in modelList" :value="v.id">{{v.model}}</option>
             </select>
             </p>
+            
         </div>
+        
         <div style="float:left;width:50%;padding:20px">
             <p><button v-on:click="removeCarMake">Delete Car Make</button></p>
             <p><button v-on:click="removeCarModel">Delete Car Model</button></p>

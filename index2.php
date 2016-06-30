@@ -27,7 +27,7 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
     <!-- OccupationPanel End-->
 
     <!-- CarPanel Start-->
-    <?php //include('chunk2/panel/car-panel.html'); ?>
+    <?php include('chunk2/panel/car-panel.html'); ?>
     <!-- CarPanel End-->
 
     <?php include('chunk2/top-nav.html'); ?>
@@ -48,7 +48,7 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
             <?php include('chunk2/tab/setting-tab.html');?>
             <?php include('chunk2/tab/ncd-tab.html');?>
             <?php include('chunk2/tab/make-model-tab.html');?>
-            <?php //include('chunk2/tab/occupation-tab.html'); //this need to update search ?>
+            <?php include('chunk2/tab/occupation-tab.html'); //this need to update search ?>
             <?php include('chunk2/tab/details-info-tab.html');?>
             <?php //include('chunk2/tab/sub-plan-tab.html'); // big problem with template?>
         </div>
@@ -59,7 +59,7 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
 
 </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.0-alpha.7/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.0-alpha.8/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"></script>
     <script src="js/app.js" type="text/javascript"></script>
 </body>
