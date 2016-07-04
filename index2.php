@@ -19,7 +19,7 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
     <div class="alertNote"></div>
 
     <!-- DetailsInfoPanel Start-->
-    <?php include('chunk2/panel/details-info-panel.html'); ?>
+    <?php //include('chunk2/panel/details-info-panel.html'); ?>
     <!-- DetailsInfoPanel End-->
 
     <!-- OccupationPanel Start-->
