@@ -9,7 +9,7 @@ var app = new Vue({
         typeofInsurance: null,
         makeList:null,
         carMake:null,
-        modelList:new Object,
+        modelList:null,
         carModel:null,
         detailsInfo:null,
         creatMakeModel:{},
@@ -773,9 +773,9 @@ var app = new Vue({
                     }
                     break;
                 case 'CarPanel':
-                    if( this.makeList === null ){
+                    
                         this.getMakeList();
-                    }
+                    
                     break;
             };
             this.currentTab2 = tab;
