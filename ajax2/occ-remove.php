@@ -13,8 +13,8 @@ $data = $obj['data'];
 
 $occ = new Occ();
 
-$occ->removeOcc($data['id']);
-$occ->removeOccRuleByOcids($data['id']);
+$occ->removeOcc($data);
+$occ->removeOccRuleByOcids($data);
 
 
 $api = '?t=occ' ;

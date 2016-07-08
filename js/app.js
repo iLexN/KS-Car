@@ -8,9 +8,9 @@ var app = new Vue({
         drivingExp: null,
         typeofInsurance: null,
         makeList:null,
-        carMake:null,
+        carMake:'',
         modelList:null,
-        carModel:null,
+        carModel:[],
         detailsInfo:null,
         creatMakeModel:{},
         editDetailsInfo:{
@@ -20,13 +20,8 @@ var app = new Vue({
             sortOrder:null
         },
         occupationList:null,
-        editOcc:{
-            id:null,
-            en:null,
-            en_order:null,
-            zh:null,
-            zh_order:null
-        },
+        editOcc:[],
+        editOccInfo:[],
         ruleNCD: null,
         ruleCarModel: null,
         ruleCarModelFilterList:null,
@@ -383,19 +378,19 @@ var app = new Vue({
                 });
         },
         updateOccupation:function() {
-            if ( this.editOcc === null || this.editOcc.id === null || this.editOcc.id.length > 1) {
+            if ( this.editOcc.length !==1) {
                 this.showAlertNote('Please select One and click Load...');
                 return;
             }
-            if ( this.editOcc.en === null || this.editOcc.en_order === null ||
-                    this.editOcc.zh === null || this.editOcc.zh_order === null) 
+            if ( this.editOccInfo.en === '' || this.editOcc.en_order === '' ||
+                    this.editOcc.zh === '' || this.editOcc.zh_order === '') 
             {
                 this.showAlertNote('Please Fill in Something...');
                 return;
             }
             var self = this;
             axios.post('ajax2/occ-update.php', {
-                    data: self.editOcc
+                    data: self.editOccInfo
                 })
                 .then(function(response) {
                     self.showAlertNote('Saved');
@@ -491,7 +486,7 @@ var app = new Vue({
                 });
         },
         removeOccs : function(Obj){
-            if ( this.editOcc === null || this.editOcc.id === undefined ) {
+            if ( this.editOcc.lenght === 0 ) {
                 this.showAlertNote('Please select ...');
                 return;
             }
@@ -517,7 +512,7 @@ var app = new Vue({
                 });
         },
         removeCarMake:function(){
-            if ( this.carMake === null ) {
+            if ( this.carMake === undefined ) {
                 this.showAlertNote('Please select Make...');
                 return;
             }
@@ -536,7 +531,7 @@ var app = new Vue({
                 });
         },
         removeCarModel:function(){
-            if ( this.carModel === null ) {
+            if ( this.carModel.length === 0 ) {
                 this.showAlertNote('Please select Model...');
                 return;
             }
@@ -608,7 +603,7 @@ var app = new Vue({
                 });
         },
         addRuleOcc:function(){
-            if ( this.editOcc === null || this.editOcc.id === null ) {
+            if ( this.editOcc.lenght === 0 ) {
                 this.showAlertNote('Please select ...');
                 return;
             }
@@ -636,7 +631,7 @@ var app = new Vue({
                 });
         },
         addRuleModel:function(){
-            if ( this.carModel === null ) {
+            if ( this.carModel.length === 0 ) {
                 this.showAlertNote('Please select Model...');
                 return;
             }
@@ -715,22 +710,19 @@ var app = new Vue({
             });
         },
         loadOccupation:function(){
-            if ( this.editOcc === null || this.editOcc.id === null || this.editOcc.id.length > 1 ) {
+            
+            if ( this.editOcc.length !== 1 ) {
                 this.showAlertNote('Please select One...');
                 return;
             }
-            var a =null;
+            
+            
             for (var i = 0; i < this.occupationList.length; i++) {
-                if ( this.occupationList[i].id == this.editOcc.id ) {
-                    a = this.occupationList[i];
+                if ( this.occupationList[i].id == this.editOcc[0] ) {
+                    this.editOccInfo = this.occupationList[i];
                     break;
                 }
             }
-            this.editOcc.en = a.en;
-            this.editOcc.en_order = a.en_order;
-            this.editOcc.zh = a.zh;
-            this.editOcc.zh_order = a.zh_order;
-            console.log(a);
         },
         loadDetailInfo:function(){
             if ( this.editDetailsInfo === null || this.editDetailsInfo.id === null  ) {

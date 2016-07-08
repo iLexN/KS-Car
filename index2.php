@@ -23,7 +23,7 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
     <!-- DetailsInfoPanel End-->
 
     <!-- OccupationPanel Start-->
-    <?php //include('chunk2/panel/occupation-panel.html'); ?>
+    <?php include('chunk2/panel/occupation-panel.html'); ?>
     <!-- OccupationPanel End-->
 
     <!-- CarPanel Start-->
@@ -59,7 +59,7 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
 
 </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.0-alpha.8/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.0-beta.1/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"></script>
     <script src="js/app.js" type="text/javascript"></script>
 </body>
