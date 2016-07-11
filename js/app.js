@@ -434,7 +434,7 @@ var app = new Vue({
                     data: Obj
                 })
                 .then(function(response) {
-                    self.ruleOcc.$remove(Obj);
+                    self.getRuleOcc();
                     self.showAlertNote(Obj.occupation + ' Delete From ' + self.rule.rule_name);
                     //console.log(response);
                 })
@@ -442,14 +442,13 @@ var app = new Vue({
                     //console.log(response);
                 });
         },
-        removeRuleModel: function(Obj) {
+        removeRuleModel: function(Obj,event) {
             var self = this;
-            //console.log(modelObj);
             axios.post('ajax2/rule-model-remove.php', {
                     data: Obj
                 })
                 .then(function(response) {
-                    self.ruleCarModel.$remove(Obj);
+                    self.getRuleCarModel();
                     self.showAlertNote(Obj.makeText + ' - ' + Obj.modelText + ' Delete From ' + self.rule.rule_name);
                     //console.log(response);
                 })
@@ -463,7 +462,7 @@ var app = new Vue({
                     data: Obj
                 })
                 .then(function(response) {
-                    self.ruleDetails.$remove(Obj);
+                    self.getRuleDetails();
                     self.showAlertNote(Obj.details_info + ' Delete From ' + self.rule.rule_name);
                     //console.log(response);
                 })
@@ -740,7 +739,7 @@ var app = new Vue({
             this.editDetailsInfo.en =a.en;
             this.editDetailsInfo.zh =a.zh;
             this.editDetailsInfo.sortOrder =a.sortOrder;
-            console.log(this.editDetailsInfo);
+            //console.log(this.editDetailsInfo);
         },
         viewPlansFileUrl: function(url) {
             window.open('https://kwiksure.com' + url);
@@ -765,9 +764,9 @@ var app = new Vue({
                     }
                     break;
                 case 'CarPanel':
-                    
+                    if( this.makeList === null ){
                         this.getMakeList();
-                    
+                    }
                     break;
             };
             this.currentTab2 = tab;
