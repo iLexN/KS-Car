@@ -23,7 +23,7 @@ var app = new Vue({
         },
         occupationList:null,
         editOcc:[],
-        editOccInfo:[],
+        editOccInfo:{},
         ruleNCD: null,
         ruleCarModel: null,
         ruleCarModelFilterList:null,
@@ -119,6 +119,13 @@ var app = new Vue({
         },
         'carMake':function(){
             this.getModelList();
+        },
+        'editOccInfo.id':function(val, oldVal) {
+            if ( val !== undefined ){
+                $("#newOccBtn").prop("disabled", true);
+            } else { 
+                $("#newOccBtn").prop("disabled", false);
+            }
         }
     },
     methods: {
@@ -399,6 +406,7 @@ var app = new Vue({
                     self.getOccupationList();
                     self.getRuleOcc();
                     self.changeTab('occupation');
+                    self.editOccInfo = {};
                 })
                 .catch(function(response) {
                     //console.log(response);
@@ -702,6 +710,25 @@ var app = new Vue({
                     //console.log(response);
                 });
         },
+        addOccupation : function (){
+            if ( this.editOccInfo.en === '' || this.editOcc.en_order === '' ||
+                    this.editOcc.zh === '' || this.editOcc.zh_order === '') 
+            {
+                this.showAlertNote('Please Fill in Something...');
+                return;
+            }
+            self = this;
+            axios.post('ajax2/occ-add.php', {
+                    data: self.editOccInfo
+                })
+                .then(function(response) {
+                        self.showAlertNote('New Occ Added');
+                        self.getOccupationList();
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
         showAlertNote: function(text) {
             $(".alertNote").html(text).slideDown(function() {
                 var note = $(this);
@@ -724,6 +751,9 @@ var app = new Vue({
                     break;
                 }
             }
+        },
+        unLoadOccupation : function(){
+            this.editOccInfo = {};
         },
         loadDetailInfo:function(){
             if ( this.editDetailsInfo === null || this.editDetailsInfo.id === null  ) {

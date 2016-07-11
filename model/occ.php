@@ -147,14 +147,11 @@ class Occ
      * @param string $en
      * @param string $zh
      */
-    public function newOcc($en, $zh,$en_order,$zh_order)
+    public function newOcc($data)
     {
         $a = ORM::for_table('occupation')->create();
-        $a->zh = $zh;
-        $a->en = $en;
+        $a->set($data);
         $a->active = 1;
-        $a->en_order = $en_order;
-        $a->zh_order = $zh_order;
         $a->save();
     }
     
