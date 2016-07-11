@@ -1,3 +1,5 @@
+/* global axios */
+
 var app = new Vue({
     el: '#app',
     data: {
@@ -476,7 +478,7 @@ var app = new Vue({
                     data: Obj
                 })
                 .then(function(response) {
-                    self.ruleSubPlans.$remove(Obj);
+                    self.getRuleSubPlans();
                     self.showAlertNote(Obj.name + ' - ' + Obj.name_sub + ' Delete From ' + self.rule.rule_name);
                     //console.log(response);
                 })
@@ -743,6 +745,9 @@ var app = new Vue({
         },
         viewPlansFileUrl: function(url) {
             window.open('https://kwiksure.com' + url);
+        },
+        refreshSPList: function(){
+            this.getRuleSubPlans();
         },
         showRule: function(rule, $event) {
             this.rule = rule;

@@ -1,9 +1,10 @@
 <fieldset v-show="currentTab=='subPlan'"  style="display:none">
     <legend>Sub-Plans</legend>
     <p>Order : small number come first</p>
-    <p>Filter Group :
+    <!--<p>Filter Group :
         <input type="text" v-model="filterSupPlanGroup">
-    </p>
+    </p>-->
+    <p><button v-on:click="refreshSPList">Refresh List</button></p>
 
     <table border="1" cellspacing="5" cellpadding="3" width="100%">
         <tr>
@@ -17,7 +18,8 @@
                 <button v-on:click="addRuleSubPlan()">Paste</button>
             </td>
         </tr>
-        <template v-for="(index,rsp) in ruleSubPlans | filterBy filterSupPlanGroup in 'groupID' | orderBy 'sortOrder'">
+        <!--<template v-for="(index,rsp) in ruleSubPlans | filterBy filterSupPlanGroup in 'groupID' | orderBy 'sortOrder'">-->
+        <template v-for="(rsp,index) in ruleSubPlans">
             <tr>
                 <td rowspan="2">
                     <input style="width:30px" type="text" v-model="rsp.sortOrder">
