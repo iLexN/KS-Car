@@ -45,7 +45,7 @@ class CalTotalPrice
      * @param float $price_add
      * @return array<string,float>
      */
-    public function calPrice($ncd, $price_add)
+    public function calPrice($ncd, $price_add , $type)
     {
         $i = $this->calI($ncd);
 
