@@ -41,7 +41,7 @@ if (!empty($save_rule)) {
             $save_rule[$k]['premium'] = $match_rule[$k]['premium'] = number_format($v_ar['premium'],2,'.','');
             $count_Third_Party_Only++;
         }
-        $calTotalPriceArray = $calTotalPriceObj->calPrice($quote->allVar['ncd'], $v_ar['price_add']);
+        $calTotalPriceArray = $calTotalPriceObj->calPrice($quote->allVar['ncd'], $v_ar['price_add'],$v_ar['TypeofInsurance']);
 
         $df_ar = array_column($dfInfo_ar, 'value', 'deatils_id');
         $match_rule[$k]['id'] = $v_ar['id'];
