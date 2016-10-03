@@ -17,7 +17,7 @@ $cal = new CalTotalPrice($r->rule->as_array());
 $ar = car::getRuleNcd($_GET['id']);
 
 
-//header('Content-Type: application/json');
+header('Content-Type: application/json');
 if ( $r->rule->TypeofInsurance != 'Third_Party_Only' ) {
     echo(json_encode($ar));
 } else {
