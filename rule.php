@@ -278,7 +278,7 @@ pre{
                                 foreach ( $r_ar['ncd_rule'] as $v=>$b ) {
                                 if ( $r_ar['TypeofInsurance'] == 'Third_Party_Only' ) { 
                                     $calTotalPriceObj = new CalTotalPrice($r_ar);
-                                    $calTotalPriceArray = $calTotalPriceObj->calPrice($b['ncd'],$b['price_add']);
+                                    $calTotalPriceArray = $calTotalPriceObj->calPrice($b['ncd'],$b['price_add'],$r_ar['TypeofInsurance']);
                                 }
                                 ?>
                             <tr>

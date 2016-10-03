@@ -144,8 +144,7 @@ class Occ
     
     /**
      * new occ
-     * @param string $en
-     * @param string $zh
+     * @param array $data
      */
     public function newOcc($data)
     {
