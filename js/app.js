@@ -1,15 +1,18 @@
+/* global axios */
+
 var app = new Vue({
     el: '#app',
     data: {
         filterRuleByActive: '1',
+        rulesFilterList:null,
         rules: null,
         rule: {},
         drivingExp: null,
         typeofInsurance: null,
         makeList:null,
-        carMake:null,
+        carMake:'',
         modelList:null,
-        carModel:null,
+        carModel:[],
         detailsInfo:null,
         creatMakeModel:{},
         editDetailsInfo:{
@@ -19,17 +22,14 @@ var app = new Vue({
             sortOrder:null
         },
         occupationList:null,
-        editOcc:{
-            id:null,
-            en:null,
-            en_order:null,
-            zh:null,
-            zh_order:null
-        },
+        editOcc:[],
+        editOccInfo:{},
         ruleNCD: null,
         ruleCarModel: null,
-        ruleCarMake: null,
+        ruleCarModelFilterList:null,
+        ruleCarMake: [{"id":"1","model":"1","modelText":"2.5TL","make":"1","makeText":"Acura"}],
         ruleOcc: null,
+        ruleOccFilterList: null,
         ruleDetails: null,
         ruleSubPlans: null,
         disabled: {
@@ -37,8 +37,8 @@ var app = new Vue({
             "a2": true,
             "a3": false
         },
-        filterModel: null,
-        filterOcc: null,
+        filterModel: 'all',
+        filterOcc: '',
         filterSupPlanGroup: null,
         currentTab: 'setting', // setting , detailsInfo ,subPlan
         currentTab2: null, // DetailsInfoPanel , CarPanel
@@ -59,6 +59,40 @@ var app = new Vue({
             var d = new Date();
             var n = d.getFullYear();
             return n - this.rule.Yearofmanufacture;
+        },
+        rulesFilterList : function (){
+            var newList = this.rules;
+            if ( this.rules === null ) {
+                return null;
+            }
+            var filterValue = this.filterRuleByActive;
+            newList = newList.filter(function(row){
+              return row.active === filterValue;
+            });
+            return newList;
+        },
+        ruleCarModelFilterList : function(){
+            var newList = this.ruleCarModel;
+            var filterValue = this.filterModel;
+            if ( filterValue == 'all' ) {
+                return newList;
+            }
+            
+            newList = newList.filter(function(row){
+              return row.makeText === filterValue
+            });
+            return newList;
+        },
+        ruleOccFilterList : function(){
+            var newList = this.ruleOcc;
+            var filterValue = this.filterOcc;
+            if (filterValue == '' ) {
+                return newList;
+            }
+            newList = newList.filter(function(row){
+              return row.occupation.toLowerCase().search(filterValue.toLowerCase()) > -1;
+            });
+            return newList;
         }
     },
     watch: {
@@ -85,6 +119,13 @@ var app = new Vue({
         },
         'carMake':function(){
             this.getModelList();
+        },
+        'editOccInfo.id':function(val, oldVal) {
+            if ( val !== undefined ){
+                $("#newOccBtn").prop("disabled", true);
+            } else { 
+                $("#newOccBtn").prop("disabled", false);
+            }
         }
     },
     methods: {
@@ -252,7 +293,7 @@ var app = new Vue({
                         }
                     }
                     self.ruleCarMake = makeObj;
-                    self.filterModel = '';//response.data[0].makeText;
+                    self.filterModel = 'all';//response.data[0].makeText;
                 })
                 .catch(function(response) {
                     //console.log(response);
@@ -346,25 +387,26 @@ var app = new Vue({
                 });
         },
         updateOccupation:function() {
-            if ( this.editOcc === null || this.editOcc.id === null || this.editOcc.id.length > 1) {
+            if ( this.editOcc.length !==1) {
                 this.showAlertNote('Please select One and click Load...');
                 return;
             }
-            if ( this.editOcc.en === null || this.editOcc.en_order === null ||
-                    this.editOcc.zh === null || this.editOcc.zh_order === null) 
+            if ( this.editOccInfo.en === '' || this.editOcc.en_order === '' ||
+                    this.editOcc.zh === '' || this.editOcc.zh_order === '') 
             {
                 this.showAlertNote('Please Fill in Something...');
                 return;
             }
             var self = this;
             axios.post('ajax2/occ-update.php', {
-                    data: self.editOcc
+                    data: self.editOccInfo
                 })
                 .then(function(response) {
                     self.showAlertNote('Saved');
                     self.getOccupationList();
                     self.getRuleOcc();
                     self.changeTab('occupation');
+                    self.editOccInfo = {};
                 })
                 .catch(function(response) {
                     //console.log(response);
@@ -402,7 +444,7 @@ var app = new Vue({
                     data: Obj
                 })
                 .then(function(response) {
-                    self.ruleOcc.$remove(Obj);
+                    self.getRuleOcc();
                     self.showAlertNote(Obj.occupation + ' Delete From ' + self.rule.rule_name);
                     //console.log(response);
                 })
@@ -410,14 +452,13 @@ var app = new Vue({
                     //console.log(response);
                 });
         },
-        removeRuleModel: function(Obj) {
+        removeRuleModel: function(Obj,event) {
             var self = this;
-            //console.log(modelObj);
             axios.post('ajax2/rule-model-remove.php', {
                     data: Obj
                 })
                 .then(function(response) {
-                    self.ruleCarModel.$remove(Obj);
+                    self.getRuleCarModel();
                     self.showAlertNote(Obj.makeText + ' - ' + Obj.modelText + ' Delete From ' + self.rule.rule_name);
                     //console.log(response);
                 })
@@ -431,7 +472,7 @@ var app = new Vue({
                     data: Obj
                 })
                 .then(function(response) {
-                    self.ruleDetails.$remove(Obj);
+                    self.getRuleDetails();
                     self.showAlertNote(Obj.details_info + ' Delete From ' + self.rule.rule_name);
                     //console.log(response);
                 })
@@ -445,7 +486,7 @@ var app = new Vue({
                     data: Obj
                 })
                 .then(function(response) {
-                    self.ruleSubPlans.$remove(Obj);
+                    self.getRuleSubPlans();
                     self.showAlertNote(Obj.name + ' - ' + Obj.name_sub + ' Delete From ' + self.rule.rule_name);
                     //console.log(response);
                 })
@@ -454,7 +495,7 @@ var app = new Vue({
                 });
         },
         removeOccs : function(Obj){
-            if ( this.editOcc === null || this.editOcc.id === undefined ) {
+            if ( this.editOcc.lenght === 0 ) {
                 this.showAlertNote('Please select ...');
                 return;
             }
@@ -480,7 +521,7 @@ var app = new Vue({
                 });
         },
         removeCarMake:function(){
-            if ( this.carMake === null ) {
+            if ( this.carMake === undefined ) {
                 this.showAlertNote('Please select Make...');
                 return;
             }
@@ -499,7 +540,7 @@ var app = new Vue({
                 });
         },
         removeCarModel:function(){
-            if ( this.carModel === null ) {
+            if ( this.carModel.length === 0 ) {
                 this.showAlertNote('Please select Model...');
                 return;
             }
@@ -571,7 +612,7 @@ var app = new Vue({
                 });
         },
         addRuleOcc:function(){
-            if ( this.editOcc === null || this.editOcc.id === null ) {
+            if ( this.editOcc.lenght === 0 ) {
                 this.showAlertNote('Please select ...');
                 return;
             }
@@ -599,7 +640,7 @@ var app = new Vue({
                 });
         },
         addRuleModel:function(){
-            if ( this.carModel === null ) {
+            if ( this.carModel.length === 0 ) {
                 this.showAlertNote('Please select Model...');
                 return;
             }
@@ -669,6 +710,25 @@ var app = new Vue({
                     //console.log(response);
                 });
         },
+        addOccupation : function (){
+            if ( this.editOccInfo.en === '' || this.editOcc.en_order === '' ||
+                    this.editOcc.zh === '' || this.editOcc.zh_order === '') 
+            {
+                this.showAlertNote('Please Fill in Something...');
+                return;
+            }
+            self = this;
+            axios.post('ajax2/occ-add.php', {
+                    data: self.editOccInfo
+                })
+                .then(function(response) {
+                        self.showAlertNote('New Occ Added');
+                        self.getOccupationList();
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
         showAlertNote: function(text) {
             $(".alertNote").html(text).slideDown(function() {
                 var note = $(this);
@@ -678,22 +738,22 @@ var app = new Vue({
             });
         },
         loadOccupation:function(){
-            if ( this.editOcc === null || this.editOcc.id === null || this.editOcc.id.length > 1 ) {
+            
+            if ( this.editOcc.length !== 1 ) {
                 this.showAlertNote('Please select One...');
                 return;
             }
-            var a =null;
+            
+            
             for (var i = 0; i < this.occupationList.length; i++) {
-                if ( this.occupationList[i].id == this.editOcc.id ) {
-                    a = this.occupationList[i];
+                if ( this.occupationList[i].id == this.editOcc[0] ) {
+                    this.editOccInfo = this.occupationList[i];
                     break;
                 }
             }
-            this.editOcc.en = a.en;
-            this.editOcc.en_order = a.en_order;
-            this.editOcc.zh = a.zh;
-            this.editOcc.zh_order = a.zh_order;
-            console.log(a);
+        },
+        unLoadOccupation : function(){
+            this.editOccInfo = {};
         },
         loadDetailInfo:function(){
             if ( this.editDetailsInfo === null || this.editDetailsInfo.id === null  ) {
@@ -711,10 +771,13 @@ var app = new Vue({
             this.editDetailsInfo.en =a.en;
             this.editDetailsInfo.zh =a.zh;
             this.editDetailsInfo.sortOrder =a.sortOrder;
-            console.log(this.editDetailsInfo);
+            //console.log(this.editDetailsInfo);
         },
         viewPlansFileUrl: function(url) {
             window.open('https://kwiksure.com' + url);
+        },
+        refreshSPList: function(){
+            this.getRuleSubPlans();
         },
         showRule: function(rule, $event) {
             this.rule = rule;

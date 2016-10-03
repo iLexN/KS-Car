@@ -14,8 +14,8 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
     <link href="css/main.css" rel="stylesheet" type="text/css" />
     <link href="css/css-v2.css" rel="stylesheet" type="text/css" />
 </head>
-<body id="app">
-
+<body>
+<div id="app">
     <div class="alertNote"></div>
 
     <!-- DetailsInfoPanel Start-->
@@ -50,17 +50,16 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
             <?php include('chunk2/tab/make-model-tab.html');?>
             <?php include('chunk2/tab/occupation-tab.html');?>
             <?php include('chunk2/tab/details-info-tab.html');?>
-            <?php include('chunk2/tab/sub-plan-tab.html');?>
+            <?php include('chunk2/tab/sub-plan-tab.html'); // big problem with template?>
         </div>
         <!-- right-side end -->
     </div>
 
     <div style="height:50px;"></div>
 
-    
+</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.25/vue.min.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.0-alpha.7/vue.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"></script>
     <script src="js/app.js" type="text/javascript"></script>
 </body>

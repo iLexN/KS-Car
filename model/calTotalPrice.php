@@ -48,11 +48,12 @@ class CalTotalPrice
     public function calPrice($ncd, $price_add , $type)
     {
         $i = $this->calI($ncd);
-        
+
         $gross = $this->calGross($i);
         $mibValue = $this->calMibValue($gross, $i);
-        
+
         $price = $this->calNetPrice($i, $mibValue);
+
         $total_price = $this->calOffer($price, $price_add);
         if ( $type == 'Comprehensive') {
             $total_price = round($total_price,-1);

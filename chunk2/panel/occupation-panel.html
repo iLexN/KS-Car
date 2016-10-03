@@ -1,36 +1,43 @@
+<!-- 
+    todo : new occ 
+-->
 <div class="panel" v-show="currentTab2=='OccupationPanel'" style="display:none">
     <h2>Occupation Panel</h2>
     <div class="clearfix">
         <div style="float:left;width:50%;padding:20px">
             <h3>Occupation List</h3>
             <p><button v-on:click="addRuleOcc">Add Selected Occupation To Rule</button></p>
-            <select multiple="multiple" style="width:100%;height:350px;" v-model="editOcc.id">
+            <select multiple="multiple" style="width:100%;height:350px;" v-model="editOcc">
                 <option v-for="v in occupationList" :value="v.id">{{v.en}}({{v.zh}})</option>
             </select>
         </div>
         <div style="float:left;width:50%;padding:20px">
 
             <p><button v-on:click="removeOccs">Delete Selected Occupation From List/Rules</button></p>
-            <p><button v-on:click="loadOccupation">Load Occupation To Edit</button></p>
+            <p><button v-on:click="loadOccupation">Load Occupation To Edit</button>
+                <button v-on:click="unLoadOccupation">UnLoad and Clear</button>
+            </p>
             <table width="90%">
                 <tr>
                     <td>En :</td>
-                    <td><input type="text" v-model="editOcc.en" style="width:90%"></td>
+                    <td><input type="text" v-model="editOccInfo.en" style="width:90%"></td>
                 </tr>
                 <tr>
                     <td>En Order:</td>
-                    <td><input type="text" v-model="editOcc.en_order" style="width:90%"></td>
+                    <td><input type="text" v-model="editOccInfo.en_order" style="width:90%"></td>
                 </tr>
                 <tr>
                     <td>Zh :</td>
-                    <td><input type="text" v-model="editOcc.zh" style="width:90%"></td>
+                    <td><input type="text" v-model="editOccInfo.zh" style="width:90%"></td>
                 </tr>
                 <tr>
                     <td>Zh Order </td>
-                    <td><input type="text" v-model="editOcc.zh_order" style="width:90%"></td>
+                    <td><input type="text" v-model="editOccInfo.zh_order" style="width:90%"></td>
                 </tr>
                 <tr><td colspan="2" style="font-size:12px">*** ordre large number come first</td>
-                <tr><td colspan="2"><button>New</button> <button v-on:click="updateOccupation">Update</button></td>
+                <tr><td colspan="2">
+                        <button v-on:click="addOccupation" id="newOccBtn">New</button>
+                        <button v-on:click="updateOccupation">Update</button></td>
             </table>
 
         </div>
