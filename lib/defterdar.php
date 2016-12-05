@@ -101,7 +101,7 @@ try {
         ->getLogs($executer)
         ->fileContentGenerator()
         ->markDownGenerator()
-        ->fileGenerate('');
+        ->fileGenerate('../');
 } catch (\Exception $e) {
     echo $e->getMessage();
 }
