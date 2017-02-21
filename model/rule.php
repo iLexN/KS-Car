@@ -15,9 +15,9 @@ class Rule
      * @var string
      */
     public $path = 'rule-details/';
-    
+
     public $rule;
-    
+
     public $r;
 
     /**
@@ -40,7 +40,7 @@ class Rule
         $rule = $this->getAlls();
         return $this -> transform($rule);
     }
-    
+
     /**
      * get all rule for new ajax
      * @return type
@@ -51,10 +51,10 @@ class Rule
                     -> order_by_desc('active')
                     -> order_by_asc('id')
                     -> find_array();
-        
+
         return $rule;
     }
-    
+
 
    /**
     * DEPRECATED , use update
@@ -84,7 +84,7 @@ class Rule
         $this -> rule -> a3 = $ar['a3'];
         $this -> rule -> save();
     }
-    
+
     /**
     * edit update (new)
     * @param array $ar
@@ -113,7 +113,7 @@ class Rule
     public function matchRuleWithID($r, $ncd)
     {
         $rIDsArray = explode(',', $r);
-           
+
         $match_rule = ORM::for_table('rule')
                         -> table_alias('p1')
                         -> select('p1.*')
@@ -144,7 +144,7 @@ class Rule
             return array();
         }
 
-        if ( $age  == 1 ){
+        if ( $age  == 1 || $age == 2 ){
             $age = 30;
         }
 
@@ -174,15 +174,15 @@ class Rule
         } else {
             $match_rule-> where('p1.TypeofInsurance', $ar['insuranceType']);
         }
-        
+
         if (!$isTest) {
             $match_rule-> where('p1.active', 1)
                         -> where('p4.active', 1);
         }
-        
+
         return $match_rule->find_array();
     }
-    
+
     /**
      * remove rule , rule-mode,rule-details-info,rule-occ, sub-plan
      */
@@ -191,15 +191,15 @@ class Rule
         if (!empty($this->r)) {
             $d = ORM::for_table('rule') -> find_one($this->r);
             $d -> delete();
-                
+
             ORM::for_table('rule-model')->where('rule', $this->r)->delete_many();
             ORM::for_table('rule-ncd')->where('rule_id', $this->r)->delete_many();
             ORM::for_table('rule-details-info')->where('rule_id', $this->r)->delete_many();
             ORM::for_table('rule-occ')->where('rule', $this->r)->delete_many();
-            ORM::for_table('sub-plan')->where('rule_id', $this->r)->delete_many();   
+            ORM::for_table('sub-plan')->where('rule_id', $this->r)->delete_many();
         }
     }
-    
+
     /**
      * add new Rule
      *
@@ -229,7 +229,7 @@ class Rule
         }
         return $rule_ar;
     }
-    
+
     public function compareDriverRule($rule1,$rule2) {
         $ruleOutArray = array();
         foreach ($rule1 as  $v_ar1 ) {
