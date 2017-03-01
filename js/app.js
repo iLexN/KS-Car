@@ -4,7 +4,7 @@ var app = new Vue({
     el: '#app',
     data: {
         filterRuleByActive: '1',
-        rulesFilterList:null,
+        //rulesFilterList:null,
         rules: null,
         rule: {},
         drivingExp: null,
@@ -26,10 +26,10 @@ var app = new Vue({
         editOccInfo:{},
         ruleNCD: null,
         ruleCarModel: null,
-        ruleCarModelFilterList:null,
+        //ruleCarModelFilterList:null,
         ruleCarMake: [{"id":"1","model":"1","modelText":"2.5TL","make":"1","makeText":"Acura"}],
         ruleOcc: null,
-        ruleOccFilterList: null,
+        //ruleOccFilterList: null,
         ruleDetails: null,
         ruleSubPlans: null,
         disabled: {
