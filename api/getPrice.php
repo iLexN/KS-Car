@@ -65,12 +65,12 @@ if (!empty($result['error'])) {
                 json_encode($result) ."\n\t"  .
                 json_encode($quote->allVar) ."\n\t"  .
                 json_encode($_POST) . PHP_EOL, FILE_APPEND);
-        
+
         return false;
     } else {
         return $result;
     }
-    
+
 }
 unset($result['error']);
 
@@ -110,9 +110,10 @@ if ($quote->saveUser) {
     $result['pdf']['age2'] = $quote->allVar['age2'];
     unset($result['plans']['subPlans']);
     unset($result['planRowKey']);
-    
+
 } elseif ($quote->isTest) {
-    return $result;
+    $countPlan = '<b style="color:red">'.count($result['plans']).'</b>';
+    return array('countPlan'=>$countPlan) + $result;
 }
 
 header('Content-Type: application/json');
