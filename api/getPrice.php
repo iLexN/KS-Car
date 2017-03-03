@@ -105,7 +105,8 @@ if ($quote->saveUser) {
     unset($result['planRowKey']);
     //error_log( print_r( $result , 1 ) );
 } elseif ($quote->isTest) {
-    return $result;
+    $countPlan = '<b style="color:red">'.count($result['plans']).'</b>';
+    return array('countPlan'=>$countPlan) + $result;
 }
 
 //error_log( print_r( $result , true ) );

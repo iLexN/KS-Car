@@ -67,7 +67,7 @@ if (!empty($save_rule)) {
     $details_ukey = array_column($DetailsInfo->getOrderByID(array_unique($details_ukey)), 'id');
 }
 
-if ( $count_Third_Party_Only >= 2 ){
+if ( $count_Third_Party_Only >= 2 && !$quote->isTest){
     //error_log('count third party only');
     require '../lib/PHPMailer/PHPMailerAutoload.php';
     $mail = new \PHPMailer();
