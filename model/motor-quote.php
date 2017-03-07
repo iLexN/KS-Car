@@ -108,11 +108,11 @@ class MotorQuote
             $this->isTest = true;
             $this->saveUser = false;
         }
-        
+
         $this->saveUser = $this->isSetWithTrue($data, 'isSave');
         $this->skipFindRule = $this->isSetWithTrue($data, 'skipFindRule');
     }
-    
+
     /**
     *save quote
     * @param array $ruleInfo rule array planName,totalPrice,price,details
@@ -121,9 +121,9 @@ class MotorQuote
     */
     public function saveQuote($ruleInfo)
     {
-        //format json for save 
+        //format json for save
         $planInfoAr = $this->proccessPlans($ruleInfo);
-        
+
         $exist = 0;
         if ($this->allVar['refID']) {
             $rm = ORM::for_table('motor_quote')->select('*')->where('id', $this->allVar['refID'])->where('download', 0);
@@ -137,7 +137,7 @@ class MotorQuote
         } else {
             $rm = $rm->find_one();
         }
-        
+
         $rm -> name  = $this->allVar['name'];
         $rm -> email  = $this->allVar['email'];
         $rm -> contactno = $this->allVar['contactno'];
@@ -152,7 +152,7 @@ class MotorQuote
         $rm -> hkid_2  = $this->allVar['hkid_2'];
         $rm -> hkid_3  = $this->allVar['hkid_3'];
         $rm -> gender  = $this->allVar['gender'];
-        
+
         $rm -> marital_status  = $this->allVar['marital_status'];
         $rm -> dob  = $this->allVar['dob'];
         $rm -> age  = $this->allVar['age'];
@@ -174,12 +174,12 @@ class MotorQuote
         $rm -> sum_insured = $this->allVar['sum_insured'];
 
         $rm -> plan_match_json = json_encode($planInfoAr);
-                        
+
         $rm -> create_datetime = date("Y-m-d H:i:s");
         $rm -> policy_start_date  = $this->allVar['policy_start_date'];
         $rm -> policy_end_date  = $this->allVar['policy_end_date'];
         $rm -> payButtonClick = $this->allVar['payButtonClick'];
-        
+
         //driver 2
         $rm -> name2  = $this->allVar['name2'];
         $rm -> email2  = $this->allVar['email2'];
@@ -193,10 +193,10 @@ class MotorQuote
         $rm -> hkid_2_2  = $this->allVar['hkid_2_2'];
         $rm -> hkid_3_2  = $this->allVar['hkid_3_2'];
         $rm -> marital_status2  = $this->allVar['marital_status2'];
-        
+
         $rm -> drive_offence_point2  = $this->allVar['drive_offence_point2'];
         $rm -> motor_accident_yrs2  = $this->allVar['motor_accident_yrs2'];
-                
+
         //additational car info
         $rm -> bodyType  = $this->allVar['bodyType'];
         $rm -> numberOfDoors  = $this->allVar['numberOfDoors'];
@@ -204,18 +204,18 @@ class MotorQuote
         $rm -> engineNumber  = $this->allVar['engineNumber'];
         $rm -> cylinderCapacity  = $this->allVar['cylinderCapacity'];
         $rm -> numberOfSeats  = $this->allVar['numberOfSeats'];
-                
+
         //save key for get
         $rm -> insuranceType_key = $this->allVar['insuranceType'];
         $rm -> drivingExp_key = $this->allVar['drivingExp'];
         $rm -> carMake_key = $this->allVar['carMake'];
         $rm -> carModel_key = $this->allVar['carModel'];
         $rm -> occupation_key = $this->allVar['occupation'];
-                
+
         //key for driver 2
         $rm -> occupation_key2 = $this->allVar['occupation2'];
         $rm -> drivingExp_key2 = $this->allVar['drivingExp2'];
-        
+
         //google ad
         $rm -> keywords = $this->allVar['keywords'];
         $rm -> cmid = $this->allVar['cmid'];
@@ -227,14 +227,14 @@ class MotorQuote
         $rm -> adps = $this->allVar['adps'];
 
         $rm -> save_reason = $this->allVar['save_reason'];
-        
+
         if ($rm -> save()) {
             return array( $rm->id , $rm->refno ) ;
         } else {
             throw new Exception('error : cannot save');
         }
     }
-    
+
     /**
      * get by refno
      * @param string $refno
@@ -253,7 +253,7 @@ class MotorQuote
             throw new Exception('not find');
         }
     }
-    
+
     /**
      * gen refno for web use
      * @return string
@@ -263,39 +263,39 @@ class MotorQuote
         $code = time() . mt_rand(0, 1000000);
         return sha1($code);
     }
-    
-    
+
+
     public function validationInput()
     {
         $er = array();
-        
+
         $this->validationSkipFindRule();
-        
+
         $this->validationGerenal();
-        
+
         $this->validationHKID($this->allVar['hkid_1'], $this->allVar['hkid_2'], $this->allVar['hkid_3']);
         $this->validationHKID($this->allVar['hkid_1_2'], $this->allVar['hkid_2_2'], $this->allVar['hkid_3_2']);
 
         //checking for user data must fill in data for user
         $this->validationSaveUser();
         $this->validationRuleData();
-        
+
         $this->hasDriver2 = $this->hasDriver2();
         $this->validationDriver2();
-        
+
         return $er;
     }
-    
+
     public function setOcc($occ)
     {
         $this->occ = $occ;
     }
-    
+
     public function setCar($car)
     {
         $this->car = $car;
     }
-    
+
     public function hasDriver2()
     {
         if (!empty($this->allVar['occupation2']) &&
@@ -312,10 +312,10 @@ class MotorQuote
             ) {
             return false;
         }
-        
+
         throw new Exception('error driver2 :: missing info');
     }
-    
+
     public function buildDriver1()
     {
         $ar = array();
@@ -328,10 +328,10 @@ class MotorQuote
         $ar['motor_accident_yrs'] = $this->allVar['motor_accident_yrs'];
         $ar['drive_offence_point'] = $this->allVar['drive_offence_point'];
         $ar['calYrMf'] = $this->allVar['calYrMf'];
-        
+
         return new Driver($ar);
     }
-    
+
     public function buildDriver2()
     {
         $ar = array();
@@ -344,10 +344,10 @@ class MotorQuote
         $ar['motor_accident_yrs'] = $this->allVar['motor_accident_yrs2'];
         $ar['drive_offence_point'] = $this->allVar['drive_offence_point2'];
         $ar['calYrMf'] = $this->allVar['calYrMf'];
-        
+
         return new Driver($ar);
     }
-    
+
     private function savePlanFormat($ruleInfo)
     {
         $planInfoAr = array();
@@ -363,7 +363,7 @@ class MotorQuote
                 $tmpDetailsArry[$k]['deatils_id'] = $v['deatils_id'];
             }
 
-            
+
             $planInfoAr[$rowKey]['details'] = $tmpDetailsArry;
 
             $planInfoAr[$rowKey]['premium'] = $rowArray['premium'];
@@ -431,7 +431,7 @@ class MotorQuote
         $this->allVar['carMakeText'] = $this->car -> getMakeByID($this->allVar['carMake']);
         $this->allVar['carModelText'] = $this->car -> getModelByID($this->allVar['carModel'], $this->allVar['carModelOther'], $this->allVar['carMake']);
 
-        if (empty($this->allVar['occupationText'])) {
+        if ( $this->allVar['occupationText'] == '' ) {
             $this->allVar['occupationText'] = $this->occ -> getOccByID($this->allVar['occupation'], $this->allVar['lang']);
         }
 
@@ -459,7 +459,7 @@ class MotorQuote
 
         $this->allVar['drivingExpText2'] = $this->car -> getDriveExpByID($this->allVar['drivingExp2']);
 
-        if (empty($this->allVar['occupationText2'])) {
+        if ($this->allVar['occupationText2'] == '') {
             $this->allVar['occupationText2'] = $this->occ -> getOccByID($this->allVar['occupation2'], $this->allVar['lang']);
         }
 
