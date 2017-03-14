@@ -39,7 +39,7 @@ class calTotalPrice
         return $this->data['premium'];
     }
     
-    public function calPrice($ncd, $price_add)
+    public function calPrice($ncd, $price_add , $type)
     {
         $i = $this->calI($ncd);
         
@@ -47,9 +47,11 @@ class calTotalPrice
         $mibValue = $this->calMibValue($gross, $i);
         
         $price = $this->calNetPrice($i, $mibValue);
-        
         $total_price = $this->calOffer($price, $price_add);
-     
+        if ( $type == 'Comprehensive') {
+            $total_price = round($total_price,-1);
+        }
+
         return array(
             'gross'=>$gross,
             'mibValue'=>$mibValue,

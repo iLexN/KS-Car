@@ -101,35 +101,35 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 <fieldset style="margin:10px 15px">
                     <legend>Calculation</legend>
                     <div style="float:left;margin:10px 15px;">
-                        <b>Premium</b> 
+                        <b>Premium</b>
                         <input type="text" value="<?php echo ($r_ar['premium']);?>" class="jsPremium" style="width:65px;">
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>Loading</b> 
+                        <b>Loading</b>
                         <input type="text" value="<?php echo ($r_ar['loading']);?>" class="jsLoading" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>Other Discount %</b> 
+                        <b>Other Discount %</b>
                         <input type="text" value="<?php echo ($r_ar['otherDiscount']);?>" class="jsOtherDiscount" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>Client Discount %</b> 
+                        <b>Client Discount %</b>
                         <input type="text" value="<?php echo ($r_ar['clientDiscount']);?>" class="jsClientDiscount" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>MIB %</b> 
+                        <b>MIB %</b>
                         <input type="text" value="<?php echo ($r_ar['mib']);?>" class="jsMib" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>commission</b> 
+                        <b>commission</b>
                         <input type="text" value="<?php echo ($r_ar['commission']);?>" class="jsCommission" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>A2</b> 
+                        <b>A2</b>
                         <input type="text" value="<?php echo ($r_ar['a2']);?>" class="jsA2" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>A3</b> 
+                        <b>A3</b>
                         <input type="text" value="<?php echo ($r_ar['a3']);?>" class="jsA3" style="width:65px;">
                     </div>
                 </fieldset>
@@ -199,7 +199,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 <?php if ( empty($r_ar['ncd_rule'])) { ?>
                     <button class="jsCreateNCD">Create</button>
                 <?php } else { ?>
-                    
+
                     <form class="jsNcdForm">
                         <table border="1" cellspacing="5" cellpadding="3">
                             <tr>
@@ -214,9 +214,9 @@ $detailsInfo_ar = $detailsInfo->getAll();
                             </tr>
                             <?php $calTotalPriceArray = array('gross'=>'','mibValue'=>'','price'=>'','total_price'=>'');
                                 foreach ( $r_ar['ncd_rule'] as $v=>$b ) {
-                                if ( $r_ar['TypeofInsurance'] == 'Third_Party_Only' ) { 
+                                if ( $r_ar['TypeofInsurance'] == 'Third_Party_Only' ) {
                                     $calTotalPriceObj = new calTotalPrice($r_ar);
-                                    $calTotalPriceArray = $calTotalPriceObj->calPrice($b['ncd'],$b['price_add']);
+                                    $calTotalPriceArray = $calTotalPriceObj->calPrice($b['ncd'],$b['price_add'],'Third_Party_Only');
                                 }
                                 ?>
                             <tr>
@@ -235,8 +235,8 @@ $detailsInfo_ar = $detailsInfo->getAll();
                             <?php } unset($calTotalPriceObj);?>
                         </table>
                     </form>
-                    
-                    
+
+
                 <?php } ?>
             </div>
             <div class="jsListSubPlans" style="display:none">
@@ -306,7 +306,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
             var $Yearofmanufacture = $(this).find('.jsYearofmanufacture');
             var $YearofmanufactureFrom = $(this).find('.jsYearofmanufactureFrom');
             var $Total = $(this).find('.jsTotal');
-            
+
             var $ShowMM = $(this).find('.jsShowMM');
             var $HideMM = $(this).find('.jsHideMM');
             var $ShowOcc = $(this).find('.jsShowOcc');
@@ -315,12 +315,12 @@ $detailsInfo_ar = $detailsInfo->getAll();
             var $HideDetails = $(this).find('.jsHideDetails');
             var $ShowSubPlans = $(this).find('.jsShowSubPlans');
             var $HideSubPlans = $(this).find('.jsHideSubPlans');
-            
+
             var $ShowNCD = $(this).find('.jsShowNCD');
             var $HideNCD = $(this).find('.jsHideNCD');
             var $CreateNCD = $(this).find('.jsCreateNCD');
             var $UpadeNCD = $(this).find('.jsUpadeNCD');
-            
+
             var $UpdatePrice = $(this).find('.jsUpdatePrice');
             var $DeleteRule = $(this).find('.jsRuleDelete');
             var $ListMM = $(this).find('.jsListMM');
@@ -331,7 +331,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
             var $NcdForm = $(this).find('.jsNcdForm');
             //var $UpdateDetailsBtn = $(this).find('.jsUpdateDetailsBtn');
             //var $DetialsTextarea = $(this).find('.jsDetialsTextarea');
-            
+
             var $Premium = $(this).find('.jsPremium');
             var $Loading = $(this).find('.jsLoading');
             var $otherDiscount = $(this).find('.jsOtherDiscount');
@@ -357,7 +357,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                         DriveOffencePoint: $("input:radio[name=drive_offence_point" + id + "]:checked").val(),
                         MotorAccidentYrs: $("input:radio[name=motor_accident_yrs_" + id + "]:checked").val(),
                         Active: $("input:radio[name=active" + id + "]:checked").val(),
-                        
+
                         premium: $Premium.val(),
                         loading: $Loading.val(),
                         otherDiscount: $otherDiscount.val(),
@@ -366,7 +366,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                         commission: $commission.val(),
                         a2: $a2.val(),
                         a3: $a3.val(),
-                        
+
                         id: id
                     }
                 });
@@ -394,7 +394,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     alert("Request failed: " + textStatus);
                 });
             });
-            
+
             $CreateNCD.click(function() {
                 var request = $.ajax({
                     url: "ajax/rule-ncd-create.php",
@@ -560,21 +560,21 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     alert("Request failed: " + textStatus);
                 });
             });
-            
+
             $Insurance.change(function(){
                 var instype = $(this).val();
                 if ( instype == 'Third_Party_Only') {
                     $a2.val('').prop( 'disabled' , true );
                     $a3.val('').prop( 'disabled' , true );
                     $Premium.prop( 'disabled' , false );
-                } else { 
+                } else {
                     $a2.prop( 'disabled' , false );
                     $a3.prop( 'disabled' , false );
                     $Premium.val('').prop( 'disabled' , true );
                 }
             });
             $Insurance.change();
-            
+
         }); // end .js-row loop
 
         /// add make/model
@@ -602,7 +602,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 alert("Request failed: " + textStatus);
             });
         });
-        
+
         $(".jsDelMake").click(function(){
             var r = confirm("Are you sure to Del ? It will also clear the moeld list and selected rule make/model data");
             if (r == true) {
@@ -627,10 +627,10 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     });
                 }
             } else {
-                
+
             }
         });
-        
+
         $(".jsDelModel").click(function(){
             var r = confirm("Are you sure to Del ? It will also clear the selected rule model data");
             if (r == true) {
@@ -655,10 +655,10 @@ $detailsInfo_ar = $detailsInfo->getAll();
                     });
                 }
             } else {
-                
+
             }
         });
-        
+
         $(".jsAddMM").click(function() {
 
             if ($MakeList.val() === '') {
@@ -754,7 +754,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 });
             }
         });
-        
+
         $(".jsdelOcc").click(function() {
             if ($OccList.val() === '') {
                 alert("select Occupation");
@@ -786,7 +786,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 $("#occID").val($OccList.find(":selected").val());
             }
         });
-        
+
         $(".jsNewOccBtn").click(function() {
             $(".jsNewOccC").show();
         });
@@ -820,7 +820,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 });
             }
         });
-        
+
         $(".jsUpdateOcc").click(function() {
             var enText = $("#occDisplayNameEn").val();
             var zhText = $("#occDisplayNameZh").val();
@@ -926,7 +926,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
             var enTextDesc = $("#DeInDisplayNameEnDesc").val();
             var zhTextDesc = $("#DeInDisplayNameZhDesc").val();
             var sortOrder = $("#DeInSortOrder").val();
-            
+
             var id = $(".jsDeInID").val();
             if (enText === '' || zhText === '' || enTextDesc === '' || zhTextDesc === '' || id === '' ) {
                 alert('something missing eg, have u click load ?');
@@ -975,11 +975,11 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 request.fail(function(jqXHR, textStatus) {
                     alert("Request failed: " + textStatus);
                 });
-                
+
            }
         });
         //end details info
-        
+
         // start sub plan
         $(".jsSubPlansNewBtn").click(function() {
             if ($("input:radio[name=selectRule]:checked").val() === undefined) {
@@ -1046,7 +1046,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 });
             }
         });
-        
+
         $(".jsSubPlansCleanBtn").click(function(){
             $(".jsSubPlansName").val('');
             $(".jsSubPlansNameZh").val('');
@@ -1060,11 +1060,11 @@ $detailsInfo_ar = $detailsInfo->getAll();
             $(".jsSubPlansID").val('');
             $(".jsSubPlansGroupID").val('');
         });
-        
+
         $(".jsSubPlansLoadBtn").click(function(){
             $("#subPlansPanel:hidden").slideDown();
             $(".jsSubPlansUpdateWapper").show();
-            
+
             var $p = $(this).parent().parent();
             $(".jsSubPlansID").val($(this).data('spid'));
             $(".jsSubPlansSortOrder").val($p.find('.jsSubPlansSortOrder').text());
@@ -1164,7 +1164,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 });
             }
         });
-        
+
         $(".jsCarPanelBtn").click(function(){
             $("#carPanel").slideToggle();
             $("#occPanel").hide();
@@ -1188,7 +1188,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
             $("#occPanel").hide();
             $("#carPanel").hide();
             $("#detailsPanel").hide();
-        });        
+        });
         // top action btn end
 
 
@@ -1216,14 +1216,14 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 items2.push("<div style='clear:both'></div>");
                 items2.push("<ul>");
                 $.each(msg, function(key, val) {
-                    
+
                     if ( tmpMake != val.makeText  ){
                         items.push( '<div style="float:left;margin:10px;cursor:pointer" data-mli="'+val.make+'">' + val.makeText + '</div>');
                         tmpMake = val.makeText;
                     }
-                    
+
                     items2.push("<li class='Mli"+val.make+"' style='display:none'>" + val.makeText + " - " + val.modelText + "<span data-mid='" + val.id + "'>X</span></li>");
-                    
+
                 });
                 items2.push("</ul>");
                 $("#r_" + id).find(".jsListMM").html(items.join("") + items2.join("")).show();
@@ -1273,26 +1273,26 @@ $detailsInfo_ar = $detailsInfo->getAll();
                 alert("Request failed: " + textStatus);
             });
         }
-        
+
         $('.jsCloseSlidePanel').css(
             {'cursor':'pointer','color':'red','float':'right'}
         ).click(function(){
             $(this).parent().slideToggle();
         });
-        
+
         $(".jsLogOutBtn").click(function(){
             location.href = 'logout.php';
         });
-        
+
         $(".jsSubPlansPdfValueEn").click(function(e){
             e.preventDefault();
-            window.open('https://kwiksure.com'+$(this).attr('href')); 
+            window.open('https://kwiksure.com'+$(this).attr('href'));
         });
         $(".jsSubPlansPdfValueZh").click(function(e){
             e.preventDefault();
-            window.open('https://kwiksure.com'+$(this).attr('href')); 
+            window.open('https://kwiksure.com'+$(this).attr('href'));
         });
-        
+
         $(".jsInactiveRuleBtn").click(function(){
             if ( $(this).data("showhide") == 'show'){
                 $(".jsActive[value=0]:checked").parents('.js-row').hide();
@@ -1303,7 +1303,7 @@ $detailsInfo_ar = $detailsInfo->getAll();
             }
         });
         $(".jsInactiveRuleBtn").click();
-        
+
     </script>
 
 </body>
