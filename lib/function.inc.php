@@ -1,11 +1,11 @@
 <?php
 function calAge($dob)
 { // 25-02-2014
-    
+
     if ( $dob == '00-00-0000' ) {
         return 0;
     }
-    
+
     $dob_ar = explode('-', $dob);
     if (checkdate($dob_ar[1],  $dob_ar[0],  $dob_ar[2])) {
         $from   = new DateTime(DateTime::createFromFormat('d-m-Y', $dob)->format('Y-m-d'));
@@ -48,7 +48,7 @@ function checkEmpty($k, $v, $v2='')
 
 function checkEmail($email)
 {
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (filter_var( trim($email), FILTER_VALIDATE_EMAIL)) {
         return $email;
     } else {
         throw new Exception('error email :: ' . $email);
@@ -78,9 +78,9 @@ function checkLang($lang)
 
 function check_hkid($chat , $hkid=000000, $check_digit='')
 {
-    
+
     $chat = trim($chat);
-    
+
     // hkid = $hkid_1.$hkid_2 ($hkid_3)
     $i = 10;
     $id_check_ar = array();
@@ -88,7 +88,7 @@ function check_hkid($chat , $hkid=000000, $check_digit='')
         $id_check_ar[$char] = $i;
         $i++;
     }
-    
+
     $countChat = strlen(trim($chat));
     if ( $countChat == 1 )  {
         $chatSum = 324 + $id_check_ar[strtoupper($chat[0])] * 8 ;
@@ -96,7 +96,7 @@ function check_hkid($chat , $hkid=000000, $check_digit='')
         $chatSum = $id_check_ar[strtoupper($chat[0])] * 9 ;
         $chatSum += $id_check_ar[strtoupper($chat[1])] * 8 ;
     }
-    
+
     $hkid_sum = 11 - ( (
             $chatSum +
             $hkid[0] * 7 +
@@ -106,10 +106,10 @@ function check_hkid($chat , $hkid=000000, $check_digit='')
             $hkid[4] * 3 +
             $hkid[5] * 2) %11 );
 
-    
+
     if ( $hkid_sum == 11 ) $hkid_sum = 0 ;
     if ( $hkid_sum == 10 ) $hkid_sum = 'A' ;
-    
+
     if ($hkid_sum == strtoupper($check_digit) ) {
         return true;
     } else {

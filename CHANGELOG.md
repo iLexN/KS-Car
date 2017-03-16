@@ -1,5 +1,6 @@
 #### [Current]
- * [7f16b0e](../../commit/7f16b0e) - __(2017-03-07 17:15:09 +0800)__ fix 0 = empty
+ * [db7ce3d](../../commit/db7ce3d) - __(2017-03-16 09:39:58 +0800)__ fix email , add trim
+ * [1229c14](../../commit/1229c14) - __(2017-03-07 17:21:30 +0800)__ fix 0 = empty
  * [2cb4450](../../commit/2cb4450) - __(2017-03-03 10:52:46 +0800)__ add red color for testing rule.
  * [abe925b](../../commit/abe925b) - __(2017-03-03 10:30:05 +0800)__ change email , find rule > 1
  * [663a1b0](../../commit/663a1b0) - __(2017-03-01 12:32:49 +0800)__ fix vue wanning
