@@ -1,5 +1,5 @@
 <?php
-                  
+
 
 include('../db/db_info.php');
 include('../model/occ.php');
@@ -14,7 +14,6 @@ $obj = json_decode($json, true);
 
 $data = $obj['data'];
 
-
 $oldRuleID = $data;
 // get old rule data
 $r = new Rule($oldRuleID);
@@ -28,8 +27,6 @@ unset($oldRuleDateAr['id']);
 $rule = new Rule();
 $dupRuleID = $rule->newRule();
 
-error_log('new id::' . $dupRuleID);
-
 //update new rule
 $newRule =new Rule($dupRuleID);
 $newRule->update($oldRuleDateAr);
@@ -42,7 +39,6 @@ foreach ($oldMakeModeListAr as $oldMakeModeAr) {
     $dupCar->addModelRule($oldMakeModeAr['model']);
     unset($dupCar);
 }
-
 
 // add Occ
 $oldOcc = new Occ();
@@ -67,7 +63,7 @@ foreach ($df_ar as $dfList) {
 $odlSPListAr = SubPlans::findSubPlansByRuleID($oldRuleID);
 foreach ($odlSPListAr as $oldSPList) {
     $sp = new SubPlans();
-    
+
     $oldSPList['rule'] = $dupRuleID;
     unset($oldSPList['id']);
     $sp->addSubPlans($oldSPList);
@@ -78,6 +74,6 @@ foreach ($odlSPListAr as $oldSPList) {
 //ncd
 $c = new car();
 $ncd_ar = $c->getNCD();
-foreach ( $ncd_ar as $k=>$v){
+foreach ($ncd_ar as $k=>$v) {
     car::createRuleNcd($dupRuleID, $k, 0);
 }

@@ -21,5 +21,3 @@ $api = '?t=makeList' ;
 foreach ($refresh_chunk as $k=>$v) {
     file_get_contents($v . $api);
 }
-
-

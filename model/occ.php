@@ -9,7 +9,6 @@
  */
 class Occ
 {
-    
     public $r;
     public $o;
     
@@ -89,7 +88,7 @@ class Occ
      */
     public function getOccByID($id, $lang='en')
     {
-        if (empty($id)){
+        if (empty($id)) {
             return '';
         }
         
@@ -107,13 +106,13 @@ class Occ
     
     public function removeOcc($ar)
     {
-        ORM::for_table('occupation')->where_in('id',$ar)->delete_many();   
+        ORM::for_table('occupation')->where_in('id', $ar)->delete_many();
     }
     
     public function removeOccRuleByOcids($ar)
     {
-            ORM::for_table('rule-occ')
-                    ->where_in('occ',$ar)
+        ORM::for_table('rule-occ')
+                    ->where_in('occ', $ar)
                     ->delete_many();
     }
 
@@ -162,7 +161,7 @@ class Occ
      * @param type $en_order
      * @param type $zh_order
      */
-    public function updateOcc($en, $zh,$id,$en_order,$zh_order)
+    public function updateOcc($en, $zh, $id, $en_order, $zh_order)
     {
         $a = ORM::for_table('occupation')->find_one($id);
         $a->zh = $zh;
@@ -176,11 +175,11 @@ class Occ
      * New update for Occupation
      * @param array $ar data array
      */
-    public function updateOccupation($ar) {
-        
-         $a = ORM::for_table('occupation')->find_one($ar['id']);
-         $a->set($ar);
-         $a->save();
+    public function updateOccupation($ar)
+    {
+        $a = ORM::for_table('occupation')->find_one($ar['id']);
+        $a->set($ar);
+        $a->save();
     }
     
     

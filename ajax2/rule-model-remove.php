@@ -10,4 +10,3 @@ $data = $obj['data'];
 
 $car = new Car();
 $car->removeModelRule(intval($data['id']));
-

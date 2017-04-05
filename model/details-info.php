@@ -11,10 +11,8 @@
  */
 class DetailsInfo
 {
-    
     public $r;
     public $o;
-
 
     /**
      * $r = rule id,$o = df id
@@ -39,7 +37,7 @@ class DetailsInfo
         $details_info = $this->getAlls();
         return $this->transform($details_info);
     }
-    
+
     /**
      * get all details info (new)
      *
@@ -54,8 +52,8 @@ class DetailsInfo
                         ->find_array();
         return $details_info;
     }
-    
-    
+
+
     /**
      * get by rule id
      * @param int $rid
@@ -77,7 +75,7 @@ class DetailsInfo
                     ->find_array();
         return $this->transform($details_info, $transform);
     }
-    
+
     /**
      *check exist ?
      *
@@ -91,7 +89,7 @@ class DetailsInfo
             ->count();
         return $count > 0 ? false : true;
     }
-    
+
     /**
      * Get Details info by id
      *
@@ -113,7 +111,7 @@ class DetailsInfo
             throw new Exception('not match :: details_info');
         }
     }
-        
+
     /**
     * DEPRECATED, use updateDetailInfoByID
     * update details info (old )
@@ -129,7 +127,7 @@ class DetailsInfo
         $a->sortOrder = $input['sortOrder'];
         $a->save();
     }
-    
+
     /**
     * update details info (new )
     * @param array $input
@@ -140,7 +138,7 @@ class DetailsInfo
         $a->set($input);
         $a->save();
     }
-    
+
     /**
      * remove details info rule
      * @param int $orid
@@ -152,7 +150,7 @@ class DetailsInfo
             $d->delete();
         }
     }
-    
+
     /**
      * update detials info rule
      * @param int $orid
@@ -178,7 +176,7 @@ class DetailsInfo
         $a->value = $v;
         $a->save();
     }
-    
+
     /**
      * newDetails info
      * @param string $en
@@ -198,7 +196,7 @@ class DetailsInfo
         $a->active = 1;
         $a->save();
     }
-    
+
     /**
      * transform the array
      * @param array $details_info
@@ -218,9 +216,9 @@ class DetailsInfo
         }
         return $details_info_ar;
     }
-    
+
     /**
-     * 
+     *
      * @param array $ids
      * @return array
      */
@@ -232,7 +230,7 @@ class DetailsInfo
                     ->order_by_asc('sortOrder')
                     ->order_by_asc('id')
                     ->find_array();
-        
+
         return $orderArray;
     }
 }

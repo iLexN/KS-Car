@@ -14,18 +14,14 @@ $obj = json_decode($json, true);
 
 $data = $obj['data'];
 
-
 $displayName = $data['edit']['text'];
 $makeID = $data['make_id'];
 
 $car = new Car('', $makeID);
 
+$car->addNewModel($displayName);
 
-
-    $car -> addNewModel($displayName);
-    
-    $api = '?t=modelList' ;
-    foreach ($refresh_chunk as $k=>$v) {
-        file_get_contents($v . $api);
-    }
-
+$api = '?t=modelList' ;
+foreach ($refresh_chunk as $k=>$v) {
+    file_get_contents($v . $api);
+}

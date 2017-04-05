@@ -9,7 +9,7 @@
  */
 class SubPlans
 {
-   /**
+    /**
     * summary
     */
     public function __construct()
@@ -43,7 +43,8 @@ class SubPlans
      * add sub plans (new )
      * @param array $ar
      */
-    public function addSubPlan($ar){
+    public function addSubPlan($ar)
+    {
         $a = ORM::for_table('sub-plan')->create();
         $a->set($ar);
         $a->save();
@@ -123,5 +124,4 @@ class SubPlans
         
         return $ar;
     }
-    
 }

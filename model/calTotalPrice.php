@@ -16,16 +16,16 @@ class CalTotalPrice
     //put your code here
 
     private $data = array();
-    
+
     public function __construct($data)
     {
         $this->data = $data;
     }
-    
+
     /**
      * cal Comprehensive Premium value
      * and replace the org premium value
-     * 
+     *
      * @param float $sum_insured
      * @return float
      */
@@ -38,14 +38,13 @@ class CalTotalPrice
                                 $a3;
         return $this->data['premium'];
     }
-    
+
     /**
-     * 
      * @param int $ncd
      * @param float $price_add
      * @return array<string,float>
      */
-    public function calPrice($ncd, $price_add , $type)
+    public function calPrice($ncd, $price_add, $type)
     {
         $i = $this->calI($ncd);
 
@@ -55,8 +54,8 @@ class CalTotalPrice
         $price = $this->calNetPrice($i, $mibValue);
 
         $total_price = $this->calOffer($price, $price_add);
-        if ( $type == 'Comprehensive') {
-            $total_price = round($total_price,-1);
+        if ($type == 'Comprehensive') {
+            $total_price = round($total_price, -1);
         }
 
         return array(
@@ -66,9 +65,8 @@ class CalTotalPrice
             'total_price'=>$total_price
         );
     }
-    
+
     /**
-     * 
      * @param float $i
      * @return float
      */
@@ -77,9 +75,9 @@ class CalTotalPrice
         return $i *
                 (1 + ($this->data['mib'] / 100));
     }
-    
+
     /**
-     * 
+     *
      * @param float $k
      * @param float $i
      * @return float
@@ -88,9 +86,8 @@ class CalTotalPrice
     {
         return $k-$i;
     }
-    
+
     /**
-     * 
      * @param float $i
      * @param float $mibValue
      * @return float
@@ -102,9 +99,8 @@ class CalTotalPrice
                     (1-($this->data['commission']/100))
                 );
     }
-    
+
     /**
-     * 
      * @param float $net
      * @param float $price_add
      * @return float
@@ -113,9 +109,9 @@ class CalTotalPrice
     {
         return $net + $price_add;
     }
-    
+
     /**
-     * 
+     *
      * @param int $ncd
      * @return float
      */
@@ -125,8 +121,8 @@ class CalTotalPrice
         $loading = $this->data['loading'] / 100;
         $otherDiscount = $this->data['otherDiscount'] / 100;
         $clientDiscount = $this->data['clientDiscount'] / 100;
-        
-        
+
+
         $i = $premium *
                 (1 + $loading) *
                 (1 - $otherDiscount) *

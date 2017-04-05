@@ -13,7 +13,7 @@
         <ul class='list-style'>
             <!--<li v-for="rcModel in ruleCarModel | filterBy filterModel in 'makeText'">-->
             <li v-for="rcModel in ruleCarModelFilterList">
-                {{rcModel.makeText}} - {{rcModel.modelText}}
+                <b>{{rcModel.makeText}}</b> <br/> {{rcModel.modelText}}
                 <span style='color:red' v-on:click="removeRuleModel(rcModel)">X</span>
             </li>
         </ul>

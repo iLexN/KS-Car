@@ -1,4 +1,4 @@
-<?php           
+<?php 
 
 include('../db/db_info.php');
 include('../model/car.php');

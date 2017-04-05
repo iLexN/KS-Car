@@ -8,9 +8,7 @@ $obj = json_decode($json, true);
 
 $data = $obj['data'];
 
-
-
-foreach ( $data as $v){
+foreach ($data as $v) {
     $save_ar = array();
     $save_ar['active'] = $v['active'];
     $save_ar['price_add'] = $v['price_add'];

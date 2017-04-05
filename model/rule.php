@@ -89,7 +89,8 @@ class Rule
     * edit update (new)
     * @param array $ar
     */
-    public function update($ar){
+    public function update($ar)
+    {
         $this->getOne();
         $this->rule->set($ar);
         $this->rule->save();
@@ -135,16 +136,15 @@ class Rule
      */
     public function matchRuleWithVar($ar, $isTest)
     {
-
         $age = $ar['age'];
 
         // age : 99 = age > 60
         // age : 88 = age < 21
-        if ( $age == 99 || $age == 88 ){
+        if ($age == 99 || $age == 88) {
             return array();
         }
 
-        if ( $age  == 1 || $age == 2 ){
+        if ($age  == 1 || $age == 2) {
             $age = 30;
         }
 
@@ -230,11 +230,12 @@ class Rule
         return $rule_ar;
     }
 
-    public function compareDriverRule($rule1,$rule2) {
+    public function compareDriverRule($rule1, $rule2)
+    {
         $ruleOutArray = array();
-        foreach ($rule1 as  $v_ar1 ) {
-            foreach ($rule2 as $v_ar2 ) {
-                if ( $v_ar1['id'] == $v_ar2['id'] ) {
+        foreach ($rule1 as  $v_ar1) {
+            foreach ($rule2 as $v_ar2) {
+                if ($v_ar1['id'] == $v_ar2['id']) {
                     $ruleOutArray[] = $v_ar1;
                 }
             }

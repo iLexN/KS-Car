@@ -7,9 +7,8 @@ include('../model/sub-plans.php');
 $out = SubPlans::findSubPlansByRuleID($_GET['id']);
 header('Content-Type: application/json');
 
-
-foreach ( $out as $k=> &$v) {
+foreach ($out as $k=> &$v) {
     $v['sortOrder'] = (int) $v['sortOrder'];
 }
 
-echo( json_encode($out) );
+echo(json_encode($out));

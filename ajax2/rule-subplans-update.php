@@ -8,7 +8,6 @@ $obj = json_decode($json, true);
 
 $data = $obj['data'];
 
-
 $s = new SubPlans();
 
 $s->updateSubPlans($data);

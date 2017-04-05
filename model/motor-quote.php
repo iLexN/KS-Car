@@ -21,72 +21,72 @@ class MotorQuote
     public $hasDriver2 = false;
 
     private $defaultData = array(
-    'age'=>'',
-    'ncd'=>'100',
-    'drivingExp'=>'',
-    'drivingExpText'=>'',
-    'insuranceType'=>'',
-    'yearManufacture'=>'2000',
-    'carMake'=>'',
-    'carModel'=>'',
-    'carModelOther'=>'',
-    'occupation'=>'',
-    'occupationText'=>'',
-    'motor_accident_yrs'=>null,
-    'drive_offence_point'=>null,
-    'name'=>'',
-    'email'=>'',
-    'contactno'=>'',
-    'address'=>'',
-    'address2'=>'',
-    'address3'=>'',
-    'address4'=>'',
-    'residential_district'=>'',
-    'gender'=>'',
-    'marital_status'=>'',
-    'lang'=>'en',
-    'hkid_1'=>'',
-    'hkid_2'=>'',
-    'hkid_3'=>'',
-    'vehicle_registration'=>'',
-    'yearly_mileage'=>'',
-    'drive_to_work'=>null,
-    'course_of_work'=>null,
-    'convictions_5_yrs'=>null,
-    'sum_insured'=>'0.00',
-    'bodyType'=>'',
-    'numberOfDoors'=>'',
-    'chassisNumber'=>'',
-    'engineNumber'=>'',
-    'cylinderCapacity'=>'',
-    'numberOfSeats'=>'',
-    'name2'=>'',
-    'email2'=>'',
-    'gender2'=>'',
-    'relationship2'=>'',
-    'marital_status2'=>'',
-    'hkid_1_2'=>'',
-    'hkid_2_2'=>'',
-    'hkid_3_2'=>'',
-    'motor_accident_yrs2'=>null,
-    'drive_offence_point2'=>null,
-    'drivingExp2'=>'',
-    'occupation2'=>'',
-    'occupationText2'=>'',
-    'drivingExpText2'=>'',
-    'age2'=>'',
-    'keywords'=>'',
-    'cmid'=>'',
-    'dgid'=>'',
-    'kwid'=>'',
-    'netw'=>'',
-    'dvce'=>'',
-    'crtv'=>'',
-    'adps'=>'',
-    'save_reason'=>'',
+        'age'=>'',
+        'ncd'=>'100',
+        'drivingExp'=>'',
+        'drivingExpText'=>'',
+        'insuranceType'=>'',
+        'yearManufacture'=>'2000',
+        'carMake'=>'',
+        'carModel'=>'',
+        'carModelOther'=>'',
+        'occupation'=>'',
+        'occupationText'=>'',
+        'motor_accident_yrs'=>null,
+        'drive_offence_point'=>null,
+        'name'=>'',
+        'email'=>'',
+        'contactno'=>'',
+        'address'=>'',
+        'address2'=>'',
+        'address3'=>'',
+        'address4'=>'',
+        'residential_district'=>'',
+        'gender'=>'',
+        'marital_status'=>'',
+        'lang'=>'en',
+        'hkid_1'=>'',
+        'hkid_2'=>'',
+        'hkid_3'=>'',
+        'vehicle_registration'=>'',
+        'yearly_mileage'=>'',
+        'drive_to_work'=>null,
+        'course_of_work'=>null,
+        'convictions_5_yrs'=>null,
+        'sum_insured'=>'0.00',
+        'bodyType'=>'',
+        'numberOfDoors'=>'',
+        'chassisNumber'=>'',
+        'engineNumber'=>'',
+        'cylinderCapacity'=>'',
+        'numberOfSeats'=>'',
+        'name2'=>'',
+        'email2'=>'',
+        'gender2'=>'',
+        'relationship2'=>'',
+        'marital_status2'=>'',
+        'hkid_1_2'=>'',
+        'hkid_2_2'=>'',
+        'hkid_3_2'=>'',
+        'motor_accident_yrs2'=>null,
+        'drive_offence_point2'=>null,
+        'drivingExp2'=>'',
+        'occupation2'=>'',
+        'occupationText2'=>'',
+        'drivingExpText2'=>'',
+        'age2'=>'',
+        'keywords'=>'',
+        'cmid'=>'',
+        'dgid'=>'',
+        'kwid'=>'',
+        'netw'=>'',
+        'dvce'=>'',
+        'crtv'=>'',
+        'adps'=>'',
+        'save_reason'=>'',
         'policy_start_date'=>'',
         'policy_end_date'=>'',
-);
+    );
     /**
      * need summary
      */
@@ -431,7 +431,7 @@ class MotorQuote
         $this->allVar['carMakeText'] = $this->car -> getMakeByID($this->allVar['carMake']);
         $this->allVar['carModelText'] = $this->car -> getModelByID($this->allVar['carModel'], $this->allVar['carModelOther'], $this->allVar['carMake']);
 
-        if ( $this->allVar['occupationText'] == '' ) {
+        if ($this->allVar['occupationText'] == '') {
             $this->allVar['occupationText'] = $this->occ -> getOccByID($this->allVar['occupation'], $this->allVar['lang']);
         }
 
@@ -468,7 +468,8 @@ class MotorQuote
         }
     }
 
-    private function validationGerenal(){
+    private function validationGerenal()
+    {
         checkEmpty('insuranceType', $this->allVar['insuranceType']) ;
         $this->allVar['lang'] = checkLang($this->allVar['lang']);
 
@@ -478,7 +479,8 @@ class MotorQuote
         checkEmpty('carModel', $this->allVar['carModel']) ;
     }
 
-    private function proccessPlans($ruleInfo){
+    private function proccessPlans($ruleInfo)
+    {
         $planInfoAr = array();
          //should pass planID for save plan details.
         if ($this->allVar['planID']) {

@@ -8,14 +8,10 @@ $obj = json_decode($json, true);
 
 $data = $obj['data'];
 
-
-
-
 $occ = new Occ();
 
 $occ->removeOcc($data);
 $occ->removeOccRuleByOcids($data);
-
 
 $api = '?t=occ' ;
 foreach ($refresh_chunk as $k=>$v) {
