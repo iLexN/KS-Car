@@ -1,14 +1,18 @@
 <?php
+
+$headerArray = getallheaders();
+$auth = $headerArray['Authorization'];
+$u = explode(':', base64_decode(substr($auth, 6)), 2);
+
 /**
  * HTTP Basic Authentication
  */
-/*
+
 $user = 'ksApi';
 $pass = 'mLaE%E9WGQEJU5Q';
 
-
 // need login
-if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_USER'])) {
+if (!isset($u[0]) || !isset($u[0])) {
     header('WWW-Authenticate: Basic realm="My Realm"');
     header('HTTP/1.0 401 Unauthorized');
     $result = array();
@@ -16,7 +20,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_USER'])) {
     $result['result'] = -1;
     echo json_encode($result);
     exit;
-}else if ($_SERVER['PHP_AUTH_USER'] !== $user || $_SERVER['PHP_AUTH_PW'] !== $pass) {
+} elseif ($u[0] !== $user || $u[1] !== $pass) {
     header('WWW-Authenticate: Basic realm="My Realm"');
     header('HTTP/1.0 401 Unauthorized');
     $result = array();
@@ -25,4 +29,3 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_USER'])) {
     echo json_encode($result);
     exit;
 }
-*/
