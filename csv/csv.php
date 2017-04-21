@@ -33,7 +33,6 @@ foreach ($tmp as $t) {
 }
 
 
-//$occInfo = $occ->getAlls();
 $occInfo = array_column($occ->getAlls(), 'en', 'id');
 
 $tmp = ORM::for_table('rule-occ')->find_array();
@@ -42,16 +41,12 @@ foreach ($tmp as $t) {
     $rulesOcc[$t['rule']][$t['occ']] = $occInfo[$t['occ']];
 }
 
-
-//$ncd = $car->getNCD();
 $tmp = ORM::for_table('rule-ncd')->where('active', 1)->find_array();
 $rulesNcd = [];
 foreach ($tmp as $t) {
     $rulesNcd[$t['rule_id']][$t['ncd']] = $t;
 }
 
-
-//$out = [];
 $fp = fopen('file.csv', 'w');
 $header = false;
 foreach ($rules as $rule) {
@@ -96,7 +91,6 @@ foreach ($rules as $rule) {
             fputcsv($fp, $tmp_ar);
 
         }
-        
     }
 }
 
