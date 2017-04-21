@@ -131,7 +131,7 @@ class Rule
      * macthc rule with var
      * find match rule with given data
      *
-     * @param arry $ar
+     * @param array $ar
      * @return type
      */
     public function matchRuleWithVar($ar, $isTest)

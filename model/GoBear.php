@@ -66,6 +66,11 @@ class GoBear implements \PartnerInterface
         return $ar;
     }
 
+    public function getDriver2Data()
+    {
+        return null;
+    }
+
     public function formatRules($rules)
     {
         $ar = [];

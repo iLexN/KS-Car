@@ -66,7 +66,7 @@ try {
 
 // find rule
 if ($quote->skipFindRule) {
-    $match_rule = false;
+    $match_rule = array();
     $save_rule= array();
 } else {
     $driver1 = new Driver($quote->getDriver1Data());
@@ -76,7 +76,7 @@ if ($quote->skipFindRule) {
     include '../lib/find-rule.php';
 }
 
-if ($match_rule) {
+if (!empty($match_rule)) {
     $result['result'] = 1;
     $result['resultDesc'][] = '100 : Plan find';
     $result['plans'] = $quote->formatRules($match_rule);

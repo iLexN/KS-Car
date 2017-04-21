@@ -91,7 +91,7 @@ $count_Third_Party_Only = 0;
         $save_rule[$k]['total_price'] = $calTotalPriceArray['total_price'];
     }
 
-if ($match_rule) {
+if (!empty($match_rule)) {
     $result['result'] = 1;
     $result['resultDesc'][] = '100 : Plan find';
     $result['plans'] = $partner->formatRules($match_rule);

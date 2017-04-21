@@ -22,7 +22,7 @@ class PartnerFactory
 
     /**
      * @param type $p
-     * @return \PartnerInterface
+     * @return GoBear|MotorQuote|null
      */
     public function createPartner($p)
     {

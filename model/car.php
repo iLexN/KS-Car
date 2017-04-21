@@ -73,6 +73,10 @@ class Car
         return $m_ar;
     }
 
+    /**
+     *
+     * @return array
+     */
     public function getAllsModel()
     {
         return ORM::for_table('model')
