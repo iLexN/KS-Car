@@ -6,7 +6,7 @@
 /**
  * MotorQuote Class
  */
-class MotorQuote
+class MotorQuote implements \PartnerInterface
 {
     public $allVar;
     public $isTest = false;
@@ -90,8 +90,11 @@ class MotorQuote
     /**
      * need summary
      */
-    public function __construct($data = array())
+    public function __construct($data = array(), \Car $car , \Occ $occ)
     {
+        $this->setCar($car);
+        $this->setOcc($occ);
+
         $this->allVar = array_replace($this->defaultData, $data);
 
         $this->allVar['refID'] = $this->isSetNotEmpty($data, 'refID', false);
@@ -318,6 +321,12 @@ class MotorQuote
 
     public function buildDriver1()
     {
+        $ar = $this->getDriver1Data();
+
+        return new Driver($ar);
+    }
+
+    public function getDriver1Data(){
         $ar = array();
         $ar['carModel'] = $this->allVar['carModel'];
         $ar['occupation'] = $this->allVar['occupation'];
@@ -329,11 +338,10 @@ class MotorQuote
         $ar['drive_offence_point'] = $this->allVar['drive_offence_point'];
         $ar['calYrMf'] = $this->allVar['calYrMf'];
 
-        return new Driver($ar);
+        return $ar;
     }
 
-    public function buildDriver2()
-    {
+    public function getDriver2Data(){
         $ar = array();
         $ar['carModel'] = $this->allVar['carModel'];
         $ar['occupation'] = $this->allVar['occupation2'];
@@ -344,6 +352,13 @@ class MotorQuote
         $ar['motor_accident_yrs'] = $this->allVar['motor_accident_yrs2'];
         $ar['drive_offence_point'] = $this->allVar['drive_offence_point2'];
         $ar['calYrMf'] = $this->allVar['calYrMf'];
+
+        return $ar;
+    }
+
+    public function buildDriver2()
+    {
+        $ar = $this->getDriver2Data();
 
         return new Driver($ar);
     }
@@ -493,5 +508,35 @@ class MotorQuote
             }
         }
         return $planInfoAr;
+    }
+
+    public function getData($k = ''){
+
+        if ( $k === ''){
+            return $this->allVar;
+        }
+
+        return $this->allVar[$k];
+    }
+
+    public function formatRules($rules){
+        return $rules;
+    }
+
+    public function getOwner(){
+        return 'Kwiksure';
+    }
+
+    public function formatResultMatchRule($result){
+        return $result;
+    }
+    public function formatResultSaveUser($result){
+
+        $result['pdf']['age'] = $this->allVar['age'];
+        $result['pdf']['age2'] = $this->allVar['age2'];
+        unset($result['plans']['subPlans']);
+        unset($result['planRowKey']);
+
+        return $result;
     }
 }

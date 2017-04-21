@@ -1,13 +1,17 @@
 <?php
 
+$authInfo = require_once '../db/auth.php';
+
 include '../lib/authentication.php';
+
 include('../model/occ.php');
 include('../model/car.php');
 include('../model/driver.php');
-include('../model/motor-quote.php');
 
-$car = new Car;
-$occ = new Occ;
+include('../model/PartnerInterface.php');
+include('../model/PartnerFactory.php');
+include('../model/motor-quote.php');
+include('../model/GoBear.php');
 
 require_once '../db/db_info.php';
 
@@ -23,65 +27,51 @@ isTest from tool return array / real api echo json
 //checking function start
 include '../lib/function.inc.php';
 
-
-
-if (empty($_POST)) {
-    return 'no data';
-}
-
 // for json return
 $result = array();
-$quote = new MotorQuote($_POST);
+$partnerFactory = new PartnerFactory($_REQUEST);
+/* @var $quote \PartnerInterface */
+$quote = $partnerFactory->createPartner($u[0]);
 
-
-if ( $quote->saveUser ){
-    require '../lib/PHPMailer/PHPMailerAutoload.php';
+if ($quote->saveUser) {
+    require_once '../lib/PHPMailer/PHPMailerAutoload.php';
     $mail = new \PHPMailer();
     $mail->setFrom($quote->allVar['email'], $quote->allVar['name']);
-    $mail->addAddress('webenquiries@kwiksure.com', 'KS Motor Quote');
+    $mail->addAddress('webenquiries@kwiksure.com', 'KS Motor Quote - ' . $quote->getOwner());
     $mail->Subject = $quote->allVar['name'] . "-" . $quote->allVar['email'] . "-" . $quote->allVar['contactno'];
-    $mail->Body = print_r($quote->allVar,TRUE);
+    $mail->Body = print_r($quote->allVar, true);
     $mail->send();
 }
 
-
-$quote->setCar($car);
-$quote->setOcc($occ);
 try {
-    $result['error'] = $quote->validationInput();
+    $quote->validationInput();
 } catch (Exception $e) {
-     $result['error'] = $e->getMessage();
-}
-
-// stop and return with error
-if (!empty($result['error'])) {
+    $result['error'] = $e->getMessage();
     $result['result'] = -1;
     $result['resultDesc'][] = '300 checking have error';
     if (!$quote->isTest) {
         header('Content-Type: application/json');
         echo(json_encode($result));
         //Log
-        file_put_contents('../log/'.date('Ymd').'.log', date('H:i:s') . "\n\t" .
+        file_put_contents('../log/'.date('Ymd'). '_' . $quote->getOwner() .'.log', date('H:i:s') . "\n\t" .
                 json_encode($result) ."\n\t"  .
-                json_encode($quote->allVar) ."\n\t"  .
-                json_encode($_POST) . PHP_EOL, FILE_APPEND);
+                json_encode($quote->getData()) ."\n\t"  .
+                json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);
 
         return false;
     } else {
         return $result;
     }
-
 }
-unset($result['error']);
 
 // find rule
 if ($quote->skipFindRule) {
     $match_rule = false;
     $save_rule= array();
 } else {
-    $driver1 = $quote->buildDriver1();
+    $driver1 = new Driver($quote->getDriver1Data());
     if ($quote->hasDriver2) {
-        $driver2 = $quote->buildDriver2();
+        $driver2 = new Driver($quote->getDriver2Data());
     }
     include '../lib/find-rule.php';
 }
@@ -89,12 +79,13 @@ if ($quote->skipFindRule) {
 if ($match_rule) {
     $result['result'] = 1;
     $result['resultDesc'][] = '100 : Plan find';
-    $result['plans'] = $match_rule;
+    $result['plans'] = $quote->formatRules($match_rule);
     $result['planRowKey'] = $details_ukey;
 } else {
     $result['result'] = 0;
     $result['resultDesc'][] = '105 : Plan not find';
 }
+$result = $quote->formatResultMatchRule($result);
 
 // save user data
 if ($quote->saveUser) {
@@ -106,11 +97,7 @@ if ($quote->saveUser) {
         $result['result-save'] = -1;
         $result['error'][] = $e->getMessage();
     }
-    $result['pdf']['age'] = $quote->allVar['age'];
-    $result['pdf']['age2'] = $quote->allVar['age2'];
-    unset($result['plans']['subPlans']);
-    unset($result['planRowKey']);
-
+    $result = $quote->formatResultSaveUser($result);
 } elseif ($quote->isTest) {
     $countPlan = '<b style="color:red">'.count($result['plans']).'</b>';
     return array('countPlan'=>$countPlan) + $result;
@@ -120,4 +107,3 @@ header('Content-Type: application/json');
 //may be for dubug
 unset($result['resultDesc']);
 echo json_encode($result);
-

@@ -65,15 +65,20 @@ class Car
      */
     public function getAllModel()
     {
-        $m = ORM::for_table('model')
-                        -> select_many('id', 'model', 'make')
-                        ->order_by_asc('model')
-                        -> find_array();
+        $m = $this->getAllsModel();
         $m_ar = array();
         foreach ($m as $row) {
             $m_ar[$row['make']][$row['id']] = $row['model'];
         }
         return $m_ar;
+    }
+
+    public function getAllsModel()
+    {
+        return ORM::for_table('model')
+                        -> select_many('id', 'model', 'make')
+                        ->order_by_asc('model')
+                        -> find_array();
     }
 
     /**
