@@ -16,14 +16,14 @@ $rules = ORM::for_table('rule')
             ->find_array();
 
 $make = array_column($car->getAllsMake(), 'make', 'id');
-//print_r($make);
+
 
 $tmp = $car->getAllsModel();
 $model = [];
 foreach ($tmp as $t) {
     $model[$t['id']] = $t;
 }
-//print_r($model);
+
 
 $tmp = ORM::for_table('rule-model')->find_array();
 $rulesModel = [];
@@ -31,17 +31,17 @@ foreach ($tmp as $t) {
     $rulesModel[$t['rule']][$t['model']]['make'] = $make[$model[$t['model']]['make']];
     $rulesModel[$t['rule']][$t['model']]['model'] = $model[$t['model']]['model'];
 }
-//print_r($rulesModel);
+
 
 //$occInfo = $occ->getAlls();
 $occInfo = array_column($occ->getAlls(), 'en', 'id');
-//print_r($occInfo);
+
 $tmp = ORM::for_table('rule-occ')->find_array();
 $rulesOcc = [];
 foreach ($tmp as $t) {
     $rulesOcc[$t['rule']][$t['occ']] = $occInfo[$t['occ']];
 }
-//print_r($rulesOcc);
+
 
 //$ncd = $car->getNCD();
 $tmp = ORM::for_table('rule-ncd')->where('active', 1)->find_array();
@@ -49,23 +49,23 @@ $rulesNcd = [];
 foreach ($tmp as $t) {
     $rulesNcd[$t['rule_id']][$t['ncd']] = $t;
 }
-//print_r($rulesNcd);
+
 
 //$out = [];
 $fp = fopen('file.csv', 'w');
 $header = false;
 foreach ($rules as $rule) {
-    //print_r($rule);
+
     foreach ($rulesModel[$rule['id']] as $mInfo) {
-        //print_r($mInfo);
+
         foreach ($rulesOcc[$rule['id']] as $oInfo) {
-            //print_r($oInfo);
+
             $ncd =[];
             foreach ($rulesNcd[$rule['id']] as $nInfo) {
-                //print_r($nInfo);
+
                 $cal = new CalTotalPrice($rule);
                 $calpriceAR =  $cal->calPrice($nInfo['ncd'], $nInfo['price_add'], 'Third_Party_Only');
-                //print_r($calpriceAR);
+
 
                 $ncd['ncd '.$nInfo['ncd']. ' price'] = $calpriceAR['price'];
                 $ncd['ncd '.$nInfo['ncd']. ' total price'] = $calpriceAR['total_price'];
@@ -94,9 +94,9 @@ foreach ($rules as $rule) {
             }
 
             fputcsv($fp, $tmp_ar);
-            //break;
+
         }
-        //break;
+        
     }
 }
 

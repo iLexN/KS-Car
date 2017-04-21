@@ -16,19 +16,18 @@ $rules = ORM::for_table('rule')
             ->find_array();
 
 $make = array_column($car->getAllsMake(), 'make', 'id');
-//print_r($make);
+
 
 $tmp = $car->getAllsModel();
 $model = [];
 foreach ($tmp as $t) {
     $model[$t['id']] = $t;
 }
-//print_r($model);
 
 
 
 
-//$out = [];
+
 $fp = fopen('make_model.csv', 'w');
 $header = false;
 foreach ($model as $m) {

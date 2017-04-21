@@ -36,7 +36,7 @@ class GoBear implements \PartnerInterface
         $this->data['drive_offence_point'] = 0;
         $this->data['calYrMf'] = calYrMf($data['year']);
         $this->data['sum_insured'] = isset($data['sum_insured']) ? $data['sum_insured'] : 0;
-        
+
         $this->data['lang'] = 'en';
     }
 
@@ -79,9 +79,6 @@ class GoBear implements \PartnerInterface
 
     private function formatRule($rule)
     {
-        //todo : change format
-        //unset($rule['subPlans']);
-
         return $rule;
     }
 

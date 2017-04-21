@@ -40,12 +40,9 @@ try {
                 json_encode($partner->getData()) ."\n\t"  .
                 json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);
 
-     exit();
+     return false;
 }
 
-
-
-//print_r($ar);
 $driver1 = new Driver($partner->getDriver1Data());
 
 $rule = new Rule;
@@ -53,8 +50,6 @@ $match_rule = array(); // for output
 $save_rule = array(); // to db
 
 $save_rule = $rule->matchRuleWithVar($driver1->getDriverInfo(), false);
-
-//print_r($save_rule);
 
 $count_Third_Party_Only = 0;
 
@@ -95,8 +90,6 @@ $count_Third_Party_Only = 0;
         $save_rule[$k]['price'] = $calTotalPriceArray['price'];
         $save_rule[$k]['total_price'] = $calTotalPriceArray['total_price'];
     }
-//print_r($save_rule);
-//print_r($match_rule);
 
 if ($match_rule) {
     $result['result'] = 1;
@@ -117,7 +110,6 @@ echo(json_encode($result));
 
 
 if ( $count_Third_Party_Only >= 2){
-    //error_log('count third party only');
     require_once '../lib/PHPMailer/PHPMailerAutoload.php';
     $mail = new \PHPMailer();
     $mail->setFrom('motor@kwiksure.com', 'Kwiksure');
