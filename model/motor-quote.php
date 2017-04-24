@@ -117,7 +117,7 @@ class MotorQuote implements \PartnerInterface
     }
 
     /**
-    *save quote
+    * save quote
     * @param array $ruleInfo rule array planName,totalPrice,price,details
     * @return array  id , refno
     * @throws Exception    error : cannot save
@@ -289,11 +289,17 @@ class MotorQuote implements \PartnerInterface
         return $er;
     }
 
+    /**
+     * @param Occ $occ
+     */
     public function setOcc($occ)
     {
         $this->occ = $occ;
     }
 
+    /**
+     * @param Car $car
+     */
     public function setCar($car)
     {
         $this->car = $car;

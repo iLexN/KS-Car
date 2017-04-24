@@ -86,6 +86,10 @@ class GoBear implements \PartnerInterface
         return $ar;
     }
 
+    /**
+     * @param array $rules
+     * @return array
+     */
     private function formatRule($rule)
     {
         return $rule;
@@ -113,5 +117,9 @@ class GoBear implements \PartnerInterface
     public function formatResultSaveUser($result)
     {
         return $result;
+    }
+
+    public function saveQuote($ruleInfo){
+        
     }
 }
