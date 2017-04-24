@@ -44,7 +44,7 @@ var app = new Vue({
         currentTab2: null, // DetailsInfoPanel , CarPanel
         copiedSubPlan: null
     },
-    created: function() {//or created?
+    mounted: function() {//or created?
         this.getRuleList();
         this.getDriverExp();
         this.getTypeofInsurance();
@@ -131,7 +131,7 @@ var app = new Vue({
     methods: {
         getRuleList: function() {
             var self = this;
-            axios.get('ajax2/rule-get-all.php')
+            axios.get('ajax2/rule-get-all.php?' + Math.floor(Date.now()))
                 .then(function(response) {
                     self.rules = response.data;
                     self.rule = response.data[0];
@@ -143,7 +143,7 @@ var app = new Vue({
         },
         getDriverExp: function() {
             var self = this;
-            axios.get('ajax2/driver-exp-get.php')
+            axios.get('ajax2/driver-exp-get.php?' + Math.floor(Date.now()))
                 .then(function(response) {
                     self.drivingExp = response.data;
                     //console.log(response);
@@ -154,7 +154,7 @@ var app = new Vue({
         },
         getTypeofInsurance: function() {
             var self = this;
-            axios.get('ajax2/insurance-type-get.php')
+            axios.get('ajax2/insurance-type-get.php?' + Math.floor(Date.now()))
                 .then(function(response) {
                     self.typeofInsurance = response.data;
                     //console.log(response);

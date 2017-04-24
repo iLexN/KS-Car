@@ -8,9 +8,6 @@ $u = explode(':', base64_decode(substr($auth, 6)), 2);
  * HTTP Basic Authentication
  */
 
-$user = 'ksApi';
-$pass = 'mLaE%E9WGQEJU5Q';
-
 // need login
 if (!isset($u[0]) || !isset($u[0])) {
     header('WWW-Authenticate: Basic realm="My Realm"');
@@ -20,7 +17,8 @@ if (!isset($u[0]) || !isset($u[0])) {
     $result['result'] = -1;
     echo json_encode($result);
     exit;
-} elseif ($u[0] !== $user || $u[1] !== $pass) {
+//} elseif ($u[0] !== $user || $u[1] !== $pass) {
+} elseif (!array_key_exists($u[0], $authInfo) || $u[1] !== $authInfo[$u[0]]) {
     header('WWW-Authenticate: Basic realm="My Realm"');
     header('HTTP/1.0 401 Unauthorized');
     $result = array();
