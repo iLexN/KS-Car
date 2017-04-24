@@ -1,5 +1,13 @@
 #### [Current]
- * [db7ce3d](../../commit/db7ce3d) - __(2017-03-16 09:39:58 +0800)__ fix email , add trim
+ * [700516c](../../commit/700516c) - __(2017-04-24 13:50:02 +0800)__ code imporve
+ * [ea4bf6c](../../commit/ea4bf6c) - __(2017-04-24 10:36:53 +0800)__ add partner for go bear ([#1](../../issues/1))
+ * [5143246](../../commit/5143246) - __(2017-04-06 11:00:17 +0800)__ vue update
+ * [6a7b509](../../commit/6a7b509) - __(2017-04-05 15:14:08 +0800)__ cs fix
+ * [23e282b](../../commit/23e282b) - __(2017-04-05 12:16:27 +0800)__ change log format change , fix format
+ * [8b4405c](../../commit/8b4405c) - __(2017-04-05 12:12:29 +0800)__ change log format change
+ * [f57e4fa](../../commit/f57e4fa) - __(2017-04-05 11:31:25 +0800)__ ci fix
+ * [324a2b1](../../commit/324a2b1) - __(2017-04-05 11:27:18 +0800)__ add back auth
+ * [fd60113](../../commit/fd60113) - __(2017-03-16 09:40:12 +0800)__ fix email , add trim
  * [1229c14](../../commit/1229c14) - __(2017-03-07 17:21:30 +0800)__ fix 0 = empty
  * [2cb4450](../../commit/2cb4450) - __(2017-03-03 10:52:46 +0800)__ add red color for testing rule.
  * [abe925b](../../commit/abe925b) - __(2017-03-03 10:30:05 +0800)__ change email , find rule > 1

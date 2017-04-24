@@ -90,13 +90,12 @@ class MotorQuote implements \PartnerInterface
     /**
      * need summary
      */
-    public function __construct($data = array(), \Car $car , \Occ $occ)
+    public function __construct($data = array(), \Car $car, \Occ $occ)
     {
         $this->setCar($car);
         $this->setOcc($occ);
 
         $this->allVar = array_replace($this->defaultData, $data);
-
         $this->allVar['refID'] = $this->isSetNotEmpty($data, 'refID', false);
         $this->allVar['dob'] = $this->isSetNotEmpty($data, 'dob', '00-00-0000');
         $this->allVar['referer'] = $this->isSetNotEmpty($data, 'referer', 'kwiksure');
@@ -107,13 +106,37 @@ class MotorQuote implements \PartnerInterface
         $this->allVar['subPlanID']  = $this->isSetNotEmpty($data, 'subPlanID', false);
         $this->allVar['payButtonClick'] =  $this->isSetNotEmpty($data, 'payButtonClick', 0);
 
-        if (isset($data['testRule'])) {
-            $this->isTest = true;
-            $this->saveUser = false;
-        }
+        $this->setTest(isset($data['testRule']));
 
         $this->saveUser = $this->isSetWithTrue($data, 'isSave');
         $this->skipFindRule = $this->isSetWithTrue($data, 'skipFindRule');
+    }
+
+    private function setTest($isTest)
+    {
+        if ($isTest) {
+            $this->isTest = true;
+            $this->saveUser = false;
+        }
+    }
+
+    private function getDBObject($rid)
+    {
+        $exist = 0;
+        if ($rid) {
+            $rm = ORM::for_table('motor_quote')->select('*')->where('id', $rid)->where('download', 0);
+            $exist = $rm->count();
+        }
+
+        if (!$exist) {
+            $rm = ORM::for_table('motor_quote') -> create();
+            $rm -> refno  =  $this->genRefno();
+            $rm -> oldRefID = $this->allVar['refID'];
+        } else {
+            $rm = $rm->find_one();
+        }
+
+        return $rm;
     }
 
     /**
@@ -127,19 +150,7 @@ class MotorQuote implements \PartnerInterface
         //format json for save
         $planInfoAr = $this->proccessPlans($ruleInfo);
 
-        $exist = 0;
-        if ($this->allVar['refID']) {
-            $rm = ORM::for_table('motor_quote')->select('*')->where('id', $this->allVar['refID'])->where('download', 0);
-            $exist = $rm->count();
-        }
-
-        if (!$exist) {
-            $rm = ORM::for_table('motor_quote') -> create();
-            $rm -> refno  =  $this->genRefno();
-            $rm -> oldRefID = $this->allVar['refID'];
-        } else {
-            $rm = $rm->find_one();
-        }
+        $rm = $this->getDBObject($this->allVar['refID']);
 
         $rm -> name  = $this->allVar['name'];
         $rm -> email  = $this->allVar['email'];
@@ -332,7 +343,8 @@ class MotorQuote implements \PartnerInterface
         return new Driver($ar);
     }
 
-    public function getDriver1Data(){
+    public function getDriver1Data()
+    {
         $ar = array();
         $ar['carModel'] = $this->allVar['carModel'];
         $ar['occupation'] = $this->allVar['occupation'];
@@ -347,7 +359,8 @@ class MotorQuote implements \PartnerInterface
         return $ar;
     }
 
-    public function getDriver2Data(){
+    public function getDriver2Data()
+    {
         $ar = array();
         $ar['carModel'] = $this->allVar['carModel'];
         $ar['occupation'] = $this->allVar['occupation2'];
@@ -378,14 +391,7 @@ class MotorQuote implements \PartnerInterface
             $planInfoAr[$rowKey]['price'] = $rowArray['price'];
             $planInfoAr[$rowKey]['TypeofInsurance'] = $rowArray['TypeofInsurance'];
 
-            $tmpDetailsArry = array();
-            foreach ($rowArray['details'] as $k => $v) {
-                $tmpDetailsArry[$k]['value'] = $v['value'];
-                $tmpDetailsArry[$k]['deatils_id'] = $v['deatils_id'];
-            }
-
-
-            $planInfoAr[$rowKey]['details'] = $tmpDetailsArry;
+            $planInfoAr[$rowKey]['details'] = $this->detailInfoFormat($rowArray['details']);
 
             $planInfoAr[$rowKey]['premium'] = $rowArray['premium'];
             $planInfoAr[$rowKey]['loading'] = $rowArray['loading'];
@@ -396,6 +402,16 @@ class MotorQuote implements \PartnerInterface
             $planInfoAr[$rowKey]['gross'] = $rowArray['gross'];
         }
         return $planInfoAr;
+    }
+
+    private function detailInfoFormat($rowArray)
+    {
+        $tmpDetailsArry = array();
+        foreach ($rowArray as $k => $v) {
+            $tmpDetailsArry[$k]['value'] = $v['value'];
+            $tmpDetailsArry[$k]['deatils_id'] = $v['deatils_id'];
+        }
+        return $tmpDetailsArry;
     }
 
     /**
@@ -516,28 +532,31 @@ class MotorQuote implements \PartnerInterface
         return $planInfoAr;
     }
 
-    public function getData($k = ''){
-
-        if ( $k === ''){
+    public function getData($k = '')
+    {
+        if ($k === '') {
             return $this->allVar;
         }
 
         return $this->allVar[$k];
     }
 
-    public function formatRules($rules){
+    public function formatRules($rules)
+    {
         return $rules;
     }
 
-    public function getOwner(){
+    public function getOwner()
+    {
         return 'Kwiksure';
     }
 
-    public function formatResultMatchRule($result){
+    public function formatResultMatchRule($result)
+    {
         return $result;
     }
-    public function formatResultSaveUser($result){
-
+    public function formatResultSaveUser($result)
+    {
         $result['pdf']['age'] = $this->allVar['age'];
         $result['pdf']['age2'] = $this->allVar['age2'];
         unset($result['plans']['subPlans']);

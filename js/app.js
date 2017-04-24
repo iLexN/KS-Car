@@ -45,9 +45,9 @@ var app = new Vue({
         copiedSubPlan: null
     },
     mounted: function() {//or created?
-        this.getRuleList();
         this.getDriverExp();
         this.getTypeofInsurance();
+        this.getRuleList();
     },
     computed: {
         yfgFrom: function() {

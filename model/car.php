@@ -369,16 +369,30 @@ class Car
         switch ($t) {
             case 1:
                 // en
-                foreach ($m as $k => $v) {
-                    $r[$v['id_value']] = $v['name_en'];
-                }
+                $r = $this->formatOutput1($m);
                 break;
             case 2:
-                foreach ($m as $k => $v) {
-                    $r[$v['id_value']]['en'] = $v['name_en'];
-                    $r[$v['id_value']]['zh'] = $v['name_zh'];
-                }
+                $r = $this->formatOutput2($m);
                 break;
+        }
+        return $r;
+    }
+
+    private function formatOutput1($m)
+    {
+        $r = array();
+        foreach ($m as $k => $v) {
+            $r[$v['id_value']] = $v['name_en'];
+        }
+        return $r;
+    }
+
+    private function formatOutput2($m)
+    {
+        $r = array();
+        foreach ($m as $k => $v) {
+            $r[$v['id_value']]['en'] = $v['name_en'];
+            $r[$v['id_value']]['zh'] = $v['name_zh'];
         }
         return $r;
     }

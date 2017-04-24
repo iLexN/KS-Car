@@ -136,16 +136,9 @@ class Rule
      */
     public function matchRuleWithVar($ar, $isTest)
     {
-        $age = $ar['age'];
-
-        // age : 99 = age > 60
-        // age : 88 = age < 21
-        if ($age == 99 || $age == 88) {
+        $age = $this->processAge($ar['age']);
+        if ( $age === -1 ) {
             return array();
-        }
-
-        if ($age  == 1 || $age == 2) {
-            $age = 30;
         }
 
         $match_rule = ORM::for_table('rule')
@@ -181,6 +174,19 @@ class Rule
         }
 
         return $match_rule->find_array();
+    }
+
+    private function processAge($age)
+    {
+        if ($age == 99 || $age == 88) {
+            return -1;
+        }
+
+        if ($age  == 1 || $age == 2) {
+            return 30;
+        }
+
+        return $age;
     }
 
     /**
