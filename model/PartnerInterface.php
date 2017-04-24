@@ -45,4 +45,12 @@ interface PartnerInterface
      * @return array
      */
     public function formatResultSaveUser($result);
+
+    /**
+    * save quote
+    * @param array $ruleInfo rule array planName,totalPrice,price,details
+    * @return array  id , refno
+    * @throws Exception    error : cannot save
+    */
+    public function saveQuote($ruleInfo);
 }

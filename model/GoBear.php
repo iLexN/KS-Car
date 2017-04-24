@@ -87,7 +87,7 @@ class GoBear implements \PartnerInterface
     }
 
     /**
-     * @param array $rules
+     * @param array $rule
      * @return array
      */
     private function formatRule($rule)
@@ -120,6 +120,8 @@ class GoBear implements \PartnerInterface
     }
 
     public function saveQuote($ruleInfo){
-        
+        // todo : need process $ruleInfo and saveTo db
+        $a = $ruleInfo;
+        return array( $a['id'] , $a['refno'] ) ;
     }
 }
