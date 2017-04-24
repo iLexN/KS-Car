@@ -176,6 +176,10 @@ class Rule
         return $match_rule->find_array();
     }
 
+    /**
+     * @param int $age
+     * @return int
+     */
     private function processAge($age)
     {
         if ($age == 99 || $age == 88) {
