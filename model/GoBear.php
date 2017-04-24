@@ -71,6 +71,10 @@ class GoBear implements \PartnerInterface
         return null;
     }
 
+    /**
+     * @param array $rules
+     * @return array
+     */
     public function formatRules($rules)
     {
         $ar = [];

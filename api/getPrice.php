@@ -30,20 +30,16 @@ include '../lib/function.inc.php';
 // for json return
 $result = array();
 $partnerFactory = new PartnerFactory($_REQUEST);
-/* @var $quote \PartnerInterface */
+/* @var $quote \MotorQuote|\GoBear */
 $quote = $partnerFactory->createPartner($u[0]);
-if ( !$quote instanceof \PartnerInterface ) {
-    echo('object error');
-    return false;
-}
 
 if ($quote->saveUser) {
     require_once '../lib/PHPMailer/PHPMailerAutoload.php';
     $mail = new \PHPMailer();
-    $mail->setFrom($quote->allVar['email'], $quote->allVar['name']);
+    $mail->setFrom($quote->getData('email'), $quote->getData('name'));
     $mail->addAddress('webenquiries@kwiksure.com', 'KS Motor Quote - ' . $quote->getOwner());
-    $mail->Subject = $quote->allVar['name'] . "-" . $quote->allVar['email'] . "-" . $quote->allVar['contactno'];
-    $mail->Body = print_r($quote->allVar, true);
+    $mail->Subject = $quote->getData('name') . "-" . $quote->getData('email') . "-" . $quote->getData('contactno');
+    $mail->Body = print_r($quote->getData(), true);
     $mail->send();
 }
 

@@ -4,14 +4,6 @@ interface PartnerInterface
 {
     /**
      *
-     * @param array $data
-     * @param \Car $car
-     * @param \Occ $occ
-     */
-    public function __construct($data, \Car $car, \Occ $occ);
-
-    /**
-     *
      * @param string $k
      * @return mixed
      */
