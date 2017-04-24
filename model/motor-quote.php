@@ -128,8 +128,11 @@ class MotorQuote implements \PartnerInterface
     private function getDBObject($rid)
     {
         $exist = 0;
+
+        $rm = ORM::for_table('motor_quote')->select('*');
+
         if ($rid) {
-            $rm = ORM::for_table('motor_quote')->select('*')->where('id', $rid)->where('download', 0);
+            $rm->where('id', $rid)->where('download', 0);
             $exist = $rm->count();
         }
 
@@ -138,7 +141,6 @@ class MotorQuote implements \PartnerInterface
             $rm -> refno  =  $this->genRefno();
             $rm -> oldRefID = $this->allVar['refID'];
         } else {
-            $rm = ORM::for_table('motor_quote')->select('*')->where('id', $rid)->where('download', 0);
             $rm = $rm->find_one();
         }
 

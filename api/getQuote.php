@@ -4,6 +4,7 @@ $authInfo = require_once '../db/auth.php';
 include '../lib/authentication.php';
 
 include('../db/db_info.php');
+include('../model/PartnerInterface.php');
 include('../model/motor-quote.php');
 include('../model/occ.php');
 include('../model/car.php');
