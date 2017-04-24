@@ -5,6 +5,8 @@ include '../lib/authentication.php';
 
 include('../db/db_info.php');
 include('../model/motor-quote.php');
+include('../model/occ.php');
+include('../model/car.php');
 include('../lib/function.inc.php');
 
 // for json return
@@ -27,7 +29,7 @@ if (!empty($result['error'])) {
     return ;
 }
 
-$motor_quote = new MotorQuote;
+$motor_quote = new MotorQuote([], new Car , new Occ);
 try {
     $result['result'] = 1;
     $result['motor_details'] = $motor_quote->getByRefNo($refno);

@@ -32,6 +32,10 @@ $result = array();
 $partnerFactory = new PartnerFactory($_REQUEST);
 /* @var $quote \PartnerInterface */
 $quote = $partnerFactory->createPartner($u[0]);
+if ( !$quote instanceof \PartnerInterface ) {
+    echo('object error');
+    return false;
+}
 
 if ($quote->saveUser) {
     require_once '../lib/PHPMailer/PHPMailerAutoload.php';
