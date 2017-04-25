@@ -326,6 +326,18 @@ class MotorQuote implements \PartnerInterface
 
     public function hasDriver2()
     {
+        if ($this->isDriver2Exist()) {
+            return true;
+        }
+        if ($this->isDriver2NotExist()) {
+            return false;
+        }
+
+        throw new Exception('error driver2 :: missing info');
+    }
+
+    private function isDriver2Exist()
+    {
         if (!empty($this->allVar['occupation2']) &&
                 !empty($this->allVar['drivingExp2']) &&
                 !is_null($this->allVar['motor_accident_yrs2']) &&
@@ -333,15 +345,17 @@ class MotorQuote implements \PartnerInterface
             ) {
             return true;
         }
+    }
+
+    private function isDriver2NotExist()
+    {
         if (empty($this->allVar['occupation2']) &&
                 empty($this->allVar['drivingExp2']) &&
                 is_null($this->allVar['motor_accident_yrs2']) &&
                 is_null($this->allVar['drive_offence_point2'])
             ) {
-            return false;
+            return true;
         }
-
-        throw new Exception('error driver2 :: missing info');
     }
 
     public function buildDriver1()
