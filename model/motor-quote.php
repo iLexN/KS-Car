@@ -343,12 +343,13 @@ class MotorQuote implements \PartnerInterface
         throw new Exception('error driver2 :: missing info');
     }
 
-    public function buildDriver1()
-    {
-        $ar = $this->getDriver1Data();
-
-        return new Driver($ar);
-    }
+//    seem no use any more, use getDriver1Data
+//    public function buildDriver1()
+//    {
+//        $ar = $this->getDriver1Data();
+//
+//        return new Driver($ar);
+//    }
 
     public function getDriver1Data()
     {
@@ -382,12 +383,13 @@ class MotorQuote implements \PartnerInterface
         return $ar;
     }
 
-    public function buildDriver2()
-    {
-        $ar = $this->getDriver2Data();
-
-        return new Driver($ar);
-    }
+    // semm no use any 
+//    public function buildDriver2()
+//    {
+//        $ar = $this->getDriver2Data();
+//
+//        return new Driver($ar);
+//    }
 
     private function savePlanFormat($ruleInfo)
     {

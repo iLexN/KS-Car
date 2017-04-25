@@ -9,7 +9,7 @@
             $msg = 'wrong input';
         }
     }
-    $msg = 'Testing Only';
+    //$msg = 'Testing Only';
 ?>
 <!DOCTYPE html>
 <html class="no-js">
@@ -31,7 +31,7 @@
                 echo('<p style="color:red">' . $msg . '</p>');
             }
         ?>
-        
+
         <form action="" method="POST">
             <p><label>User</label></p>
             <p><input type="text" name="username"></p>

@@ -34,10 +34,12 @@ class GoBear implements \PartnerInterface
         $this->data['insuranceType'] = $data['insuranceType']; //Third_Party_Only / Comprehensive / Comprehensive_Third_Party
         $this->data['motor_accident_yrs'] = 0;
         $this->data['drive_offence_point'] = 0;
-        $this->data['calYrMf'] = calYrMf($data['year']);
+        $this->data['calYrMf'] = calYrMf($data['yearManufacture']);
         $this->data['sum_insured'] = isset($data['sum_insured']) ? $data['sum_insured'] : 0;
+        $this->data['lang'] = isset($data['lang']) ? $data['lang'] : 'en'; // en / zh
 
-        $this->data['lang'] = 'en';
+        //hardcode
+        $this->data['referer'] = 'gobear';
     }
 
     public function getData($k = '')
