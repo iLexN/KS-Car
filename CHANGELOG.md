@@ -1,5 +1,13 @@
 #### [Current]
- * [700516c](../../commit/700516c) - __(2017-04-24 13:50:02 +0800)__ code imporve
+ * [b946a5c](../../commit/b946a5c) - __(2017-04-26 14:59:34 +0800)__ gobear api development ([#2](../../issues/2))
+
+#### [v2.1.0]
+ * [e7a288c](../../commit/e7a288c) - __(2017-04-25 14:25:34 +0800)__ clear code
+ * [55368bc](../../commit/55368bc) - __(2017-04-25 10:55:38 +0800)__ code improve rollback
+ * [a87faab](../../commit/a87faab) - __(2017-04-25 10:11:11 +0800)__ code improve
+ * [ce5c085](../../commit/ce5c085) - __(2017-04-24 14:55:40 +0800)__ code imporve - fix 2
+ * [5eecf7c](../../commit/5eecf7c) - __(2017-04-24 14:22:22 +0800)__ code imporve - fix 1
+ * [5fdc739](../../commit/5fdc739) - __(2017-04-24 13:50:58 +0800)__ code imporve
  * [ea4bf6c](../../commit/ea4bf6c) - __(2017-04-24 10:36:53 +0800)__ add partner for go bear ([#1](../../issues/1))
  * [5143246](../../commit/5143246) - __(2017-04-06 11:00:17 +0800)__ vue update
  * [6a7b509](../../commit/6a7b509) - __(2017-04-05 15:14:08 +0800)__ cs fix
