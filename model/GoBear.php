@@ -35,7 +35,7 @@ class GoBear implements \PartnerInterface
         $this->data['motor_accident_yrs'] = 0;
         $this->data['drive_offence_point'] = 0;
         $this->data['calYrMf'] = calYrMf($data['yearManufacture']);
-        $this->data['sum_insured'] = isset($data['sum_insured']) ? $data['sum_insured'] : 0;
+        $this->data['sum_insured'] = isset($data['sum_insured']) ? $data['sum_insured'] : 100000;
         $this->data['lang'] = isset($data['lang']) ? $data['lang'] : 'en'; // en / zh
 
         //hardcode
@@ -94,7 +94,16 @@ class GoBear implements \PartnerInterface
      */
     private function formatRule($rule)
     {
-        return $rule;
+        $ar = [];
+        //$ar['planName'] = $rule['rule_name'];
+        //$ar['planId'] = $rule['TypeofInsurance'] === 'Third_Party_Only' ? 'TP001' : 'CP001';
+        $ar['typeOfInsurance'] = $rule['TypeofInsurance'];
+        $ar['insurer'] = 'Kwiksure';
+        $ar['totalPremium'] = $rule['total_price'];
+        //$ar['grossPremium'] = $rule['gross'];
+        $ar['excess'] = array_column($rule['details'], 'value', 'deatils_id');
+        $ar['discount'] = $rule['clientDiscount'] / 100;
+        return $ar;
     }
 
     public function validationInput()
@@ -113,7 +122,11 @@ class GoBear implements \PartnerInterface
 
     public function formatResultMatchRule($result)
     {
-        return $result;
+        $ar = [];
+        $ar['status'] = 'success';
+        $ar['ressult'] = $result['result'];
+        $ar['data'] = $result['plans'];
+        return $ar;
     }
 
     public function formatResultSaveUser($result)

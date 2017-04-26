@@ -7,8 +7,8 @@ var app = new Vue({
         //rulesFilterList:null,
         rules: null,
         rule: {},
-        drivingExp: null,
-        typeofInsurance: null,
+        drivingExp: {"lt_1yr":"< 1 Year","1to2":"1-2 Year","gt_2yr":"+ 2 Years"},
+        typeofInsurance: {"Third_Party_Only":"Third Party","Comprehensive":"Comprehensive","Comprehensive_Third_Party":"Third Party and Comp."},
         makeList:null,
         carMake:'',
         modelList:null,
@@ -45,8 +45,8 @@ var app = new Vue({
         copiedSubPlan: null
     },
     mounted: function() {//or created?
-        this.getDriverExp();
-        this.getTypeofInsurance();
+        //this.getDriverExp();
+        //this.getTypeofInsurance();
         this.getRuleList();
     },
     computed: {

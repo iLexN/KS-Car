@@ -5,9 +5,10 @@
 
     <ul class='list-style'>
         <li v-for="rdi in ruleDetails" style="width:50%;height:45px">
-            <span style='color:red;float:right;margin-right:20px;height:40px;' v-on:click="removeRuleDetail(rdi)">X</span>
+
             <div>{{rdi.details_info}} :
                 <input type="text" v-model="rdi.value" >
+                <span style='color:red;' v-on:click="removeRuleDetail(rdi)">X</span>
             </div>
 
         </li>

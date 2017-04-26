@@ -6,7 +6,6 @@ include('../model/calTotalPrice.php');
 include('../model/details-info.php');
 
 $rule = new Rule;
-$match_rule = array(); // for output
 $save_rule = array(); // to db
 
 //print_r($quote->allVar);
@@ -33,26 +32,18 @@ if (!empty($save_rule)) {
         $calTotalPriceObj = new CalTotalPrice($v_ar);
 
         if ($v_ar['TypeofInsurance'] == 'Comprehensive') {
-            $save_rule[$k]['premium'] = $match_rule[$k]['premium'] = number_format($calTotalPriceObj->calPremium($quote->getData('sum_insured')), 2,'.','');
+            $save_rule[$k]['premium'] = number_format($calTotalPriceObj->calPremium($quote->getData('sum_insured')), 2,'.','');
         } else {
-            $save_rule[$k]['premium'] = $match_rule[$k]['premium'] = number_format($v_ar['premium'],2,'.','');
+            $save_rule[$k]['premium'] = number_format($v_ar['premium'],2,'.','');
             $count_Third_Party_Only++;
         }
         $calTotalPriceArray = $calTotalPriceObj->calPrice($quote->getData('ncd'), $v_ar['price_add'],$v_ar['TypeofInsurance']);
 
         $df_ar = array_column($dfInfo_ar, 'value', 'deatils_id');
-        $match_rule[$k]['id'] = $v_ar['id'];
-        $match_rule[$k]['planName'] = $v_ar['rule_name'];
-        $match_rule[$k]['total_price'] = number_format($calTotalPriceArray['total_price'], 0,'.','');
-        $save_rule[$k]['TypeofInsurance'] = $match_rule[$k]['TypeofInsurance'] = $v_ar['TypeofInsurance'];
-
-        $match_rule[$k]['loading'] = $v_ar['loading'];
-        $match_rule[$k]['clientDiscount'] = $v_ar['clientDiscount'];
-        $match_rule[$k]['mibValue'] = $calTotalPriceArray['mibValue'];
-        $match_rule[$k]['details'] = $df_ar;
+        $save_rule[$k]['TypeofInsurance'] =  $v_ar['TypeofInsurance'];
 
         $save_rule[$k]['details'] = $dfInfo_ar;
-        $save_rule[$k]['subPlans'] = $match_rule[$k]['subPlans'] = SubPlans::findSubPlansByRuleIdWithLang($v_ar['id'], $quote->getData('lang'));
+        $save_rule[$k]['subPlans'] =  SubPlans::findSubPlansByRuleIdWithLang($v_ar['id'], $quote->getData('lang'));
 
         $details_ukey = array_merge($details_ukey, array_keys($df_ar));
 

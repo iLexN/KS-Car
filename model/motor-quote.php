@@ -383,7 +383,7 @@ class MotorQuote implements \PartnerInterface
         return $ar;
     }
 
-    // semm no use any 
+    // semm no use any
 //    public function buildDriver2()
 //    {
 //        $ar = $this->getDriver2Data();
@@ -550,9 +550,40 @@ class MotorQuote implements \PartnerInterface
         return $this->allVar[$k];
     }
 
+    /**
+     * @param array $rules
+     * @return array
+     */
     public function formatRules($rules)
     {
-        return $rules;
+        $ar = [];
+
+        foreach ($rules as $rule) {
+            $ar[] = $this->formatRule($rule);
+        }
+
+        return $ar;
+    }
+
+    /**
+     * @param array $rule
+     * @return array
+     */
+    private function formatRule($rule)
+    {
+        $match_rule = [];
+        $match_rule['premium'] = $rule['premium'];
+        $match_rule['id'] = $rule['id'];
+        $match_rule['planName'] = $rule['rule_name'];
+        $match_rule['total_price'] = number_format($rule['total_price'], 0,'.','');
+        $match_rule['TypeofInsurance'] = $rule['TypeofInsurance'];
+        $match_rule['loading'] = $rule['loading'];
+        $match_rule['clientDiscount'] = $rule['clientDiscount'];
+        $match_rule['mibValue'] = $rule['mibValue'];
+        $match_rule['details'] = array_column($rule['details'], 'value', 'deatils_id');
+        $match_rule['subPlans'] = $rule['subPlans'];
+
+        return $match_rule;
     }
 
     public function getOwner()

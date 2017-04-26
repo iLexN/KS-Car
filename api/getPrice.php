@@ -29,7 +29,7 @@ include '../lib/function.inc.php';
 
 // for json return
 $result = array();
-$partnerFactory = new PartnerFactory($_REQUEST);
+$partnerFactory = new PartnerFactory($_POST);
 /* @var $quote \MotorQuote|\GoBear */
 $quote = $partnerFactory->createPartner($u[0]);
 
@@ -56,7 +56,7 @@ try {
         file_put_contents('../log/'.date('Ymd'). '_' . $quote->getOwner() .'.log', date('H:i:s') . "\n\t" .
                 json_encode($result) ."\n\t"  .
                 json_encode($quote->getData()) ."\n\t"  .
-                json_encode($_REQUEST) . PHP_EOL, FILE_APPEND);
+                json_encode($_POST) . PHP_EOL, FILE_APPEND);
 
         return false;
     } else {
@@ -66,7 +66,7 @@ try {
 
 // find rule
 if ($quote->skipFindRule) {
-    $match_rule = array();
+    //$match_rule = array();
     $save_rule= array();
 } else {
     $driver1 = new Driver($quote->getDriver1Data());
@@ -76,10 +76,10 @@ if ($quote->skipFindRule) {
     include '../lib/find-rule.php';
 }
 
-if (!empty($match_rule)) {
+if (!empty($save_rule)) {
     $result['result'] = 1;
     $result['resultDesc'][] = '100 : Plan find';
-    $result['plans'] = $quote->formatRules($match_rule);
+    $result['plans'] = $quote->formatRules($save_rule);
     $result['planRowKey'] = $details_ukey;
 } else {
     $result['result'] = 0;

@@ -3,10 +3,11 @@
         <button v-on:click="updateRule">Update</button>
     </legend>
     <h3>General Setting</h3>
-    <div class="editDiv">
+    <div class="editDiv" style="width:100%">
         <b>Rule Name</b> :
-        <input type="text" v-model="rule.rule_name">
+        <input type="text" v-model="rule.rule_name" style="width:50%">
     </div>
+    <div style="clear:both"></div>
     <div class="editDiv">
         <b>Age</b> :
         <input type="text" v-model="rule.age_from"  style="width:30px"> -
@@ -80,10 +81,10 @@
     </div>
     <div class="editDiv">
         <b>A2</b> :
-        <input type="text" v-model="rule.a2" style="width:30px" :disabled="disabled.a2">
+        <input type="text" v-model="rule.a2" style="width:60px" :disabled="disabled.a2">
     </div>
     <div class="editDiv">
         <b>A3</b> :
-        <input type="text" v-model="rule.a3" style="width:30px" :disabled="disabled.a3">
+        <input type="text" v-model="rule.a3" style="width:60px" :disabled="disabled.a3">
     </div>
 </fieldset>

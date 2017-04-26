@@ -50,7 +50,7 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
             <?php include('chunk2/tab/make-model-tab.html');?>
             <?php include('chunk2/tab/occupation-tab.html');?>
             <?php include('chunk2/tab/details-info-tab.html');?>
-            <?php include('chunk2/tab/sub-plan-tab.html'); // big problem with template?>
+            <?php include('chunk2/tab/sub-plan-tab.html');?>
         </div>
         <!-- right-side end -->
     </div>
@@ -61,6 +61,6 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"></script>
-    <script src="js/app.js" type="text/javascript"></script>
+    <script src="js/app.js?v2.1.0" type="text/javascript"></script>
 </body>
 </html>
