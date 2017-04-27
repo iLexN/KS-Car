@@ -88,36 +88,59 @@
         <input type="text" v-model="rule.a3" style="width:60px" :disabled="disabled.a3">
     </div>
 </fieldset>
+<div style="height:12px"></div>
 
 
-<fieldset v-show="currentTab=='setting'" style="display:none">
+<fieldset v-show="currentTab=='setting'&&disabled.p" style="display:none">
+    <legend>
+        <button v-on:click="addRuleSiRang">Add</button>
+    </legend>
+    <table border="1" cellspacing="5" cellpadding="3">
+        <tr>
+            <td>from >=</td>
+            <td>to <=</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr v-for="n in ruleCompRang">
+            <td><input type="text" v-model="n.from"></td>
+            <td><input type="text" v-model="n.to"></td>
+            <td><button v-on:click="updateRuleSiRang(n)">update</button></td>
+            <td><button v-on:click="delRuleSiRang(n)">remove</button></td>
+        </tr>
+    </table>
+</fieldset>
+
+
+<div style="height:12px"></div>
+<fieldset v-show="currentTab=='setting'" class="owner" style="display:none">
     <legend>
         <button v-on:click="updateRuleOwner">Update</button>
     </legend>
     <h3>Owner Setting</h3>
     <label style="margin-right:20px;">
-        <input type="checkbox" v-model="ruleOwner"  value="28car"> 28car
+        <input type="checkbox" v-model="ruleOwner"  value="28car"> <span>28car</span>
     </label>
     <label style="margin-right:20px;">
-        <input type="checkbox" v-model="ruleOwner"  value="asiaxpat"> asiaxpat
+        <input type="checkbox" v-model="ruleOwner"  value="asiaxpat"> <span>asiaxpat</span>
     </label>
     <label style="margin-right:20px;">
-        <input type="checkbox" v-model="ruleOwner"  value="FB"> FB
+        <input type="checkbox" v-model="ruleOwner"  value="FB"> <span>FB</span>
     </label>
     <label style="margin-right:20px;">
-        <input type="checkbox" v-model="ruleOwner"  value="google"> google
+        <input type="checkbox" v-model="ruleOwner"  value="google"> <span>google</span>
     </label>
     <label style="margin-right:20px;">
-        <input type="checkbox" v-model="ruleOwner"  value="ks"> ks
+        <input type="checkbox" v-model="ruleOwner"  value="ks"> <span>ks</span>
     </label>
     
     <label style="margin-right:20px;">
-        <input type="checkbox" v-model="ruleOwner"  value="kwiksure"> kwiksure
+        <input type="checkbox" v-model="ruleOwner"  value="kwiksure"> <span>kwiksure</span>
     </label>
     <label style="margin-right:20px;">
-        <input type="checkbox" v-model="ruleOwner"  value="yahoo"> yahoo
+        <input type="checkbox" v-model="ruleOwner"  value="yahoo"> <span>yahoo</span>
     </label>
     <label style="margin-right:20px;">
-        <input type="checkbox" v-model="ruleOwner"  value="gobear"> gobear
+        <input type="checkbox" v-model="ruleOwner"  value="gobear"> <span>gobear</span>
     </label>
 </fieldset>

@@ -1,4 +1,6 @@
 #### [Current]
+ * [569ff7e](../../commit/569ff7e) - __(2017-04-27 12:23:36 +0800)__ sum insured range add to admin pacnel
+ * [993e7c6](../../commit/993e7c6) - __(2017-04-27 10:08:29 +0800)__ Admin add owner ([#3](../../issues/3))
 
 #### [v2.1.1]
  * [a47740a](../../commit/a47740a) - __(2017-04-26 15:34:26 +0800)__ add Doc

@@ -3,6 +3,7 @@ session_start();
 if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
       header('Location: login.php');
   }
+  $vTag = 'v2.3.0.b';
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,9 +11,9 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
     <title>Kwiksure - Rule Setting Panel</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/normalize.css" rel="stylesheet" type="text/css" />
-    <link href="css/main.css" rel="stylesheet" type="text/css" />
-    <link href="css/css-v2.css" rel="stylesheet" type="text/css" />
+    <link href="css/normalize.css?<?php echo($vTag);?>" rel="stylesheet" type="text/css" />
+    <link href="css/main.css?<?php echo($vTag);?>" rel="stylesheet" type="text/css" />
+    <link href="css/css-v2.css?<?php echo($vTag);?>" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div id="app">
@@ -61,6 +62,6 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"></script>
-    <script src="js/app.js?v2.3.0.a" type="text/javascript"></script>
+    <script src="js/app.js?<?php echo($vTag);?>" type="text/javascript"></script>
 </body>
 </html>

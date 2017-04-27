@@ -26,6 +26,7 @@ var app = new Vue({
         editOccInfo:{},
         ruleNCD: null,
         ruleOwner:[],
+        ruleCompRang:[],
         ruleCarModel: null,
         //ruleCarModelFilterList:null,
         ruleCarMake: [{"id":"1","model":"1","modelText":"2.5TL","make":"1","makeText":"Acura"}],
@@ -106,6 +107,7 @@ var app = new Vue({
                 this.disabled.a2 = false;
                 this.disabled.a3 = false;
                 this.disabled.p = true;
+                this.getRuleSiRang();
             }
         },
         'rule.id': function() {
@@ -837,6 +839,61 @@ var app = new Vue({
                     break;
             };
             this.currentTab2 = tab;
+        },
+        addRuleSiRang:function(){
+            var self = this;
+            axios.post('ajax2/rule-comp-range-add.php', {
+                    data: self.rule.id
+                })
+                .then(function(response) {
+                    self.showAlertNote('Added');
+                    self.getRuleSiRang();
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        getRuleSiRang:function()
+        {
+            var self = this;
+            axios.get('ajax2/rule-comp-range-get.php', {
+                    params: {
+                        id: self.rule.id
+                    }
+                })
+                .then(function(response) {
+                    self.ruleCompRang = response.data;
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        updateRuleSiRang:function(obj){
+            var self = this;
+            axios.post('ajax2/rule-comp-range-update.php', {
+                    data: obj
+                })
+                .then(function(response) {
+                    self.showAlertNote('Updated');
+                    self.getRuleSiRang();
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
+        delRuleSiRang:function(obj){
+            var self = this;
+            axios.post('ajax2/rule-comp-range-remove.php', {
+                    data: obj
+                })
+                .then(function(response) {
+                    self.showAlertNote('Deleted');
+                    self.getRuleSiRang();
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
         }
     }
+    
 });

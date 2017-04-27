@@ -142,3 +142,11 @@ td{padding:5px}
     color:#414141;
     font-weight: bold;
 }
+
+.owner input[type="checkbox"]:not(:checked) + span{
+    color:#7C7D80;
+}
+.owner input[type="checkbox"]:checked + span{
+    color:#000;
+    font-weight:bold;
+}
