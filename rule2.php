@@ -61,6 +61,6 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"></script>
-    <script src="js/app.js?v2.1.0" type="text/javascript"></script>
+    <script src="js/app.js?v2.3.0.a" type="text/javascript"></script>
 </body>
 </html>

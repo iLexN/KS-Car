@@ -136,6 +136,9 @@ class Rule
      */
     public function matchRuleWithVar($ar, $isTest)
     {
+
+        error_log(print_r($ar,1));
+
         $age = $this->processAge($ar['age']);
         if ( $age === -1 ) {
             return array();
@@ -148,6 +151,7 @@ class Rule
                 -> join('rule-model', array('p1.id', '=', 'p2.rule'), 'p2')
                 -> join('rule-occ', array('p1.id', '=', 'p3.rule'), 'p3')
                 -> join('rule-ncd', array('p1.id', '=', 'p4.rule_id'), 'p4')
+                -> join('rule-owner', array('p1.id', '=', 'p5.rule_id'), 'p5')
                 -> where('p2.model', $ar['carModel'])
                 -> where('p3.occ', $ar['occupation'])
                 -> where('p4.ncd', $ar['ncd'])
@@ -158,6 +162,7 @@ class Rule
                 -> where('p1.drive_offence_point', $ar['drive_offence_point'])
                 -> where_gte('p1.Yearofmanufacture', $ar['calYrMf'])
                 -> where_lte('p1.Yearofmanufacture_from', $ar['calYrMf'])
+                ->where('p5.owner',$ar['owner'])
                 ;
 
         if ($ar['insuranceType'] == 'Comprehensive_Third_Party') {

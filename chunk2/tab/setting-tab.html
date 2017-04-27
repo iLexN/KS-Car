@@ -88,3 +88,36 @@
         <input type="text" v-model="rule.a3" style="width:60px" :disabled="disabled.a3">
     </div>
 </fieldset>
+
+
+<fieldset v-show="currentTab=='setting'" style="display:none">
+    <legend>
+        <button v-on:click="updateRuleOwner">Update</button>
+    </legend>
+    <h3>Owner Setting</h3>
+    <label style="margin-right:20px;">
+        <input type="checkbox" v-model="ruleOwner"  value="28car"> 28car
+    </label>
+    <label style="margin-right:20px;">
+        <input type="checkbox" v-model="ruleOwner"  value="asiaxpat"> asiaxpat
+    </label>
+    <label style="margin-right:20px;">
+        <input type="checkbox" v-model="ruleOwner"  value="FB"> FB
+    </label>
+    <label style="margin-right:20px;">
+        <input type="checkbox" v-model="ruleOwner"  value="google"> google
+    </label>
+    <label style="margin-right:20px;">
+        <input type="checkbox" v-model="ruleOwner"  value="ks"> ks
+    </label>
+    
+    <label style="margin-right:20px;">
+        <input type="checkbox" v-model="ruleOwner"  value="kwiksure"> kwiksure
+    </label>
+    <label style="margin-right:20px;">
+        <input type="checkbox" v-model="ruleOwner"  value="yahoo"> yahoo
+    </label>
+    <label style="margin-right:20px;">
+        <input type="checkbox" v-model="ruleOwner"  value="gobear"> gobear
+    </label>
+</fieldset>

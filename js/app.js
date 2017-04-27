@@ -25,6 +25,7 @@ var app = new Vue({
         editOcc:[],
         editOccInfo:{},
         ruleNCD: null,
+        ruleOwner:[],
         ruleCarModel: null,
         //ruleCarModelFilterList:null,
         ruleCarMake: [{"id":"1","model":"1","modelText":"2.5TL","make":"1","makeText":"Acura"}],
@@ -108,6 +109,7 @@ var app = new Vue({
             }
         },
         'rule.id': function() {
+            this.getRuleOwner();
             this.getRuleNCD();
             this.getRuleCarModel();
             this.getRuleOcc();
@@ -226,6 +228,21 @@ var app = new Vue({
                     //console.log(response);
                 });
         },
+        getRuleOwner: function() {
+            var self = this;
+            axios.get('ajax2/rule-owner-get.php', {
+                    params: {
+                        id: this.rule.id
+                    }
+                })
+                .then(function(response) {
+                    self.ruleOwner = response.data;
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    console.log(response);
+                });
+        },
         getRuleOcc: function() {
             var self = this;
             axios.get('ajax2/rule-occ-get.php', {
@@ -323,6 +340,21 @@ var app = new Vue({
                 })
                 .then(function(response) {
                     self.getRuleNCD();
+                    self.showAlertNote('Saved');
+                    //console.log(response);
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+
+        },
+        updateRuleOwner: function() {
+            var owner = this.ruleOwner;
+            var self = this;
+            axios.post('ajax2/rule-owner-update.php?id=' + this.rule.id, {
+                    data: owner
+                })
+                .then(function(response) {
                     self.showAlertNote('Saved');
                     //console.log(response);
                 })

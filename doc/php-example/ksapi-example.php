@@ -39,14 +39,13 @@ if ($err) {
   echo "cURL Error #:" . $err;
 } else {
   echo $response;
-  
+
   $data['referer'] = 'gobear';
   $data['utm_source'] = 'gobear';
-  
+
   //url go to kwiksure.com motor form
   $formUrl = [
         'en' => 'https://kwiksure.com/quote/motor/direct-link/?'.http_build_query($data),
         'zh' => 'https://kwiksure.com/zh/quote/motor/direct-link/?'.http_build_query($data),
   ];
-  var_dump($formUrl);
 }

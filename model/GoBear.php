@@ -64,6 +64,7 @@ class GoBear implements \PartnerInterface
         $ar['motor_accident_yrs'] = $this->data['motor_accident_yrs'];
         $ar['drive_offence_point'] = $this->data['drive_offence_point'];
         $ar['calYrMf'] = $this->data['calYrMf'];
+        $ar['owner'] = $this->data['referer'];
 
         return $ar;
     }
@@ -125,7 +126,7 @@ class GoBear implements \PartnerInterface
         $ar = [];
         $ar['status'] = 'success';
         $ar['ressult'] = $result['result'];
-        $ar['data'] = $result['plans'];
+        $ar['data'] = isset($result['plans']) ? $result['plans'] : [];
         return $ar;
     }
 

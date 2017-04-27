@@ -363,6 +363,7 @@ class MotorQuote implements \PartnerInterface
         $ar['motor_accident_yrs'] = $this->allVar['motor_accident_yrs'];
         $ar['drive_offence_point'] = $this->allVar['drive_offence_point'];
         $ar['calYrMf'] = $this->allVar['calYrMf'];
+        $ar['owner'] = $this->getRefererOwner();
 
         return $ar;
     }
@@ -379,8 +380,19 @@ class MotorQuote implements \PartnerInterface
         $ar['motor_accident_yrs'] = $this->allVar['motor_accident_yrs2'];
         $ar['drive_offence_point'] = $this->allVar['drive_offence_point2'];
         $ar['calYrMf'] = $this->allVar['calYrMf'];
+        $ar['owner'] = $this->getRefererOwner();
 
         return $ar;
+    }
+
+    /**
+     * get the first part of referer eg. google-a-ad
+     * @return string
+     */
+    private function getRefererOwner()
+    {
+        $ar = explode('-', $this->allVar['referer']);
+        return $ar[0];
     }
 
     // semm no use any
