@@ -87,15 +87,13 @@
         <b>A3</b> :
         <input type="text" v-model="rule.a3" style="width:60px" :disabled="disabled.a3">
     </div>
-</fieldset>
-<div style="height:12px"></div>
-
-
-<fieldset v-show="currentTab=='setting'&&disabled.p" style="display:none">
-    <legend>
-        <button v-on:click="addRuleSiRang">Add</button>
-    </legend>
-    <table border="1" cellspacing="5" cellpadding="3">
+    
+    <div class="clearfix"></div>
+    
+    <div v-show="currentTab=='setting'&&disabled.p" style="display:none">
+        <button v-on:click="addRuleSiRang" style="float: left">Add</button>
+        <h3>Sum Insured Range </h3>
+        <table border="1" cellspacing="5" cellpadding="3">
         <tr>
             <td>from >=</td>
             <td>to <=</td>
@@ -109,8 +107,9 @@
             <td><button v-on:click="delRuleSiRang(n)">remove</button></td>
         </tr>
     </table>
+    </div>
+    
 </fieldset>
-
 
 <div style="height:12px"></div>
 <fieldset v-show="currentTab=='setting'" class="owner" style="display:none">
