@@ -124,7 +124,7 @@ class GoBear implements \PartnerInterface
     public function formatResultMatchRule($result)
     {
         $ar = [];
-        $ar['status'] = 'success';
+        //$ar['status'] = 'success';
         $ar['ressult'] = $result['result'];
         $ar['data'] = isset($result['plans']) ? $result['plans'] : [];
         return $ar;
