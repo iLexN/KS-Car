@@ -136,6 +136,8 @@ class Rule
      */
     public function matchRuleWithVar($ar, $isTest)
     {
+        error_log(print_r($ar,1));
+
         $age = $this->processAge($ar['age']);
         if ( $age === -1 ) {
             return array();
@@ -171,7 +173,7 @@ class Rule
 //            $match_rule-> where('p1.TypeofInsurance', $ar['insuranceType']);
 //        }
 
-        $match_rule = $this->matchRuleForInsType($match_rule, $ar['insuranceType']);
+        $match_rule = $this->matchRuleForInsType($match_rule, $ar);
 
 //        if (!$isTest) {
 //            $match_rule-> where('p1.active', 1)
@@ -191,21 +193,25 @@ class Rule
         return $match_rule;
     }
 
-    private function matchRuleForInsType($match_rule,$type)
+    private function matchRuleForInsType($match_rule,$ar)
     {
-        switch ($type) {
+        switch ($ar['insuranceType']) {
             case 'Comprehensive_Third_Party':
                 $match_rule->where_any_is(array(
-                    array('p1.TypeofInsurance' => 'Third_Party_Only'),
-                    array('p1.TypeofInsurance' => 'Comprehensive')));
+                        array('p1.TypeofInsurance' => 'Third_Party_Only'),
+                        array('p1.TypeofInsurance' => 'Comprehensive', 'p6.to' => $ar['sum_insured'] , 'p6.from'=>$ar['sum_insured'])),
+                        array('p6.to' => '>=', 'p6.from'=>'<='))
+                    ->left_outer_join('rule-comprehensive-range', array('p1.id', '=', 'p6.rule_id'), 'p6');
 
                 break;
             case 'Comprehensive':
-                $match_rule-> where('p1.TypeofInsurance', $type);
-
+                $match_rule-> where('p1.TypeofInsurance', $ar['insuranceType'])
+                    ->join('rule-comprehensive-range', array('p1.id', '=', 'p6.rule_id'), 'p6')
+                    -> where_gte('p6.to', $ar['sum_insured'])
+                    -> where_lte('p6.from', $ar['sum_insured']);
                 break;
             case 'Third_Party_Only':
-                $match_rule-> where('p1.TypeofInsurance', $type);
+                $match_rule-> where('p1.TypeofInsurance', $ar['insuranceType']);
                 break;
 
             default:

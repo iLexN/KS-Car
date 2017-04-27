@@ -53,7 +53,7 @@ class MotorQuote implements \PartnerInterface
         'drive_to_work'=>null,
         'course_of_work'=>null,
         'convictions_5_yrs'=>null,
-        'sum_insured'=>'0.00',
+        'sum_insured'=>'0',
         'bodyType'=>'',
         'numberOfDoors'=>'',
         'chassisNumber'=>'',
@@ -353,34 +353,39 @@ class MotorQuote implements \PartnerInterface
 
     public function getDriver1Data()
     {
-        $ar = array();
-        $ar['carModel'] = $this->allVar['carModel'];
+        $ar = $this->getDriverGeneralInfo();
+
         $ar['occupation'] = $this->allVar['occupation'];
         $ar['age'] = $this->allVar['age'];
-        $ar['ncd'] = $this->allVar['ncd'];
         $ar['drivingExp'] = $this->allVar['drivingExp'];
-        $ar['insuranceType'] = $this->allVar['insuranceType'];
         $ar['motor_accident_yrs'] = $this->allVar['motor_accident_yrs'];
         $ar['drive_offence_point'] = $this->allVar['drive_offence_point'];
+        
+        return $ar;
+    }
+
+    private function getDriverGeneralInfo()
+    {
+        $ar = array();
+        $ar['carModel'] = $this->allVar['carModel'];
+        $ar['ncd'] = $this->allVar['ncd'];
+        $ar['insuranceType'] = $this->allVar['insuranceType'];
         $ar['calYrMf'] = $this->allVar['calYrMf'];
         $ar['owner'] = $this->getRefererOwner();
+        $ar['sum_insured'] = $this->allVar['sum_insured'];
 
         return $ar;
     }
 
     public function getDriver2Data()
     {
-        $ar = array();
-        $ar['carModel'] = $this->allVar['carModel'];
+        $ar = $this->getDriverGeneralInfo();
+
         $ar['occupation'] = $this->allVar['occupation2'];
         $ar['age'] = $this->allVar['age2'];
-        $ar['ncd'] = $this->allVar['ncd'];
         $ar['drivingExp'] = $this->allVar['drivingExp2'];
-        $ar['insuranceType'] = $this->allVar['insuranceType'];
         $ar['motor_accident_yrs'] = $this->allVar['motor_accident_yrs2'];
         $ar['drive_offence_point'] = $this->allVar['drive_offence_point2'];
-        $ar['calYrMf'] = $this->allVar['calYrMf'];
-        $ar['owner'] = $this->getRefererOwner();
 
         return $ar;
     }
