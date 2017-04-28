@@ -1,5 +1,5 @@
 <?php
-ini_set('serialize_precision', -1);
+//ini_set('serialize_precision', -1);
 
 $authInfo = require_once '../db/auth.php';
 
