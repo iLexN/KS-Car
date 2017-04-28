@@ -607,6 +607,9 @@ class MotorQuote implements \PartnerInterface
         return $result;
     }
 
+    /**
+     * @return int
+     */
     private function nullOrEmpty($v)
     {
         return $v === null || $v === '' ? 0 : $v;
