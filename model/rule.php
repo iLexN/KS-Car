@@ -136,8 +136,6 @@ class Rule
      */
     public function matchRuleWithVar($ar, $isTest)
     {
-        error_log(print_r($ar,1));
-
         $age = $this->processAge($ar['age']);
         if ( $age === -1 ) {
             return array();
