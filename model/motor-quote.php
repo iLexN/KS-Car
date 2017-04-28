@@ -190,10 +190,11 @@ class MotorQuote implements \PartnerInterface
         $rm -> motor_accident_yrs  = $this->allVar['motor_accident_yrs'];
         $rm -> drive_offence_point = $this->allVar['drive_offence_point'];
 
-        $rm -> drive_to_work = $this->allVar['drive_to_work'];
-        $rm -> course_of_work = $this->allVar['course_of_work'];
+        $rm->drive_to_work = $this->nullOrEmpty($this->allVar['drive_to_work']);
+
+        $rm -> course_of_work = $this->allVar['course_of_work'] === '' ? null : $this->allVar['course_of_work'] ;
         $rm -> convictions_5_yrs = $this->allVar['convictions_5_yrs'];
-        $rm -> sum_insured = $this->allVar['sum_insured'];
+        $rm -> sum_insured = $this->nullOrEmpty($this->allVar['sum_insured']);
 
         $rm -> plan_match_json = json_encode($planInfoAr);
 
@@ -209,7 +210,7 @@ class MotorQuote implements \PartnerInterface
         $rm -> drivingExp2  = $this->allVar['drivingExpText2'];
         $rm -> occupation2  = $this->allVar['occupationText2'];
         $rm -> dob2  = $this->allVar['dob2'];
-        $rm -> age2  = $this->allVar['age2'];
+        $rm -> age2  = $this->nullOrEmpty($this->allVar['age2']); //$this->allVar['age2'];
         $rm -> gender2  = $this->allVar['gender2'];
         $rm -> hkid_1_2  = $this->allVar['hkid_1_2'];
         $rm -> hkid_2_2  = $this->allVar['hkid_2_2'];
@@ -224,7 +225,7 @@ class MotorQuote implements \PartnerInterface
         $rm -> numberOfDoors  = $this->allVar['numberOfDoors'];
         $rm -> chassisNumber  = $this->allVar['chassisNumber'];
         $rm -> engineNumber  = $this->allVar['engineNumber'];
-        $rm -> cylinderCapacity  = $this->allVar['cylinderCapacity'];
+        $rm -> cylinderCapacity  = $this->nullOrEmpty($this->allVar['cylinderCapacity']);
         $rm -> numberOfSeats  = $this->allVar['numberOfSeats'];
 
         //save key for get
@@ -343,14 +344,6 @@ class MotorQuote implements \PartnerInterface
         throw new Exception('error driver2 :: missing info');
     }
 
-//    seem no use any more, use getDriver1Data
-//    public function buildDriver1()
-//    {
-//        $ar = $this->getDriver1Data();
-//
-//        return new Driver($ar);
-//    }
-
     public function getDriver1Data()
     {
         $ar = $this->getDriverGeneralInfo();
@@ -360,7 +353,7 @@ class MotorQuote implements \PartnerInterface
         $ar['drivingExp'] = $this->allVar['drivingExp'];
         $ar['motor_accident_yrs'] = $this->allVar['motor_accident_yrs'];
         $ar['drive_offence_point'] = $this->allVar['drive_offence_point'];
-        
+
         return $ar;
     }
 
@@ -399,14 +392,6 @@ class MotorQuote implements \PartnerInterface
         $ar = explode('-', $this->allVar['referer']);
         return $ar[0];
     }
-
-    // semm no use any
-//    public function buildDriver2()
-//    {
-//        $ar = $this->getDriver2Data();
-//
-//        return new Driver($ar);
-//    }
 
     private function savePlanFormat($ruleInfo)
     {
@@ -620,5 +605,10 @@ class MotorQuote implements \PartnerInterface
         unset($result['planRowKey']);
 
         return $result;
+    }
+
+    private function nullOrEmpty($v)
+    {
+        return $v === null || $v === '' ? 0 : $v;
     }
 }
