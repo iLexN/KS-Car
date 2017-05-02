@@ -39,14 +39,6 @@ try {
     unset($result['motor_details']['plan_match_json']);
     unset($result['motor_details']['refno']);
     unset($result['motor_details']['create_datetime']);
-    unset($result['motor_details']['adps']);
-    unset($result['motor_details']['crtv']);
-    unset($result['motor_details']['dvce']);
-    unset($result['motor_details']['netw']);
-    unset($result['motor_details']['kwid']);
-    unset($result['motor_details']['dgid']);
-    unset($result['motor_details']['cmid']);
-    unset($result['motor_details']['keywords']);
 
 } catch (Exception $e) {
     $result['result'] = -1;
