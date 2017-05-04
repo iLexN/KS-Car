@@ -65,6 +65,7 @@ class GoBear implements \PartnerInterface
         $ar['drive_offence_point'] = $this->data['drive_offence_point'];
         $ar['calYrMf'] = $this->data['calYrMf'];
         $ar['owner'] = $this->data['referer'];
+        $ar['sum_insured'] = $this->data['sum_insured'];
 
         return $ar;
     }

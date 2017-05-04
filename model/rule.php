@@ -149,7 +149,6 @@ class Rule
                 -> join('rule-occ', array('p1.id', '=', 'p3.rule'), 'p3')
                 -> join('rule-ncd', array('p1.id', '=', 'p4.rule_id'), 'p4')
                 -> join('rule-owner', array('p1.id', '=', 'p5.rule_id'), 'p5')
-//                -> join('rule-comprehensive-range', array('p1.id', '=', 'p6.rule_id'), 'p6')
                 -> where('p2.model', $ar['carModel'])
                 -> where('p3.occ', $ar['occupation'])
                 -> where('p4.ncd', $ar['ncd'])
@@ -163,26 +162,13 @@ class Rule
                 ->where('p5.owner',$ar['owner'])
                 ;
 
-//        if ($ar['insuranceType'] == 'Comprehensive_Third_Party') {
-//            $match_rule->where_any_is(array(
-//                array('p1.TypeofInsurance' => 'Third_Party_Only'),
-//                array('p1.TypeofInsurance' => 'Comprehensive')));
-//        } else {
-//            $match_rule-> where('p1.TypeofInsurance', $ar['insuranceType']);
-//        }
-
-        $match_rule = $this->matchRuleForInsType($match_rule, $ar['insuranceType']);
-
-//        if (!$isTest) {
-//            $match_rule-> where('p1.active', 1)
-//                        -> where('p4.active', 1);
-//        }
+        $match_rule = $this->matchRuleForInsType($match_rule, $ar);
         $match_rule = $this->matchRuleIsTest($match_rule, $isTest);
 
         return $match_rule->find_array();
     }
 
-    private function matchRuleIsTest($match_rule,$isTest)
+    private function matchRuleIsTest(\ORM $match_rule,$isTest)
     {
         if (!$isTest) {
             $match_rule-> where('p1.active', 1)
@@ -191,21 +177,25 @@ class Rule
         return $match_rule;
     }
 
-    private function matchRuleForInsType($match_rule,$type)
+    private function matchRuleForInsType(\ORM $match_rule,$ar)
     {
-        switch ($type) {
+        switch ($ar['insuranceType']) {
             case 'Comprehensive_Third_Party':
                 $match_rule->where_any_is(array(
-                    array('p1.TypeofInsurance' => 'Third_Party_Only'),
-                    array('p1.TypeofInsurance' => 'Comprehensive')));
+                        array('p1.TypeofInsurance' => 'Third_Party_Only'),
+                        array('p1.TypeofInsurance' => 'Comprehensive', 'p6.to' => $ar['sum_insured'] , 'p6.from'=>$ar['sum_insured'])),
+                        array('p6.to' => '>=', 'p6.from'=>'<='))
+                    ->left_outer_join('rule-comprehensive-range', array('p1.id', '=', 'p6.rule_id'), 'p6');
 
                 break;
             case 'Comprehensive':
-                $match_rule-> where('p1.TypeofInsurance', $type);
-
+                $match_rule-> where('p1.TypeofInsurance', $ar['insuranceType'])
+                    ->join('rule-comprehensive-range', array('p1.id', '=', 'p6.rule_id'), 'p6')
+                    -> where_gte('p6.to', $ar['sum_insured'])
+                    -> where_lte('p6.from', $ar['sum_insured']);
                 break;
             case 'Third_Party_Only':
-                $match_rule-> where('p1.TypeofInsurance', $type);
+                $match_rule-> where('p1.TypeofInsurance', $ar['insuranceType']);
                 break;
 
             default:
