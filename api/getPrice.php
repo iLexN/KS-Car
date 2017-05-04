@@ -47,7 +47,7 @@ if ($quote->saveUser) {
 try {
     $quote->validationInput();
 } catch (Exception $e) {
-    $result['error'] = $e->getMessage();
+    $result['error'][] = $e->getMessage();
     $result['result'] = -1;
     $result['resultDesc'][] = '300 checking have error';
     if (!$quote->isTest) {
