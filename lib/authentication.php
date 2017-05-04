@@ -19,6 +19,7 @@ $u = explode(':', base64_decode(substr($auth, 6)), 2);
 if (!isset($u[0]) || !isset($u[0])) {
     header('WWW-Authenticate: Basic realm="My Realm"');
     header('HTTP/1.0 401 Unauthorized');
+    header('Content-Type: application/json');
     $result = array();
     $result['error'][] = 'Need Login';
     $result['result'] = -1;
@@ -28,6 +29,7 @@ if (!isset($u[0]) || !isset($u[0])) {
 } elseif (!array_key_exists($u[0], $authInfo) || $u[1] !== $authInfo[$u[0]]) {
     header('WWW-Authenticate: Basic realm="My Realm"');
     header('HTTP/1.0 401 Unauthorized');
+    header('Content-Type: application/json');
     $result = array();
     $result['error'][] = 'Wrong Login';
     $result['result'] = -1;
