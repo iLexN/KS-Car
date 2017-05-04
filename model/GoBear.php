@@ -105,6 +105,7 @@ class GoBear implements \PartnerInterface
         //$ar['grossPremium'] = $rule['gross'];
         $ar['excess'] = array_column($rule['details'], 'value', 'deatils_id');
         $ar['discount'] = $rule['clientDiscount'] / 100;
+        $ar['planID'] = $rule['id'];
         return $ar;
     }
 
@@ -125,7 +126,7 @@ class GoBear implements \PartnerInterface
     public function formatResultMatchRule($result)
     {
         $ar = [];
-        $ar['status'] = 'success';
+        //$ar['status'] = 'success';
         $ar['ressult'] = $result['result'];
         $ar['data'] = isset($result['plans']) ? $result['plans'] : [];
         return $ar;
