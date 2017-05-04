@@ -2,7 +2,6 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/1ac1ceb5-f1d7-45a9-b9fe-11ae166c2699/mini.png)](https://insight.sensiolabs.com/projects/1ac1ceb5-f1d7-45a9-b9fe-11ae166c2699)
 
 ## Todo
-* add composer package - PHPMailer, idiorm to replace include
 * add PSR-3 logger - monolog
 * add namespace and use composer to autoload phpclass
 * fix code style - styleci.io

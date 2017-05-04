@@ -57,8 +57,6 @@ if (!empty($save_rule)) {
 }
 
 if ( $count_Third_Party_Only >= 2 && !$quote->isTest){
-    //error_log('count third party only');
-    require_once '../lib/PHPMailer/PHPMailerAutoload.php';
     $mail = new \PHPMailer();
     $mail->setFrom('motor@kwiksure.com', 'Kwiksure');
     $mail->addAddress('ken@kwiksure.com', 'Ken');

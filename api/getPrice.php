@@ -35,7 +35,6 @@ $partnerFactory = new PartnerFactory($_POST);
 $quote = $partnerFactory->createPartner($u[0]);
 
 if ($quote->saveUser) {
-    require_once '../lib/PHPMailer/PHPMailerAutoload.php';
     $mail = new \PHPMailer();
     $mail->setFrom($quote->getData('email'), $quote->getData('name'));
     $mail->addAddress('webenquiries@kwiksure.com', 'KS Motor Quote - ' . $quote->getOwner());

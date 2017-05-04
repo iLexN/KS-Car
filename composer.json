@@ -1,0 +1,7 @@
+{
+    "require": {
+        "j4mie/idiorm": "v1.5.*",
+        "monolog/monolog": "1.*",
+        "phpmailer/phpmailer": "v5.2.*"
+    }
+}
