@@ -1,5 +1,25 @@
 #### [Current]
- * [569ff7e](../../commit/569ff7e) - __(2017-04-27 12:23:36 +0800)__ sum insured range add to admin pacnel
+ * [62e0e6f](../../commit/62e0e6f) - __(2017-05-04 16:20:30 +0800)__ composer add name , description, license for ci fix
+ * [aed70c6](../../commit/aed70c6) - __(2017-05-04 16:11:18 +0800)__ add composer package - PHPMailer, idiorm to replace include
+ * [b8195c3](../../commit/b8195c3) - __(2017-05-04 15:46:08 +0800)__ Create README.md
+ * [988d9e7](../../commit/988d9e7) - __(2017-05-04 15:34:49 +0800)__ same error format
+ * [006fc4f](../../commit/006fc4f) - __(2017-05-04 14:58:17 +0800)__ add screen
+ * [75c4abc](../../commit/75c4abc) - __(2017-05-04 14:46:10 +0800)__ add header for 401 content-type application/json
+ * [3b356b7](../../commit/3b356b7) - __(2017-05-04 14:45:29 +0800)__ fix new version sql server
+ * [f26f94d](../../commit/f26f94d) - __(2017-05-04 11:22:54 +0800)__ update authentication , support different server
+ * [44102de](../../commit/44102de) - __(2017-05-04 11:09:22 +0800)__ add docblock
+ * [5f092a1](../../commit/5f092a1) - __(2017-05-04 11:05:02 +0800)__ output result update for gobear request ([#6](../../issues/6))
+ * [372d977](../../commit/372d977) - __(2017-05-04 11:01:45 +0800)__ Merge pull request [#5](../../issues/5) from iLexN/ruleWithSumInsuredRange
+ * [f81fa16](../../commit/f81fa16) - __(2017-05-02 17:03:56 +0800)__ get back kwid x 8
+ * [c79de09](../../commit/c79de09) - __(2017-04-28 17:33:27 +0800)__ ci fix add docblock
+ * [08109f1](../../commit/08109f1) - __(2017-04-28 17:26:19 +0800)__ ci fix serialize_precision move from file to .htaccess
+ * [7c32929](../../commit/7c32929) - __(2017-04-28 17:16:09 +0800)__ fix some server json_encode float problem http://stackoverflow.com/questions/41824959/json-encode-adding-lots-of-decimal-digits
+ * [3d17b1e](../../commit/3d17b1e) - __(2017-04-28 17:13:00 +0800)__ add support for new version mysql
+ * [f152f08](../../commit/f152f08) - __(2017-04-28 17:11:17 +0800)__ clear error_log
+ * [b5d1d94](../../commit/b5d1d94) - __(2017-04-27 18:13:52 +0800)__ ci fix
+ * [538684e](../../commit/538684e) - __(2017-04-27 17:26:27 +0800)__ select rule update for sum insured range
+ * [24abd81](../../commit/24abd81) - __(2017-04-27 15:48:36 +0800)__ admin ui update (setting->sum insured)
+ * [a9ee008](../../commit/a9ee008) - __(2017-04-27 14:53:51 +0800)__ sum insured range add to admin pacnel ([#4](../../issues/4))
  * [993e7c6](../../commit/993e7c6) - __(2017-04-27 10:08:29 +0800)__ Admin add owner ([#3](../../issues/3))
 
 #### [v2.1.1]
