@@ -1,4 +1,7 @@
 {
+    "name": "ilexn/ks-car",
+    "description": "ks-car",
+    "license": "proprietary",
     "require": {
         "j4mie/idiorm": "v1.5.*",
         "monolog/monolog": "1.*",

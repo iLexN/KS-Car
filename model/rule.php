@@ -43,7 +43,7 @@ class Rule
 
     /**
      * get all rule for new ajax
-     * @return type
+     * @return array
      */
     public function getAlls()
     {
@@ -132,7 +132,7 @@ class Rule
      * find match rule with given data
      *
      * @param array $ar
-     * @return type
+     * @return array
      */
     public function matchRuleWithVar($ar, $isTest)
     {
