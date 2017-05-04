@@ -104,6 +104,7 @@ class GoBear implements \PartnerInterface
         //$ar['grossPremium'] = $rule['gross'];
         $ar['excess'] = array_column($rule['details'], 'value', 'deatils_id');
         $ar['discount'] = $rule['clientDiscount'] / 100;
+        $ar['planID'] = $rule['id'];
         return $ar;
     }
 
