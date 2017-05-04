@@ -15,6 +15,11 @@ class ComprehensiveRange
         $add->save();
     }
 
+    /**
+     *
+     * @param int $rule_id
+     * @return array
+     */
     public function getList($rule_id)
     {
         $list = ORM::for_table('rule-comprehensive-range')
