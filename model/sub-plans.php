@@ -15,7 +15,7 @@ class SubPlans
     public function __construct()
     {
     }
-    
+
     /**
      * DEPRECATED , use addSubPlan
      * add sub plans (old)
@@ -38,7 +38,7 @@ class SubPlans
         $a->groupID = $ar['groupID'];
         $a->save();
     }
-    
+
     /**
      * add sub plans (new )
      * @param array $ar
@@ -49,7 +49,7 @@ class SubPlans
         $a->set($ar);
         $a->save();
     }
-    
+
     /**
      * update subplans
      * @param array $ar
@@ -70,7 +70,7 @@ class SubPlans
         $a->groupID = $ar['groupID'];
         $a->save();
     }
-    
+
     /**
      * del subplans
      * @param id $id
@@ -80,7 +80,7 @@ class SubPlans
         $d = ORM::for_table('sub-plan') -> find_one($id);
         $d -> delete();
     }
-    
+
     /**
      * find subplans by rule id
      * @param int $r
@@ -93,7 +93,7 @@ class SubPlans
                     ->find_array();
         return $r_ar;
     }
-    
+
     /**
      * find sub plan by rule with lang
      * @param int $r
@@ -102,7 +102,6 @@ class SubPlans
      */
     public static function findSubPlansByRuleIdWithLang($r, $lang)
     {
-        /** @var $r_ar \ORM */
         $r_ar = ORM::for_table('sub-plan')
                     ->select('name')
                     ->select('name_zh')
@@ -121,7 +120,7 @@ class SubPlans
         foreach ($r_ar as $row) {
             $ar[$row['id']] = $row;
         }
-        
+
         return $ar;
     }
 }
