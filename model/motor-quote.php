@@ -187,8 +187,8 @@ class MotorQuote implements \PartnerInterface
         $rm -> carMake  = $this->allVar['carMakeText'];
         $rm -> carModel  = $this->allVar['carModelText'];
         $rm -> occupation  = $this->allVar['occupationText'];
-        $rm -> motor_accident_yrs  = $this->allVar['motor_accident_yrs'];
-        $rm -> drive_offence_point = $this->allVar['drive_offence_point'];
+        $rm -> motor_accident_yrs  = $this->nullOrEmpty($this->allVar['motor_accident_yrs']);
+        $rm -> drive_offence_point = $this->nullOrEmpty($this->allVar['drive_offence_point']);
 
         $rm->drive_to_work = $this->nullOrEmpty($this->allVar['drive_to_work']);
 
@@ -217,8 +217,8 @@ class MotorQuote implements \PartnerInterface
         $rm -> hkid_3_2  = $this->allVar['hkid_3_2'];
         $rm -> marital_status2  = $this->allVar['marital_status2'];
 
-        $rm -> drive_offence_point2  = $this->allVar['drive_offence_point2'];
-        $rm -> motor_accident_yrs2  = $this->allVar['motor_accident_yrs2'];
+        $rm -> drive_offence_point2  = $this->nullOrEmpty($this->allVar['drive_offence_point2']);
+        $rm -> motor_accident_yrs2  = $this->nullOrEmpty($this->allVar['motor_accident_yrs2']);
 
         //additational car info
         $rm -> bodyType  = $this->allVar['bodyType'];
