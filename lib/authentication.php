@@ -1,7 +1,14 @@
 <?php
 
 $headerArray = getallheaders();
-$auth = $headerArray['Authorization'];
+
+if (array_key_exists('Authorization', $headerArray) ) {
+    $authKey = 'Authorization';
+} else {
+    $authKey = 'authorization';
+}
+
+$auth = $headerArray[$authKey];
 $u = explode(':', base64_decode(substr($auth, 6)), 2);
 
 /**
