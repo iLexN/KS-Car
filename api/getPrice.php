@@ -24,6 +24,7 @@ flow:
 4 find match rule/plan
 isTest from tool return array / real api echo json
 *****/
+/* @var $logger \Monolog\Logger */
 
 //checking function start
 include '../lib/function.inc.php';
@@ -53,10 +54,7 @@ try {
         header('Content-Type: application/json');
         echo(json_encode($result));
         //Log
-        file_put_contents('../log/'.date('Ymd'). '_' . $quote->getOwner() .'.log', date('H:i:s') . "\n\t" .
-                json_encode($result) ."\n\t"  .
-                json_encode($quote->getData()) ."\n\t"  .
-                json_encode($_POST) . PHP_EOL, FILE_APPEND);
+        $logger->error('ValidationError.'.$quote->getOwner(), [$result,$quote->getData(),$_POST]);
 
         return false;
     } else {

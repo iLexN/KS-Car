@@ -1,4 +1,7 @@
 #### [Current]
+ * [7d298d5](../../commit/7d298d5) - __(2017-05-05 14:19:07 +0800)__ add logger
+ * [0c28cbb](../../commit/0c28cbb) - __(2017-05-04 16:29:22 +0800)__ ci bug fix
+ * [c79f258](../../commit/c79f258) - __(2017-05-04 16:23:48 +0800)__ composer fix
  * [62e0e6f](../../commit/62e0e6f) - __(2017-05-04 16:20:30 +0800)__ composer add name , description, license for ci fix
  * [aed70c6](../../commit/aed70c6) - __(2017-05-04 16:11:18 +0800)__ add composer package - PHPMailer, idiorm to replace include
  * [b8195c3](../../commit/b8195c3) - __(2017-05-04 15:46:08 +0800)__ Create README.md
