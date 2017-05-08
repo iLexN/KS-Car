@@ -35,7 +35,7 @@ class GoBear implements \PartnerInterface
         $this->data['motor_accident_yrs'] = 0;
         $this->data['drive_offence_point'] = 0;
         $this->data['calYrMf'] = calYrMf($data['yearManufacture']);
-        $this->data['sum_insured'] = isset($data['sum_insured']) ? $data['sum_insured'] : 100000;
+        $this->data['sum_insured'] = isset($data['sum_insured']) ? $data['sum_insured'] : 0;
         $this->data['lang'] = isset($data['lang']) ? $data['lang'] : 'en'; // en / zh
 
         //hardcode
