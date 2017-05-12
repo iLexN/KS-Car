@@ -105,3 +105,5 @@ header('Content-Type: application/json');
 //may be for dubug
 unset($result['resultDesc']);
 echo json_encode($result);
+
+$logger->info('result',$result);

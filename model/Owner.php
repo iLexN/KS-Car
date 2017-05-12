@@ -1,11 +1,12 @@
 <?php
 
-class Owner {
-
+class Owner
+{
     private $id;
 
     //put your code here
-    public function __construct($id) {
+    public function __construct($id)
+    {
         $this->id = $id;
     }
 
@@ -16,7 +17,7 @@ class Owner {
     public function getOwner()
     {
         $ar = ORM::for_table('rule-owner')
-                ->where('rule_id',$this->id)
+                ->where('rule_id', $this->id)
                 ->find_array();
         return $ar;
     }
@@ -24,7 +25,7 @@ class Owner {
     public function update($data)
     {
         $this->delete();
-        foreach ( $data as $v){
+        foreach ($data as $v) {
             $this->add($v);
         }
     }
@@ -32,7 +33,7 @@ class Owner {
     private function delete()
     {
         ORM::for_table('rule-owner')
-                ->where('rule_id',$this->id)
+                ->where('rule_id', $this->id)
                 ->delete_many();
     }
 
@@ -43,5 +44,4 @@ class Owner {
         $newOwner->owner = $v;
         $newOwner->save();
     }
-
 }

@@ -577,12 +577,20 @@ class MotorQuote implements \PartnerInterface
         $match_rule['premium'] = $rule['premium'];
         $match_rule['id'] = $rule['id'];
         $match_rule['planName'] = $rule['rule_name'];
-        $match_rule['total_price'] = number_format($rule['total_price'], 0,'.','');
+        $match_rule['total_price'] = number_format($rule['total_price'], 0, '.', '');
         $match_rule['TypeofInsurance'] = $rule['TypeofInsurance'];
         $match_rule['loading'] = $rule['loading'];
         $match_rule['clientDiscount'] = $rule['clientDiscount'];
         $match_rule['mibValue'] = $rule['mibValue'];
-        $match_rule['details'] = array_column($rule['details'], 'value', 'deatils_id');
+
+        $tmp_ar = [];
+        foreach ($rule['details'] as $k=>$v) {
+            $tmp_ar[$v['deatils_id']] = (int) $v['value'];
+            if (!empty($v['text_'.$this->allVar['lang']])) {
+                $tmp_ar[$v['deatils_id'].'_text'] = $v['text_'.$this->allVar['lang']];
+            }
+        }
+        $match_rule['details'] = $tmp_ar;
         $match_rule['subPlans'] = $rule['subPlans'];
 
         return $match_rule;

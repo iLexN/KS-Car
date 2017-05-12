@@ -54,9 +54,9 @@
     </div>
     <div class="clearfix"></div>
     <h3>Calculation</h3>
-    <div class="editDiv">
+    <div class="editDiv" v-if="disabled.a3">
         <b>Premium</b> :
-        <input type="text" v-model="rule.premium" style="width:80px" :disabled="disabled.p">
+        <input type="text" v-model="rule.premium" style="width:80px">
     </div>
     <div class="editDiv">
         <b>Loading</b> :
@@ -79,13 +79,21 @@
         <b>Commission</b> :
         <input type="text" v-model="rule.commission" style="width:30px">
     </div>
-    <div class="editDiv">
+    <div class="editDiv" v-if="!disabled.a3">
         <b>A2</b> :
-        <input type="text" v-model="rule.a2" style="width:60px" :disabled="disabled.a2">
+        <input type="text" v-model="rule.a2" style="width:60px">
     </div>
-    <div class="editDiv">
+    <div class="editDiv" v-if="!disabled.a3">
         <b>A3</b> :
-        <input type="text" v-model="rule.a3" style="width:60px" :disabled="disabled.a3">
+        <input type="text" v-model="rule.a3" style="width:60px">
+    </div>
+    <div class="editDiv" v-if="!disabled.a3">
+        <b>Comprehensive General</b> :
+        <input type="text" v-model="rule.comprehensive_general" style="width:60px">%
+    </div>
+    <div class="editDiv" v-if="!disabled.a3">
+        <b>Comprehensive General Min</b> :
+        <input type="text" v-model="rule.comprehensive_general_min" style="width:60px">
     </div>
     
     <div class="clearfix"></div>

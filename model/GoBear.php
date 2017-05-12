@@ -97,15 +97,23 @@ class GoBear implements \PartnerInterface
     private function formatRule($rule)
     {
         $ar = [];
-        //$ar['planName'] = $rule['rule_name'];
-        //$ar['planId'] = $rule['TypeofInsurance'] === 'Third_Party_Only' ? 'TP001' : 'CP001';
+        $ar['planName'] = 'Kwiksure Plan';
         $ar['typeOfInsurance'] = $rule['TypeofInsurance'];
         $ar['insurer'] = 'Kwiksure';
         $ar['totalPremium'] = $rule['total_price'];
-        //$ar['grossPremium'] = $rule['gross'];
-        $ar['excess'] = array_column($rule['details'], 'value', 'deatils_id');
         $ar['discount'] = $rule['clientDiscount'] / 100;
-        $ar['planID'] = $rule['id'];
+        $ar['planID'] = (int) $rule['id'];
+
+        $tmp_ar = [];
+        foreach ($rule['details'] as $k=>$v) {
+            if (!empty($v['text_'.$this->data['lang']])) {
+                $tmp_ar[$v['deatils_id']] = $v['value'] .' '. $v['text_'.$this->data['lang']];
+            } else {
+                $tmp_ar[$v['deatils_id']] = (int) $v['value'];
+            }
+        }
+        $ar['excess'] = $tmp_ar;
+
         return $ar;
     }
 
@@ -137,7 +145,8 @@ class GoBear implements \PartnerInterface
         return $result;
     }
 
-    public function saveQuote($ruleInfo){
+    public function saveQuote($ruleInfo)
+    {
         // todo : need process $ruleInfo and saveTo db
         $a = $ruleInfo;
         return array( $a['id'] , $a['refno'] ) ;

@@ -4,11 +4,16 @@
     </legend>
 
     <ul class='list-style'>
-        <li v-for="rdi in ruleDetails" style="width:50%;height:45px">
+        <li v-for="rdi in ruleDetails" style="width:50%;">
 
-            <div>{{rdi.details_info}} :
-                <input type="text" v-model="rdi.value" >
+            <div style='overflow: hidden'>{{rdi.details_info}} :
+                <input type="text" v-model="rdi.value" :disabled="!disabled.a3 && rdi.deatils_id == 5">
                 <span style='color:red;' v-on:click="removeRuleDetail(rdi)">X</span>
+                <div v-if='!disabled.a3 && rdi.deatils_id == 10'>
+                    en<input type="text" v-model="rdi.text_en"><br/>
+                    zh<input type="text" v-model="rdi.text_zh" ><br/>
+                </div>
+                
             </div>
 
         </li>

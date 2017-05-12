@@ -21,6 +21,7 @@ if ($quote->getData('planID')) {
 }
 
 $count_Third_Party_Only = 0;
+$countComprehensive = 0;
 
 if (!empty($save_rule)) {
     $DetailsInfo = new DetailsInfo;
@@ -28,11 +29,12 @@ if (!empty($save_rule)) {
     foreach ($save_rule as $k => $v_ar) {
 
         $dfInfo_ar = $DetailsInfo->getByRule($v_ar['id']);
-
         $calTotalPriceObj = new CalTotalPrice($v_ar);
 
         if ($v_ar['TypeofInsurance'] == 'Comprehensive') {
             $save_rule[$k]['premium'] = number_format($calTotalPriceObj->calPremium($quote->getData('sum_insured')), 2,'.','');
+            $dfInfo_ar = $calTotalPriceObj->calExcesses($dfInfo_ar);
+            $countComprehensive++;
         } else {
             $save_rule[$k]['premium'] = number_format($v_ar['premium'],2,'.','');
             $count_Third_Party_Only++;
@@ -56,7 +58,7 @@ if (!empty($save_rule)) {
     $details_ukey = array_column($DetailsInfo->getOrderByID(array_unique($details_ukey)), 'id');
 }
 
-if ( $count_Third_Party_Only >= 2 && !$quote->isTest){
+if ( ( $count_Third_Party_Only >= 2 || $countComprehensive >=2 ) && !$quote->isTest){
     $mail = new \PHPMailer();
     $mail->setFrom('motor@kwiksure.com', 'Kwiksure');
     $mail->addAddress('ken@kwiksure.com', 'Ken');

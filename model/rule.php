@@ -137,7 +137,7 @@ class Rule
     public function matchRuleWithVar($ar, $isTest)
     {
         $age = $this->processAge($ar['age']);
-        if ( $age === -1 ) {
+        if ($age === -1) {
             return array();
         }
 
@@ -159,7 +159,7 @@ class Rule
                 -> where('p1.drive_offence_point', $ar['drive_offence_point'])
                 -> where_gte('p1.Yearofmanufacture', $ar['calYrMf'])
                 -> where_lte('p1.Yearofmanufacture_from', $ar['calYrMf'])
-                ->where('p5.owner',$ar['owner'])
+                ->where('p5.owner', $ar['owner'])
                 ;
 
         $match_rule = $this->matchRuleForInsType($match_rule, $ar);
@@ -168,7 +168,7 @@ class Rule
         return $match_rule->find_array();
     }
 
-    private function matchRuleIsTest(\ORM $match_rule,$isTest)
+    private function matchRuleIsTest(\ORM $match_rule, $isTest)
     {
         if (!$isTest) {
             $match_rule-> where('p1.active', 1)
@@ -177,7 +177,7 @@ class Rule
         return $match_rule;
     }
 
-    private function matchRuleForInsType(\ORM $match_rule,$ar)
+    private function matchRuleForInsType(\ORM $match_rule, $ar)
     {
         switch ($ar['insuranceType']) {
             case 'Comprehensive_Third_Party':

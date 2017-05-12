@@ -36,7 +36,7 @@ class CalTotalPrice
         $this->data['premium'] = ($sum_insured *
                                     ($a2 / 100)) +
                                 $a3;
-        return $this->data['premium'];
+        return (int) (100 * ceil($this->data['premium'] / 100));
     }
 
     /**
@@ -130,5 +130,27 @@ class CalTotalPrice
                 (1- $clientDiscount)
                 ;
         return $i;
+    }
+
+    public function calExcesses($ar)
+    {
+        foreach ($ar as $k => $v_ar) {
+            if ($v_ar['deatils_id'] == 5) {
+                $ar[$k]['value'] = $this->calExcessesGeneral();
+                break;
+            }
+        }
+        return $ar;
+    }
+
+    private function calExcessesGeneral()
+    {
+        $newValue = (int)$this->data['premium'] * (int)$this->data['comprehensive_general'] / 100;
+
+        if ($newValue < $this->data['comprehensive_general_min']) {
+            $newValue = $this->data['comprehensive_general_min'];
+        }
+
+        return (int) (100 * ceil($newValue / 100));
     }
 }

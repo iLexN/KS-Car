@@ -64,8 +64,7 @@ class DetailsInfo
     {
         $details_info = ORM::for_table('rule-details-info')
                     ->table_alias('p1')
-                    ->select('p1.id')
-                    ->select('p1.value')
+                    ->select('p1.*')
                     ->select('p1.details_info', 'deatils_id')
                     ->select('p2.en', 'details_info')
                     ->join('details_info', array('p1.details_info', '=', 'p2.id'), 'p2')
@@ -154,13 +153,15 @@ class DetailsInfo
     /**
      * update detials info rule
      * @param int $orid
-     * @param string $v
+     * @param array $ar
      */
-    public function updateDetailsInfoRule($orid, $v)
+    public function updateDetailsInfoRule($orid, $ar)
     {
         if (!empty($orid)) {
             $d = ORM::for_table('rule-details-info')->find_one($orid);
-            $d->value = $v;
+            $d->value = $ar['value'];
+            $d->text_en = $ar['text_en'];
+            $d->text_zh = $ar['text_zh'];
             $d->save();
         }
     }

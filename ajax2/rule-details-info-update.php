@@ -11,5 +11,5 @@ $data = $obj['data'];
 $df = new DetailsInfo;
 
 foreach ($data as $ar) {
-    $df->updateDetailsInfoRule($ar['id'], $ar['value']);
+    $df->updateDetailsInfoRule($ar['id'], $ar);
 }
