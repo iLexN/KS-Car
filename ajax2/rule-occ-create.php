@@ -12,8 +12,9 @@ $occ = new Occ(intval($data['rule_id']));
 
 $e = false;
 foreach ($data['occ'] as $occID) {
-    if ($occ->checkNotExist($occID['id'])) {
+
+    if ($occ->checkNotExist($occID)) {
         // insert
-        $occ->addOccRule($occID['id']);
+        $occ->addOccRule($occID);
     }
 }

@@ -15,8 +15,14 @@
         </div>
         
         <div style="float:left;width:50%;padding:20px">
-            <p><button v-on:click="removeCarMake">Delete Car Make</button></p>
-            <p><button v-on:click="removeCarModel">Delete Car Model</button></p>
+            <p><button v-on:click="removeCarMakeConfirmShow">Delete Car Make</button><span id="rCMC" style="display:none;color:#000;font-weight: bold;cursor: pointer"> [<span v-on:click="removeCarMake">Yes,Delete</span>] / [<span v-on:click="removeCarMakeConfirmHide">No, Cancel</span>]</span></p>
+            <p>
+                <button v-on:click="removeCarModelConfirmShow">Delete Car Model</button>
+                <span id="rCMC1" style="display:none;color:#000;font-weight: bold;cursor: pointer"> 
+                    [<span v-on:click="removeCarModel">Yes,Delete</span>] /
+                    [<span v-on:click="removeCarModelConfirmHide">No, Cancel</span>]
+                </span>
+            </p>
             <p>&nbsp;</p>
             <h3>New Make/Model</h3>
             <p>

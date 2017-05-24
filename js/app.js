@@ -461,6 +461,7 @@ var app = new Vue({
                 });
         },
         removeRule:function(){
+            this.removeRuleConfirmHide();
             var self = this;
             axios.post('ajax2/rule-remove.php', {
                     data: self.rule.id
@@ -543,7 +544,8 @@ var app = new Vue({
                 });
         },
         removeOccs : function(Obj){
-            if ( this.editOcc.lenght === 0 ) {
+            this.removeOccsConfirmHide();
+            if ( this.editOcc.length === 0 ) {
                 this.showAlertNote('Please select ...');
                 return;
             }
@@ -569,7 +571,8 @@ var app = new Vue({
                 });
         },
         removeCarMake:function(){
-            if ( this.carMake === undefined ) {
+            this.removeCarMakeConfirmHide();
+            if ( this.carMake === undefined || this.carMake === '') {
                 this.showAlertNote('Please select Make...');
                 return;
             }
@@ -588,6 +591,7 @@ var app = new Vue({
                 });
         },
         removeCarModel:function(){
+            this.removeCarModelConfirmHide();
             if ( this.carModel.length === 0 ) {
                 this.showAlertNote('Please select Model...');
                 return;
@@ -907,6 +911,30 @@ var app = new Vue({
                 .catch(function(response) {
                     //console.log(response);
                 });
+        },
+        removeCarMakeConfirmShow : function(){
+            $("#rCMC").show();
+        },
+        removeCarMakeConfirmHide : function(){
+            $("#rCMC").hide();
+        },
+        removeCarModelConfirmShow : function(){
+            $("#rCMC1").show();
+        },
+        removeCarModelConfirmHide : function(){
+            $("#rCMC1").hide();
+        },
+        removeOccsConfirmShow : function(){
+            $("#rOC").show();
+        },
+        removeOccsConfirmHide : function(){
+            $("#rOC").hide();
+        },
+        removeRuleConfirmShow : function(){
+            $("#rRuleC").show();
+        },
+        removeRuleConfirmHide : function(){
+            $("#rRuleC").hide();
         }
     }
     

@@ -1,7 +1,11 @@
 <div style="margin-bottom: 10px">
     <button v-on:click="newRule">New</button>
-    <button v-on:click="removeRule">Delete</button>
+    <button v-on:click="removeRuleConfirmShow">Delete</button>
     <button v-on:click="duplicateRule">Duplicate</button>
+</div>
+<div id="rRuleC" style="display:none;color:#000;font-weight: bold;cursor: pointer;padding: 10px"> 
+    [<span v-on:click="removeRule">Yes,Delete</span>] /
+    [<span v-on:click="removeRuleConfirmHide">No, Cancel</span>]
 </div>
 <input type="radio" value="1" id="radioActive" v-model="filterRuleByActive">
 <label for="radioActive">Active</label>
