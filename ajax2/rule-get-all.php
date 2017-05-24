@@ -1,6 +1,6 @@
 <?php
 
-
+include('../lib/checkip.php');
 include('../db/db_info.php');
 include('../model/rule.php');
 include('../model/sub-plans.php');

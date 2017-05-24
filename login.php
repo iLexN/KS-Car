@@ -1,4 +1,7 @@
 <?php
+
+    include('lib/checkip.php');
+
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
         if ($_POST['username'] === 'onlineenquiries' && $_POST['password'] === 'kwik35882914sure') {
             session_start();

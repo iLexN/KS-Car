@@ -1,5 +1,5 @@
 <?php
-
+include('../lib/checkip.php');
 include('../db/db_info.php');
 include('../model/details-info.php');
 

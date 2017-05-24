@@ -1,5 +1,5 @@
 <?php
-
+include('../lib/checkip.php');
 /**
 displayName : mmDisplayName,
 newType : mmNewType,

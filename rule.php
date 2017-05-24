@@ -1,5 +1,7 @@
 <?php
 
+include('lib/checkip.php');
+
 session_start();
 if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
       header('Location: login.php');
@@ -163,35 +165,35 @@ pre{
                 <fieldset style="margin:10px 15px">
                     <legend>Calculation</legend>
                     <div style="float:left;margin:10px 15px;">
-                        <b>Premium</b> 
+                        <b>Premium</b>
                         <input type="text" value="<?php echo ($r_ar['premium']);?>" class="jsPremium" style="width:65px;">
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>Loading</b> 
+                        <b>Loading</b>
                         <input type="text" value="<?php echo ($r_ar['loading']);?>" class="jsLoading" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>Other Discount %</b> 
+                        <b>Other Discount %</b>
                         <input type="text" value="<?php echo ($r_ar['otherDiscount']);?>" class="jsOtherDiscount" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>Client Discount %</b> 
+                        <b>Client Discount %</b>
                         <input type="text" value="<?php echo ($r_ar['clientDiscount']);?>" class="jsClientDiscount" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>MIB %</b> 
+                        <b>MIB %</b>
                         <input type="text" value="<?php echo ($r_ar['mib']);?>" class="jsMib" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>commission</b> 
+                        <b>commission</b>
                         <input type="text" value="<?php echo ($r_ar['commission']);?>" class="jsCommission" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>A2</b> 
+                        <b>A2</b>
                         <input type="text" value="<?php echo ($r_ar['a2']);?>" class="jsA2" style="width:65px;">%
                     </div>
                     <div style="float:left;margin:10px 15px;">
-                        <b>A3</b> 
+                        <b>A3</b>
                         <input type="text" value="<?php echo ($r_ar['a3']);?>" class="jsA3" style="width:65px;">
                     </div>
                 </fieldset>
@@ -261,7 +263,7 @@ pre{
                 <?php if ( empty($r_ar['ncd_rule'])) { ?>
                     <button class="jsCreateNCD">Create</button>
                 <?php } else { ?>
-                    
+
                     <form class="jsNcdForm">
                         <table border="1" cellspacing="5" cellpadding="3">
                             <tr>
@@ -276,7 +278,7 @@ pre{
                             </tr>
                             <?php $calTotalPriceArray = array('gross'=>'','mibValue'=>'','price'=>'','total_price'=>'');
                                 foreach ( $r_ar['ncd_rule'] as $v=>$b ) {
-                                if ( $r_ar['TypeofInsurance'] == 'Third_Party_Only' ) { 
+                                if ( $r_ar['TypeofInsurance'] == 'Third_Party_Only' ) {
                                     $calTotalPriceObj = new CalTotalPrice($r_ar);
                                     $calTotalPriceArray = $calTotalPriceObj->calPrice($b['ncd'],$b['price_add'],$r_ar['TypeofInsurance']);
                                 }
@@ -297,8 +299,8 @@ pre{
                             <?php } unset($calTotalPriceObj);?>
                         </table>
                     </form>
-                    
-                    
+
+
                 <?php } ?>
             </div>
             <div class="jsListSubPlans" style="display:none">
@@ -368,7 +370,7 @@ pre{
             var $Yearofmanufacture = $(this).find('.jsYearofmanufacture');
             var $YearofmanufactureFrom = $(this).find('.jsYearofmanufactureFrom');
             var $Total = $(this).find('.jsTotal');
-            
+
             var $ShowMM = $(this).find('.jsShowMM');
             var $HideMM = $(this).find('.jsHideMM');
             var $ShowOcc = $(this).find('.jsShowOcc');
@@ -377,12 +379,12 @@ pre{
             var $HideDetails = $(this).find('.jsHideDetails');
             var $ShowSubPlans = $(this).find('.jsShowSubPlans');
             var $HideSubPlans = $(this).find('.jsHideSubPlans');
-            
+
             var $ShowNCD = $(this).find('.jsShowNCD');
             var $HideNCD = $(this).find('.jsHideNCD');
             var $CreateNCD = $(this).find('.jsCreateNCD');
             var $UpadeNCD = $(this).find('.jsUpadeNCD');
-            
+
             var $UpdatePrice = $(this).find('.jsUpdatePrice');
             var $DeleteRule = $(this).find('.jsRuleDelete');
             var $ListMM = $(this).find('.jsListMM');
@@ -393,7 +395,7 @@ pre{
             var $NcdForm = $(this).find('.jsNcdForm');
             //var $UpdateDetailsBtn = $(this).find('.jsUpdateDetailsBtn');
             //var $DetialsTextarea = $(this).find('.jsDetialsTextarea');
-            
+
             var $Premium = $(this).find('.jsPremium');
             var $Loading = $(this).find('.jsLoading');
             var $otherDiscount = $(this).find('.jsOtherDiscount');
@@ -419,7 +421,7 @@ pre{
                         DriveOffencePoint: $("input:radio[name=drive_offence_point" + id + "]:checked").val(),
                         MotorAccidentYrs: $("input:radio[name=motor_accident_yrs_" + id + "]:checked").val(),
                         Active: $("input:radio[name=active" + id + "]:checked").val(),
-                        
+
                         premium: $Premium.val(),
                         loading: $Loading.val(),
                         otherDiscount: $otherDiscount.val(),
@@ -428,7 +430,7 @@ pre{
                         commission: $commission.val(),
                         a2: $a2.val(),
                         a3: $a3.val(),
-                        
+
                         id: id
                     }
                 });
@@ -456,7 +458,7 @@ pre{
                     alert("Request failed: " + textStatus);
                 });
             });
-            
+
             $CreateNCD.click(function() {
                 var request = $.ajax({
                     url: "ajax/rule-ncd-create.php",
@@ -622,21 +624,21 @@ pre{
                     alert("Request failed: " + textStatus);
                 });
             });
-            
+
             $Insurance.change(function(){
                 var instype = $(this).val();
                 if ( instype == 'Third_Party_Only') {
                     $a2.val('').prop( 'disabled' , true );
                     $a3.val('').prop( 'disabled' , true );
                     $Premium.prop( 'disabled' , false );
-                } else { 
+                } else {
                     $a2.prop( 'disabled' , false );
                     $a3.prop( 'disabled' , false );
                     $Premium.val('').prop( 'disabled' , true );
                 }
             });
             $Insurance.change();
-            
+
         }); // end .js-row loop
 
         /// add make/model
@@ -664,7 +666,7 @@ pre{
                 alert("Request failed: " + textStatus);
             });
         });
-        
+
         $(".jsDelMake").click(function(){
             var r = confirm("Are you sure to Del ? It will also clear the moeld list and selected rule make/model data");
             if (r == true) {
@@ -689,10 +691,10 @@ pre{
                     });
                 }
             } else {
-                
+
             }
         });
-        
+
         $(".jsDelModel").click(function(){
             var r = confirm("Are you sure to Del ? It will also clear the selected rule model data");
             if (r == true) {
@@ -717,10 +719,10 @@ pre{
                     });
                 }
             } else {
-                
+
             }
         });
-        
+
         $(".jsAddMM").click(function() {
 
             if ($MakeList.val() === '') {
@@ -816,7 +818,7 @@ pre{
                 });
             }
         });
-        
+
         $(".jsdelOcc").click(function() {
             if ($OccList.val() === '') {
                 alert("select Occupation");
@@ -848,7 +850,7 @@ pre{
                 $("#occID").val($OccList.find(":selected").val());
             }
         });
-        
+
         $(".jsNewOccBtn").click(function() {
             $(".jsNewOccC").show();
         });
@@ -882,7 +884,7 @@ pre{
                 });
             }
         });
-        
+
         $(".jsUpdateOcc").click(function() {
             var enText = $("#occDisplayNameEn").val();
             var zhText = $("#occDisplayNameZh").val();
@@ -988,7 +990,7 @@ pre{
             var enTextDesc = $("#DeInDisplayNameEnDesc").val();
             var zhTextDesc = $("#DeInDisplayNameZhDesc").val();
             var sortOrder = $("#DeInSortOrder").val();
-            
+
             var id = $(".jsDeInID").val();
             if (enText === '' || zhText === '' || enTextDesc === '' || zhTextDesc === '' || id === '' ) {
                 alert('something missing eg, have u click load ?');
@@ -1037,11 +1039,11 @@ pre{
                 request.fail(function(jqXHR, textStatus) {
                     alert("Request failed: " + textStatus);
                 });
-                
+
            }
         });
         //end details info
-        
+
         // start sub plan
         $(".jsSubPlansNewBtn").click(function() {
             if ($("input:radio[name=selectRule]:checked").val() === undefined) {
@@ -1108,7 +1110,7 @@ pre{
                 });
             }
         });
-        
+
         $(".jsSubPlansCleanBtn").click(function(){
             $(".jsSubPlansName").val('');
             $(".jsSubPlansNameZh").val('');
@@ -1122,11 +1124,11 @@ pre{
             $(".jsSubPlansID").val('');
             $(".jsSubPlansGroupID").val('');
         });
-        
+
         $(".jsSubPlansLoadBtn").click(function(){
             $("#subPlansPanel:hidden").slideDown();
             $(".jsSubPlansUpdateWapper").show();
-            
+
             var $p = $(this).parent().parent();
             $(".jsSubPlansID").val($(this).data('spid'));
             $(".jsSubPlansSortOrder").val($p.find('.jsSubPlansSortOrder').text());
@@ -1226,7 +1228,7 @@ pre{
                 });
             }
         });
-        
+
         $(".jsCarPanelBtn").click(function(){
             $("#carPanel").slideToggle();
             $("#occPanel").hide();
@@ -1250,7 +1252,7 @@ pre{
             $("#occPanel").hide();
             $("#carPanel").hide();
             $("#detailsPanel").hide();
-        });        
+        });
         // top action btn end
 
 
@@ -1278,14 +1280,14 @@ pre{
                 items2.push("<div style='clear:both'></div>");
                 items2.push("<ul>");
                 $.each(msg, function(key, val) {
-                    
+
                     if ( tmpMake != val.makeText  ){
                         items.push( '<div style="float:left;margin:10px;cursor:pointer" data-mli="'+val.make+'">' + val.makeText + '</div>');
                         tmpMake = val.makeText;
                     }
-                    
+
                     items2.push("<li class='Mli"+val.make+"' style='display:none'>" + val.makeText + " - " + val.modelText + "<span data-mid='" + val.id + "'>X</span></li>");
-                    
+
                 });
                 items2.push("</ul>");
                 $("#r_" + id).find(".jsListMM").html(items.join("") + items2.join("")).show();
@@ -1335,29 +1337,29 @@ pre{
                 alert("Request failed: " + textStatus);
             });
         }
-        
+
         $('.jsCloseSlidePanel').css(
             {'cursor':'pointer','color':'red','float':'right'}
         ).click(function(){
             $(this).parent().slideToggle();
         });
-        
+
         $(".jsLogOutBtn").click(function(){
             location.href = 'logout.php';
         });
         $(".jsNewVersion").click(function(){
             location.href = 'rule2.php';
         });
-        
+
         $(".jsSubPlansPdfValueEn").click(function(e){
             e.preventDefault();
-            window.open('https://kwiksure.com'+$(this).attr('href')); 
+            window.open('https://kwiksure.com'+$(this).attr('href'));
         });
         $(".jsSubPlansPdfValueZh").click(function(e){
             e.preventDefault();
-            window.open('https://kwiksure.com'+$(this).attr('href')); 
+            window.open('https://kwiksure.com'+$(this).attr('href'));
         });
-        
+
         $(".jsInactiveRuleBtn").click(function(){
             if ( $(this).data("showhide") == 'show'){
                 $(".jsActive[value=0]:checked").parents('.js-row').hide();
@@ -1368,7 +1370,7 @@ pre{
             }
         });
         $(".jsInactiveRuleBtn").click();
-        
+
     </script>
 
 </body>
