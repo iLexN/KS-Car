@@ -1,0 +1,13 @@
+<fieldset v-show="currentTab=='webmsg'" style="display:none">
+    <legend>
+        <button v-on:click="updateRule">Update</button>
+    </legend>
+    <h3>Message</h3>
+    <p>en : </p>
+    <textarea v-model="rule.msg_en" style="width: 90%; height: 200px;"></textarea>
+    
+    <p>zh : </p>
+    <textarea v-model="rule.msg_zh" style="width: 90%; height: 200px;"></textarea>
+    
+    
+</fieldset>

@@ -233,7 +233,7 @@ class Rule
 
             ORM::for_table('rule-model')->where('rule', $this->r)->delete_many();
             ORM::for_table('rule-ncd')->where('rule_id', $this->r)->delete_many();
-            ORM::for_table('rule-details-info')->where('rule_id', $this->r)->delete_many();
+            ORM::for_table('rule-details-info')->where('rule', $this->r)->delete_many();
             ORM::for_table('rule-occ')->where('rule', $this->r)->delete_many();
             ORM::for_table('sub-plan')->where('rule_id', $this->r)->delete_many();
         }

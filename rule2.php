@@ -3,7 +3,7 @@ session_start();
 if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
       header('Location: login.php');
   }
-  $vTag = 'v2.3.0.c';
+  $vTag = 'v2.3.1.a';
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,6 +47,7 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
             <h1 style="padding: 0;margin:0;color:#C82A2F">{{rule.rule_name}}</h1>
             <?php include('chunk2/tab-nav.html');?>
             <?php include('chunk2/tab/setting-tab.html');?>
+            <?php include('chunk2/tab/msg-tab.html');?>
             <?php include('chunk2/tab/ncd-tab.html');?>
             <?php include('chunk2/tab/make-model-tab.html');?>
             <?php include('chunk2/tab/occupation-tab.html');?>

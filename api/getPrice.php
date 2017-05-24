@@ -106,4 +106,4 @@ header('Content-Type: application/json');
 unset($result['resultDesc']);
 echo json_encode($result);
 
-$logger->info('result',$result);
+//$logger->info('result',$result);

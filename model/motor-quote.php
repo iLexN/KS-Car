@@ -582,6 +582,7 @@ class MotorQuote implements \PartnerInterface
         $match_rule['loading'] = $rule['loading'];
         $match_rule['clientDiscount'] = $rule['clientDiscount'];
         $match_rule['mibValue'] = $rule['mibValue'];
+        $match_rule['msg'] = $rule['msg_'.$this->allVar['lang']];
 
         $tmp_ar = [];
         foreach ($rule['details'] as $k=>$v) {

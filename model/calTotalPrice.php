@@ -27,7 +27,7 @@ class CalTotalPrice
      * and replace the org premium value
      *
      * @param float $sum_insured
-     * @return float
+     * @return int
      */
     public function calPremium($sum_insured)
     {

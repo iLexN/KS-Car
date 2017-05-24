@@ -473,6 +473,19 @@ var app = new Vue({
                     //console.log(response);
                 });
         },
+        newRule:function(){
+            var self = this;
+            axios.post('ajax2/rule-new.php', {
+                    
+                })
+                .then(function(response) {
+                    self.showAlertNote('New Rule Added(inActive)');
+                    self.getRuleList();
+                })
+                .catch(function(response) {
+                    //console.log(response);
+                });
+        },
         removeRuleOcc: function(Obj) {
             var self = this;
             axios.post('ajax2/rule-occ-remove.php', {
