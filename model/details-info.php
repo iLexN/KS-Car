@@ -169,12 +169,18 @@ class DetailsInfo
      * add detaislinfo rule
      * @param string $v
      */
-    public function addDetailsInfoRule($v)
+    public function addDetailsInfoRule($v,$textAr = [])
     {
         $a = ORM::for_table('rule-details-info')->create();
         $a->details_info = $this->o;
         $a->rule = $this->r;
         $a->value = $v;
+
+        if ( !empty($textAr) ){
+            $a->text_en = $textAr['text_en'];
+            $a->text_zh = $textAr['text_zh'];
+        }
+
         $a->save();
     }
 

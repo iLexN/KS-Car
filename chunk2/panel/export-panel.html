@@ -1,0 +1,10 @@
+<div class="panel" v-show="currentTab2=='ExportInfoPanel'" style="display:none">
+    <h2>Export Panel</h2>
+    <div class="clearfix">
+        <ul>
+            <li><a href="csv/csv-model-make.php" style="color:#000;font-weight: bold">Download Make-Model</a></li>
+            <li><a href="csv/csv-occupation.php" style="color:#000;font-weight: bold">Download Occupation</a></li>
+        </ul>
+    </div>
+    <div style="text-align: center"><button class='button' v-on:click="changeTab2('')">Close</button></div>
+</div>

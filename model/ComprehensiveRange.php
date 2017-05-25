@@ -6,12 +6,12 @@ class ComprehensiveRange
     {
     }
 
-    public function add($rule_id)
+    public function add($rule_id, $from = 10000 , $to= 100000)
     {
         $add = ORM::for_table('rule-comprehensive-range')->create();
         $add->rule_id = $rule_id;
-        $add->from = 10000;
-        $add->to = 100000;
+        $add->from = $from;
+        $add->to = $to;
         $add->save();
     }
 

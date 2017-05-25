@@ -7,6 +7,8 @@ include('../model/car.php');
 include('../model/rule.php');
 include('../model/details-info.php');
 include('../model/sub-plans.php');
+include('../model/ComprehensiveRange.php');
+include('../model/Owner.php');
 
 
 $json = file_get_contents('php://input');
@@ -55,7 +57,7 @@ $df = new DetailsInfo;
 $df_ar = $df->getByRule($oldRuleID);
 foreach ($df_ar as $dfList) {
     $dupDF = new DetailsInfo($dupRuleID, $dfList['deatils_id']);
-    $dupDF->addDetailsInfoRule($dfList['value']);
+    $dupDF->addDetailsInfoRule($dfList['value'],['text_en'=>$dfList['text_en'] , 'text_zh'=>$dfList['text_zh']]);
     unset($dupDF);
 }
 
@@ -76,4 +78,22 @@ $c = new car();
 $ncd_ar = $c->getNCD();
 foreach ($ncd_ar as $k=>$v) {
     car::createRuleNcd($dupRuleID, $k, 0);
+}
+
+//owner
+$oldOwner = new Owner($oldRuleID);
+$oldOwnerAr = $oldOwner->getOwner();
+
+$newOwner = new Owner($dupRuleID);
+foreach ($oldOwnerAr as $eachOwnerAr){
+    $newOwner->add($eachOwnerAr['owner']);
+}
+
+//ComprehensiveRange
+if ( $oldRuleDateAr['TypeofInsurance'] == 'Comprehensive' ){
+    $cr = new ComprehensiveRange();
+    $oldCrList = $cr->getList($oldRuleID);
+    foreach ( $oldCrList as $crArray){
+        $cr->add($dupRuleID, $crArray['from'], $crArray['to']);
+    }
 }

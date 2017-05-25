@@ -3,7 +3,7 @@
 include('lib/checkip.php');
 
 session_start();
-if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
+if ( !isset($_SESSION['login']) || !$_SESSION['login']) {
       header('Location: login.php');
   }
   $vTag = 'v2.3.1.b';
@@ -32,6 +32,10 @@ if ( !isset($_SESSION['login']) && !$_SESSION['login']) {
 
     <!-- CarPanel Start-->
     <?php include('chunk2/panel/car-panel.html'); ?>
+    <!-- CarPanel End-->
+
+    <!-- CarPanel Start-->
+    <?php include('chunk2/panel/export-panel.html'); ?>
     <!-- CarPanel End-->
 
     <?php include('chunk2/top-nav.html'); ?>
