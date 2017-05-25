@@ -1,5 +1,12 @@
 #### [Current]
- * [79e6ce8](../../commit/79e6ce8) - __(2017-05-08 10:55:41 +0800)__ gobear sum_insured default 0
+ * [25d6be1](../../commit/25d6be1) - __(2017-05-25 15:23:46 +0800)__ fix rule-dup - add comp.Rang , Excesses text , owner.  Add csv export
+ * [ad19d45](../../commit/ad19d45) - __(2017-05-25 14:05:40 +0800)__ fix rule-dup - add comp.Rang , Excesses text , owner.  Add csv export
+ * [dfea721](../../commit/dfea721) - __(2017-05-24 18:00:02 +0800)__ take out old version nav
+ * [f5a759e](../../commit/f5a759e) - __(2017-05-24 17:59:31 +0800)__ add ip check
+ * [803dd57](../../commit/803dd57) - __(2017-05-24 17:45:01 +0800)__ add delete confirm
+ * [8b65fcd](../../commit/8b65fcd) - __(2017-05-24 14:35:18 +0800)__ add msg field , add new rule btn
+ * [8c532fc](../../commit/8c532fc) - __(2017-05-12 17:38:31 +0800)__ excesses extra text for en/zh , excesses general calculation for comprehensive
+ * [514d8ea](../../commit/514d8ea) - __(2017-05-08 10:56:31 +0800)__ gobear sum_insured default 0
  * [a680448](../../commit/a680448) - __(2017-05-05 14:19:45 +0800)__ add logger
  * [0c28cbb](../../commit/0c28cbb) - __(2017-05-04 16:29:22 +0800)__ ci bug fix
  * [c79f258](../../commit/c79f258) - __(2017-05-04 16:23:48 +0800)__ composer fix

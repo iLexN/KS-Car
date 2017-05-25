@@ -19,9 +19,6 @@ foreach ($tmp as $t) {
 uasort($model, function ($a, $b) {
     if ($a['make'] == $b['make']) {
         return ($a['id'] < $b['id']) ? -1 : 1;
-
-
-        return 0;
     }
     return ($a['make'] < $b['make']) ? -1 : 1;
 }
