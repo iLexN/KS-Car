@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <html class="no-js">
     <meta charset="utf-8">
-    <title></title>
+    <title>Kwiksure Premium Panel - KPP</title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
     <style>
@@ -27,8 +27,8 @@
     </style>
 </head>
 <body style="margin-top:10px;position:relative">
+    <h1 style="text-align:center;color:rgb(200, 42, 47)">Kwiksure Premium Panel - KPP</h1>
     <div style="width:300px;margin: 30px auto">
-        <h1>Rule Setting Panel</h1>
         <?php
             if (!empty($msg)) {
                 echo('<p style="color:red">' . $msg . '</p>');
