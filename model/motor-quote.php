@@ -534,7 +534,8 @@ class MotorQuote implements \PartnerInterface
         if ($this->allVar['planID']) {
             $planInfoAr = $this->savePlanFormat($ruleInfo);
         }
-
+        //todo : need match with planID when planID more than 1 plan
+        // cannot use $ruleInfo[0]
         if ($this->allVar['subPlanID']) {
             foreach ($this->allVar['subPlanID'] as $subPlanAr) {
                 $planInfoAr[0]['subPlanName'][$subPlanAr] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[0]['subPlans'][$subPlanAr]['name_sub'];
@@ -582,7 +583,7 @@ class MotorQuote implements \PartnerInterface
         $match_rule['loading'] = $rule['loading'];
         $match_rule['clientDiscount'] = $rule['clientDiscount'];
         $match_rule['mibValue'] = $rule['mibValue'];
-        $match_rule['msg'] = $rule['msg_'.$this->allVar['lang']];
+        $match_rule['msg'] = \Parsedown::instance()->text($rule['msg_'.$this->allVar['lang']]);
 
         $tmp_ar = [];
         foreach ($rule['details'] as $k=>$v) {
