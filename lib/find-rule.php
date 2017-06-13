@@ -64,6 +64,6 @@ if ( ( $count_Third_Party_Only >= 2 || $countComprehensive >=2 ) && !$quote->isT
     $mail->addAddress('ken@kwiksure.com', 'Ken');
     $mail->addAddress('alex@kwiksure.com', 'Alex');
     $mail->Subject = 'Motor Online Quote Rule hit more than 1 Rule';
-    $mail->Body = print_r($quote->getData,TRUE) . print_r($save_rule,TRUE);
+    $mail->Body = print_r($quote->getData(),TRUE) . print_r($save_rule,TRUE);
     $mail->send();
 }

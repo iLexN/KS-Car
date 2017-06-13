@@ -41,6 +41,8 @@ nav li a:hover{
 }
 .right-side{
  margin-left:240px;   
+ position: sticky;
+top: 10px;
 }
 
 .left-side label{

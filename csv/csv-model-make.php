@@ -24,7 +24,7 @@ uasort($model, function ($a, $b) {
 }
 );
 
-$filename = 'make_model' .date('Y-m-d'). '.csv';
+$filename = 'make_model' .date('YmdHis'). '.csv';
 
 $fp = fopen($filename, 'w');
 $header = false;

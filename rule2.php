@@ -6,7 +6,7 @@ session_start();
 if ( !isset($_SESSION['login']) || !$_SESSION['login']) {
       header('Location: login.php');
   }
-  $vTag = 'v2.3.1.b';
+  $vTag = 'v2.3.1.d';
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,7 +70,6 @@ if ( !isset($_SESSION['login']) || !$_SESSION['login']) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.2/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js"></script>
-    <script src="js/vue-html5-editor.js?<?php echo($vTag);?>"></script>
     <script src="js/app.js?<?php echo($vTag);?>" type="text/javascript"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@ $occ = new Occ;
 
 $ar = $occ->getAlls();
 
-$filename = 'occupation' . date('Y-m-d') . '.csv';
+$filename = 'occupation' . date('YmdHis') . '.csv';
 
 $fp = fopen($filename, 'w');
 fputs($fp, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));

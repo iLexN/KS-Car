@@ -118,6 +118,7 @@ var app = new Vue({
             this.getRuleOcc();
             this.getRuleDetails();
             this.getRuleSubPlans();
+            this.getRuleSiRang();
         },
         'rule.active' : function(){
             this.filterRuleByActive = this.rule.active;
