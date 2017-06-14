@@ -132,6 +132,7 @@ td{padding:5px}
     background-color:#CA9698;
     opacity: 0.95;
     padding:20px;
+    z-index: 100;
 }
 
 .panel h2{

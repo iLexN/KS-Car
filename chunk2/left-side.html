@@ -14,6 +14,6 @@
 <div class="rule-name-list">
     <ul>
         <!--<li v-for="r in rules | filterBy filterRuleByActive in 'active' | orderBy 'rule_name' " v-on:click="showRule(r , $event)" v-bind:class="[rule.id == r.id ? 'active' : '']">{{r.rule_name}}</li>-->
-        <li v-for="r in rulesFilterList" v-on:click="showRule(r , $event)" v-bind:class="[rule.id == r.id ? 'active' : '']">({{ r.id }}) {{r.rule_name}}</li>
+        <li v-for="r in rulesFilterList" v-on:click="showRule(r , $event)" v-bind:class="[rule.id == r.id ? 'active' : '']"><span style="color:blue">({{ r.id }})</span> {{r.rule_name}}</li>
     </ul>
 </div>
