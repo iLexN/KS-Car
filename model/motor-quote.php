@@ -412,6 +412,7 @@ class MotorQuote implements \PartnerInterface
             $planInfoAr[$rowKey]['mib'] = $rowArray['mibValue'];
             $planInfoAr[$rowKey]['gross'] = $rowArray['gross'];
         }
+
         return $planInfoAr;
     }
 
@@ -529,18 +530,32 @@ class MotorQuote implements \PartnerInterface
 
     private function proccessPlans($ruleInfo)
     {
+        $rIDsArray = explode(',', $this->allVar['planID']);
+        usort($ruleInfo, function($a,$b) use ($rIDsArray){
+            if ( $b['id'] == $rIDsArray[0]){
+                return true;
+            }
+            return false;
+        });
+
         $planInfoAr = array();
          //should pass planID for save plan details.
         if ($this->allVar['planID']) {
             $planInfoAr = $this->savePlanFormat($ruleInfo);
         }
-        //todo : need match with planID when planID more than 1 plan
-        // cannot use $ruleInfo[0]
+
         if ($this->allVar['subPlanID']) {
-            foreach ($this->allVar['subPlanID'] as $subPlanAr) {
-                $planInfoAr[0]['subPlanName'][$subPlanAr] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[0]['subPlans'][$subPlanAr]['name_sub'];
-            }
+            //foreach ( $rIDsArray as $rKey => $rID){
+                foreach ($this->allVar['subPlanID'] as $subPlanAr) {
+                    //if ( isset($ruleInfo[$rKey]['subPlans'][$subPlanAr])) {
+                        //$planInfoAr[$rKey]['subPlanName'][$subPlanAr] = $ruleInfo[$rKey]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[$rKey]['subPlans'][$subPlanAr]['name_sub'];
+                        //force index 0 no need to loop and if check
+                        $planInfoAr[0]['subPlanName'][$subPlanAr] = $ruleInfo[0]['subPlans'][$subPlanAr]['name'] . '-' . $ruleInfo[0]['subPlans'][$subPlanAr]['name_sub'];
+                    //}
+                }
+            //}
         }
+
         return $planInfoAr;
     }
 
