@@ -5,7 +5,7 @@
     "require": {
         "j4mie/idiorm": "v1.5.*",
         "monolog/monolog": "1.*",
-        "phpmailer/phpmailer": "v5.2.*",
+        "phpmailer/phpmailer": "v6.1.*",
         "erusev/parsedown" : "1.6.2"
     }
 }
